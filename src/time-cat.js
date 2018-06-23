@@ -36,11 +36,11 @@ class TimeCategory extends Category {
      * @type {Array}
      */
     this.range = [ 0, 1 ];
-    /**
-     * 度量的标记
-     * @type {Array}
-     */
-    this.ticks = null;
+    // /**
+    //  * 度量的标记
+    //  * @type {Array}
+    //  */
+    // this.ticks = null;
     /**
      * 参与度量计算的值，可选项
      * @type {Array}

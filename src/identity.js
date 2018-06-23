@@ -11,11 +11,16 @@ class Identity extends Base {
      * @type {Array}
      */
     this.range = [ 0, 1 ];
+    // /**
+    //  * 常量值
+    //  * @type {*}
+    //  */
+    // this.value = null;
     /**
-     * 常量值
-     * @type {*}
+     * 参与度量计算的值，可选项
+     * @type {Array}
      */
-    this.value = null;
+    this.values = [];
   }
 
   /**

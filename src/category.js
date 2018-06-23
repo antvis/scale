@@ -8,12 +8,12 @@ class Category extends Base {
 
   _initDefaultCfg() {
     this.type = 'cat';
-    /**
-     * 自动生成标记时的个数
-     * @type {Number}
-     * @default null
-     */
-    this.tickCount = null;
+    // /**
+    //  * 自动生成标记时的个数
+    //  * @type {Number}
+    //  * @default null
+    //  */
+    // this.tickCount = null;
     /**
      * 是否分类度量
      * @type {Boolean}
@@ -24,11 +24,11 @@ class Category extends Base {
      * @type {Array}
      */
     this.range = [ 0, 1 ];
-    /**
-     * 度量的标记
-     * @type {Array}
-     */
-    this.ticks = null;
+    // /**
+    //  * 度量的标记
+    //  * @type {Array}
+    //  */
+    // this.ticks = null;
     /**
      * 参与度量计算的值，可选项
      * @type {Array}
