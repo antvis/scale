@@ -4,23 +4,14 @@ const isNumber = require('@antv/util/src/type/isNumber');
 class Identity extends Base {
 
   _initDefaultCfg() {
+    super._initDefaultCfg();
     this.isIdentity = true;
     this.type = 'identity';
     /**
-     * 输出的值域
-     * @type {Array}
+     * 常量值
+     * @type {*}
      */
-    this.range = [ 0, 1 ];
-    // /**
-    //  * 常量值
-    //  * @type {*}
-    //  */
-    // this.value = null;
-    /**
-     * 参与度量计算的值，可选项
-     * @type {Array}
-     */
-    this.values = [];
+    this.value = null;
   }
 
   /**

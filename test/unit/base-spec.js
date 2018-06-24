@@ -51,6 +51,11 @@ describe('scale identity', function() {
     value: 'test'
   });
 
+  it('type', function() {
+    expect(scale.type).to.be.equal('identity');
+    expect(scale.isIdentity).to.true;
+  });
+
   it('create', function() {
     expect(scale.value).to.be.equal('test');
   });

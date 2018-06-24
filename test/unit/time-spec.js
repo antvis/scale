@@ -10,6 +10,11 @@ describe('scale time', function() {
     mask: 'YYYY-MM-DD HH:mm:ss'
   });
 
+  it('type', function() {
+    expect(scale.type).to.be.equal('time');
+    expect(scale.isLinear).to.true;
+  });
+
   it('min,max', function() {
     expect(scale.min).to.be.equal(new Date('2011/01/01').getTime());
     expect(scale.max).to.be.equal(new Date('2011/01/02').getTime());

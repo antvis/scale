@@ -11,6 +11,11 @@ describe('scale linear', () => {
     }
   });
 
+  it('type', function() {
+    expect(scale.type).to.be.equal('linear');
+    expect(scale.isLinear).to.true;
+  });
+
   it('cfg', () => {
     expect(scale.min).to.be.equal(0);
     expect(scale.max).to.be.equal(100);

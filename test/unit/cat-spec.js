@@ -8,6 +8,11 @@ describe('scale cat', function() {
     values: [ '一月', '二月', '三月', '四月', '五月' ]
   });
 
+  it('type', function() {
+    expect(scale.type).to.be.equal('cat');
+    expect(scale.isCategory).to.true;
+  });
+
   it('cfg', function() {
     expect(scale.values).not.to.be.equal(undefined);
     expect(scale.type).to.be.equal('cat');
@@ -147,6 +152,11 @@ describe('scale time cat', function() {
   const scale = Scale.timeCat({
     values: [ 1442937600000, 1441296000000, 1449849600000 ],
     mask
+  });
+
+  it('type', function() {
+    expect(scale.type).to.be.equal('timeCat');
+    expect(scale.isCategory).to.true;
   });
 
   it('is category', function() {

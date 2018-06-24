@@ -19,9 +19,9 @@ function calBase(a, b) {
 class Pow extends Linear {
 
   _initDefaultCfg() {
+    super._initDefaultCfg();
+
     this.type = 'pow';
-    this.Linear = true;
-    this.nice = false; // 默认为 false
     /**
      * @override
      * pow 的坐标点的个数控制在10个以下
@@ -33,16 +33,6 @@ class Pow extends Linear {
      * @type {Number}
      */
     this.exponent = 2;
-    /**
-     * 输出的值域
-     * @type {Array}
-     */
-    this.range = [ 0, 1 ];
-    /**
-     * 参与度量计算的值，可选项
-     * @type {Array}
-     */
-    this.values = [];
   }
 
   /**

@@ -15,6 +15,8 @@ const numberAuto = require('./auto/number');
 class Linear extends Base {
 
   _initDefaultCfg() {
+    super._initDefaultCfg();
+
     this.type = 'linear';
     this.isLinear = true;
     /**
@@ -23,67 +25,47 @@ class Linear extends Base {
      * @default false
      */
     this.nice = false;
-    // /**
-    //  * min value of the scale
-    //  * @type {Number}
-    //  * @default null
-    //  */
-    // this.min = null;
-    // /**
-    //  * min value limitted of the scale
-    //  * @type {Number}
-    //  * @default null
-    //  */
-    // this.minLimit = null;
-    // /**
-    //  * max value of the scale
-    //  * @type {Number}
-    //  * @default null
-    //  */
-    // this.max = null;
-    // /**
-    //  * max value limitted of the scale
-    //  * @type {Number}
-    //  * @default null
-    //  */
-    // this.maxLimit = null;
-    // /**
-    //  * 自动生成标记时的个数
-    //  * @type {Number}
-    //  * @default null
-    //  */
-    // this.tickCount = null;
-    // /**
-    //  * 坐标轴点之间的间距，指的是真实数据的差值
-    //  * @type {Number}
-    //  * @default null
-    //  */
-    // this.tickInterval = null;
-    // /**
-    //  * 用于计算坐标点时逼近的数组
-    //  * @type {Array}
-    //  */
-    // this.snapArray = null;
-    // /**
-    //  * 格式化函数,输出文本或者tick时的格式化函数
-    //  * @type {Function}
-    //  */
-    // this.formatter = null;
-    // /**
-    //  * 度量的标记
-    //  * @type {Array}
-    //  */
-    // this.ticks = null;
     /**
-     * 输出的值域
+     * min value of the scale
+     * @type {Number}
+     * @default null
+     */
+    this.min = null;
+    /**
+     * min value limitted of the scale
+     * @type {Number}
+     * @default null
+     */
+    this.minLimit = null;
+    /**
+     * max value of the scale
+     * @type {Number}
+     * @default null
+     */
+    this.max = null;
+    /**
+     * max value limitted of the scale
+     * @type {Number}
+     * @default null
+     */
+    this.maxLimit = null;
+    /**
+     * 自动生成标记时的个数
+     * @type {Number}
+     * @default null
+     */
+    this.tickCount = null;
+    /**
+     * 坐标轴点之间的间距，指的是真实数据的差值
+     * @type {Number}
+     * @default null
+     */
+    this.tickInterval = null;
+    /**
+     * 用于计算坐标点时逼近的数组
      * @type {Array}
      */
-    this.range = [ 0, 1 ];
-    /**
-     * 参与度量计算的值，可选项
-     * @type {Array}
-     */
-    this.values = [];
+    this.snapArray = null;
   }
 
   /**

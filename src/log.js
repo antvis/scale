@@ -21,9 +21,9 @@ function log(a, b) {
 class Log extends Linear {
 
   _initDefaultCfg() {
+    super._initDefaultCfg();
+
     this.type = 'log';
-    this.Linear = true;
-    this.nice = false; // 默认为 false
     /**
      * @override
      * log 的坐标点的个数控制在10个以下
@@ -35,16 +35,8 @@ class Log extends Linear {
      * @type {Number}
      */
     this.base = 2;
-    /**
-     * 输出的值域
-     * @type {Array}
-     */
-    this.range = [ 0, 1 ];
-    /**
-     * 参与度量计算的值，可选项
-     * @type {Array}
-     */
-    this.values = [];
+    // 最小的tick，仅内部使用
+    this._minTick = null;
   }
   /**
    * @override

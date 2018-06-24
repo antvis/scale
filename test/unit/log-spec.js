@@ -9,6 +9,11 @@ describe('scale log', () => {
     max: 100
   });
 
+  it('type', function() {
+    expect(scale.type).to.be.equal('log');
+    expect(scale.isLinear).to.true;
+  });
+
   it('cfg', () => {
     expect(scale.base).to.be.equal(2);
     expect(scale.type).to.be.equal('log');

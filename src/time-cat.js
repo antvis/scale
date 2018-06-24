@@ -19,6 +19,8 @@ const isString = require('@antv/util/src/type/isString');
  */
 class TimeCategory extends Category {
   _initDefaultCfg() {
+    super._initDefaultCfg();
+
     this.type = 'timeCat';
     /**
      * 是否需要排序，默认进行排序
@@ -31,26 +33,6 @@ class TimeCategory extends Category {
      * @type {String}
      */
     this.mask = 'YYYY-MM-DD';
-    /**
-     * 输出的值域
-     * @type {Array}
-     */
-    this.range = [ 0, 1 ];
-    // /**
-    //  * 度量的标记
-    //  * @type {Array}
-    //  */
-    // this.ticks = null;
-    /**
-     * 参与度量计算的值，可选项
-     * @type {Array}
-     */
-    this.values = [];
-    /**
-     * 是否分类度量
-     * @type {Boolean}
-     */
-    this.isCategory = true;
   }
 
   init() {

@@ -20,22 +20,11 @@ const TimeUtil = require('./time-util');
 class Time extends Linear {
 
   _initDefaultCfg() {
-    this.type = 'time';
-    this.isLinear = true;
-    this.nice = false; // 默认为 false
-    this.mask = 'YYYY-MM-DD';
-    /**
-     * 输出的值域
-     * @type {Array}
-     */
-    this.range = [ 0, 1 ];
-    /**
-     * 参与度量计算的值，可选项
-     * @type {Array}
-     */
-    this.values = [];
-  }
+    super._initDefaultCfg();
 
+    this.type = 'time';
+    this.mask = 'YYYY-MM-DD';
+  }
 
   /**
    * @override
