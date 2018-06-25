@@ -15,7 +15,6 @@
   "keywords": [
     "antv",
     "scale",
-    "scale",
     "g2",
     "f2"
   ],
@@ -52,7 +51,7 @@
     "serve-static": "~1.13.2",
     "shelljs": "~0.7.8",
     "string-replace-loader": "~1.3.0",
-    "torchjs": "~2.0.3",
+    "torchjs": "~2.0.4",
     "uglify-js": "~3.1.10",
     "webpack": "~3.10.0"
   },
@@ -63,7 +62,7 @@
     "ci": "npm run lint && npm run test",
     "compress": "uglifyjs -c -m -o dist/scale.min.js -- build/scale.js",
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
-    "coverage-generator": "torch --compile --coverage --renderer --recursive test/unit",
+    "coverage-generator": "torch --compile --coverage --renderer --source-pattern src/*.js,src/**/*.js --recursive test/unit",
     "coverage-viewer": "torch-coverage",
     "demos": "electron ./demos/app.js",
     "demos-web": "node ./demos/app.js --web --port 2046",
