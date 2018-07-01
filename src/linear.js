@@ -3,6 +3,7 @@
  * @author dxq613@gmail.com
  */
 const isNil = require('@antv/util/src/type/isNil');
+const isNumber = require('@antv/util/src/type/isNumber');
 const each = require('@antv/util/src/each');
 
 const Base = require('./base');
@@ -123,6 +124,11 @@ class Linear extends Base {
     const self = this;
     const calTicks = self.calculateTicks();
     if (self.nice) { // 如果需要优化显示的tick
+      if (isNumber(self.nice)) {
+        const [lastTick] = calTicks.slice(-1)
+        const upperBoundaryTick = lastTick * (1 + self.nice)
+        calTicks.push(upperBoundaryTick)
+      }
       self.ticks = calTicks;
       self.min = calTicks[0];
       self.max = calTicks[calTicks.length - 1];
