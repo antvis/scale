@@ -1,6 +1,6 @@
 {
   "name": "@antv/scale",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "The scale module for G2, F2.",
   "browser": "build/scale.js",
   "main": "build/scale.js",
@@ -91,7 +91,7 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/util": "~1.0.6",
+    "@antv/util": "~1.0.11",
     "fecha": "~2.3.3"
   }
 }
