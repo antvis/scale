@@ -1,7 +1,7 @@
-const mix = require('@antv/util/src/mix');
-const each = require('@antv/util/src/each');
-const isObject = require('@antv/util/src/type/isObject');
-const isNil = require('@antv/util/src/type/isNil');
+const mix = require('@antv/util/lib/mix');
+const each = require('@antv/util/lib/each');
+const isObject = require('@antv/util/lib/type/isObject');
+const isNil = require('@antv/util/lib/type/isNil');
 
 class Scale {
   _initDefaultCfg() {

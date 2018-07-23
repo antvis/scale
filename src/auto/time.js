@@ -4,7 +4,7 @@
  */
 
 const AutoUtil = require('./util');
-const isNil = require('@antv/util/src/type/isNil');
+const isNil = require('@antv/util/lib/type/isNil');
 
 const MAX_COUNT = 6;
 const SNAP_ARRAY = [ 1, 2, 4, 6, 8, 12 ];

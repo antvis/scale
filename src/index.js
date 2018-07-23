@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-const lowerFirst = require('@antv/util/src/string/lowerFirst');
+const lowerFirst = require('@antv/util/lib/string/lowerFirst');
 
 const Base = require('./base');
 Base.Linear = require('./linear');

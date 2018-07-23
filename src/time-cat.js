@@ -8,10 +8,10 @@ const fecha = require('fecha');
 const catAuto = require('./auto/cat');
 const TimeUtil = require('./time-util');
 
-const each = require('@antv/util/src/each');
-const isNumber = require('@antv/util/src/type/isNumber');
-const isObject = require('@antv/util/src/type/isObject');
-const isString = require('@antv/util/src/type/isString');
+const each = require('@antv/util/lib/each');
+const isNumber = require('@antv/util/lib/type/isNumber');
+const isObject = require('@antv/util/lib/type/isObject');
+const isString = require('@antv/util/lib/type/isString');
 
 /**
  * 度量的构造函数

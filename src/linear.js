@@ -2,8 +2,8 @@
  * @fileOverview The measurement of linear data scale function
  * @author dxq613@gmail.com
  */
-const isNil = require('@antv/util/src/type/isNil');
-const each = require('@antv/util/src/each');
+const isNil = require('@antv/util/lib/type/isNil');
+const each = require('@antv/util/lib/each');
 
 const Base = require('./base');
 const numberAuto = require('./auto/number');

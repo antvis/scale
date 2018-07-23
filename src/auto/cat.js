@@ -2,7 +2,7 @@
  * @fileOverview 计算分类的的坐标点
  * @author dxq613@gmail.com
  */
-const each = require('@antv/util/src/each');
+const each = require('@antv/util/lib/each');
 const MAX_COUNT = 8;
 const SUB_COUNT = 4; // 控制个数不能过小
 

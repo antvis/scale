@@ -1,8 +1,8 @@
 const Base = require('./base');
 const catAuto = require('./auto/cat');
-const each = require('@antv/util/src/each');
-const isNumber = require('@antv/util/src/type/isNumber');
-const isString = require('@antv/util/src/type/isString');
+const each = require('@antv/util/lib/each');
+const isNumber = require('@antv/util/lib/type/isNumber');
+const isString = require('@antv/util/lib/type/isString');
 
 class Category extends Base {
 

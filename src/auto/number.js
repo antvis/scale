@@ -3,7 +3,7 @@
  * @author dxq613@gmail.com
  */
 
-const isNil = require('@antv/util/src/type/isNil');
+const isNil = require('@antv/util/lib/type/isNil');
 const AutoUtil = require('./util');
 
 const MIN_COUNT = 5;

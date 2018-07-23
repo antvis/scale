@@ -2,7 +2,7 @@
  * @fileOverview 使用度量，进行log转换
  * @author dxq613@gmail.com
  */
-const each = require('@antv/util/src/each');
+const each = require('@antv/util/lib/each');
 const Base = require('./base');
 const Linear = require('./linear');
 
