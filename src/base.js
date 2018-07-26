@@ -80,11 +80,12 @@ class Scale {
   /**
    * 获取格式化后的文本
    * @param  {*} value 输入的数据
+   * @param  {*} key 字段的 key
    * @return {String} 格式化的文本
    */
-  getText(value) {
+  getText(value, key) {
     const formatter = this.formatter;
-    value = formatter ? formatter(value) : value;
+    value = formatter ? formatter(value, key) : value;
     if (isNil(value) || !value.toString) {
       value = '';
     }
