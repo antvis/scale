@@ -14,6 +14,7 @@ class Category extends Base {
      * @type {Boolean}
      */
     this.isCategory = true;
+    this.isRounding = true; // 是否进行取整操作
   }
 
   /**
@@ -32,7 +33,8 @@ class Category extends Base {
       if (tickCount) {
         const temp = catAuto({
           maxCount: tickCount,
-          data: values
+          data: values,
+          isRounding: self.isRounding
         });
         ticks = temp.ticks;
       }

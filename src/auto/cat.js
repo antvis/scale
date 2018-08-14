@@ -33,36 +33,46 @@ function getGreatestFactor(count, number) {
 
 module.exports = function(info) {
   const rst = {};
-  const ticks = [];
-  const maxCount = info.maxCount || MAX_COUNT;
+  let ticks = [];
+  const isRounding = info.isRounding;
   const categories = getSimpleArray(info.data);
   const length = categories.length;
-  let tickCount = getGreatestFactor(length - 1, maxCount - 1) + 1;
+  const maxCount = info.maxCount || MAX_COUNT;
+  let tickCount;
 
-  // 如果计算出来只有两个坐标点，则直接使用传入的 maxCount
-  if (tickCount === 2) {
+  if (isRounding) { // 取整操作
+    tickCount = getGreatestFactor(length - 1, maxCount - 1) + 1;
+    // 如果计算出来只有两个坐标点，则直接使用传入的 maxCount
+    if (tickCount === 2) {
+      tickCount = maxCount;
+    } else if (tickCount < maxCount - SUB_COUNT) {
+      tickCount = maxCount - SUB_COUNT;
+    }
+  } else {
     tickCount = maxCount;
-  } else if (tickCount < maxCount - SUB_COUNT) {
-    tickCount = maxCount - SUB_COUNT;
   }
-  const step = parseInt(length / (tickCount - 1), 10);
 
-  const groups = categories.map(function(e, i) {
-    return i % step === 0 ? categories.slice(i, i + step) : null;
-  }).filter(function(e) {
-    return e;
-  });
+  if (!isRounding && length <= tickCount + tickCount / 2) {
+    ticks = [].concat(categories);
+  } else {
+    const step = parseInt(length / (tickCount - 1), 10);
 
-  if (categories.length) {
-    ticks.push(categories[0]);
-  }
-  for (let i = 1, groupLen = groups.length; (i < groupLen) && (i * step < length - step); i++) {
-    ticks.push(groups[i][0]);
-  }
-  if (categories.length) {
-    const last = categories[length - 1];
-    if (ticks.indexOf(last) === -1) {
-      ticks.push(last);
+    const groups = categories.map(function(e, i) {
+      return i % step === 0 ? categories.slice(i, i + step) : null;
+    }).filter(function(e) {
+      return e;
+    });
+
+    for (let i = 1, groupLen = groups.length;
+      (i < groupLen) && (isRounding ? i * step < length - step : i < tickCount - 1); i++) {
+      ticks.push(groups[i][0]);
+    }
+    if (categories.length) {
+      ticks.unshift(categories[0]);
+      const last = categories[length - 1];
+      if (ticks.indexOf(last) === -1) {
+        ticks.push(last);
+      }
     }
   }
 

@@ -13,6 +13,10 @@ describe('scale cat', function() {
     expect(scale.isCategory).to.true;
   });
 
+  it('isRounding', function() {
+    expect(scale.isRounding).to.be.true;
+  });
+
   it('cfg', function() {
     expect(scale.values).not.to.be.equal(undefined);
     expect(scale.type).to.be.equal('cat');
@@ -157,6 +161,10 @@ describe('scale time cat', function() {
   it('type', function() {
     expect(scale.type).to.be.equal('timeCat');
     expect(scale.isCategory).to.true;
+  });
+
+  it('isRounding', function() {
+    expect(scale.isRounding).to.true;
   });
 
   it('is category', function() {

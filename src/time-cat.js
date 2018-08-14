@@ -64,7 +64,8 @@ class TimeCategory extends Category {
     if (count) {
       const temp = catAuto({
         maxCount: count,
-        data: self.values
+        data: self.values,
+        isRounding: self.isRounding
       });
       ticks = temp.ticks;
     } else {
