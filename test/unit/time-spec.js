@@ -94,7 +94,7 @@ describe('min tickInterval', function() {
     const scale = Scale.time({
       values: [ '2009/6/12 2:31' ]
     });
-    expect(scale.minTickInterval).to.be.equal(undefined);
+    expect(scale.minTickInterval).to.be.equal(null);
   });
   it('two and no sort', function() {
     const scale = Scale.time({

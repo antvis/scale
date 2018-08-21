@@ -242,4 +242,12 @@ describe('test number auto', () => {
     ]);
   });
 
+  it('minTickInterval', function() {
+    const rst = auto({
+      min: 140,
+      minTickInterval: 1,
+      max: 141
+    });
+    expect(rst.ticks).eql([ 140, 141 ]);
+  });
 });
