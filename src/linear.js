@@ -104,7 +104,7 @@ class Linear extends Base {
    * @return {Array} 计算完成的坐标点
    */
   calculateTicks() {
-    const { min, max, minLimit, maxLimit, tickCount, tickInterval, snapArray } = this;
+    const { min, max, minLimit, maxLimit, tickCount, tickInterval, minTickInterval, snapArray } = this;
 
     if (tickCount === 1) {
       throw new Error('linear scale\'tickCount should not be 1');
@@ -120,6 +120,7 @@ class Linear extends Base {
       minCount: tickCount,
       maxCount: tickCount,
       interval: tickInterval,
+      minTickInterval,
       snapArray
     });
     return tmp.ticks;
