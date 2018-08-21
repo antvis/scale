@@ -16,56 +16,63 @@ class Linear extends Base {
 
   _initDefaultCfg() {
     super._initDefaultCfg();
+    const self = this;
 
-    this.type = 'linear';
-    this.isLinear = true;
+    self.type = 'linear';
+    self.isLinear = true;
     /**
      * 是否为了用户习惯，优化min,max和ticks，如果进行优化，则会根据生成的ticks调整min,max，否则舍弃(min,max)范围之外的ticks
      * @type {Boolean}
      * @default false
      */
-    this.nice = false;
+    self.nice = false;
     /**
      * min value of the scale
      * @type {Number}
      * @default null
      */
-    this.min = null;
+    self.min = null;
     /**
      * min value limitted of the scale
      * @type {Number}
      * @default null
      */
-    this.minLimit = null;
+    self.minLimit = null;
     /**
      * max value of the scale
      * @type {Number}
      * @default null
      */
-    this.max = null;
+    self.max = null;
     /**
      * max value limitted of the scale
      * @type {Number}
      * @default null
      */
-    this.maxLimit = null;
+    self.maxLimit = null;
     /**
      * 自动生成标记时的个数
      * @type {Number}
      * @default null
      */
-    this.tickCount = null;
+    self.tickCount = null;
     /**
      * 坐标轴点之间的间距，指的是真实数据的差值
      * @type {Number}
      * @default null
      */
-    this.tickInterval = null;
+    self.tickInterval = null;
+    /**
+     * 坐标轴点之间的最小间距，指的是真实数据的差值
+     * @type {Number}
+     * @default null
+     */
+    self.minTickInterval = null;
     /**
      * 用于计算坐标点时逼近的数组
      * @type {Array}
      */
-    this.snapArray = null;
+    self.snapArray = null;
   }
 
   /**

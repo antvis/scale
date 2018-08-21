@@ -4,6 +4,7 @@
  */
 
 const isNil = require('@antv/util/lib/type/isNil');
+const isNumber = require('@antv/util/lib/type/isNumber');
 const AutoUtil = require('./util');
 
 const MIN_COUNT = 5;
@@ -15,6 +16,7 @@ module.exports = function(info) {
   let min = info.min;
   let max = info.max;
   let interval = info.interval;
+  const minTickInterval = info.minTickInterval;
   const ticks = [];
   const minCount = info.minCount || MIN_COUNT;
   const maxCount = info.maxCount || MAX_COUNT;
@@ -67,6 +69,10 @@ module.exports = function(info) {
       // 不确定tick的个数时，使得tick偏小
       interval = AutoUtil.snapFactorTo((max - min) / (count - 1), snapArray, 'floor');
     }
+  }
+  // interval should not be less than minTickInterval
+  if (isNumber(minTickInterval) && interval < minTickInterval) {
+    interval = minTickInterval;
   }
   if (info.interval || maxCount !== minCount) {
     // 校正 max 和 min
