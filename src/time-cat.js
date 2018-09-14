@@ -9,9 +9,9 @@ const catAuto = require('./auto/cat');
 const TimeUtil = require('./time-util');
 
 const each = require('@antv/util/lib/each');
-const isNumber = require('@antv/util/lib/type/isNumber');
-const isObject = require('@antv/util/lib/type/isObject');
-const isString = require('@antv/util/lib/type/isString');
+const isNumber = require('@antv/util/lib/type/is-number');
+const isObject = require('@antv/util/lib/type/is-object');
+const isString = require('@antv/util/lib/type/is-string');
 
 /**
  * 度量的构造函数

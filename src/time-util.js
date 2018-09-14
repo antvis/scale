@@ -3,8 +3,8 @@
  * @author dxq613@gmail.com
  */
 
-const isString = require('@antv/util/lib/type/isString');
-const isDate = require('@antv/util/lib/type/isDate');
+const isString = require('@antv/util/lib/type/is-string');
+const isDate = require('@antv/util/lib/type/is-date');
 
 module.exports = {
   toTimeStamp(value) {

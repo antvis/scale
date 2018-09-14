@@ -3,8 +3,8 @@
  * @author dxq613@gmail.com
  */
 
-const isNil = require('@antv/util/lib/type/isNil');
-const isNumber = require('@antv/util/lib/type/isNumber');
+const isNil = require('@antv/util/lib/type/is-nil');
+const isNumber = require('@antv/util/lib/type/is-number');
 const AutoUtil = require('./util');
 
 const MIN_COUNT = 5;

@@ -4,8 +4,8 @@
  */
 const fecha = require('fecha');
 const each = require('@antv/util/lib/each');
-const isNil = require('@antv/util/lib/type/isNil');
-const isString = require('@antv/util/lib/type/isString');
+const isNil = require('@antv/util/lib/type/is-nil');
+const isString = require('@antv/util/lib/type/is-string');
 
 const Base = require('./base');
 const Linear = require('./linear');

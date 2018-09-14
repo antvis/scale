@@ -1,5 +1,5 @@
 const Base = require('./base');
-const isNumber = require('@antv/util/lib/type/isNumber');
+const isNumber = require('@antv/util/lib/type/is-number');
 
 class Identity extends Base {
 
