@@ -94,14 +94,16 @@ module.exports = function(info) {
     } else {
       minTick = avgTick - (sideCount + 1) * interval;
     }
-    if (maxTick < max) {
-      maxTick = maxTick + interval;
+
+    while (maxTick < max) { // 保证计算出来的刻度最大值 maxTick 不小于数据最大值 max
+      maxTick = AutoUtil.fixedBase(maxTick + interval, interval);
     }
-    if (minTick > min) {
-      minTick = minTick - interval;
+    while (minTick > min) { // 保证计算出来的刻度最小值 minTick 不小于数据最大值 min
+      minTick = AutoUtil.fixedBase(minTick - interval, interval); // 防止超常浮点数计算问题
     }
-    max = AutoUtil.fixedBase(maxTick, interval);
-    min = AutoUtil.fixedBase(minTick, interval);
+
+    max = maxTick;
+    min = minTick;
   }
 
   max = Math.min(max, maxLimit);
