@@ -95,11 +95,11 @@ module.exports = function(info) {
       minTick = avgTick - (sideCount + 1) * interval;
     }
 
-    while (maxTick < max) {
+    while (maxTick < max) { // 保证计算出来的刻度最大值 maxTick 不小于数据最大值 max
       maxTick = AutoUtil.fixedBase(maxTick + interval, interval);
     }
-    while (minTick > min) {
-      minTick = AutoUtil.fixedBase(minTick - interval, interval);
+    while (minTick > min) { // 保证计算出来的刻度最小值 minTick 不小于数据最大值 min
+      minTick = AutoUtil.fixedBase(minTick - interval, interval); // 防止超常浮点数计算问题
     }
 
     max = maxTick;
