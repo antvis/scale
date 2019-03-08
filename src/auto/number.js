@@ -94,14 +94,16 @@ module.exports = function(info) {
     } else {
       minTick = avgTick - (sideCount + 1) * interval;
     }
-    if (maxTick < max) {
-      maxTick = maxTick + interval;
+
+    while (maxTick < max) {
+      maxTick = AutoUtil.fixedBase(maxTick + interval, interval);
     }
-    if (minTick > min) {
-      minTick = minTick - interval;
+    while (minTick > min) {
+      minTick = AutoUtil.fixedBase(minTick - interval, interval);
     }
-    max = AutoUtil.fixedBase(maxTick, interval);
-    min = AutoUtil.fixedBase(minTick, interval);
+
+    max = maxTick;
+    min = minTick;
   }
 
   max = Math.min(max, maxLimit);
