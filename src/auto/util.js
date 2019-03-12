@@ -107,7 +107,9 @@ const Util = {
     } else {
       v = Util.snapTo(arr, v); // 四舍五入 5
     }
-    let rst = v * factor;
+
+    let rst = parseFloat((v * factor).toPrecision(DECIMAL_LENGTH)); // 如果出现浮点数计算问题，需要处理一下
+
     // 如果出现浮点数计算问题，需要处理一下
     if (Math.abs(factor) < 1 && rst.toString().length > DECIMAL_LENGTH) {
       const decimalVal = parseInt(1 / factor);
