@@ -1,3 +1,9 @@
+#### 0.1.2 (2019-03-12)
+
+##### Bug Fixes
+
+*  fix the floating point error. Closed [#9](https://github.com/antvis/scale/pull/9) ([fbd969c4](https://github.com/antvis/scale/commit/fbd969c467fb89fc2d4d059438dc2e468691883c))
+
 #### 0.1.1 (2019-03-08)
 
 ##### Chores
