@@ -74,4 +74,14 @@ describe('test util', () => {
     expect(Util.snapMultiple(23, 5)).to.be.equal(25);
   });
 
+  it('fix base', () => {
+    expect(Util.fixedBase(1.234, 0.23)).to.be.equal(1.23);
+    expect(Util.fixedBase(1.234, 23.23)).to.be.equal(1.23);
+    expect(Util.fixedBase(1.234, 1e-5)).to.be.equal(1.234);
+
+    expect(Util.fixedBase(1.2345678, 0.23)).to.be.equal(1.23);
+    expect(Util.fixedBase(1.2345678, 23.23)).to.be.equal(1.23);
+    expect(Util.fixedBase(1.2345678, 1e-5)).to.be.equal(1.23457);
+  });
+
 });
