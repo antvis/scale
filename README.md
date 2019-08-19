@@ -14,11 +14,6 @@ scale 有很多中文名，标度、度量、比例尺等等。它是数据空�
 
 ![](https://www.oxxostudio.tw/img/articles/201411/20141112_1_05.png)
 
-## Class Diagram
-
-![](https://intranetproxy.alipay.com/skylark/lark/__puml/65bea83f5029f4d12458eb691ab870e7.svg)
-​
-
 ### Attr
 
 | 名称      | 类型             | 说明                                    |
