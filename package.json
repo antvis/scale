@@ -27,7 +27,8 @@
     "coverage": "npm run coverage-generator && npm run coverage-viewer",
     "coverage-generator": "torch --coverage --compile --source-pattern src/*.js,src/**/*.js --recursive ./__tests__/unit/",
     "coverage-viewer": "node ../torch/bin/coverage",
-    "test": "torch --compile --recursive __tests__"
+    "test": "torch --compile --recursive __tests__",
+    "ci": "run-s build test"
   },
   "husky": {
     "hooks": {
