@@ -75,3 +75,7 @@ docs
 temp
 webpack-dev.config.js
 webpack.config.js
+src/
+bin/
+bundler/
+demos/

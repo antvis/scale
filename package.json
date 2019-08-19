@@ -1,23 +1,19 @@
 {
   "name": "@antv/scale",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0",
   "description": "The scale module for G2",
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
-  "files": [
-    "lib",
-    "esm"
-  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:antvis/scale.git"
   },
   "scripts": {
     "build": "run-s clean lib",
-    "clean": "rm -rf lib esm",
+    "clean": "rimraf lib esm",
     "lib": "run-p lib:*",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
@@ -28,6 +24,7 @@
     "coverage-generator": "torch --coverage --compile --source-pattern src/*.js,src/**/*.js --recursive ./__tests__/unit/",
     "coverage-viewer": "node ../torch/bin/coverage",
     "test": "torch --compile --recursive __tests__",
+    "test-live": "torch --compile --interactive --watch --recursive ./__tests__/unit/",
     "ci": "run-s build test"
   },
   "husky": {
@@ -41,6 +38,7 @@
     "husky": "^3.0.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3"
