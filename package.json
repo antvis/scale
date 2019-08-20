@@ -29,7 +29,7 @@
     "coverage": "exit 0",
     "test": "torch --compile --recursive __tests__",
     "test-live": "torch --compile --interactive --watch --recursive ./__tests__/unit/",
-    "ci": "run-s build test"
+    "ci": "run-s lint build test"
   },
   "husky": {
     "hooks": {
