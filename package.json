@@ -23,13 +23,11 @@
     "lib": "run-p lib:*",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
-    "lint": "run-s lint:*",
-    "lint:tslint": "tslint -c tslint.json 'src/**/*.ts'",
-    "lint:prettier": "prettier --list-different 'src/**/*.{ts,tsx,js,jsx}'",
+    "lint": "lint-staged",
     "coverage": "exit 0",
     "test": "torch --compile --recursive __tests__",
     "test-live": "torch --compile --interactive --watch --recursive ./__tests__/unit/",
-    "ci": "run-s lint build test"
+    "ci": "run-s build test"
   },
   "husky": {
     "hooks": {
@@ -40,6 +38,7 @@
     "@antv/torch": "~1.0.5",
     "chai": "^4.2.0",
     "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
@@ -51,5 +50,16 @@
     "@antv/util": "~2.0.3",
     "moment": "^2.24.0",
     "tslib": "^1.10.0"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts}": [
+      "tslint -c tslint.json --fix",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
