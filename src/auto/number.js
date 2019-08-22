@@ -40,7 +40,7 @@ module.exports = function(info) {
   if (isNil(max)) {
     max = 0;
   }
-  if (Math.max(max - min) < EPS) {
+  if (Math.abs(max - min) < EPS) {
     if (min === 0) {
       max = 1;
     } else {
