@@ -11,6 +11,7 @@ const MIN_COUNT = 5;
 const MAX_COUNT = 7;
 const SNAP_COUNT_ARRAY = [ 0, 1, 1.2, 1.5, 1.6, 2, 2.2, 2.4, 2.5, 3, 4, 5, 6, 7.5, 8, 10 ];
 const SNAP_ARRAY = [ 0, 1, 2, 4, 5, 10 ];
+const EPS = 1e-12;
 
 module.exports = function(info) {
   let min = info.min;
@@ -39,7 +40,7 @@ module.exports = function(info) {
   if (isNil(max)) {
     max = 0;
   }
-  if (max === min) {
+  if (Math.abs(max - min) < EPS) {
     if (min === 0) {
       max = 1;
     } else {
@@ -95,13 +96,19 @@ module.exports = function(info) {
       minTick = avgTick - (sideCount + 1) * interval;
     }
 
-    while (maxTick < max) { // 保证计算出来的刻度最大值 maxTick 不小于数据最大值 max
+    let prevMaxTick = null;
+    // 如果减去intervl, fixBase后，新的minTick没有大于之前的值，就退出，防止死循环
+    while (maxTick < max && (prevMaxTick === null || maxTick > prevMaxTick)) { // 保证计算出来的刻度最大值 maxTick 不小于数据最大值 max
+      prevMaxTick = maxTick;
       maxTick = AutoUtil.fixedBase(maxTick + interval, interval);
     }
-    while (minTick > min) { // 保证计算出来的刻度最小值 minTick 不小于数据最大值 min
+
+    let prevMinTick = null;
+    // 如果减去intervl, fixBase后，新的minTick没有小于之前的值，就退出，防止死循环
+    while (minTick > min && (prevMinTick === null || minTick < prevMinTick)) { // 保证计算出来的刻度最小值 minTick 不小于数据最大值 min
+      prevMinTick = minTick;
       minTick = AutoUtil.fixedBase(minTick - interval, interval); // 防止超常浮点数计算问题
     }
-
     max = maxTick;
     min = minTick;
   }

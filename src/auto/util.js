@@ -83,6 +83,7 @@ function arrayCeiling(values, value) {
   return rst;
 }
 
+
 const Util = {
   // 获取逼近的数值
   snapFactorTo(v, arr, snapType) { // 假设 v = -512,isFloor = true
@@ -177,10 +178,14 @@ const Util = {
   fixedBase(v, base) {
     const str = base.toString();
     const index = str.indexOf('.');
-    if (index === -1) {
+    const indexOfExp = str.indexOf('e-');
+
+    // 判断是否带小数点，1.000001 1.23e-9
+    if (index < 0 && indexOfExp < 0) {
+      // base为整数
       return Math.round(v);
     }
-    let length = str.substr(index + 1).length;
+    let length = indexOfExp >= 0 ? parseInt(str.substr(indexOfExp + 2), 10) : str.substr(index + 1).length;
     if (length > 20) {
       length = 20;
     }

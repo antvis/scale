@@ -235,3 +235,16 @@ describe('scale linear: declare tickInterval.', () => {
     expect(ticks).eql([ 15, 30, 45, 60, 75, 90 ]);
   });
 });
+
+describe('scale linear: min and max are numbers which precision is 15 and specify tickCount ', () => {
+  const scale = Scale.linear({
+    min: 0.999999999999997,
+    max: 1.000000000000033,
+    tickCount: 5
+  });
+
+  it('ticks', () => {
+    const ticks = scale.ticks;
+    expect(ticks).eql([ 1 ]);
+  });
+});
