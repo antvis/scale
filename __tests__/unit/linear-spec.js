@@ -3,8 +3,7 @@ import Linear from '../../src/linear';
 
 describe('linear scale', () => {
   const scale = new Linear({
-    min: 0,
-    max: 100,
+    values: [0, 100],
     formatter(val) {
       return val + '元';
     },
@@ -47,8 +46,7 @@ describe('linear scale', () => {
 
   it('change func', () => {
     scale.change({
-      min: 10,
-      max: 110,
+      values: [10, 110],
       nice: false,
     });
     expect(scale.scale(60)).to.be.equal(0.5);
@@ -57,7 +55,7 @@ describe('linear scale', () => {
 
 describe('linear scale for c(0, 10, 100)', () => {
   const scale = new Linear({
-    values: [ 0, 10, 100 ],
+    values: [0, 10, 100],
   });
 
   it('config', () => {
@@ -77,9 +75,8 @@ describe('linear scale for c(0, 10, 100)', () => {
 
 describe('linear scale for specified range', () => {
   const scale = new Linear({
-    min: 0,
-    max: 100,
-    range: [ 0, 1000 ],
+    values: [0, 100],
+    range: [0, 1000],
   });
 
   it('scale func', () => {
@@ -97,26 +94,23 @@ describe('linear scale for specified range', () => {
 
 describe('linear scale multiple times', () => {
   const scale = new Linear({
-    min: 21,
-    max: 145,
+    values: [21, 145],
   });
 
   it('1st time', () => {
-    expect(scale.ticks).to.be.eql([ 0, 50, 100, 150 ]);
+    expect(scale.ticks).to.be.eql([0, 50, 100, 150]);
   });
 
   it('2nd time', () => {
-    scale.change({ min: 0 });
-    expect(scale.ticks).to.be.eql([ 0, 50, 100, 150 ]);
+    scale.change({ values: [0, 145] });
+    expect(scale.ticks).to.be.eql([0, 50, 100, 150]);
   });
 });
 
 describe('linear scale for invalid min and max', () => {
   it('min > max', () => {
     const scale = new Linear({
-      min: 100,
-      max: 0,
-      values: [ 10, 20, 30 ],
+      values: [10, 20, 30],
     });
     expect(scale.min).to.equal(10);
     expect(scale.max).to.equal(30);
@@ -124,19 +118,46 @@ describe('linear scale for invalid min and max', () => {
 
   it('min = max', () => {
     const scale = new Linear({
-      values: [ 10 ],
+      values: [10],
     });
-    expect(scale.ticks).to.eql([ 10 ]);
+    expect(scale.ticks).to.eql([10]);
   });
 });
 
 describe('linear scale with minInterval', () => {
   it('c(0, 62), minInterval = 14', () => {
     const scale = new Linear({
-      min: 0,
-      max: 62,
+      values: [0, 62],
       minTickInterval: 14,
     });
-    expect(scale.ticks).to.eql([ 0, 14, 28, 42, 56, 70 ]);
+    expect(scale.ticks).to.eql([0, 14, 28, 42, 56, 70]);
+  });
+});
+
+describe('linear scale with min/max', () => {
+  it('c(0,100), min = 5', () => {
+    const scale = new Linear({
+      values: [0, 100],
+      min: 5,
+    });
+    expect(scale.min).to.equal(5);
+  });
+
+  it('c(0,100), max = 95', () => {
+    const scale = new Linear({
+      values: [0, 100],
+      max: 95,
+    });
+    expect(scale.max).to.equal(95);
+  });
+
+  it('c(0,100), max = 95', () => {
+    const scale = new Linear({
+      values: [0, 100],
+      min: 5,
+      max: 95,
+    });
+    expect(scale.min).to.equal(5);
+    expect(scale.max).to.equal(95);
   });
 });

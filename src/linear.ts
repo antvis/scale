@@ -61,15 +61,14 @@ export default class Linear extends Base {
 
   protected _setTicks(): number[] {
     const { onlyLoose, Q, w, m } = this._getAlgoParams();
-    const { min: rangeMin, max: rangeMax } = _.getRange(this.values);
-    const { min, max, ticks } = extended(
-      _.isNil(this.min) ? rangeMin : this.min,
-      _.isNil(this.max) ? rangeMax : this.max,
-      m,
-      onlyLoose,
-      Q,
-      w
-    );
+    const range = this._getMinMaxRange();
+    const { min, max, ticks } = extended(range.min, range.max, m, onlyLoose, Q, w);
+
+    if (!_.isNil(this.min) && !_.isNil(this.max) && this.min > this.max) {
+      console.error('min should less than max');
+      this.min = min;
+      this.max = max;
+    }
 
     // 按照用户设置的min/max进行调整
     const adjustTicks = _.filter(
@@ -81,20 +80,21 @@ export default class Linear extends Base {
         adjustTicks.unshift(this.min);
       }
     } else {
-      this.min = this.nice ? min : rangeMin;
+      this.min = this.nice ? min : range.min;
     }
     if (!_.isNil(this.max)) {
       if (_.last(adjustTicks) !== this.max) {
         adjustTicks.push(this.max);
       }
     } else {
-      this.max = this.nice ? max : rangeMax;
+      this.max = this.nice ? max : range.max;
     }
 
     return adjustTicks;
   }
 
   private _getAlgoParams(): ScaleConfig['algoParam'] & { m: number } {
+    const { min, max } = this._getMinMaxRange();
     const { onlyLoose, Q: _Q, w } = this.algoParam || ({} as any);
     let Q: number[] = _Q;
     let m = this.tickCount;
@@ -109,7 +109,7 @@ export default class Linear extends Base {
         Q.push(i);
       }
       // tickCount也需要相应调整
-      m = Math.ceil((this.max - this.min) / this.minTickInterval) + 1;
+      m = Math.ceil((max - min) / this.minTickInterval) + 1;
 
       // nice numbers数组长度不能<2
       if (Q.length === 1) {
@@ -121,6 +121,14 @@ export default class Linear extends Base {
       w,
       Q,
       onlyLoose,
+    };
+  }
+
+  private _getMinMaxRange() {
+    const { min: rangeMin, max: rangeMax } = _.getRange(this.values);
+    return {
+      min: _.isNil(this.min) ? rangeMin : this.min,
+      max: _.isNil(this.max) ? rangeMax : this.max,
     };
   }
 }

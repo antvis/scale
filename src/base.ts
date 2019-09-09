@@ -89,6 +89,8 @@ export default abstract class Scale {
 
   /** 重新初始化 */
   public change(cfg: ScaleConfig) {
+    delete this.min;
+    delete this.max;
     this.constructor(_.assign(this.__cfg__, cfg));
   }
 
