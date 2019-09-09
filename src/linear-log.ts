@@ -32,7 +32,6 @@ export default class Log extends Linear {
   }
 
   protected _init() {
-    this._setDomain();
     // todo log breaks要优化
     this.ticks = this._setTicks();
     // 不兼容处理定义域包含0的情况

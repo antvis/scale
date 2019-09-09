@@ -50,24 +50,8 @@ export default class Linear extends Base {
   }
 
   protected _init() {
-    this._setDomain();
     if (_.isEmpty(this.ticks)) {
       this.ticks = this._setTicks();
-    }
-  }
-
-  protected _setDomain() {
-    const { min, max } = _.getRange(this.values);
-    if (_.isNil(this.min)) {
-      this.min = min;
-    }
-    if (_.isNil(this.max)) {
-      this.max = max;
-    }
-    if (this.min > this.max) {
-      console.error('min should less than max');
-      this.min = min;
-      this.max = max;
     }
   }
 
@@ -77,16 +61,37 @@ export default class Linear extends Base {
 
   protected _setTicks(): number[] {
     const { onlyLoose, Q, w, m } = this._getAlgoParams();
-    const { min, max, ticks } = extended(this.min, this.max, m, onlyLoose, Q, w);
+    const { min: rangeMin, max: rangeMax } = _.getRange(this.values);
+    const { min, max, ticks } = extended(
+      _.isNil(this.min) ? rangeMin : this.min,
+      _.isNil(this.max) ? rangeMax : this.max,
+      m,
+      onlyLoose,
+      Q,
+      w
+    );
 
-    if (this.nice) {
-      this.min = min;
-      this.max = max;
-      return ticks;
+    // 按照用户设置的min/max进行调整
+    const adjustTicks = _.filter(
+      ticks,
+      (tick: number) => tick >= (_.isNil(this.min) ? min : this.min) && tick <= (_.isNil(this.max) ? max : this.max)
+    );
+    if (!_.isNil(this.min)) {
+      if (_.head(adjustTicks) !== this.min) {
+        adjustTicks.unshift(this.min);
+      }
+    } else {
+      this.min = this.nice ? min : rangeMin;
+    }
+    if (!_.isNil(this.max)) {
+      if (_.last(adjustTicks) !== this.max) {
+        adjustTicks.push(this.max);
+      }
+    } else {
+      this.max = this.nice ? max : rangeMax;
     }
 
-    // todo：区分上层min、max计算和用户输入以简化逻辑
-    return _.filter(ticks, (tick: number) => tick >= min && tick <= max);
+    return adjustTicks;
   }
 
   private _getAlgoParams(): ScaleConfig['algoParam'] & { m: number } {

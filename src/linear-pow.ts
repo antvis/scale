@@ -15,7 +15,6 @@ export default class Pow extends Linear {
   }
 
   protected _init() {
-    this._setDomain();
     // todo pow breaks要优化
     this.ticks = this._setTicks();
   }
