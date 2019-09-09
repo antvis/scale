@@ -78,7 +78,7 @@ export default function extended(
   Q: number[] = DEFAULT_Q,
   w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
 ): { min: number; max: number; ticks: number[] } {
-  if (dmin === dmax) {
+  if (dmin === dmax || m === 1) {
     return {
       min: dmin,
       max: dmax,
