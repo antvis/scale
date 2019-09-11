@@ -8,6 +8,8 @@ export default class Linear extends Base {
   public values: ScaleConfig['values'];
   public min?: ScaleConfig['min'];
   public max?: ScaleConfig['max'];
+  public minLimit?: ScaleConfig['minLimit'];
+  public maxLimit?: ScaleConfig['maxLimit'];
   public tickCount?: ScaleConfig['tickCount'];
   public minTickInterval?: ScaleConfig['minTickInterval'];
   public nice?: ScaleConfig['nice'];
@@ -77,16 +79,53 @@ export default class Linear extends Base {
 
   protected _setTicks(): number[] {
     const { onlyLoose, Q, w, m } = this._getAlgoParams();
-    const { min, max, ticks } = extended(this.min, this.max, m, onlyLoose, Q, w);
+    const adjustTicks = [];
+    let minLimit = this.minLimit;
+    let maxLimit = this.maxLimit;
+    // minLimit/maxLimit校验
+    if (!_.isNil(minLimit) && !_.isNil(maxLimit)) {
+      if (minLimit > maxLimit) {
+        console.error('minLimit should less than maxLimit');
+        minLimit = this.maxLimit;
+        maxLimit = this.minLimit;
+      } else if (minLimit === maxLimit) {
+        console.error('minLimit should be less than maxLimit');
+        minLimit = maxLimit / 2;
+      }
+    }
+    const { min, max, ticks } = extended(
+      _.isNil(minLimit) ? this.min : minLimit,
+      _.isNil(maxLimit) ? this.max : maxLimit,
+      m,
+      onlyLoose,
+      Q,
+      w
+    );
 
     if (this.nice) {
       this.min = min;
       this.max = max;
-      return ticks;
     }
 
-    // todo：区分上层min、max计算和用户输入以简化逻辑
-    return _.filter(ticks, (tick: number) => tick >= min && tick <= max);
+    // 修正min/max
+    if (!_.isNil(minLimit)) {
+      this.min = minLimit;
+    }
+    if (!_.isNil(maxLimit)) {
+      this.max = maxLimit;
+    }
+
+    adjustTicks.push(this.min);
+    _.each(ticks, (tick) => {
+      if (tick > this.min && tick < this.max) {
+        adjustTicks.push(tick);
+      }
+    });
+    if (adjustTicks[adjustTicks.length - 1] < this.max) {
+      adjustTicks.push(this.max);
+    }
+
+    return adjustTicks;
   }
 
   private _getAlgoParams(): ScaleConfig['algoParam'] & { m: number } {

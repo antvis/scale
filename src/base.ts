@@ -20,6 +20,10 @@ export type ScaleConfig = Partial<{
   min: any;
   /** 定义域的最大值，分类型下无效 */
   max: any;
+  /** min value limitted of the scale  */
+  minLimit?: number;
+  /** max value limitted of the scale */
+  maxLimit?: number;
 
   /** 数据字段的显示别名，scale内部不感知，外部注入 */
   alias: string;
