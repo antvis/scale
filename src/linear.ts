@@ -82,25 +82,28 @@ export default class Linear extends Base {
     const adjustTicks = [];
     let minLimit = this.minLimit;
     let maxLimit = this.maxLimit;
-    // minLimit/maxLimit校验
-    if (!_.isNil(minLimit) && !_.isNil(maxLimit)) {
-      if (minLimit > maxLimit) {
-        console.error('minLimit should less than maxLimit');
-        minLimit = this.maxLimit;
-        maxLimit = this.minLimit;
-      } else if (minLimit === maxLimit) {
-        console.error('minLimit should be less than maxLimit');
-        minLimit = maxLimit / 2;
+    let tickMin;
+    let tickMax;
+
+    // minLimit/maxLimit相同情况处理
+    if (!_.isNil(minLimit) && !_.isNil(maxLimit) && minLimit === maxLimit) {
+      console.error('minLimit should less than maxLimit');
+      minLimit = minLimit / 2;
+      if (minLimit === 0) {
+        maxLimit = 1;
       }
     }
-    const { min, max, ticks } = extended(
-      _.isNil(minLimit) ? this.min : minLimit,
-      _.isNil(maxLimit) ? this.max : maxLimit,
-      m,
-      onlyLoose,
-      Q,
-      w
-    );
+    tickMin = _.isNil(minLimit) ? this.min : this.minLimit;
+    tickMax = _.isNil(maxLimit) ? this.max : this.maxLimit;
+
+    // 最终的min/max校验和处理
+    if (tickMin > tickMax) {
+      console.error('minLimit should less than maxLimit');
+      [tickMin, tickMax] = [tickMax, tickMin];
+      [minLimit, maxLimit] = [maxLimit, minLimit];
+    }
+
+    const { min, max, ticks } = extended(tickMin, tickMax, m, onlyLoose, Q, w);
 
     if (this.nice) {
       this.min = min;
