@@ -8,6 +8,9 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "types": [
+      "mocha"
+    ],
     "lib": [
       "esnext",
       "dom"
