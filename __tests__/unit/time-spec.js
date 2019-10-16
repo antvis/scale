@@ -38,8 +38,7 @@ describe('time scale', () => {
 
   it('invert', () => {
     const m = scale.invert(0.25);
-    expect(m).to.be.a('object');
-    expect(m.hour()).to.be.equal(6);
+    expect(new Date(m).getHours()).to.be.equal(6);
   });
 });
 

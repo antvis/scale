@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@antv/util": "~2.0.3",
-    "moment": "^2.24.0",
+    "fecha": "~3.0.3",
     "tslib": "^1.10.0"
   },
   "lint-staged": {

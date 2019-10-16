@@ -1,8 +1,10 @@
 import * as _ from '@antv/util';
-import * as moment from 'moment';
+import * as Fecha from 'fecha';
 import Base, { ScaleConfig } from './base';
 import bisector from './util/bisector';
 import pretty from './util/pretty';
+
+const fecha = Fecha as any;
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
@@ -12,9 +14,9 @@ const DAY = 24 * HOUR;
 type Interval = [string, number]; // [defaultMomentFormat, interval]
 
 export interface TimeScaleConfig extends ScaleConfig {
-  values: Array<number | moment.Moment>;
-  min: number | moment.Moment;
-  max: number | moment.Moment;
+  values: number[];
+  min: number;
+  max: number;
   tickCount: number;
   tickInterval: number;
   showLast: boolean;
@@ -32,11 +34,11 @@ export default class Time extends Base {
   public breaks: string;
 
   /** 将定义域转化为时间戳 */
-  public translate(v: moment.Moment | number): number {
-    return moment(v).valueOf();
+  public translate(v: number): number {
+    return this._toTimeStamp(v);
   }
 
-  public scale(_value: moment.Moment | number): number {
+  public scale(_value: number): number {
     const min = this.min;
     const max = this.max;
     const value = Math.min(Math.max(this.translate(_value), min), max);
@@ -46,14 +48,14 @@ export default class Time extends Base {
     return this._calcValue(percent, range0, range1);
   }
 
-  public invert(scaled: number): moment.Moment {
+  public invert(scaled: number) {
     const range0 = _.head(this.range);
     const range1 = _.last(this.range);
     const min = this.min;
     const max = this.max;
     const percent = this._calcPercent(scaled, range0, range1);
 
-    return moment(this._calcValue(percent, min, max)).startOf('s');
+    return this._calcValue(percent, min, max);
   }
 
   protected _initDefaultCfg() {
@@ -140,7 +142,7 @@ export default class Time extends Base {
     }
 
     if (!this.formatter) {
-      this.formatter = (v: number) => moment(v).format(this.interval[0]);
+      this.formatter = (v: number) => fecha.format(v, this.interval[0]);
     }
     return res;
   }
@@ -160,8 +162,22 @@ export default class Time extends Base {
     }
     const formatedTicks = [];
     _.each(ticks, (tick) => {
-      formatedTicks.push(moment(tick).format(this.tickInterval[0]));
+      formatedTicks.push(fecha.format(tick, this.tickInterval[0]));
     });
     return formatedTicks;
+  }
+
+  private _toTimeStamp(value) {
+    if (_.isString(value)) {
+      if (value.indexOf('T') > 0) {
+        value = new Date(value).getTime();
+      } else {
+        value = new Date(value.replace(/-/gi, '/')).getTime();
+      }
+    }
+    if (_.isDate(value)) {
+      value = value.getTime();
+    }
+    return value;
   }
 }
