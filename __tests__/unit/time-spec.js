@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Time from '../../src/time';
-import * as moment from 'moment';
+import * as fecha from 'fecha';
 
 describe('time scale', () => {
   const scale = new Time({
@@ -31,9 +31,8 @@ describe('time scale', () => {
   });
 
   it('getText', () => {
-    scale.formatter = (val) => moment(val).format('YYYY-MM-DD HH:mm:ss');
-    expect(scale.getText('2011-01-02')).to.equal('2011-01-02 00:00:00');
-    expect(scale.getText('2011-01-02T00:00:00')).to.equal('2011-01-02 00:00:00');
+    expect(scale.getText('2011-01-02')).to.equal('2011-01-02');
+    expect(scale.getText('2011-01-02 00:00:00')).to.equal('2011-01-02 00:00:00');
   });
 
   it('invert', () => {
@@ -96,7 +95,7 @@ describe('ticks', () => {
       min: '2000-01-01 10:00:10',
       max: '2000-01-01 13:00:14',
       tickCount: 4,
-      formatter: (v) => moment(v).format('hh'),
+      formatter: (v) => fecha.format(v, 'hh'),
     });
     expect(getText(scale.getTicks())).to.be.eql(['10', '11', '12', '01']);
   });
