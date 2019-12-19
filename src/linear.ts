@@ -11,6 +11,7 @@ export default class Linear extends Base {
   public minLimit?: ScaleConfig['minLimit'];
   public maxLimit?: ScaleConfig['maxLimit'];
   public tickCount?: ScaleConfig['tickCount'];
+  public maxTickCount?: ScaleConfig['maxTickCount'];
   public minTickInterval?: ScaleConfig['minTickInterval'];
   public nice?: ScaleConfig['nice'];
   public algoParam: ScaleConfig['algoParam'];
@@ -49,6 +50,7 @@ export default class Linear extends Base {
     this.isLinear = true;
     this.nice = true;
     this.tickCount = 5;
+    this.maxTickCount = 10;
   }
 
   protected _init() {
@@ -79,7 +81,8 @@ export default class Linear extends Base {
 
   protected _setTicks(): number[] {
     const { onlyLoose, Q, w, m } = this._getAlgoParams();
-    const adjustTicks = [];
+    let adjustTicks = [];
+    let tickCnt = m;
     let minLimit = this.minLimit;
     let maxLimit = this.maxLimit;
     let tickMin;
@@ -103,30 +106,44 @@ export default class Linear extends Base {
       [minLimit, maxLimit] = [maxLimit, minLimit];
     }
 
-    const { min, max, ticks } = extended(tickMin, tickMax, m, onlyLoose, Q, w);
+    do {
+      const { min, max, ticks } = extended(tickMin, tickMax, tickCnt, onlyLoose, Q, w);
+      adjustTicks = [];
 
-    if (this.nice) {
-      this.min = min;
-      this.max = max;
-    }
-
-    // 修正min/max
-    if (!_.isNil(minLimit)) {
-      this.min = minLimit;
-    }
-    if (!_.isNil(maxLimit)) {
-      this.max = maxLimit;
-    }
-
-    adjustTicks.push(this.min);
-    _.each(ticks, (tick) => {
-      if (tick > this.min && tick < this.max) {
-        adjustTicks.push(tick);
+      if (this.nice) {
+        this.min = min;
+        this.max = max;
       }
-    });
-    if (adjustTicks[adjustTicks.length - 1] < this.max) {
-      adjustTicks.push(this.max);
-    }
+
+      // 修正min/max
+      if (!_.isNil(minLimit)) {
+        this.min = minLimit;
+      }
+      if (!_.isNil(maxLimit)) {
+        this.max = maxLimit;
+      }
+
+      adjustTicks.push(this.min);
+      _.each(ticks, (tick) => {
+        if (tick > this.min && tick < this.max) {
+          adjustTicks.push(tick);
+        }
+      });
+      if (adjustTicks[adjustTicks.length - 1] < this.max) {
+        adjustTicks.push(this.max);
+      }
+
+      // 如果没有设置 minLimit/maxLimit，就不循环
+      if (_.isNil(minLimit) && _.isNil(maxLimit)) {
+        break;
+      }
+
+      // 效果是否已经很好了
+      if (ticks.indexOf(this.min) >= 0 && ticks.indexOf(this.max) >= 0) {
+        break;
+      }
+      tickCnt += 1;
+    } while (tickCnt < this.maxTickCount);
 
     return adjustTicks;
   }
