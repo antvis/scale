@@ -53,6 +53,8 @@ export type ScaleConfig = Partial<{
   minTickInterval: number;
   /** tick个数，默认值为5 */
   tickCount: number;
+  /** ticks最大值，默认值为10 */
+  maxTickCount: number;
   /** tick格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示 */
   formatter: (v: any, k?: number) => string;
 }>;
