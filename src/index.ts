@@ -18,4 +18,4 @@ registerScale('pow', Pow);
 registerScale('time', Time);
 registerScale('timeCat', TimeCat);
 
-export { Scale, getScale, registerScale, ScaleConfig };
+export { Category, Identity, Linear, Log, Pow, Time, TimeCat, Scale, getScale, registerScale, ScaleConfig };
