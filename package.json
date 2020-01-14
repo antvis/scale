@@ -1,6 +1,6 @@
 {
   "name": "@antv/scale",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "The scale module for G2",
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
@@ -23,32 +23,43 @@
     "lib": "run-p lib:*",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
-    "lint": "lint-staged",
-    "coverage": "exit 0",
-    "test": "torch --compile --recursive __tests__",
-    "test-live": "torch --compile --interactive --watch --recursive ./__tests__/unit/",
-    "ci": "run-s build test"
+    "lint-stage": "lint-staged",
+    "lint": "tslint -c tslint.json src/**/* tests/**/*",
+    "lint-fix": "run-s lint-fix:*",
+    "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
+    "lint-fix:tslint": "tslint -c tslint.json --fix 'src/**/*.ts' 'tests/**/*'",
+    "coverage": "jest --coverage",
+    "test": "jest",
+    "test-live": "DEBUG_MODE=1 jest --watch",
+    "ci": "run-s build test coverage",
+    "dist": "webpack --config webpack.config.js --mode production"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint build test"
+      "pre-commit": "run-s lint-stage build test"
     }
   },
   "devDependencies": {
-    "@antv/torch": "~1.0.5",
-    "chai": "^4.2.0",
+    "@types/jest": "^24.0.18",
     "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "jest-electron": "^0.1.6",
     "lint-staged": "^9.2.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
     "tslint": "^5.18.0",
+    "ts-loader": "^5.3.1",
+    "babel-loader": "^8.0.4",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "@antv/util": "~2.0.3",
-    "moment": "^2.24.0",
+    "fecha": "~3.0.3",
     "tslib": "^1.10.0"
   },
   "lint-staged": {
@@ -61,5 +72,17 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "jest": {
+    "runner": "jest-electron/runner",
+    "testEnvironment": "jest-electron/environment",
+    "preset": "ts-jest",
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,js}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "testRegex": "/tests/.*spec\\.ts?$"
   }
 }

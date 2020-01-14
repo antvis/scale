@@ -1,31 +1,18 @@
-import Scale, { ScaleConfig } from './base';
-import Category from './category';
-import Identity from './identity';
-import Linear from './linear';
-import Log from './linear-log';
-import Pow from './linear-pow';
-import Time from './time';
-
+import Scale from './base';
+import { ScaleConfig } from './types';
 type ScaleConstructor<T extends Scale = Scale> = new (cfg: ScaleConfig) => T;
 
 interface ScaleMap {
-  category: ScaleConstructor<Category>;
-  cat: ScaleConstructor<Category>;
-  identity: ScaleConstructor<Identity>;
-  linear: ScaleConstructor<Linear>;
-  pow: ScaleConstructor<Pow>;
-  log: ScaleConstructor<Log>;
-  time: ScaleConstructor<Time>;
   [key: string]: ScaleConstructor;
 }
 
-const map: Partial<ScaleMap> = {};
+const map: ScaleMap = {};
 
-function getClass<K extends keyof ScaleMap>(key: K): ScaleMap[K] {
+function getClass(key: string): ScaleConstructor {
   return map[key];
 }
 
-function registerClass<K extends keyof ScaleMap>(key: K, cls: ScaleMap[K]) {
+function registerClass(key: string, cls: ScaleConstructor) {
   if (getClass(key)) {
     throw new Error(`type '${key}' existed.`);
   }

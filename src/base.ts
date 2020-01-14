@@ -1,85 +1,45 @@
-import * as _ from '@antv/util';
-
-export type ScaleType = 'base' | 'linear' | 'cat' | 'log' | 'pow' | 'identity' | 'time' | 'timeCat';
-
-export interface Tick {
-  /** 展示名 */
-  text: string;
-  /** 值域值 */
-  value: number;
-  /** 定义域值 */
-  tickValue: string | number;
-}
-
-export type ScaleConfig = Partial<{
-  /** 对应的字段id */
-  field: string;
-  /** 输入域、定义域 */
-  values: any[];
-  /** 定义域的最小值，d3为domain，ggplot2为limits，分类型下无效 */
-  min: any;
-  /** 定义域的最大值，分类型下无效 */
-  max: any;
-  /** min value limitted of the scale  */
-  minLimit?: number;
-  /** max value limitted of the scale */
-  maxLimit?: number;
-
-  /** 数据字段的显示别名，scale内部不感知，外部注入 */
-  alias: string;
-  /** 输出域、值域，默认值为[0, 1] */
-  range: number[];
-  /** Identity有效，非数值情况的返回值 */
-  unknown: any;
-  /** Log有效，底数 */
-  base: number;
-  /** Pow有效，指数 */
-  exponent: number;
-
-  // tick相关配置
-  /** 自动调整min、max */
-  nice: boolean;
-  /** 用于指定tick，优先级最高 */
-  ticks: any[];
-  /** 算法参数 */
-  algoParam: Partial<{
-    onlyLoose: boolean;
-    Q: number[];
-    w: [number, number, number, number];
-  }>;
-  /** tick间隔，只对分类型和时间型适用，优先级高于tickCount */
-  tickInterval: number;
-  /** tick最小间隔，只对线型适用 */
-  minTickInterval: number;
-  /** tick个数，默认值为5 */
-  tickCount: number;
-  /** ticks最大值，默认值为10 */
-  maxTickCount: number;
-  /** tick格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示 */
-  formatter: (v: any, k?: number) => any;
-}>;
-
+import { assign, head, isEmpty, isFunction, isNil, isNumber, isObject, isString, last, map } from '@antv/util';
+import { getTickMethod } from './tick-method/register';
+import { ScaleConfig, Tick } from './types';
 export default abstract class Scale {
-  public type: ScaleType = 'base';
-  public isCategory?: boolean;
-  public isLinear?: boolean;
+  /**
+   * 度量的类型
+   */
+  public type: string = 'base';
+  /**
+   * 是否分类类型的度量
+   */
+  public isCategory?: boolean = false;
+  /**
+   * 是否线性度量，有linear, time 度量
+   */
+  public isLinear?: boolean = false;
+  /**
+   * 是否连续类型的度量，linear,time,log, pow, quantile, quantize 都支持
+   */
+  public isContinuous?: boolean = false;
+  /**
+   * 是否是常量的度量，传入和传出一致
+   */
+  public isIdentity: boolean = false;
 
   public field?: ScaleConfig['field'];
   public alias?: ScaleConfig['alias'];
-  public values: ScaleConfig['values'];
+  public values: ScaleConfig['values'] = [];
   public min?: ScaleConfig['min'];
   public max?: ScaleConfig['max'];
   public range: ScaleConfig['range'] = [0, 1];
   public ticks: ScaleConfig['ticks'] = [];
+  public tickCount: ScaleConfig['tickCount'];
+  public tickInterval: ScaleConfig['tickInterval'];
   public formatter?: ScaleConfig['formatter'];
-
-  protected __cfg__: ScaleConfig; // 缓存的旧配置
+  public tickMethod?: ScaleConfig['tickMethod'];
+  protected __cfg__: ScaleConfig; // 缓存的旧配置, 用于 clone
 
   constructor(cfg: ScaleConfig) {
     this.__cfg__ = cfg;
-    this._initDefaultCfg();
-    _.assign(this, cfg);
-    this._init();
+    this.initCfg();
+    this.init();
   }
 
   // 对于原始值的必要转换，如分类、时间字段需转换成数值，用transform/map命名可能更好
@@ -95,7 +55,9 @@ export default abstract class Scale {
 
   /** 重新初始化 */
   public change(cfg: ScaleConfig) {
-    this.constructor(_.assign(this.__cfg__, cfg));
+    // 覆盖配置项，而不替代
+    assign(this.__cfg__, cfg);
+    this.init();
   }
 
   public clone(): Scale {
@@ -104,16 +66,9 @@ export default abstract class Scale {
 
   /** 获取坐标轴需要的ticks */
   public getTicks(): Tick[] {
-    return _.map(this.ticks, (tick: any, idx: number) => {
-      if (_.isObject(tick)) {
+    return map(this.ticks, (tick: any, idx: number) => {
+      if (isObject(tick)) {
         // 仅当符合Tick类型时才有意义
-        // _.some(['text', 'value', 'tickValue'], key => {
-        //   if (_.has(tick, key)) {
-        //     return false;
-        //   }
-        //   console.warn(`A tick need ${key} property.`);
-        //   return true;
-        // });
         return tick as Tick;
       }
       return {
@@ -128,26 +83,66 @@ export default abstract class Scale {
   public getText(value: any, key?: number): string {
     const formatter = this.formatter;
     const res = formatter ? formatter(value, key) : value;
-    if (_.isNil(res) || !_.isFunction(res.toString)) {
+    if (isNil(res) || !isFunction(res.toString)) {
       return '';
     }
     return res.toString();
   }
 
+  // 获取配置项中的值，当前 scale 上的值可能会被修改
+  protected getConfig(key) {
+    return this.__cfg__[key];
+  }
+
   // scale初始化
-  protected abstract _initDefaultCfg(): void;
-  protected abstract _init(): void;
+  protected init(): void {
+    assign(this, this.__cfg__);
+    this.setDomain();
+    if (isEmpty(this.getConfig('ticks'))) {
+      this.ticks = this.calculateTicks();
+    }
+  }
+
+  // 子类上覆盖某些属性，不能直接在类上声明，否则会被覆盖
+  protected initCfg() {}
+
+  protected setDomain(): void {}
+
+  protected calculateTicks(): any[] {
+    const tickMethod = this.tickMethod;
+    let ticks = [];
+    if (isString(tickMethod)) {
+      const method = getTickMethod(tickMethod);
+      if (!method) {
+        throw new Error('There is no method to to calculate ticks!');
+      }
+      ticks = method(this);
+    } else if (isFunction(tickMethod)) {
+      ticks = tickMethod(this);
+    }
+    return ticks;
+  }
+
+  // range 的最小值
+  protected rangeMin() {
+    return head(this.range);
+  }
+
+  // range 的最大值
+  protected rangeMax() {
+    return last(this.range);
+  }
 
   /** 定义域转 0~1 */
-  protected _calcPercent(value: any, min: number, max: number): number {
-    if (_.isNumber(value)) {
+  protected calcPercent(value: any, min: number, max: number): number {
+    if (isNumber(value)) {
       return (value - min) / (max - min);
     }
     return NaN;
   }
 
   /** 0~1转定义域 */
-  protected _calcValue(percent: number, min: number, max: number): number {
+  protected calcValue(percent: number, min: number, max: number): number {
     return min + percent * (max - min);
   }
 }

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { head, indexOf, last, map, size } from '@antv/util';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -12,8 +12,8 @@ function mod(n: number, m: number) {
 }
 
 function simplicity(q: number, Q: number[], j: number, lmin: number, lmax: number, lstep: number) {
-  const n = _.size(Q);
-  const i = _.indexOf(Q, q);
+  const n = size(Q);
+  const i = indexOf(Q, q);
   let v = 0;
   const m = mod(lmin, lstep);
   if ((m < eps || lstep - m < eps) && lmin <= 0 && lmax >= 0) {
@@ -23,8 +23,8 @@ function simplicity(q: number, Q: number[], j: number, lmin: number, lmax: numbe
 }
 
 function simplicityMax(q: number, Q: number[], j: number) {
-  const n = _.size(Q);
-  const i = _.indexOf(Q, q);
+  const n = size(Q);
+  const i = indexOf(Q, q);
   const v = 1;
   return 1 - i / (n - 1) - j + v;
 }
@@ -159,11 +159,11 @@ export default function extended(
   for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
     range.push(tick);
   }
-  const ticks = toFixed ? _.map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
+  const ticks = toFixed ? map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
 
   return {
-    min: Math.min(dmin, _.head(ticks)),
-    max: Math.max(dmax, _.last(ticks)),
+    min: Math.min(dmin, head(ticks)),
+    max: Math.max(dmax, last(ticks)),
     ticks,
   };
 }

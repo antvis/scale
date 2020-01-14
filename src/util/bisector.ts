@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isNil } from '@antv/util';
 
 type GetterFunc<T> = (o: T) => number;
 
@@ -13,8 +13,8 @@ export default function<T>(getter: GetterFunc<T>) {
    * hi: 结束位置
    */
   return function(a: T[], x: number, _lo?: number, _hi?: number) {
-    let lo = _.isNil(_lo) ? 0 : _lo;
-    let hi = _.isNil(_hi) ? a.length : _hi;
+    let lo = isNil(_lo) ? 0 : _lo;
+    let hi = isNil(_hi) ? a.length : _hi;
     while (lo < hi) {
       const mid = (lo + hi) >>> 1;
       if (getter(a[mid]) > x) {
