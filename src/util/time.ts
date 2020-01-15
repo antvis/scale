@@ -1,5 +1,5 @@
 import { isDate, isString, last } from '@antv/util';
-import * as fecha from 'fecha';
+import fecha from 'fecha';
 import bisector from './bisector';
 const FORMAT_METHOD = 'format';
 
