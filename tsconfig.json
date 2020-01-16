@@ -3,7 +3,6 @@
     "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
-    "esModuleInterop": true,
     "target": "es5",
     "outDir": "lib",
     "importHelpers": true,
