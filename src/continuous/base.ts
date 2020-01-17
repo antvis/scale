@@ -1,4 +1,4 @@
-import { filter, getRange, isNil, map } from '@antv/util';
+import { filter, getRange, isNil, head, last } from '@antv/util';
 import Base from '../base';
 
 /**
@@ -44,6 +44,15 @@ export default abstract class Continuous extends Base {
       ticks = filter(ticks, (tick) => {
         return tick >= this.min && tick <= this.max;
       });
+    } else { // nice = true 时，矫正 min ,max
+      const firstTick = head(ticks);
+      const lastTick = last(ticks);
+      if (firstTick < this.min) {
+        this.min = firstTick;
+      }
+      if (lastTick > this.max) {
+        this.max = lastTick;
+      }
     }
     return ticks;
   }

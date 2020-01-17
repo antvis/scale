@@ -51,8 +51,12 @@ describe('linear scale', () => {
       max: 110,
       nice: true,
     });
+    expect(scale.min).toBe(0);
+    expect(scale.max).toBe(120);
     expect(scale.ticks).toEqual([0, 30, 60, 90, 120]);
     expect(scale.scale(60)).toEqual(0.5);
+    expect(scale.scale(0)).toBe(0);
+    expect(scale.scale(120)).toBe(1);
   });
 });
 
