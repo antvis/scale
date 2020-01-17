@@ -161,6 +161,27 @@ describe('linear scale for invalid min and max', () => {
   });
 });
 
+describe('ticks and min, max', () => {
+  const scale = new Linear({
+    min: 3,
+    max: 97,
+    ticks: [0, 50, 100]
+  });
+  it('init', () => {
+    expect(scale.min).toBe(0);
+    expect(scale.max).toBe(100);
+  });
+
+  it('change', () => {
+    scale.change({
+      ticks: null
+    });
+    expect(scale.min).toBe(3);
+    expect(scale.max).toBe(97);
+  });
+
+});
+
 // interval, minTickInterval 当前 ticks 的计算方法都不支持
 describe.skip('linear scale with Interval', () => {
   it('c(0, 62), minInterval = 14', () => {
