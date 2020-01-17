@@ -24,6 +24,20 @@ export default abstract class Continuous extends Base {
     return rangeMin + percent * (rangeMax - rangeMin);
   }
 
+  protected init() {
+    super.init();
+    // init 完成后保证 min, max 包含 ticks 的范围
+    const ticks = this.ticks;
+    const firstTick = head(ticks);
+    const lastTick = last(ticks);
+    if (firstTick < this.min) {
+      this.min = firstTick;
+    }
+    if (lastTick > this.max) {
+      this.max = lastTick;
+    }
+  }
+
   protected setDomain() {
     const { min, max } = getRange(this.values);
     if (isNil(this.min)) {
@@ -44,15 +58,6 @@ export default abstract class Continuous extends Base {
       ticks = filter(ticks, (tick) => {
         return tick >= this.min && tick <= this.max;
       });
-    } else { // nice = true 时，矫正 min ,max
-      const firstTick = head(ticks);
-      const lastTick = last(ticks);
-      if (firstTick < this.min) {
-        this.min = firstTick;
-      }
-      if (lastTick > this.max) {
-        this.max = lastTick;
-      }
     }
     return ticks;
   }
