@@ -6,11 +6,13 @@ import { ScaleConfig } from '../types';
  */
 function quantileSorted(x, p) {
   const idx = x.length * p;
-  if (x.length === 0) {
-    throw new Error('quantile requires at least one data point.');
+  /*if (x.length === 0) { // 当前场景这些条件不可能命中
+    throw new Error('quantile requires at least one value.');
   } else if (p < 0 || p > 1) {
     throw new Error('quantiles must be between 0 and 1');
-  } else if (p === 1) {
+  } else */
+  
+  if (p === 1) {
     // If p is 1, directly return the last element
     return x[x.length - 1];
   } else if (p === 0) {
@@ -32,6 +34,9 @@ function quantileSorted(x, p) {
 
 export default function calculateTicks(cfg: ScaleConfig) {
   const { tickCount, values } = cfg;
+  if (!values || !values.length) {
+    return [];
+  }
   const sorted = values.slice().sort((a, b) => {
     return a - b;
   });
