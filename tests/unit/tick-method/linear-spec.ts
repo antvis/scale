@@ -21,6 +21,14 @@ describe('test wilkinson extended', () => {
     });
     expect(ticks).toEqual([0, 100, 200, 300, 400]);
   });
+  it('tickInterval', () => {
+    const ticks = linear({
+      min: 3,
+      max: 97,
+      tickInterval: 25
+    });
+    expect(ticks).toEqual([0, 25, 50, 75, 100]);
+  });
 });
 
 describe('test R pretty', () => {
@@ -43,5 +51,13 @@ describe('test R pretty', () => {
       nice: false // r-pretty nice 无效
     });
     expect(ticks).toEqual([0, 100, 200, 300, 400, 500]);
+  });
+  it('tickInterval', () => {
+    const ticks = linear({
+      min: 3,
+      max: 97,
+      tickInterval: 25
+    });
+    expect(ticks).toEqual([0, 25, 50, 75, 100]);
   });
 });
