@@ -7,25 +7,6 @@ import Continuous from './base';
 class Quantize extends Continuous {
   public type = 'quantize';
 
-  protected initCfg() {
-    this.tickMethod = 'r-pretty';
-    this.tickCount = 5;
-    this.nice = true;
-  }
-
-  protected calculateTicks(): any[] {
-    const ticks = super.calculateTicks();
-    if (!this.nice) { // 如果 nice = false ,补充 min, max
-      if (last(ticks) !== this.max) {
-        ticks.push(this.max);
-      }
-      if (head(ticks) !== this.min) {
-        ticks.unshift(this.min);
-      }
-    }
-    return ticks;
-  }
-
   public invert(value): number {
     const ticks = this.ticks;
     const length = ticks.length;
@@ -45,6 +26,25 @@ class Quantize extends Continuous {
     const minIndexPercent = minIndex / (length - 1);
     const maxIndexPercent =  (minIndex + 1) / (length - 1);
     return minTick + (percent - minIndexPercent) / (maxIndexPercent - minIndexPercent) * (nextTick - minTick);
+  }
+
+  protected initCfg() {
+    this.tickMethod = 'r-pretty';
+    this.tickCount = 5;
+    this.nice = true;
+  }
+
+  protected calculateTicks(): any[] {
+    const ticks = super.calculateTicks();
+    if (!this.nice) { // 如果 nice = false ,补充 min, max
+      if (last(ticks) !== this.max) {
+        ticks.push(this.max);
+      }
+      if (head(ticks) !== this.min) {
+        ticks.unshift(this.min);
+      }
+    }
+    return ticks;
   }
 
   // 计算当前值在刻度中的占比

@@ -1,7 +1,6 @@
-import { map } from '@antv/util';
 import { ScaleConfig } from '../types';
-import pretty from '../util/pretty';
 import interval from '../util/interval';
+import pretty from '../util/pretty';
 
 /**
  * 计算线性的 ticks，使用 R's pretty 方法
