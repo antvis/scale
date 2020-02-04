@@ -1,4 +1,4 @@
-import { filter, getRange, isNil, head, last } from '@antv/util';
+import { filter, getRange, head, isNil, last } from '@antv/util';
 import Base from '../base';
 
 /**
