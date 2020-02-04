@@ -1,6 +1,6 @@
 {
   "name": "@antv/scale",
-  "version": "0.3.0-beta.6",
+  "version": "0.3.0-beta.7",
   "description": "The scale module for G2",
   "author": "https://github.com/orgs/antvis/people",
   "license": "MIT",
@@ -32,6 +32,7 @@
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch",
     "ci": "run-s build test coverage",
+    "prepublishOnly": "npm-run-all --parallel lint test clean lib dist",
     "dist": "webpack --config webpack.config.js --mode production"
   },
   "husky": {
