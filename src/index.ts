@@ -5,6 +5,8 @@ import Linear from './continuous/linear';
 import Log from './continuous/log';
 import Pow from './continuous/pow';
 import Time from './continuous/time';
+import Quantize from './continuous/quantize';
+import Quantile from './continuous/quantile';
 import { getScale, registerScale } from './factory';
 import Identity from './identity/index';
 import { getTickMethod } from './tick-method/index';
@@ -17,6 +19,8 @@ registerScale('log', Log);
 registerScale('pow', Pow);
 registerScale('time', Time);
 registerScale('timeCat', TimeCat);
+registerScale('quantize', Quantize);
+registerScale('quantile', Quantile);
 
 export {
   Category,
@@ -26,6 +30,8 @@ export {
   Pow,
   Time,
   TimeCat,
+  Quantile,
+  Quantize,
   Scale,
   getScale,
   registerScale,

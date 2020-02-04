@@ -6,9 +6,25 @@ import Continuous from './base';
  */
 class Quantize extends Continuous {
   public type = 'quantize';
-  public nice: boolean = true;
-  public tickCount = 5;
-  public tickMethod = 'r-pretty';
+
+  protected initCfg() {
+    this.tickMethod = 'r-pretty';
+    this.tickCount = 5;
+    this.nice = true;
+  }
+
+  protected calculateTicks(): any[] {
+    const ticks = super.calculateTicks();
+    if (!this.nice) { // 如果 nice = false ,补充 min, max
+      if (last(ticks) !== this.max) {
+        ticks.push(this.max);
+      }
+      if (head(ticks) !== this.min) {
+        ticks.unshift(this.min);
+      }
+    }
+    return ticks;
+  }
 
   public invert(value): number {
     const ticks = this.ticks;
@@ -27,7 +43,8 @@ class Quantize extends Continuous {
     const nextTick = ticks[minIndex + 1];
     // 比当前值小的 tick 在度量上的占比
     const minIndexPercent = minIndex / (length - 1);
-    return minTick + (percent - minIndexPercent) * (nextTick - minTick);
+    const maxIndexPercent =  (minIndex + 1) / (length - 1);
+    return minTick + (percent - minIndexPercent) / (maxIndexPercent - minIndexPercent) * (nextTick - minTick);
   }
 
   // 计算当前值在刻度中的占比

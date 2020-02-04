@@ -74,7 +74,19 @@ const TimeCat = getScale('timeCat');
 | range      | [number, number]   | 值域的最小、最大值                     |
 | tickCount  | number             | 期望的 tick 数量，非最终结果           |
 | formatter  | func(value, index) | 格式化函数，用于 tooltip、tick 等展示  |
-| tickMethod | string             | func(scale)                            | 计算 ticks 的方法 |
+| tickMethod | string/func(scale) | 计算 ticks 的方法                      |
+
+#### tickMethod
+
+这个属性用户设置计算 ticks 的方法，可以传入字符串或者回调函数，支持的字符串类型有：
+
+- `wilkinson-extended` ：计算数字 ticks 的方法，linear 类型度量内置的计算方法
+- `r-pretty`: 计算数字 ticks 的方法， ticks 的 nice 效果很好，但是 tickCount 的精度太差
+- `time`: 时间 ticks 的计算方法，计算出一个 tickInterval，坐标刻度之间的间隔固定
+- `time-pretty`: 时间 ticks 的计算方法，会对年、月进行优化，time 类型度量内置的计算方法
+- `log`: 计算数字的 ticks 方法，按照 log 的函数来计算，生成 [0, 10, 100, 1000] 类似的 ticks
+- `pow`: 计算数字的 ticks 方法，按照 pow 的函数来计算，生成 [0, 4, 9, 16] 类似的 ticks
+- `quantile`: 计算数字的 ticks 方法，根据统计学上的 几分位 概念计算 ticks，表现的是数据的分布
 
 ### 通用的 Methods
 
@@ -104,12 +116,21 @@ const TimeCat = getScale('timeCat');
 | 名称 | 类型 | 说明 |
 | base | number | 对数底数 |
 
+#### quantize
+
+这是一种分段度量，scale 按照用户设置的 ticks 进行计算 scale，如果未设置 ticks ，则使用 `r-pretty` 计算默认的 ticks
+
+#### quantile
+
+这是一种按照数据密度自动分段的度量，按照设置的 values 计算 ticks，进行 scale 时按照 ticks 计算，而非均匀计算，使用 `tickMethod: quantile` 计算 ticks
+
 ## 与 2.x 的兼容性问题
 
-### 新增的属性
+### 新增的特性
 
 - tickMethod：2.x 计算 ticks 的算法都是固定在各个度量内部，3.x 中提供了用户改变计算 ticks 算法的接口
 - min, max：3.x 中 cat、timeCat 类型的 min, max 可以指定
+- 新增两种 scale: quantize， quantile
 
 ### 不再支持的属性（暂时不支持）
 
