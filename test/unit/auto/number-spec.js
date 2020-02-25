@@ -255,9 +255,9 @@ describe('test number auto', () => {
     const rst = auto({
       min: -0.01459,
       max: 0.0999,
-      minLimit: -0.01459,
+      minLimit: -0.01459
     });
 
-    expect(rst.ticks).eql([-0.01459, 0.01, 0.03, 0.05, 0.07, 0.09, 0.1]);
+    expect(rst.ticks).eql([ -0.01459, 0.01, 0.03, 0.05, 0.07, 0.09, 0.1 ]);
   });
 });

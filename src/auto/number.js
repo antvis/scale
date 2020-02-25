@@ -87,7 +87,6 @@ module.exports = function(info) {
     let prevMin = null;
     while (min > minLimit && minLimit > -Infinity && (prevMin === null || min < prevMin)) { // 保证计算出来的刻度最小值 min， 不大于数据最小值 min
       prevMin = min;
-      console.log(min, minLimit, min-interval, AutoUtil.fixedBase(min - interval, interval))
       min = AutoUtil.fixedBase(min - interval, interval);
     }
   } else {
