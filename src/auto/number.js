@@ -81,8 +81,14 @@ module.exports = function(info) {
     min = Math.max(AutoUtil.snapMultiple(min, interval, 'floor'), minLimit); // 向下逼近
 
     count = Math.round((max - min) / interval);
-    min = AutoUtil.fixedBase(min, interval);
+    min = AutoUtil.fixedBase(min, interval); // 当min为负数的时候，fixedBase后，min可能会大于minLimit，导致最终产出的tick是大于minLimit的，所以必须进行修正
     max = AutoUtil.fixedBase(max, interval);
+
+    let prevMin = null;
+    while (min > minLimit && minLimit > -Infinity && (prevMin === null || min < prevMin)) { // 保证计算出来的刻度最小值 min， 不大于数据最小值 min
+      prevMin = min;
+      min = AutoUtil.fixedBase(min - interval, interval);
+    }
   } else {
     avgCount = parseInt(avgCount, 10); // 取整
     const avg = (max + min) / 2;
@@ -105,7 +111,7 @@ module.exports = function(info) {
 
     let prevMinTick = null;
     // 如果减去intervl, fixBase后，新的minTick没有小于之前的值，就退出，防止死循环
-    while (minTick > min && (prevMinTick === null || minTick < prevMinTick)) { // 保证计算出来的刻度最小值 minTick 不小于数据最大值 min
+    while (minTick > min && (prevMinTick === null || minTick < prevMinTick)) { // 保证计算出来的刻度最小值 minTick 不大于数据最小值 min
       prevMinTick = minTick;
       minTick = AutoUtil.fixedBase(minTick - interval, interval); // 防止超常浮点数计算问题
     }

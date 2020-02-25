@@ -1,3 +1,9 @@
+#### 0.1.4 (2020-02-25)
+
+##### Bug Fixes
+
+* fix the bug when min < 0 and minLimit === min and no interval, the minimal value of output ticks may be greater than minLimit
+
 #### 0.1.2 (2019-03-12)
 
 ##### Bug Fixes
