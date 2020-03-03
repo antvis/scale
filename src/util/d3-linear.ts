@@ -10,7 +10,7 @@ export default function d3Linear(cfg: ScaleConfig): number[] {
   return linear.ticks(tickCount);
 }
 
-const DEFAULT_COUNT = 10;
+const DEFAULT_COUNT = 5;
 const e10 = Math.sqrt(50);
 const e5 = Math.sqrt(10);
 const e2 = Math.sqrt(2);

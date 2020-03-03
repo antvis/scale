@@ -91,13 +91,13 @@ describe('D3Linear', () => {
       d3Linear({
         min: 0,
         max: 0.96,
+        tickCount: 10,
       })
     ).toEqual([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]);
     expect(
       d3Linear({
         min: 0,
         max: 0.96,
-        tickCount: 5,
       })
     ).toEqual([0.0, 0.2, 0.4, 0.6, 0.8]);
     expect(
@@ -105,6 +105,7 @@ describe('D3Linear', () => {
         min: 0,
         max: 0.96,
         nice: true,
+        tickCount: 10,
       })
     ).toEqual([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]);
     expect(
@@ -112,7 +113,6 @@ describe('D3Linear', () => {
         min: 0,
         max: 0.96,
         nice: true,
-        tickCount: 5,
       })
     ).toEqual([0.0, 0.2, 0.4, 0.6, 0.8, 1.0]);
   });

@@ -19,6 +19,6 @@ registerTickMethod('time-pretty', timePretty);
 registerTickMethod('log', log);
 registerTickMethod('pow', pow);
 registerTickMethod('quantile', quantile);
-registerTickMethod('d3Linear', d3Linear);
+registerTickMethod('d3-linear', d3Linear);
 
 export { getTickMethod };
