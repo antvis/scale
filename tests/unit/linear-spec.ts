@@ -1,3 +1,4 @@
+import { head, last } from '@antv/util';
 import Linear from '../../src/continuous/linear';
 import '../../src/tick-method/index';
 
@@ -78,7 +79,6 @@ describe('linear scale for c(0, 10, 100)', () => {
     expect(scale.scale(110)).toEqual(1.1);
     expect(scale.scale(-50)).toEqual(-0.5);
   });
-
 });
 
 describe('linear scale for specified range', () => {
@@ -103,9 +103,9 @@ describe('linear scale multiple times', () => {
   const scale = new Linear({
     min: 21,
     max: 145,
-    nice: true
+    nice: true,
   });
-  
+
   it('1st time', () => {
     expect(scale.ticks).toEqual([0, 50, 100, 150]);
     expect(scale.nice).toBe(true);
@@ -119,7 +119,7 @@ describe('linear scale multiple times', () => {
   it('3th time', () => {
     scale.change({
       min: 21,
-      nice: false
+      nice: false,
     });
     expect(scale.ticks).toEqual([50, 100]);
   });
@@ -128,7 +128,7 @@ describe('linear scale multiple times', () => {
     scale.change({
       min: 21,
       max: 145,
-      tickCount: 6
+      tickCount: 6,
     });
     expect(scale.ticks).toEqual([25, 50, 75, 100, 125]);
   });
@@ -155,7 +155,7 @@ describe('linear scale for invalid min and max', () => {
   it('all 0', () => {
     const scale = new Linear({
       values: [0],
-      nice: true
+      nice: true,
     });
     expect(scale.ticks).toEqual([0]);
   });
@@ -165,7 +165,7 @@ describe('ticks and min, max', () => {
   const scale = new Linear({
     min: 3,
     max: 97,
-    ticks: [0, 50, 100]
+    ticks: [0, 50, 100],
   });
   it('init', () => {
     expect(scale.min).toBe(0);
@@ -174,12 +174,25 @@ describe('ticks and min, max', () => {
 
   it('change', () => {
     scale.change({
-      ticks: null
+      ticks: null,
     });
     expect(scale.min).toBe(3);
     expect(scale.max).toBe(97);
   });
+});
 
+describe('linear with minLimit & maxLimit', () => {
+  const scale = new Linear({
+    min: 0,
+    max: 1,
+    minLimit: 0.12,
+    maxLimit: 0.96,
+  });
+
+  expect(scale.min).toBe(0.12);
+  expect(scale.max).toBe(0.96);
+  expect(head(scale.ticks)).toBe(0.12);
+  expect(last(scale.ticks)).toBe(0.96);
 });
 
 // interval, minTickInterval 当前 ticks 的计算方法都不支持

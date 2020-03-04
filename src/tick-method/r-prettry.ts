@@ -1,6 +1,8 @@
+import { head, isNil, last } from '@antv/util';
 import { ScaleConfig } from '../types';
 import interval from '../util/interval';
 import pretty from '../util/pretty';
+import strictLimit from '../util/strict-limit';
 
 /**
  * 计算线性的 ticks，使用 R's pretty 方法
@@ -8,9 +10,20 @@ import pretty from '../util/pretty';
  * @returns 计算后的 ticks
  */
 export default function linearPretty(cfg: ScaleConfig): number[] {
-  const { min, max, tickCount, tickInterval } = cfg;
+  const { min, max, tickCount, tickInterval, minLimit, maxLimit } = cfg;
+  const ticks = pretty(min, max, tickCount).ticks;
+
+  if (!isNil(minLimit) || !isNil(maxLimit)) {
+    if (isNil(minLimit)) {
+      cfg.minLimit = head(minLimit);
+    }
+    if (isNil(maxLimit)) {
+      cfg.maxLimit = last(maxLimit);
+    }
+    return strictLimit(cfg);
+  }
   if (tickInterval) {
     return interval(min, max, tickInterval).ticks;
   }
-  return pretty(min, max, tickCount).ticks;
+  return ticks;
 }

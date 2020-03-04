@@ -36,6 +36,13 @@ export default abstract class Continuous extends Base {
     if (lastTick > this.max) {
       this.max = lastTick;
     }
+    // strict-limit 方式
+    if (!isNil(this.minLimit)) {
+      this.min = firstTick;
+    }
+    if (!isNil(this.maxLimit)) {
+      this.max = lastTick;
+    }
   }
 
   protected setDomain() {

@@ -1,7 +1,8 @@
+import { head, isNil, last } from '@antv/util';
 import { ScaleConfig } from '../types';
 import extended from '../util/extended';
 import interval from '../util/interval';
-
+import strictLimit from '../util/strict-limit';
 
 /**
  * 计算线性的 ticks，使用 wilkinson extended 方法
@@ -9,9 +10,20 @@ import interval from '../util/interval';
  * @returns 计算后的 ticks
  */
 export default function linear(cfg: ScaleConfig): number[] {
-  const { min, max, tickCount, nice, tickInterval } = cfg;
+  const { min, max, tickCount, nice, tickInterval, minLimit, maxLimit } = cfg;
+  const ticks = extended(min, max, tickCount, nice).ticks;
+
+  if (!isNil(minLimit) || !isNil(maxLimit)) {
+    if (isNil(minLimit)) {
+      cfg.minLimit = head(ticks);
+    }
+    if (isNil(maxLimit)) {
+      cfg.maxLimit = last(ticks);
+    }
+    return strictLimit(cfg);
+  }
   if (tickInterval) {
     return interval(min, max, tickInterval).ticks;
   }
-  return extended(min, max, tickCount, nice).ticks;
+  return ticks;
 }

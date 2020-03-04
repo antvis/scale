@@ -28,6 +28,8 @@ export default abstract class Scale {
   public values: ScaleConfig['values'] = [];
   public min?: ScaleConfig['min'];
   public max?: ScaleConfig['max'];
+  public minLimit?: ScaleConfig['minLimit'];
+  public maxLimit?: ScaleConfig['maxLimit'];
   public range: ScaleConfig['range'] = [0, 1];
   public ticks: ScaleConfig['ticks'] = [];
   public tickCount: ScaleConfig['tickCount'];
