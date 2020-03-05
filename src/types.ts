@@ -20,6 +20,10 @@ export type ScaleConfig = Partial<{
   min: any;
   /** 定义域的最大值，分类型下无效 */
   max: any;
+  /** 严格模式下的定义域最小值，设置后会强制 ticks 从最小值开始 */
+  minLimit?: any;
+  /** 严格模式下的定义域最大值，设置后会强制 ticks 已最大值结束 */
+  maxLimit?: any;
 
   /** 数据字段的显示别名，scale内部不感知，外部注入 */
   alias: string;
