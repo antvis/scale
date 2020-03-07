@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const Scale = require('../../src/');
 const fecha = require('fecha');
+const timeUtil = require('../../src/time-util');
 
 describe('scale time', function() {
 
@@ -107,5 +108,20 @@ describe('min tickInterval', function() {
       values: [ '2009/6/12 02:31', '2009/6/12 02:04', '2009/6/12 02:14' ]
     });
     expect(scale.minTickInterval).to.be.equal(10 * 60 * 1000);
+  });
+});
+
+describe('time util', () => {
+  it('number', () => {
+    expect(timeUtil.toTimeStamp('20100101')).to.be.equal(new Date('2010/01/01').getTime());
+    expect(timeUtil.toTimeStamp('20200229')).to.be.equal(new Date('2020/02/29').getTime());
+    expect(timeUtil.toTimeStamp('2020022')).to.eql(NaN);
+    expect(timeUtil.toTimeStamp('dddd')).to.eql(NaN);
+  });
+  it('date str', () => {
+    expect(timeUtil.toTimeStamp('2010-01-01')).to.be.equal(new Date('2010/01/01').getTime());
+    expect(timeUtil.toTimeStamp('2010/01/01')).to.be.equal(new Date('2010/01/01').getTime());
+    expect(timeUtil.toTimeStamp('2020-02-29')).to.be.equal(new Date('2020/02/29').getTime());
+    expect(timeUtil.toTimeStamp(new Date('2020/02/29'))).to.be.equal(new Date('2020/02/29').getTime());
   });
 });
