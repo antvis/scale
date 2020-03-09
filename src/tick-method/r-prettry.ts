@@ -14,13 +14,7 @@ export default function linearPretty(cfg: ScaleConfig): number[] {
   const ticks = pretty(min, max, tickCount).ticks;
 
   if (!isNil(minLimit) || !isNil(maxLimit)) {
-    if (isNil(minLimit)) {
-      cfg.minLimit = head(minLimit);
-    }
-    if (isNil(maxLimit)) {
-      cfg.maxLimit = last(maxLimit);
-    }
-    return strictLimit(cfg);
+    return strictLimit(cfg, head(ticks), last(ticks));
   }
   if (tickInterval) {
     return interval(min, max, tickInterval).ticks;

@@ -7,10 +7,10 @@ import { ScaleConfig } from '../types';
  * @param cfg Scale 配置项
  * @return ticks
  */
-export default function strictLimit(cfg: ScaleConfig): number[] {
-  const { min, max, minLimit, maxLimit, tickCount = 5 } = cfg;
-  let tickMin = isNil(minLimit) ? min : minLimit;
-  let tickMax = isNil(maxLimit) ? max : maxLimit;
+export default function strictLimit(cfg: ScaleConfig, defaultMin?: number, defaultMax?: number): number[] {
+  const { minLimit, maxLimit, min, max, tickCount = 5 } = cfg;
+  let tickMin = isNil(minLimit) ? (isNil(defaultMin) ? min : defaultMin) : minLimit;
+  let tickMax = isNil(maxLimit) ? (isNil(defaultMax) ? max : defaultMax) : maxLimit;
 
   if (tickMin > tickMax) {
     [tickMax, tickMin] = [tickMin, tickMax];
