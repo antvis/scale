@@ -20,9 +20,9 @@ class Category extends Base {
   public scale(value: any): number {
     const order = this.translate(value);
     // 分类数据允许 0.5 范围内调整
-    if (order < this.min - 0.5 || order > this.max + 0.5) {
-      return NaN;
-    }
+    // if (order < this.min - 0.5 || order > this.max + 0.5) {
+    //   return NaN;
+    // }
     const percent = this.calcPercent(order, this.min, this.max);
     return this.calcValue(percent, this.rangeMin(), this.rangeMax());
   }
