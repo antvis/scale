@@ -166,13 +166,13 @@ describe('category min, max', () => {
   });
 
   it('set min', () => {
-    const scale = new Category({ 
+    const scale = new Category({
       values: [ 'A', 'B', 'C' ],
       min: 1
     });
     expect(scale.min).toBe(1);
     expect(scale.max).toBe(2);
-    expect(scale.scale('A')).toBe(NaN);
+    expect(scale.scale('A')).toBe(-1);
     expect(scale.scale('B')).toBe(0);
     expect(scale.scale('C')).toBe(1);
     expect(isNumberEqual(scale.scale(1.2), 0.2)).toBe(true);
@@ -185,16 +185,16 @@ describe('category min, max', () => {
   });
 
   it('set min ,max', () => {
-    const scale = new Category({ 
+    const scale = new Category({
       values: [ 'A', 'B', 'C', 'D', 'E', 'F'],
       min: 1,
       max: 3
     });
     expect(scale.min).toBe(1);
     expect(scale.max).toBe(3);
-    expect(scale.scale('A')).toBe(NaN);
+    expect(scale.scale('A')).toBe(-0.5);
     expect(scale.scale('C')).toBe(0.5);
-    expect(scale.scale('E')).toBe(NaN);
+    expect(scale.scale('E')).toBe(1.5);
     expect(scale.invert(-0.2)).toBe('B');
     expect(scale.invert(0)).toBe('B');
     expect(scale.invert(1)).toBe('D');

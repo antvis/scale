@@ -34,7 +34,7 @@ describe('test time category scale', () => {
       values: ['2010-01-01', '2012-02-02', '2012-02-04'],
       min: 1
     });
-    expect(scale.scale('2010-01-01')).toBe(NaN);
+    expect(scale.scale('2010-01-01')).toBe(-1);
     expect(scale.scale('2012-02-02')).toBe(0);
     expect(scale.scale('2012-02-04')).toBe(1);
     expect(scale.invert(1)).toBe(toTimeStamp('2012-02-04'));
