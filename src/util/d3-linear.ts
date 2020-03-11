@@ -70,19 +70,21 @@ export class D3Linear {
 }
 
 function d3ArrayTicks(start: number, stop: number, count: number): number[] {
-  let reverse,
-    i = -1,
-    n,
-    ticks,
-    step;
+  let reverse;
+  let i = -1;
+  let n;
+  let ticks;
+  let step;
 
   (stop = +stop), (start = +start), (count = +count);
   if (start === stop && count > 0) {
     return [start];
   }
+  // tslint:disable-next-line
   if ((reverse = stop < start)) {
     (n = start), (start = stop), (stop = n);
   }
+  // tslint:disable-next-line
   if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) {
     return [];
   }
