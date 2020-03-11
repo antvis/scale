@@ -14,13 +14,7 @@ export default function linear(cfg: ScaleConfig): number[] {
   const ticks = extended(min, max, tickCount, nice).ticks;
 
   if (!isNil(minLimit) || !isNil(maxLimit)) {
-    if (isNil(minLimit)) {
-      cfg.minLimit = head(ticks);
-    }
-    if (isNil(maxLimit)) {
-      cfg.maxLimit = last(ticks);
-    }
-    return strictLimit(cfg);
+    return strictLimit(cfg, head(ticks), last(ticks));
   }
   if (tickInterval) {
     return interval(min, max, tickInterval).ticks;
