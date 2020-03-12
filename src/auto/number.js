@@ -9,8 +9,8 @@ const AutoUtil = require('./util');
 
 const MIN_COUNT = 5;
 const MAX_COUNT = 7;
-const SNAP_COUNT_ARRAY = [ 0, 1, 1.2, 1.5, 1.6, 2, 2.2, 2.4, 2.5, 3, 4, 5, 6, 7.5, 8, 10 ];
-const SNAP_ARRAY = [ 0, 1, 2, 4, 5, 10 ];
+const SNAP_COUNT_ARRAY = [ 1, 1.2, 1.5, 1.6, 2, 2.2, 2.4, 2.5, 3, 4, 5, 6, 7.5, 8, 10 ];
+const SNAP_ARRAY = [ 1, 2, 4, 5, 10 ];
 const EPS = 1e-12;
 
 module.exports = function(info) {
@@ -68,7 +68,7 @@ module.exports = function(info) {
         count = minCount;
       }
       // 不确定tick的个数时，使得tick偏小
-      interval = AutoUtil.snapFactorTo((max - min) / (count - 1), snapArray, 'floor');
+      interval = AutoUtil.snapFactorTo((max - min) / (count - 1), snapArray);
     }
   }
   // interval should not be less than minTickInterval
