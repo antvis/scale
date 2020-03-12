@@ -231,13 +231,9 @@ describe('test number auto', () => {
 
     expect(rst.ticks).eql([
       0.00002,
-      0.000025,
       0.00003,
-      0.000035,
       0.00004,
-      0.000045,
       0.00005,
-      0.000055,
       0.00006
     ]);
   });
@@ -259,5 +255,13 @@ describe('test number auto', () => {
     });
 
     expect(rst.ticks).eql([ -0.01459, 0.01, 0.03, 0.05, 0.07, 0.09, 0.1 ]);
+  });
+
+  it('very little value with negtive', () => {
+    const rst = auto({
+      min: -0.0001,
+      max: 0.0003
+    });
+    expect(rst.ticks).eql([ -0.0001, 0, 0.0001, 0.0002, 0.0003 ]);
   });
 });

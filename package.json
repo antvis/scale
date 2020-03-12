@@ -1,6 +1,6 @@
 {
   "name": "@antv/scale",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "The scale module for G2, F2.",
   "browser": "build/scale.js",
   "main": "build/scale.js",
@@ -78,7 +78,7 @@
     "test-all": "npm run test && npm run test-bugs",
     "test-bugs": "torch --compile --renderer --recursive ./test/bugs",
     "test-bugs-live": "torch --compile --interactive --watch --recursive ./test/bugs",
-    "test-live": "torch --interactive --watch --recursive ./test/unit",
+    "test-live": "torch --interactive --watch --recursive ./test/unit/",
     "watch": "webpack --config webpack-dev.config.js",
     "win-dev": "node ./bin/win-dev.js"
   },
