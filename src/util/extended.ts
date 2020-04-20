@@ -1,4 +1,4 @@
-import { head, indexOf, last, map, size } from '@antv/util';
+import { head, indexOf, last, map, size, isInteger } from '@antv/util';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -96,7 +96,7 @@ export default function extended(
   while (j < Infinity) {
     for (const q of Q) {
       const sm = simplicityMax(q, Q, j);
-      if (Number.isNaN(sm)) {
+      if (isNaN(sm)) {
         throw new Error('NaN');
       }
       if (w[0] * sm + w[1] + w[2] + w[3] < best.score) {
@@ -111,7 +111,7 @@ export default function extended(
         }
 
         const delta = (dmax - dmin) / (k + 1) / j / q;
-        let z = Math.ceil(Math.log10(delta));
+        let z = Math.ceil(Math.log(delta)/Math.log(10));
 
         while (z < Infinity) {
           const step = j * q * Math.pow(10, z);
@@ -154,12 +154,12 @@ export default function extended(
     j = j + 1;
   }
   // 步长为浮点数时处理精度
-  const toFixed = Number.isInteger(best.lstep) ? 0 : Math.ceil(Math.abs(Math.log10(best.lstep)));
+  const toFixed = isInteger(best.lstep) ? 0 : Math.ceil(Math.abs(Math.log(best.lstep)/Math.log(10)));
   const range = [];
   for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
     range.push(tick);
   }
-  const ticks = toFixed ? map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
+  const ticks = toFixed ? map(range, (x: number) => parseFloat(x.toFixed(toFixed))) : range;
 
   return {
     min: Math.min(dmin, head(ticks)),
