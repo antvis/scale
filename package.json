@@ -51,7 +51,7 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
     "tslint": "^6.1.2",
-    "ts-loader": "^5.3.1",
+    "ts-loader": "^7.0.3",
     "babel-loader": "^8.0.4",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3",
