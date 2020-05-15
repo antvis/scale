@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@antv/util": "~2.0.3",
-    "fecha": "~3.0.3",
+    "fecha": "~4.2.0",
     "tslib": "^1.10.0"
   },
   "lint-staged": {
