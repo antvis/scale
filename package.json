@@ -61,7 +61,7 @@
   "dependencies": {
     "@antv/util": "~2.0.3",
     "fecha": "~4.2.0",
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
