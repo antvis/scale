@@ -1,9 +1,19 @@
 export default function pretty(min: number, max: number, n: number = 5) {
+
   const res = {
     max: 0,
     min: 0,
     ticks: [],
   };
+
+  if (min === max) {
+    return {
+      max,
+      min,
+      ticks: [min],
+    };
+  }
+
   /*
     R pretty:
     https://svn.r-project.org/R/trunk/src/appl/pretty.c

@@ -1,6 +1,11 @@
 import pretty from '../../../src/util/pretty';
 
 describe('pretty ticks', function() {
+  it('pretty for c(0, 0)', () => {
+    const res = pretty(0, 0);
+    expect(res.ticks).toEqual([0]);
+  });
+
   it('pretty for c(0, 10)', () => {
     const res = pretty(0, 10);
     expect(res.ticks).toEqual([ 0, 2, 4, 6, 8, 10 ]);
