@@ -15,6 +15,7 @@ describe('test time category scale', () => {
     const scale = new Scale({
       values: ['2010-01-01', '2012-02-02', '2012-02-04']
     });
+    expect(scale.type).toBe('timeCat');
     expect(scale.scale('2010-01-05')).toBe(NaN);
     expect(scale.scale('2010-01-03')).toBe(NaN);
     expect(scale.scale('2010-01-01')).toBe(0);

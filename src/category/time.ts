@@ -7,8 +7,8 @@ import Category from './base';
  * @class
  */
 class TimeCat extends Category {
+  public readonly type: string = 'timeCat';
   public mask;
-
   /**
    * @override
    */
