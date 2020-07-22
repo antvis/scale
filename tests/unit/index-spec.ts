@@ -1,4 +1,5 @@
-import { getScale, registerScale, Scale } from '../../src';
+import { getScale, registerScale, Scale, registerTickMethod, getTickMethod } from '../../src';
+import newTimeCat from '../../src/tick-method/time-cat';
 
 describe('scale index', () => {
   class Custom extends Scale {
@@ -15,5 +16,10 @@ describe('scale index', () => {
   it('getScale func', () => {
     const scale = getScale('custom');
     expect(scale).toBe(Custom);
+  });
+
+  it('registerTickMethod func', () => {
+    registerTickMethod('newCat', newTimeCat);
+    expect(getTickMethod('newCat')).not.toBeUndefined();
   });
 });
