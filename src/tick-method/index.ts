@@ -21,4 +21,4 @@ registerTickMethod('pow', pow);
 registerTickMethod('quantile', quantile);
 registerTickMethod('d3-linear', d3Linear);
 
-export { getTickMethod };
+export { getTickMethod, registerTickMethod };
