@@ -78,6 +78,15 @@ export default function extended(
   Q: number[] = DEFAULT_Q,
   w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
 ): { min: number; max: number; ticks: number[] } {
+  // 异常数据情况下，直接返回，防止 oom
+  if (typeof dmin !== 'number' || typeof dmax !== 'number') {
+    return {
+      min: 0,
+      max: 0,
+      ticks: [],
+    };
+  }
+
   if (dmin === dmax || m === 1) {
     return {
       min: dmin,
