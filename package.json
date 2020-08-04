@@ -24,7 +24,7 @@
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "lint-stage": "lint-staged",
-    "lint": "tslint -c tslint.json src/**/* tests/**/*",
+    "lint": "tslint -c tslint.json src/**/* tests/**/*.*",
     "lint-fix": "run-s lint-fix:*",
     "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
     "lint-fix:tslint": "tslint -c tslint.json --fix 'src/**/*.ts' 'tests/**/*'",
