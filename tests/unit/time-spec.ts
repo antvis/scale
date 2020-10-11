@@ -126,7 +126,7 @@ describe('ticks', () => {
     const warn = console.warn;
     console.warn = jest.fn();
 
-    new Time({
+    let scale = new Time({
       min: '2000-01-01 10:00:10',
       max: '2000-01-01 14:00:14',
       tickInterval: 1,
@@ -136,7 +136,7 @@ describe('ticks', () => {
 
     console.warn = jest.fn();
 
-    new Time({
+    scale = new Time({
       min: '2000-01-01 10:00:10',
       max: '2000-01-01 14:00:14',
       tickCount: 1000,
