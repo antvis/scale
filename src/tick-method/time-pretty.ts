@@ -43,9 +43,8 @@ function diffMinus(min: number, max: number) {
  * @returns 计算后的 ticks
  */
 export default function timePretty(cfg: ScaleConfig): number[] {
-  const { min, max, minTickInterval } = cfg;
-  let tickInterval = cfg.tickInterval;
-  const tickCount = cfg.tickCount;
+  const { min, max, minTickInterval, tickCount } = cfg;
+  let { tickInterval } = cfg;
   const ticks: number[] = [];
   // 指定 tickInterval 后 tickCount 不生效，需要重新计算
   if (!tickInterval) {
@@ -114,5 +113,12 @@ export default function timePretty(cfg: ScaleConfig): number[] {
       ticks.push(minSecond + i * SECOND);
     }
   }
+
+  // 最好是能从算法能解决这个问题，但是如果指定了 tickInterval，计算 ticks，也只能这么算，所以
+  // 打印警告提示
+  if (ticks.length >= 512) {
+    console.warn(`Notice: current ticks length(${ticks.length}) >= 512, may cause performance issues, even out of memory. Because of the configure "tickInterval"(in milliseconds, current is ${tickInterval}) is too small, increase the value to solve the problem!`);
+  }
+
   return ticks;
 }

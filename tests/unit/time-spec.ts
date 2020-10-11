@@ -1,7 +1,7 @@
 import Time from '../../src/continuous/time';
 import '../../src/tick-method/index';
-
 import { timeFormat, toTimeStamp } from '../../src/util/time';
+
 describe('time scale', () => {
   const scale = new Time({
     min: '2011-01-01',
@@ -120,5 +120,31 @@ describe('ticks', () => {
       mask: 'hh'
     });
     expect(getText(scale.getTicks())).toEqual(['10', '12', '02', '04']);
+  });
+
+  it('time ticks limit warning', () => {
+    const warn = console.warn;
+    console.warn = jest.fn();
+
+    new Time({
+      min: '2000-01-01 10:00:10',
+      max: '2000-01-01 14:00:14',
+      tickInterval: 1,
+    });
+
+    expect(console.warn).toHaveBeenCalledWith('Notice: current ticks length(14405) >= 512, may cause performance issues, even out of memory. Because of the configure "tickInterval"(in milliseconds, current is 1) is too small, increase the value to solve the problem!');
+
+    console.warn = jest.fn();
+
+    new Time({
+      min: '2000-01-01 10:00:10',
+      max: '2000-01-01 14:00:14',
+      tickCount: 1000,
+    });
+
+    expect(console.warn).toHaveBeenCalledWith('Notice: current ticks length(962) >= 512, may cause performance issues, even out of memory. Because of the configure "tickInterval"(in milliseconds, current is 14404) is too small, increase the value to solve the problem!');
+
+    // 复原
+    console.warn = warn;
   });
 });
