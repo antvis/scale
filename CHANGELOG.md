@@ -1,3 +1,9 @@
+#### 0.3.5 (2020-12-17)
+
+#### New Features
+
+- **sourceMap:** add src to files for sourceMap [#66](https://github.com/antvis/scale/pull/66)
+
 #### 0.3.3 (2020-07-22)
 
 ##### New Features
