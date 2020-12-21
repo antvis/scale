@@ -10,7 +10,8 @@ import Quantile from './continuous/quantile';
 import { getScale, registerScale } from './factory';
 import Identity from './identity/index';
 import { getTickMethod, registerTickMethod } from './tick-method/index';
-import { ScaleConfig } from './types';
+import { ScaleConfig, Tick } from './types';
+
 registerScale('cat', Category);
 registerScale('category', Category);
 registerScale('identity', Identity);
@@ -36,6 +37,7 @@ export {
   getScale,
   registerScale,
   ScaleConfig,
+  Tick,
   getTickMethod,
   registerTickMethod,
 };
