@@ -39,3 +39,5 @@ export {
   getTickMethod,
   registerTickMethod,
 };
+
+export * from './types';
