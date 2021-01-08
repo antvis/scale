@@ -9,11 +9,18 @@ class Category extends Base {
   public readonly type: string = 'cat';
   public readonly isCategory: boolean = true;
 
+  // 用于缓存 translate 函数
+  private cache = new Map();
+
   public translate(value: any): number {
-    const index = indexOf(this.values, value);
-    if (index === -1) {
-      return isNumber(value) ? value : NaN;
+    if (this.cache.has(value)) {
+      return this.cache.get(value);
     }
+    let index = indexOf(this.values, value);
+    if (index === -1) {
+      index = isNumber(value) ? value : NaN;
+    }
+    this.cache.set(value, index);
     return index;
   }
 
@@ -58,6 +65,11 @@ class Category extends Base {
     if (isNil(this.getConfig('max'))) {
       const size = this.values.length;
       this.max = size > 1 ? size - 1 : size;
+    }
+
+    // domain 改变时清除缓存
+    if (this.cache) {
+      this.cache.clear();
     }
   }
 }
