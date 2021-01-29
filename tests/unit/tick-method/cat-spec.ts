@@ -2,7 +2,7 @@ import { getTickMethod } from '../../../src/tick-method/index';
 
 function getArr(count) {
   const arr = [];
-  for(let i = 0; i < count; i++) {
+  for (let i = 0; i < count; i++) {
     arr.push(i.toString());
   }
   return arr;
@@ -17,7 +17,7 @@ describe('test cat ticks', () => {
     const arr = getArr(10);
     const ticks = cat({
       values: arr,
-      tickInterval: 2
+      tickInterval: 2,
     });
     expect(ticks.length).toEqual(arr.length / 2);
   });
@@ -26,7 +26,7 @@ describe('test cat ticks', () => {
     const arr = getArr(10);
     const ticks = cat({
       values: arr,
-      tickInterval: 20
+      tickInterval: 20,
     });
     expect(ticks.length).toEqual(1);
   });
@@ -37,7 +37,7 @@ describe('test cat ticks', () => {
       values: arr,
       min: 0,
       max: 10,
-      tickCount: 3
+      tickCount: 3,
     });
     expect(ticks.length).toEqual(3);
   });
@@ -46,7 +46,7 @@ describe('test cat ticks', () => {
     const arr = getArr(10);
     const ticks = cat({
       values: arr,
-      tickCount: 3
+      tickCount: 3,
     });
     expect(ticks.length).toEqual(2);
   });
@@ -55,7 +55,7 @@ describe('test cat ticks', () => {
     const arr = getArr(10);
     const ticks = cat({
       values: arr,
-      tickCount: 20
+      tickCount: 20,
     });
     expect(ticks.length).toEqual(10);
   });
@@ -63,7 +63,7 @@ describe('test cat ticks', () => {
   it('no tickCount or tickInterval', () => {
     const arr = getArr(10);
     const ticks = cat({
-      values: arr
+      values: arr,
     });
     expect(ticks).toEqual(arr);
   });
@@ -73,9 +73,17 @@ describe('test cat ticks', () => {
     const ticks = cat({
       values: arr,
       min: 2,
-      max: 8
+      max: 8,
     });
     expect(ticks.length).toEqual(8 - 2 + 1);
   });
-  
+
+  it('tick count with 0', () => {
+    const arr = getArr(10);
+    const ticks = cat({
+      values: arr,
+      tickCount: 0,
+    });
+    expect(ticks.length).toEqual(0);
+  });
 });
