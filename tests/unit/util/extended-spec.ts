@@ -62,4 +62,8 @@ describe('extended ticks', function() {
     const scale2 = extended(-5, 605, 6, false);
     expect(scale2.ticks).toEqual([ 0, 100, 200, 300, 400, 500, 600  ]);
   });
+  it('extended for 0.5 0.5000000000000001', () => {
+    const scale = extended(0.5, 0.5000000000000001);
+    expect(scale.ticks).toEqual([ 0.5 ]);
+  });
 });
