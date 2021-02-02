@@ -86,8 +86,9 @@ export default function extended(
       ticks: [],
     };
   }
-
-  if (dmin === dmax || m === 1) {
+ 
+  // js 极大值极小值问题，差值小于 1e-15 会导致计算出错
+  if (dmax - dmin < 1e-15 || m === 1) {
     return {
       min: dmin,
       max: dmax,
