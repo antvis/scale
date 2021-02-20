@@ -1,4 +1,4 @@
-import { assign, head, isEmpty, isFunction, isNil, isNumber, isObject, isString, last, map } from '@antv/util';
+import { assign, isEmpty, isFunction, isNil, isNumber, isObject, isString, map } from '@antv/util';
 import { getTickMethod } from './tick-method/register';
 import { ScaleConfig, Tick } from './types';
 export default abstract class Scale {
@@ -127,12 +127,12 @@ export default abstract class Scale {
 
   // range 的最小值
   protected rangeMin() {
-    return head(this.range);
+    return this.range[0];
   }
 
   // range 的最大值
   protected rangeMax() {
-    return last(this.range);
+    return this.range[1];
   }
 
   /** 定义域转 0~1 */
