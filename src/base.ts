@@ -127,12 +127,12 @@ export default abstract class Scale {
 
   // range 的最小值
   protected rangeMin() {
-    return head(this.range);
+    return this.range[0];
   }
 
   // range 的最大值
   protected rangeMax() {
-    return last(this.range);
+    return this.range[1];
   }
 
   /** 定义域转 0~1 */
