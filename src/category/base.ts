@@ -10,18 +10,28 @@ class Category extends Base {
   public readonly isCategory: boolean = true;
 
   // 用于缓存 translate 函数
-  private cache = new Map();
+  private translateIndexMap;
+
+  private buildIndexMap() {
+    if (!this.translateIndexMap) {
+      this.translateIndexMap = new Map();
+      // 重新构建缓存
+      for (let i = 0; i < this.values.length; i ++) {
+        this.translateIndexMap.set(this.values[i], i);
+      }
+    }
+  }
 
   public translate(value: any): number {
-    if (this.cache.has(value)) {
-      return this.cache.get(value);
+    // 按需构建 map
+    this.buildIndexMap();
+    // 找得到
+    let idx = this.translateIndexMap.get(value);
+    
+    if (idx === undefined) {
+      idx = isNumber(value) ? value : NaN;
     }
-    let index = indexOf(this.values, value);
-    if (index === -1) {
-      index = isNumber(value) ? value : NaN;
-    }
-    this.cache.set(value, index);
-    return index;
+    return idx;
   }
 
   public scale(value: any): number {
@@ -67,9 +77,9 @@ class Category extends Base {
       this.max = size > 1 ? size - 1 : size;
     }
 
-    // domain 改变时清除缓存
-    if (this.cache) {
-      this.cache.clear();
+    // scale.init 的时候清除缓存
+    if (this.translateIndexMap) {
+      this.translateIndexMap = undefined;
     }
   }
 }

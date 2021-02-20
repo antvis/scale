@@ -218,34 +218,26 @@ describe('category translate cache', () => {
   });
 
   // @ts-ignore
-  expect(scale.cache.has('A')).toBeFalsy();
-  // @ts-ignore
-  expect(scale.cache.has('B')).toBeFalsy();
-  // @ts-ignore
-  expect(scale.cache.has('C')).toBeFalsy();
+  expect(scale.translateIndexMap).toBeUndefined();
 
   expect(scale.scale('A')).toBe(-0.5);
   // @ts-ignore
-  expect(scale.cache.has('A')).toBeTruthy();
+  expect(scale.translateIndexMap.has('A')).toBeTruthy();
   // @ts-ignore
-  expect(scale.cache.has('B')).toBeFalsy();
+  expect(scale.translateIndexMap.has('B')).toBeTruthy();
   // @ts-ignore
-  expect(scale.cache.has('C')).toBeFalsy();
+  expect(scale.translateIndexMap.has('C')).toBeTruthy();
 
   expect(scale.scale('C')).toBe(0.5);
   // @ts-ignore
-  expect(scale.cache.has('A')).toBeTruthy();
+  expect(scale.translateIndexMap.has('A')).toBeTruthy();
   // @ts-ignore
-  expect(scale.cache.has('B')).toBeFalsy();
+  expect(scale.translateIndexMap.has('B')).toBeTruthy();
   // @ts-ignore
-  expect(scale.cache.has('C')).toBeTruthy();
+  expect(scale.translateIndexMap.has('C')).toBeTruthy();
 
   scale.change({ values: ['A', 'B', 'C'] });
 
   // @ts-ignore
-  expect(scale.cache.has('A')).toBeFalsy();
-  // @ts-ignore
-  expect(scale.cache.has('B')).toBeFalsy();
-  // @ts-ignore
-  expect(scale.cache.has('C')).toBeFalsy();
+  expect(scale.translateIndexMap).toBeUndefined();
 });
