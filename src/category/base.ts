@@ -1,4 +1,4 @@
-import { indexOf, isNil, isNumber } from '@antv/util';
+import { isNil, isNumber } from '@antv/util';
 import Base from '../base';
 
 /**

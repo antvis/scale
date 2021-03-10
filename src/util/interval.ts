@@ -13,7 +13,7 @@ function snapMultiple(v, base, snapType) {
   return div * base;
 }
 
-export default function intervalTicks(min, max, interval) {
+export function interval(min, max, interval) {
   // 变成 interval 的倍数
   let minTick = snapMultiple(min, interval, 'floor'); 
   let maxTick = snapMultiple(max, interval, 'ceil'); 

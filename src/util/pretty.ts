@@ -1,4 +1,4 @@
-export default function pretty(min: number, max: number, n: number = 5) {
+export function pretty(min: number, max: number, n: number = 5) {
 
   const res = {
     max: 0,

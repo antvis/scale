@@ -7,24 +7,15 @@ import Pow from './continuous/pow';
 import Time from './continuous/time';
 import Quantize from './continuous/quantize';
 import Quantile from './continuous/quantile';
-import { getScale, registerScale } from './factory';
-import Identity from './identity/index';
-import { getTickMethod, registerTickMethod } from './tick-method/index';
+import Identity from './identity';
+
 import { ScaleConfig, Tick } from './types';
 
-registerScale('cat', Category);
-registerScale('category', Category);
-registerScale('identity', Identity);
-registerScale('linear', Linear);
-registerScale('log', Log);
-registerScale('pow', Pow);
-registerScale('time', Time);
-registerScale('timeCat', TimeCat);
-registerScale('quantize', Quantize);
-registerScale('quantile', Quantile);
-
 export {
+  // scales
   Category,
+  // alias
+  Category as Cat,
   Identity,
   Linear,
   Log,
@@ -34,10 +25,10 @@ export {
   Quantile,
   Quantize,
   Scale,
-  getScale,
-  registerScale,
+  // others
   ScaleConfig,
   Tick,
-  getTickMethod,
-  registerTickMethod,
 };
+
+// 内置的 tick method，以及追加方法
+export { cat, d3Linear, linear, log, pow, quantile, pretty, time, timeCat, timePretty, registerTickMethod } from './tick-method';

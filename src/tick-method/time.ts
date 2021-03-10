@@ -1,7 +1,7 @@
 import { ScaleConfig } from '../types';
 import { getTickInterval } from '../util/time';
 
-export default function calculateTimeTicks(cfg: ScaleConfig): number[] {
+export function time(cfg: ScaleConfig): number[] {
   const { min, max, minTickInterval } = cfg;
   let tickInterval = cfg.tickInterval;
   let tickCount = cfg.tickCount;

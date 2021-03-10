@@ -6,7 +6,7 @@ type GetterFunc<T> = (o: T) => number;
  * 二分右侧查找
  * https://github.com/d3/d3-array/blob/master/src/bisector.js
  */
-export default function<T>(getter: GetterFunc<T>) {
+export function bisector<T>(getter: GetterFunc<T>) {
   /**
    * x: 目标值
    * lo: 起始位置

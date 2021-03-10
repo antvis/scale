@@ -1,5 +1,5 @@
 import { assign, isEmpty, isFunction, isNil, isNumber, isObject, isString, map } from '@antv/util';
-import { getTickMethod } from './tick-method/register';
+import { getTickMethod } from './tick-method/';
 import { ScaleConfig, Tick } from './types';
 export default abstract class Scale {
   /**

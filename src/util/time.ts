@@ -1,8 +1,8 @@
 import { isDate, isString, last } from '@antv/util';
 import fecha from 'fecha';
 import * as fecha1 from 'fecha';
+import { bisector } from './bisector';
 
-import bisector from './bisector';
 const FORMAT_METHOD = 'format';
 
 export function timeFormat(time, mask) { // 由于 fecha 包的 typescript 定义有问题，所以暂时兼容一下

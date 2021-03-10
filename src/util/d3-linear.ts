@@ -1,6 +1,6 @@
 import { ScaleConfig } from '../types';
 
-export default function d3Linear(cfg: ScaleConfig): number[] {
+export function d3Linear(cfg: ScaleConfig): number[] {
   const { min, max, nice, tickCount } = cfg;
   const linear = new D3Linear();
   linear.domain([min, max]);

@@ -1,5 +1,5 @@
 import { ScaleConfig } from '../types';
-import { DAY, getTickInterval, HOUR, MINUTE, MONTH, SECOND, YEAR } from '../util/time';
+import { DAY, HOUR, MINUTE, MONTH, SECOND, YEAR } from '../util/time';
 
 function getYear(date: number) {
   return new Date(date).getFullYear();
@@ -42,7 +42,7 @@ function diffMinus(min: number, max: number) {
  * @param cfg 度量的配置项
  * @returns 计算后的 ticks
  */
-export default function timePretty(cfg: ScaleConfig): number[] {
+export function timePretty(cfg: ScaleConfig): number[] {
   const { min, max, minTickInterval, tickCount } = cfg;
   let { tickInterval } = cfg;
   const ticks: number[] = [];

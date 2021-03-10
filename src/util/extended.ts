@@ -70,7 +70,7 @@ function legibility() {
  * @param Q nice numbers集合
  * @param w 四个优化组件的权重
  */
-export default function extended(
+export function extended(
   dmin: number,
   dmax: number,
   m: number = 5,

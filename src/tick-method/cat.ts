@@ -1,13 +1,13 @@
 import { filter, isNil, isNumber } from '@antv/util';
 import { ScaleConfig } from '../types';
-import extended from '../util/extended';
+import { extended } from '../util/extended';
 
 /**
  * 计算分类 ticks
  * @param cfg 度量的配置项
  * @returns 计算后的 ticks
  */
-export default function calculateCatTicks(cfg: ScaleConfig): any[] {
+export function cat(cfg: ScaleConfig): any[] {
   const { values, tickInterval, tickCount } = cfg;
 
   const ticks = values;

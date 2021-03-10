@@ -32,7 +32,7 @@ function quantileSorted(x, p) {
   }
 }
 
-export default function calculateTicks(cfg: ScaleConfig) {
+export function quantile(cfg: ScaleConfig) {
   const { tickCount, values } = cfg;
   if (!values || !values.length) {
     return [];

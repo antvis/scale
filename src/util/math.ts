@@ -1,4 +1,5 @@
 import { each, isNil } from '@antv/util';
+
 // 求以a为次幂，结果为b的基数，如 x^^a = b;求x
 // 虽然数学上 b 不支持负数，但是这里需要支持 负数
 export function calBase(a: number, b: number) {

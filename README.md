@@ -1,6 +1,19 @@
-# `@antv/scale`
+# @antv/scale
 
-> 0.3 版本不兼容之前 0.1.X，大体上兼容 0.2.x 版本，一些差异在最下面列出
+> Scale for visualization, used into G2 and others.
+
+[![Build Status](https://github.com/antvis/scale/workflows/build/badge.svg)](https://github.com/antvis/scale/actions)
+[![Coverage Status](https://coveralls.io/repos/github/antvis/scale/badge.svg?branch=master)](https://coveralls.io/github/antvis/scale?branch=master)
+[![npm Version](https://img.shields.io/npm/v/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
+[![npm Download](https://img.shields.io/npm/dm/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
+[![npm License](https://img.shields.io/npm/l/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
+
+
+## Installation
+
+```bash
+$ npm install @antv/scale
+```
 
 ## Description
 
@@ -136,3 +149,7 @@ const TimeCat = getScale('timeCat');
 
 - tickInterval， minTickInterval：在 linear、log、pow 度量中不再支持
 - transform：3.x 中移除这个函数，大多数度量中使用不到
+
+## License
+
+MIT
