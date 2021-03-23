@@ -5,7 +5,8 @@ import { bisector } from './bisector';
 
 const FORMAT_METHOD = 'format';
 
-export function timeFormat(time, mask) { // 由于 fecha 包的 typescript 定义有问题，所以暂时兼容一下
+export function timeFormat(time, mask) {
+  // 由于 fecha 包的 typescript 定义有问题，所以暂时兼容一下
   const method = fecha1[FORMAT_METHOD] || fecha[FORMAT_METHOD];
   return method(time, mask);
 }

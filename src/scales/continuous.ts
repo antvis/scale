@@ -1,5 +1,5 @@
 import { filter, getRange, head, isNil, last } from '@antv/util';
-import Base from '../base';
+import Base from './base';
 
 /**
  * 连续度量的基类

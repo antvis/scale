@@ -1,5 +1,4 @@
 export function pretty(min: number, max: number, n: number = 5) {
-
   const res = {
     max: 0,
     min: 0,

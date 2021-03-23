@@ -1,4 +1,4 @@
-import Continuous from './base';
+import Continuous from './continuous';
 
 /**
  * 线性度量

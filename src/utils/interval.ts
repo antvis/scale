@@ -1,4 +1,3 @@
-
 import { fixedBase } from '@antv/util';
 
 function snapMultiple(v, base, snapType) {
@@ -15,8 +14,8 @@ function snapMultiple(v, base, snapType) {
 
 export function interval(min, max, interval) {
   // 变成 interval 的倍数
-  let minTick = snapMultiple(min, interval, 'floor'); 
-  let maxTick = snapMultiple(max, interval, 'ceil'); 
+  let minTick = snapMultiple(min, interval, 'floor');
+  let maxTick = snapMultiple(max, interval, 'ceil');
   // 统一小数位数
   minTick = fixedBase(minTick, interval);
   maxTick = fixedBase(maxTick, interval);
@@ -28,6 +27,6 @@ export function interval(min, max, interval) {
   return {
     min: minTick,
     max: maxTick,
-    ticks
+    ticks,
   };
 }

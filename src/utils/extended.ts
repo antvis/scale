@@ -76,7 +76,7 @@ export function extended(
   m: number = 5,
   onlyLoose: boolean = true,
   Q: number[] = DEFAULT_Q,
-  w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
+  w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05],
 ): { min: number; max: number; ticks: number[] } {
   // 异常数据情况下，直接返回，防止 oom
   if (typeof dmin !== 'number' || typeof dmax !== 'number' || !m) {
@@ -86,7 +86,7 @@ export function extended(
       ticks: [],
     };
   }
- 
+
   // js 极大值极小值问题，差值小于 1e-15 会导致计算出错
   if (dmax - dmin < 1e-15 || m === 1) {
     return {

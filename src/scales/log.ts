@@ -1,5 +1,5 @@
-import { getLogPositiveMin, log } from '../util/math';
-import Continuous from './base';
+import { getLogPositiveMin, log } from '../utils/math';
+import Continuous from './continuous';
 /**
  * Log 度量，处理非均匀分布
  */

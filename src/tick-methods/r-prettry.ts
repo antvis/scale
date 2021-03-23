@@ -1,8 +1,8 @@
 import { head, isNil, last } from '@antv/util';
 import { ScaleConfig } from '../types';
-import { interval } from '../util/interval';
-import { pretty as prettyMethod } from '../util/pretty';
-import { strictLimit } from '../util/strict-limit';
+import { interval } from '../utils/interval';
+import { pretty as prettyMethod } from '../utils/pretty';
+import { strictLimit } from '../utils/strict-limit';
 
 /**
  * 计算线性的 ticks，使用 R's pretty 方法

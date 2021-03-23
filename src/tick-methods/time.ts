@@ -1,5 +1,5 @@
 import { ScaleConfig } from '../types';
-import { getTickInterval } from '../util/time';
+import { getTickInterval } from '../utils/time';
 
 export function time(cfg: ScaleConfig): number[] {
   const { min, max, minTickInterval } = cfg;

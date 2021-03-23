@@ -1,6 +1,6 @@
 import { isEmpty } from '@antv/util';
 import { ScaleConfig } from '../types';
-import { getLogPositiveMin, log as logMethod } from '../util/math';
+import { getLogPositiveMin, log as logMethod } from '../utils/math';
 
 /**
  * 计算 log 的 ticks，考虑 min = 0 的场景

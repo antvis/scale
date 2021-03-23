@@ -1,6 +1,6 @@
 import { filter, isNil, isNumber } from '@antv/util';
 import { ScaleConfig } from '../types';
-import { extended } from '../util/extended';
+import { extended } from '../utils/extended';
 
 /**
  * 计算分类 ticks

@@ -1,5 +1,5 @@
-import { calBase } from '../util/math';
-import Continuous from './base';
+import { calBase } from '../utils/math';
+import Continuous from './continuous';
 
 /**
  * Pow 度量，处理非均匀分布

@@ -1,13 +1,13 @@
-import Scale from './base';
-import Category from './category/base';
-import TimeCat from './category/time';
-import Linear from './continuous/linear';
-import Log from './continuous/log';
-import Pow from './continuous/pow';
-import Time from './continuous/time';
-import Quantize from './continuous/quantize';
-import Quantile from './continuous/quantile';
-import Identity from './identity';
+import Scale from './scales/base';
+import Category from './scales/category';
+import TimeCat from './scales/time-cat';
+import Linear from './scales/linear';
+import Log from './scales/log';
+import Pow from './scales/pow';
+import Time from './scales/time';
+import Quantize from './scales/quantize';
+import Quantile from './scales/quantile';
+import Identity from './scales/identity';
 
 import { ScaleConfig, Tick } from './types';
 
@@ -31,4 +31,16 @@ export {
 };
 
 // 内置的 tick method，以及追加方法
-export { cat, d3Linear, linear, log, pow, quantile, pretty, time, timeCat, timePretty, registerTickMethod } from './tick-method';
+export {
+  cat,
+  d3Linear,
+  linear,
+  log,
+  pow,
+  quantile,
+  pretty,
+  time,
+  timeCat,
+  timePretty,
+  registerTickMethod,
+} from './tick-methods';

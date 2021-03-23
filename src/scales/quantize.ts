@@ -1,5 +1,5 @@
 import { each, head, last } from '@antv/util';
-import Continuous from './base';
+import Continuous from './continuous';
 
 /**
  * 分段度量
@@ -24,8 +24,8 @@ class Quantize extends Continuous {
     const nextTick = ticks[minIndex + 1];
     // 比当前值小的 tick 在度量上的占比
     const minIndexPercent = minIndex / (length - 1);
-    const maxIndexPercent =  (minIndex + 1) / (length - 1);
-    return minTick + (percent - minIndexPercent) / (maxIndexPercent - minIndexPercent) * (nextTick - minTick);
+    const maxIndexPercent = (minIndex + 1) / (length - 1);
+    return minTick + ((percent - minIndexPercent) / (maxIndexPercent - minIndexPercent)) * (nextTick - minTick);
   }
 
   protected initCfg() {
@@ -36,7 +36,8 @@ class Quantize extends Continuous {
 
   protected calculateTicks(): any[] {
     const ticks = super.calculateTicks();
-    if (!this.nice) { // 如果 nice = false ,补充 min, max
+    if (!this.nice) {
+      // 如果 nice = false ,补充 min, max
       if (last(ticks) !== this.max) {
         ticks.push(this.max);
       }

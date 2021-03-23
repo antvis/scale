@@ -1,5 +1,5 @@
 import { each, isDate, isNil, isNumber, isString } from '@antv/util';
-import { timeFormat, toTimeStamp } from '../util/time';
+import { timeFormat, toTimeStamp } from '../utils/time';
 import Linear from './linear';
 
 /**

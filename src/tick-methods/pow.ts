@@ -1,6 +1,6 @@
 import { ScaleConfig } from '../types';
-import { calBase } from '../util/math';
-import { pretty } from '../util/pretty';
+import { calBase } from '../utils/math';
+import { pretty } from '../utils/pretty';
 /**
  * 计算 Pow 的 ticks
  * @param cfg 度量的配置项

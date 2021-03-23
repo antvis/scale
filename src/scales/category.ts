@@ -1,5 +1,5 @@
 import { isNil, isNumber } from '@antv/util';
-import Base from '../base';
+import Base from './base';
 
 /**
  * 分类度量
@@ -16,7 +16,7 @@ class Category extends Base {
     if (!this.translateIndexMap) {
       this.translateIndexMap = new Map();
       // 重新构建缓存
-      for (let i = 0; i < this.values.length; i ++) {
+      for (let i = 0; i < this.values.length; i++) {
         this.translateIndexMap.set(this.values[i], i);
       }
     }
@@ -27,7 +27,7 @@ class Category extends Base {
     this.buildIndexMap();
     // 找得到
     let idx = this.translateIndexMap.get(value);
-    
+
     if (idx === undefined) {
       idx = isNumber(value) ? value : NaN;
     }

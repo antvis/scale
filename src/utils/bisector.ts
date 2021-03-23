@@ -12,7 +12,7 @@ export function bisector<T>(getter: GetterFunc<T>) {
    * lo: 起始位置
    * hi: 结束位置
    */
-  return function(a: T[], x: number, _lo?: number, _hi?: number) {
+  return function (a: T[], x: number, _lo?: number, _hi?: number) {
     let lo = isNil(_lo) ? 0 : _lo;
     let hi = isNil(_hi) ? a.length : _hi;
     while (lo < hi) {

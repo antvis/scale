@@ -1,6 +1,6 @@
 import { each, isNumber } from '@antv/util';
-import { timeFormat, toTimeStamp } from '../util/time';
-import Category from './base';
+import { timeFormat, toTimeStamp } from '../utils/time';
+import Category from './category';
 
 /**
  * 时间分类度量

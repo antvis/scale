@@ -1,5 +1,5 @@
 import { has, isNumber } from '@antv/util';
-import Base from '../base';
+import Base from './base';
 import { ScaleType } from '../types';
 
 /**

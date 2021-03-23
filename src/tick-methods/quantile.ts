@@ -11,7 +11,7 @@ function quantileSorted(x, p) {
   } else if (p < 0 || p > 1) {
     throw new Error('quantiles must be between 0 and 1');
   } else */
-  
+
   if (p === 1) {
     // If p is 1, directly return the last element
     return x[x.length - 1];
