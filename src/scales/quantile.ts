@@ -1,6 +1,6 @@
-import Quantize from './quantize';
+import { Quantize } from './quantize';
 
-class Quantile extends Quantize {
+export class Quantile extends Quantize {
   public type = 'quantile';
   protected initCfg() {
     this.tickMethod = 'quantile';
@@ -8,5 +8,3 @@ class Quantile extends Quantize {
     this.nice = true;
   }
 }
-
-export default Quantile;

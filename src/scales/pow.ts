@@ -1,10 +1,10 @@
 import { calBase } from '../utils/math';
-import Continuous from './continuous';
+import { Continuous } from './continuous';
 
 /**
  * Pow 度量，处理非均匀分布
  */
-class Pow extends Continuous {
+export class Pow extends Continuous {
   public readonly type: string = 'pow';
   /**
    * 指数
@@ -44,5 +44,3 @@ class Pow extends Continuous {
     return percent;
   }
 }
-
-export default Pow;

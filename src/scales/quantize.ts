@@ -1,10 +1,10 @@
 import { each, head, last } from '@antv/util';
-import Continuous from './continuous';
+import { Continuous } from './continuous';
 
 /**
  * 分段度量
  */
-class Quantize extends Continuous {
+export class Quantize extends Continuous {
   public type = 'quantize';
 
   public invert(value): number {
@@ -70,5 +70,3 @@ class Quantize extends Continuous {
     return minIndex / (ticks.length - 1);
   }
 }
-
-export default Quantize;

@@ -1,11 +1,11 @@
 import { isNil, isNumber } from '@antv/util';
-import Base from './base';
+import { Scale } from './base';
 
 /**
  * 分类度量
  * @class
  */
-class Category extends Base {
+export class Category extends Scale {
   public readonly type: string = 'cat';
   public readonly isCategory: boolean = true;
 
@@ -83,5 +83,3 @@ class Category extends Base {
     }
   }
 }
-
-export default Category;

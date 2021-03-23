@@ -1,5 +1,5 @@
 import { has, isNumber } from '@antv/util';
-import Base from './base';
+import { Scale } from './base';
 import { ScaleType } from '../types';
 
 /**
@@ -7,7 +7,7 @@ import { ScaleType } from '../types';
  * 参考R的实现：https://github.com/r-lib/scales/blob/master/R/pal-identity.r
  * 参考d3的实现（做了下转型）：https://github.com/d3/d3-scale/blob/master/src/identity.js
  */
-export default class Identity extends Base {
+export class Identity extends Scale {
   public readonly type: ScaleType = 'identity';
   public readonly isIdentity: boolean = true;
 

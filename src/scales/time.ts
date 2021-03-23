@@ -1,12 +1,12 @@
 import { each, isDate, isNil, isNumber, isString } from '@antv/util';
 import { timeFormat, toTimeStamp } from '../utils/time';
-import Linear from './linear';
+import { Linear } from './linear';
 
 /**
  * 时间度量
  * @class
  */
-class Time extends Linear {
+export class Time extends Linear {
   public readonly type: string = 'time';
   public mask: string;
 
@@ -91,4 +91,3 @@ class Time extends Linear {
     }
   }
 }
-export default Time;

@@ -1,10 +1,10 @@
-import Continuous from './continuous';
+import { Continuous } from './continuous';
 
 /**
  * 线性度量
  * @class
  */
-export default class Linear extends Continuous {
+export class Linear extends Continuous {
   public minTickInterval: number;
   public type = 'linear';
   public readonly isLinear: boolean = true;

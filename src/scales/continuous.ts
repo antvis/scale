@@ -1,11 +1,11 @@
 import { filter, getRange, head, isNil, last } from '@antv/util';
-import Base from './base';
+import { Scale } from './base';
 
 /**
  * 连续度量的基类
  * @class
  */
-export default abstract class Continuous extends Base {
+export abstract class Continuous extends Scale {
   public isContinuous?: boolean = true;
   public nice: boolean;
 

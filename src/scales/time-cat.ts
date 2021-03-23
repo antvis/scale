@@ -1,12 +1,12 @@
 import { each, isNumber } from '@antv/util';
 import { timeFormat, toTimeStamp } from '../utils/time';
-import Category from './category';
+import { Category } from './category';
 
 /**
  * 时间分类度量
  * @class
  */
-class TimeCat extends Category {
+export class TimeCat extends Category {
   public readonly type: string = 'timeCat';
   public mask;
   /**
@@ -57,5 +57,3 @@ class TimeCat extends Category {
     super.setDomain();
   }
 }
-
-export default TimeCat;

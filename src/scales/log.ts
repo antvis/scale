@@ -1,9 +1,9 @@
 import { getLogPositiveMin, log } from '../utils/math';
-import Continuous from './continuous';
+import { Continuous } from './continuous';
 /**
  * Log 度量，处理非均匀分布
  */
-class Log extends Continuous {
+export class Log extends Continuous {
   public readonly type: string = 'log';
   public base: number;
   // 用于解决 min: 0 的场景下的问题
@@ -83,5 +83,3 @@ class Log extends Continuous {
     return percent;
   }
 }
-
-export default Log;
