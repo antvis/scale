@@ -1,4 +1,4 @@
-import { Base } from '../../../src/scales/base';
+import Base from '../../../src/scales/base';
 import { BaseOptions, Primitive } from '../../../src/types';
 
 class Scale extends Base<BaseOptions> {
@@ -11,7 +11,7 @@ class Scale extends Base<BaseOptions> {
   }
 
   public clone() {
-    return new Scale(this._options);
+    return new Scale(this.options);
   }
 }
 
@@ -19,7 +19,7 @@ describe('Scale', () => {
   test('Scale() has expected defaults', () => {
     const s = new Scale();
     //@ts-ignore
-    const { formatter, tickMethod, ...restOptions } = s._options;
+    const { formatter, tickMethod, ...restOptions } = s.options;
 
     expect(restOptions).toEqual({
       domain: [],
@@ -29,7 +29,7 @@ describe('Scale', () => {
     });
     expect(formatter(1)).toBe('1');
     //@ts-ignore
-    expect(tickMethod(s._options)).toEqual([]);
+    expect(tickMethod(s.options)).toEqual([]);
   });
 
   test('Scale(options) override defaults', () => {
@@ -39,9 +39,9 @@ describe('Scale', () => {
     });
 
     //@ts-ignore
-    expect(s._options.tickCount).toBe(20);
+    expect(s.options.tickCount).toBe(20);
     //@ts-ignore
-    expect(s._options.domain).toEqual([0, 10]);
+    expect(s.options.domain).toEqual([0, 10]);
   });
 
   test('getOptions(key) return corresponding value if key is valid', () => {
@@ -53,7 +53,7 @@ describe('Scale', () => {
   test('getOptions(key) return the total options if key is not valid', () => {
     const s = new Scale();
     //@ts-ignore
-    expect(s._options).toEqual(s.getOptions());
+    expect(s.options).toEqual(s.getOptions());
   });
 
   test('update(options) update options', () => {
