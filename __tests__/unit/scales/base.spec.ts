@@ -2,10 +2,12 @@ import Base from '../../../src/scales/base';
 import { BaseOptions, Primitive } from '../../../src/types';
 
 class Scale extends Base<BaseOptions> {
+  // eslint-disable-next-line class-methods-use-this
   public map(x: Primitive): Primitive {
     return x;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public invert(x: Primitive): Primitive {
     return x;
   }
@@ -18,7 +20,7 @@ class Scale extends Base<BaseOptions> {
 describe('Scale', () => {
   test('Scale() has expected defaults', () => {
     const s = new Scale();
-    //@ts-ignore
+    // @ts-ignore
     const { formatter, tickMethod, ...restOptions } = s.options;
 
     expect(restOptions).toEqual({
@@ -28,7 +30,7 @@ describe('Scale', () => {
       tickInterval: 10,
     });
     expect(formatter(1)).toBe('1');
-    //@ts-ignore
+    // @ts-ignore
     expect(tickMethod(s.options)).toEqual([]);
   });
 
@@ -38,9 +40,9 @@ describe('Scale', () => {
       domain: [0, 10],
     });
 
-    //@ts-ignore
+    // @ts-ignore
     expect(s.options.tickCount).toBe(20);
-    //@ts-ignore
+    // @ts-ignore
     expect(s.options.domain).toEqual([0, 10]);
   });
 
@@ -52,7 +54,7 @@ describe('Scale', () => {
 
   test('getOptions(key) return the total options if key is not valid', () => {
     const s = new Scale();
-    //@ts-ignore
+    // @ts-ignore
     expect(s.options).toEqual(s.getOptions());
   });
 
