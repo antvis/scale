@@ -91,5 +91,8 @@
   },
   "bugs": {
     "url": "https://github.com/antvis/template/issues"
+  },
+  "dependencies": {
+    "@antv/util": "^2.0.13"
   }
 }
