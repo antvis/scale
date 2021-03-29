@@ -2,10 +2,10 @@ import { assign } from '@antv/util';
 import { BaseOptions, Primitive } from '../types';
 
 export const DEFAULT_OPTIONS: BaseOptions = {
-  domain: [],
-  range: [],
+  domain: [0, 1],
+  range: [0, 1],
   tickCount: 5,
-  tickInterval: 0,
+  tickInterval: 10,
   formatter: (x: Primitive) => `${x}`,
   tickMethod: () => [],
 };

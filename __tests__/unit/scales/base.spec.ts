@@ -22,10 +22,10 @@ describe('Scale', () => {
     const { formatter, tickMethod, ...restOptions } = s.options;
 
     expect(restOptions).toEqual({
-      domain: [],
-      range: [],
+      domain: [0, 1],
+      range: [0, 1],
       tickCount: 5,
-      tickInterval: 0,
+      tickInterval: 10,
     });
     expect(formatter(1)).toBe('1');
     //@ts-ignore
@@ -47,7 +47,7 @@ describe('Scale', () => {
   test('getOptions(key) return corresponding value if key is valid', () => {
     const s = new Scale();
     expect(s.getOptions('tickCount')).toEqual(5);
-    expect(s.getOptions('domain')).toEqual([]);
+    expect(s.getOptions('domain')).toEqual([0, 1]);
   });
 
   test('getOptions(key) return the total options if key is not valid', () => {
@@ -103,7 +103,7 @@ describe('Scale', () => {
       domain: [0, 100],
     });
     expect(s1.getOptions('tickCount')).toBe(5);
-    expect(s1.getOptions('domain')).toEqual([]);
+    expect(s1.getOptions('domain')).toEqual([0, 1]);
 
     s1.update({
       tickCount: 10,
