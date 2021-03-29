@@ -26,14 +26,10 @@ describe('Scale', () => {
       range: [],
       tickCount: 5,
       tickInterval: 0,
-      field: '',
-      alias: '',
     });
     expect(formatter(1)).toBe('1');
     //@ts-ignore
     expect(tickMethod(s._options)).toEqual([]);
-    //@ts-ignore
-    expect(s._options.tickMethod.type).toBe('Basic');
   });
 
   test('Scale(options) override defaults', () => {
