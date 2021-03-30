@@ -1,4 +1,4 @@
-import Base from '../../../src/scales/base';
+import Base, { DEFAULT_OPTIONS } from '../../../src/scales/base';
 import { BaseOptions, Primitive } from '../../../src/types';
 
 class Scale extends Base<BaseOptions> {
@@ -44,6 +44,13 @@ describe('Scale', () => {
     expect(s.options.tickCount).toBe(20);
     // @ts-ignore
     expect(s.options.domain).toEqual([0, 10]);
+  });
+
+  test('Scale({}, defaults) set defaults', () => {
+    const s = new Scale({}, { ...DEFAULT_OPTIONS, domain: [0, 20] });
+
+    // @ts-ignore
+    expect(s.options.domain).toEqual([0, 20]);
   });
 
   test('getOptions() return current Options', () => {
