@@ -46,13 +46,7 @@ describe('Scale', () => {
     expect(s.options.domain).toEqual([0, 10]);
   });
 
-  test('getOptions(key) return corresponding value if key is valid', () => {
-    const s = new Scale();
-    expect(s.getOptions('tickCount')).toEqual(5);
-    expect(s.getOptions('domain')).toEqual([0, 1]);
-  });
-
-  test('getOptions(key) return the total options if key is not valid', () => {
+  test('getOptions() return current Options', () => {
     const s = new Scale();
     // @ts-ignore
     expect(s.options).toEqual(s.getOptions());
@@ -66,8 +60,10 @@ describe('Scale', () => {
       domain: [0, 10],
     });
 
-    expect(s.getOptions('tickCount')).toBe(10);
-    expect(s.getOptions('domain')).toEqual([0, 10]);
+    const options = s.getOptions();
+
+    expect(options.tickCount).toBe(10);
+    expect(options.domain).toEqual([0, 10]);
   });
 
   test('getTicks() call options.tickMethod and return its return value', () => {
@@ -104,14 +100,14 @@ describe('Scale', () => {
       tickCount: 20,
       domain: [0, 100],
     });
-    expect(s1.getOptions('tickCount')).toBe(5);
-    expect(s1.getOptions('domain')).toEqual([0, 1]);
+    expect(s1.getOptions().tickCount).toBe(5);
+    expect(s1.getOptions().domain).toEqual([0, 1]);
 
     s1.update({
       tickCount: 10,
       domain: [0, 10],
     });
-    expect(s.getOptions('tickCount')).toBe(20);
-    expect(s.getOptions('domain')).toEqual([0, 100]);
+    expect(s.getOptions().tickCount).toBe(20);
+    expect(s.getOptions().domain).toEqual([0, 100]);
   });
 });

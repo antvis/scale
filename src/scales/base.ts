@@ -41,12 +41,11 @@ export default abstract class Base<O extends BaseOptions> {
   }
 
   /**
-   * 根据 key，获得一个或者全部的选项
-   * @param key 选项的 key
-   * @returns 一个选项或者全部选项
+   * 返回当前的所有选项
+   * @returns
    */
-  public getOptions(key?: string) {
-    return key && this.options[key] ? this.options[key] : this.options;
+  public getOptions() {
+    return this.options;
   }
 
   /**
