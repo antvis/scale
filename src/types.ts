@@ -16,7 +16,7 @@ export type BaseOptions<R = Primitive, D = Primitive, T = any> = {
   /** tick 间隔的最大值，默认值为 10 */
   tickInterval?: number;
   /** 计算 ticks 的算法 */
-  tickMethod?: T;
+  tickMethod?: TickMethod<T>;
 };
 
 export type IdentityOptions = BaseOptions<number, number>;
