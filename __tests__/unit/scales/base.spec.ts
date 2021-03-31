@@ -1,5 +1,6 @@
-import Base, { DEFAULT_OPTIONS } from '../../../src/scales/base';
+import { Base, DEFAULT_OPTIONS } from '../../../src/scales/base';
 import { BaseOptions, Primitive } from '../../../src/types';
+import { ticks } from '../../../src/tick-method/basic';
 
 class Scale extends Base<BaseOptions> {
   // eslint-disable-next-line class-methods-use-this
@@ -32,6 +33,7 @@ describe('Scale', () => {
     expect(formatter(1)).toBe('1');
     // @ts-ignore
     expect(tickMethod(s.options)).toEqual([]);
+    expect(tickMethod).toEqual(ticks);
   });
 
   test('Scale(options) override defaults', () => {
@@ -105,16 +107,12 @@ describe('Scale', () => {
 
     s.update({
       tickCount: 20,
-      domain: [0, 100],
     });
     expect(s1.getOptions().tickCount).toBe(5);
-    expect(s1.getOptions().domain).toEqual([0, 1]);
 
     s1.update({
-      tickCount: 10,
-      domain: [0, 10],
+      tickCount: 30,
     });
     expect(s.getOptions().tickCount).toBe(20);
-    expect(s.getOptions().domain).toEqual([0, 100]);
   });
 });

@@ -1,4 +1,6 @@
-export type Primitive = number | string;
+export type Primitive = number | string | Date;
+
+export type TickMethod<T> = (options?: T) => Primitive[];
 
 export type BaseOptions<R = Primitive, D = Primitive, T = any> = {
   /** 当需要映射的值不合法的时候，返回的值 */
@@ -14,5 +16,7 @@ export type BaseOptions<R = Primitive, D = Primitive, T = any> = {
   /** tick 间隔的最大值，默认值为 10 */
   tickInterval?: number;
   /** 计算 ticks 的算法 */
-  tickMethod?: (options?: T) => Primitive[];
+  tickMethod?: TickMethod<T>;
 };
+
+export type IdentityOptions = BaseOptions<number, number>;

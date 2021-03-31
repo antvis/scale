@@ -17,6 +17,7 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     'import/extensions': 'off',
+    'import/prefer-default-export': 'off',
   },
   settings: {
     'import/parsers': {
