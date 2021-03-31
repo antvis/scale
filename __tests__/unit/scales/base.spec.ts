@@ -1,5 +1,6 @@
 import Base, { DEFAULT_OPTIONS } from '../../../src/scales/base';
 import { BaseOptions, Primitive } from '../../../src/types';
+import testClone from '../../utils/clone';
 
 class Scale extends Base<BaseOptions> {
   // eslint-disable-next-line class-methods-use-this
@@ -88,34 +89,5 @@ describe('Scale', () => {
     expect(mockFn).toBeCalled();
   });
 
-  test('clone() return a scale belong to same class', () => {
-    const s = new Scale();
-    const s1 = s.clone();
-    expect(s1).toBeInstanceOf(Scale);
-  });
-
-  test('clone() return a scale with the same options as the original one', () => {
-    const s = new Scale();
-    const s1 = s.clone();
-    expect(s.getOptions()).toEqual(s1.getOptions());
-  });
-
-  test('clone() return a scale isolating change with the original one', () => {
-    const s = new Scale();
-    const s1 = s.clone();
-
-    s.update({
-      tickCount: 20,
-      domain: [0, 100],
-    });
-    expect(s1.getOptions().tickCount).toBe(5);
-    expect(s1.getOptions().domain).toEqual([0, 1]);
-
-    s1.update({
-      tickCount: 10,
-      domain: [0, 10],
-    });
-    expect(s.getOptions().tickCount).toBe(20);
-    expect(s.getOptions().domain).toEqual([0, 100]);
-  });
+  testClone(Scale);
 });
