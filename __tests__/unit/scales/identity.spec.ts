@@ -1,6 +1,5 @@
 import { Identity, IdentityOptions } from '../../../src/index';
 import { ticks } from '../../../src/tick-method/basic';
-import testClone from '../../utils/clone';
 
 describe('Identity', () => {
   test('Identity() has expected defaults', () => {
@@ -57,5 +56,30 @@ describe('Identity', () => {
     expect(x.invert(2.5)).toBe(2.5);
   });
 
-  testClone(Identity);
+  test('clone() return a scale belong to same class', () => {
+    const s = new Identity();
+    const s1 = s.clone();
+    expect(s1).toBeInstanceOf(Identity);
+  });
+
+  test('clone() return a scale with the same options as the original one', () => {
+    const s = new Identity();
+    const s1 = s.clone();
+    expect(s.getOptions()).toEqual(s1.getOptions());
+  });
+
+  test('clone() return a scale isolating change with the original one', () => {
+    const s = new Identity();
+    const s1 = s.clone();
+
+    s.update({
+      tickCount: 20,
+    });
+    expect(s1.getOptions().tickCount).toBe(5);
+
+    s1.update({
+      tickCount: 30,
+    });
+    expect(s.getOptions().tickCount).toBe(20);
+  });
 });
