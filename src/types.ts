@@ -1,6 +1,6 @@
 export type Primitive = number | string | Date;
 
-export type TickMethod<T> = ((options?: T) => Primitive[]) & { type: string };
+export type TickMethod<T> = (options?: T) => Primitive[];
 
 export type BaseOptions<R = Primitive, D = Primitive, T = any> = {
   /** 当需要映射的值不合法的时候，返回的值 */

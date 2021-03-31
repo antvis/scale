@@ -1,4 +1,5 @@
 import { Identity, IdentityOptions } from '../../../src/index';
+import { ticks } from '../../../src/tick-method/basic';
 import testClone from '../../utils/clone';
 
 describe('Identity', () => {
@@ -13,7 +14,7 @@ describe('Identity', () => {
       tickInterval: 10,
     });
     expect(formatter(1)).toBe('1');
-    expect(tickMethod.type).toEqual('basic');
+    expect(tickMethod).toEqual(ticks);
   });
 
   test('Identity(options) override defaults', () => {
