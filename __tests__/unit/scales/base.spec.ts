@@ -1,4 +1,4 @@
-import Base, { DEFAULT_OPTIONS } from '../../../src/scales/base';
+import { Base, DEFAULT_OPTIONS } from '../../../src/scales/base';
 import { BaseOptions, Primitive } from '../../../src/types';
 import testClone from '../../utils/clone';
 import { ticks } from '../../../src/tick-method/basic';

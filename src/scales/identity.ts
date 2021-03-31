@@ -1,5 +1,5 @@
 import { isNumber } from '@antv/util';
-import Base from './base';
+import { Base } from './base';
 import { IdentityOptions } from '../types';
 
 export class Identity extends Base<IdentityOptions> {

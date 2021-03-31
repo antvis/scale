@@ -11,7 +11,7 @@ export const DEFAULT_OPTIONS: BaseOptions = {
   tickMethod: ticks,
 };
 
-export default abstract class Base<O extends BaseOptions> {
+export abstract class Base<O extends BaseOptions> {
   /**
    * 将定义域里面的一个值，根据转换规则，转换为值域的一个值
    * @param x 需要转换的值
