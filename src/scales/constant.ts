@@ -1,0 +1,47 @@
+import { ConstantOptions } from '../types';
+import { Base, DEFAULT_OPTIONS as BASE_DEFAULT_OPTIONS } from './base';
+import { Domain, Range } from '../utils/type';
+
+const DEFAULT_OPTIONS: ConstantOptions = {
+  ...BASE_DEFAULT_OPTIONS,
+  range: [0], // 默认为 y = 0
+};
+
+export class Constant extends Base<ConstantOptions> {
+  /**
+   * 覆盖默认配置
+   * @param options 需要自定义配置的选项
+   */
+  constructor(options?: Partial<ConstantOptions>) {
+    super(options, DEFAULT_OPTIONS);
+  }
+
+  /**
+   * 输入和输出满足：y = b，其中 b 是一个常量，是 options.range 的第一个元素
+   * @param _ 输入值
+   * @returns 输出值（常量）
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public map(_: Domain<ConstantOptions>) {
+    const [v] = this.options.range;
+    return v !== undefined ? v : this.options.unknown;
+  }
+
+  /**
+   * 如果 x 是该比例尺的常量（x === b），返回输入值的范围（即定义域），否者返回 []
+   * @param x 输出值 (常量）
+   * @returns 定义域
+   */
+  public invert(x: Range<ConstantOptions>) {
+    const [v] = this.options.range;
+    return x === v && v !== undefined ? this.options.domain : [];
+  }
+
+  /**
+   * 克隆 Constant Scale
+   * @returns 拥有相同选项且独立的 Constant Scale
+   */
+  public clone() {
+    return new Constant(this.options);
+  }
+}

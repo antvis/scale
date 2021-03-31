@@ -18,3 +18,5 @@ export type BaseOptions<R = any, D = any, T = any> = {
 };
 
 export type IdentityOptions = BaseOptions<number, number>;
+
+export type ConstantOptions = BaseOptions<number | string, number | string>;
