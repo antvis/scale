@@ -32,6 +32,7 @@ describe('Scale', () => {
     expect(formatter(1)).toBe('1');
     // @ts-ignore
     expect(tickMethod(s.options)).toEqual([]);
+    expect(tickMethod.type).toEqual('basic');
   });
 
   test('Scale(options) override defaults', () => {

@@ -1,5 +1,6 @@
 import { assign } from '@antv/util';
 import { BaseOptions, Primitive } from '../types';
+import { ticks } from '../tick-method/basic';
 
 export const DEFAULT_OPTIONS: BaseOptions = {
   domain: [0, 1],
@@ -7,7 +8,7 @@ export const DEFAULT_OPTIONS: BaseOptions = {
   tickCount: 5,
   tickInterval: 10,
   formatter: (x: Primitive) => `${x}`,
-  tickMethod: () => [],
+  tickMethod: ticks,
 };
 
 export default abstract class Base<O extends BaseOptions> {
