@@ -18,3 +18,5 @@ export type BaseOptions<R = Primitive, D = Primitive, T = any> = {
   /** 计算 ticks 的算法 */
   tickMethod?: T;
 };
+
+export type IdentityOptions = BaseOptions<number, number>;
