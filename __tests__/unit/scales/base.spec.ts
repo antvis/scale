@@ -1,15 +1,16 @@
 import { Base, DEFAULT_OPTIONS } from '../../../src/scales/base';
-import { BaseOptions, Primitive } from '../../../src/types';
+import { BaseOptions } from '../../../src/types';
 import { ticks } from '../../../src/tick-method/basic';
+import { Domain, Range } from '../../../src/utils/type';
 
 class Scale extends Base<BaseOptions> {
   // eslint-disable-next-line class-methods-use-this
-  public map(x: Primitive): Primitive {
+  public map(x: Domain<BaseOptions>) {
     return x;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public invert(x: Primitive): Primitive {
+  public invert(x: Range<BaseOptions>) {
     return x;
   }
 

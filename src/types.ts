@@ -1,16 +1,14 @@
-export type Primitive = number | string | Date;
+export type TickMethod<T> = (options?: T) => any[];
 
-export type TickMethod<T> = (options?: T) => Primitive[];
-
-export type BaseOptions<R = Primitive, D = Primitive, T = any> = {
+export type BaseOptions<R = any, D = any, T = any> = {
   /** 当需要映射的值不合法的时候，返回的值 */
-  unknown?: string;
+  unknown?: any;
   /** 值域，默认为 [0, 1] */
   range?: R[];
   /** 定义域，默认为 [0, 1] */
   domain?: D[];
   /** tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 */
-  formatter?: (x: Primitive) => string;
+  formatter?: (x: R) => string;
   /** tick 个数，默认值为 5 */
   tickCount?: number;
   /** tick 间隔的最大值，默认值为 10 */
