@@ -1,11 +1,5 @@
-import { ConstantOptions } from '../types';
-import { Base, DEFAULT_OPTIONS as BASE_DEFAULT_OPTIONS } from './base';
-import { Domain, Range } from '../utils/type';
-
-const DEFAULT_OPTIONS: ConstantOptions = {
-  ...BASE_DEFAULT_OPTIONS,
-  range: [0], // 默认为 y = 0
-};
+import { ConstantOptions, Domain, Range } from '../types';
+import { Base } from './base';
 
 export class Constant extends Base<ConstantOptions> {
   /**
@@ -13,7 +7,7 @@ export class Constant extends Base<ConstantOptions> {
    * @param options 需要自定义配置的选项
    */
   constructor(options?: Partial<ConstantOptions>) {
-    super(options, DEFAULT_OPTIONS);
+    super(options, { range: [0] });
   }
 
   /**

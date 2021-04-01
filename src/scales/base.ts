@@ -1,16 +1,6 @@
 import { assign } from '@antv/util';
-import { BaseOptions } from '../types';
 import { ticks } from '../tick-method/basic';
-import { Domain, Range, Unknown } from '../utils/type';
-
-export const DEFAULT_OPTIONS: BaseOptions = {
-  domain: [0, 1],
-  range: [0, 1],
-  tickCount: 5,
-  tickInterval: 10,
-  formatter: (x: Range<BaseOptions>) => `${x}`,
-  tickMethod: ticks,
-};
+import { BaseOptions, Domain, Range, Unknown } from '../types';
 
 export abstract class Base<O extends BaseOptions> {
   /**
@@ -34,13 +24,24 @@ export abstract class Base<O extends BaseOptions> {
   /** 比例尺的选项，用于配置数据映射的规则和 ticks 的生成方式 */
   protected options: O = {} as O;
 
+  /** 比例尺扽默认选项，子类可以自定义默认选项 */
+  protected defaultOptions: O = {
+    domain: [0, 1],
+    range: [0, 1],
+    tickCount: 5,
+    tickInterval: 10,
+    formatter: (x: Range<O>) => `${x}`,
+    tickMethod: ticks,
+  } as O;
+
   /**
    * 构造函数
    * @param options 需要自定义配置的选项
-   * @param defaultOptions 默认选项，主要用于子类调用 super(options, ownDefaultOptions)
+   * @param overrideDefaultOptions 覆盖默认选项，子类可以通过这个参数对基本的默认选项进行覆盖
    */
-  constructor(options?: Partial<O>, defaultOptions: O = DEFAULT_OPTIONS as O) {
-    assign(this.options, defaultOptions, options);
+  constructor(options?: Partial<O>, overrideDefaultOptions?: Partial<O>) {
+    assign(this.defaultOptions, overrideDefaultOptions);
+    assign(this.options, this.defaultOptions, options);
   }
 
   /**

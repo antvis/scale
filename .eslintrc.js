@@ -18,6 +18,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error'],
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
+    'object-curly-newline': 'off',
   },
   settings: {
     'import/parsers': {

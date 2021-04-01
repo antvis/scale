@@ -1,7 +1,6 @@
 import { isNumber } from '@antv/util';
 import { Base } from './base';
-import { IdentityOptions } from '../types';
-import { Domain, Range } from '../utils/type';
+import { IdentityOptions, Domain, Range } from '../types';
 
 export class Identity extends Base<IdentityOptions> {
   /**
