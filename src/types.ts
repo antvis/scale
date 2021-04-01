@@ -4,7 +4,6 @@ export type TickMethod<T> = (options?: T) => any[];
  * 所有比例尺选项的默认类型
  * D：定义域元素的类型
  * R：值域元素的类型
- * T：tickMethod 配置项的类型
  */
 export type BaseOptions<D = any, R = any> = {
   /** 当需要映射的值不合法的时候，返回的值 */
@@ -19,6 +18,7 @@ export type BaseOptions<D = any, R = any> = {
 
 /**
  * 支持 getTicks 的比例尺的选项
+ * T：tickMethod 配置项的类型
  */
 export type TickOptions<T = any> = {
   /** tick 个数，默认值为 5 */

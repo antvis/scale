@@ -13,7 +13,7 @@ export abstract class Base<O extends BaseOptions> {
    * 将值域里的一个值，据转换规则，逆向转换为定义域里的一个值或者一个区间
    * @param x 需要转换的值
    */
-  abstract invert(x: Range<O>): Domain<O> | Domain<O>[];
+  abstract invert(x: Range<O>): Domain<O> | Domain<O>[] | Unknown<O>;
 
   /**
    * 克隆一个新的比例尺，可以用于更新选项
