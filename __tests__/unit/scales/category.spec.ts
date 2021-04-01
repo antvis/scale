@@ -19,6 +19,11 @@ describe('category scale', () => {
     // 不存在的值 我们将新值插入 domain 中，并更新 map
     expect(scale.map('3')).toStrictEqual('February');
     expect(scale.getOptions().domain.length).toStrictEqual(6);
+
+    // NaN / undefined / null 做法同上
+    expect(scale.map(NaN)).toStrictEqual('January');
+    expect(scale.map(undefined)).toStrictEqual('February');
+    expect(scale.map(null)).toStrictEqual('January');
   });
 
   test('invert func', () => {
@@ -66,6 +71,7 @@ describe('category scale', () => {
       domain: ['A', 'B', 'C'],
       range: ['a', 'b', 'c'],
     });
+
     expect(scale.map('A')).toStrictEqual('a');
     // @ts-ignore
     scale.rangeIndexMap = null;
@@ -73,5 +79,18 @@ describe('category scale', () => {
     scale.domainIndexMap = null;
     expect(scale.map('A')).toStrictEqual('a');
     expect(scale.invert('a')).toStrictEqual('A');
+  });
+
+  test('use unknown data', () => {
+    const scale = new Category({
+      domain: ['A', 'B', 'C'],
+      range: ['a', 'b', 'c'],
+    });
+    expect(scale.map('D')).toStrictEqual('a');
+    scale.update({
+      unknown: 'hello world',
+    });
+    expect(scale.map('E')).toStrictEqual('hello world');
+    expect(scale.invert('foo')).toStrictEqual('hello world');
   });
 });

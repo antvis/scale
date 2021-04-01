@@ -1,4 +1,3 @@
-import { isNumber } from '@antv/util';
 import { CategoryOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
@@ -20,23 +19,29 @@ const createIndexMap = (arr: any[]): Map<any, number> => {
  * @param from 定义域
  * @param to 值域
  * @param mapper indexMapper 由定义域生成的映射表，键为定义域的每一个值，值为所在下标
+ * @param notFoundReturn 当 mapper 中查询不到时的返回值
  * @return {any} 映射结果
  *
  */
-const mapBetweenArrByMapIndex = (value: any, mapper: Map<any, number>, from: any[], to: any[]) => {
-  let index = mapper.get(value);
-
-  if (index === undefined) {
-    index = isNumber(value) ? value : NaN;
-  }
+const mapBetweenArrByMapIndex = (
+  value: any,
+  mapper: Map<any, number>,
+  from: any[],
+  to: any[],
+  notFoundReturn?: any
+) => {
+  let mappedIndex = mapper.get(value);
 
   // index 不存在时，我们将 value 添加到原数组, 并更新 Map
-  if (index < 0 || Number.isNaN(index)) {
-    index = from.push(value) - 1;
-    mapper.set(value, index);
+  if (mappedIndex < 0 || Number.isNaN(mappedIndex)) {
+    if (notFoundReturn) {
+      return notFoundReturn;
+    }
+    mappedIndex = from.push(value) - 1;
+    mapper.set(value, mappedIndex);
   }
 
-  return to[index % to.length];
+  return to[mappedIndex % to.length];
 };
 
 export class Category extends Base<CategoryOptions> {
@@ -67,14 +72,14 @@ export class Category extends Base<CategoryOptions> {
     if (!this.domainIndexMap) {
       this.initDomainIndexMap();
     }
-    return mapBetweenArrByMapIndex(x, this.domainIndexMap, this.getDomain(), this.getRange());
+    return mapBetweenArrByMapIndex(x, this.domainIndexMap, this.getDomain(), this.getRange(), this.options.unknown);
   }
 
   public invert(y: Range<CategoryOptions>) {
     if (!this.rangeIndexMap) {
       this.initRangeIndexMap();
     }
-    return mapBetweenArrByMapIndex(y, this.rangeIndexMap, this.getRange(), this.getDomain());
+    return mapBetweenArrByMapIndex(y, this.rangeIndexMap, this.getRange(), this.getDomain(), this.options.unknown);
   }
 
   public update(options: Partial<CategoryOptions>) {
