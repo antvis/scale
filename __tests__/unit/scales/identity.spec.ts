@@ -56,6 +56,20 @@ describe('Identity', () => {
     expect(x.invert(2.5)).toBe(2.5);
   });
 
+  test('getTicks() call options.tickMethod and return its return value', () => {
+    const s = new Identity();
+    const mockFn = jest.fn();
+    s.update({
+      tickMethod: () => {
+        mockFn();
+        return [1, 2, 3, 4, 5];
+      },
+    });
+
+    expect(s.getTicks()).toEqual([1, 2, 3, 4, 5]);
+    expect(mockFn).toBeCalled();
+  });
+
   test('clone() return a scale belong to same class', () => {
     const s = new Identity();
     const s1 = s.clone();

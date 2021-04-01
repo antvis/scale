@@ -1,8 +1,21 @@
 import { isNumber } from '@antv/util';
 import { Base } from './base';
 import { IdentityOptions, Domain, Range } from '../types';
+import { ticks } from '../tick-method/basic';
 
 export class Identity extends Base<IdentityOptions> {
+  /**
+   * 覆盖默认配置
+   * @param options 需要自定义配置的选项
+   */
+  constructor(options?: Partial<IdentityOptions>) {
+    super(options, {
+      tickCount: 5,
+      tickInterval: 10,
+      tickMethod: ticks,
+    });
+  }
+
   /**
    * 输入和输出满足：y = x
    * @param x 输入值
@@ -27,5 +40,13 @@ export class Identity extends Base<IdentityOptions> {
    */
   public clone() {
     return new Identity(this.options);
+  }
+
+  /**
+   * 根据比例尺的配置去生成 ticks，该 ticks 主要用于生成坐标轴
+   * @returns 返回一个 ticks 的数组
+   */
+  public getTicks(): Range<IdentityOptions>[] {
+    return this.options.tickMethod(this.options);
   }
 }

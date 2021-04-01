@@ -1,5 +1,4 @@
 import { assign } from '@antv/util';
-import { ticks } from '../tick-method/basic';
 import { BaseOptions, Domain, Range, Unknown } from '../types';
 
 export abstract class Base<O extends BaseOptions> {
@@ -28,10 +27,7 @@ export abstract class Base<O extends BaseOptions> {
   protected defaultOptions: O = {
     domain: [0, 1],
     range: [0, 1],
-    tickCount: 5,
-    tickInterval: 10,
     formatter: (x: Range<O>) => `${x}`,
-    tickMethod: ticks,
   } as O;
 
   /**
@@ -58,13 +54,5 @@ export abstract class Base<O extends BaseOptions> {
    */
   public update(updateOptions: Partial<O>) {
     assign(this.options, updateOptions);
-  }
-
-  /**
-   * 根据比例尺的配置去生成 ticks，该 ticks 主要用于生成坐标轴
-   * @returns 返回一个 ticks 的数组
-   */
-  public getTicks(): Range<O>[] {
-    return this.options.tickMethod(this.options);
   }
 }
