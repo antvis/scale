@@ -36,4 +36,42 @@ describe('category scale', () => {
     expect(scale.invert('May')).toStrictEqual(5);
     expect(scale.invert('June')).toStrictEqual('一月');
   });
+
+  test('update scale', () => {
+    const scale = new Category({
+      domain: ['A', 'B', 'C'],
+      range: ['a', 'b', 'c'],
+    });
+
+    expect(scale.map('A')).toStrictEqual('a');
+
+    scale.update({
+      domain: ['AA', 'BB', 'CC', 'DD'],
+    });
+
+    expect(scale.map('A')).toStrictEqual('b');
+  });
+
+  test('clone scale', () => {
+    const scale = new Category({
+      domain: ['A', 'B', 'C'],
+      range: ['a', 'b', 'c'],
+    });
+    const newScale = scale.clone();
+    expect(scale.getOptions()).toStrictEqual(newScale.getOptions());
+  });
+
+  test('rangeIndexMap has been set null when we use invert or map method', () => {
+    const scale = new Category({
+      domain: ['A', 'B', 'C'],
+      range: ['a', 'b', 'c'],
+    });
+    expect(scale.map('A')).toStrictEqual('a');
+    // @ts-ignore
+    scale.rangeIndexMap = null;
+    // @ts-ignore
+    scale.domainIndexMap = null;
+    expect(scale.map('A')).toStrictEqual('a');
+    expect(scale.invert('a')).toStrictEqual('A');
+  });
 });
