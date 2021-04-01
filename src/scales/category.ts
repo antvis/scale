@@ -1,3 +1,4 @@
+import { isUndefined } from '@antv/util';
 import { CategoryOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
@@ -33,7 +34,7 @@ const mapBetweenArrByMapIndex = (
   let mappedIndex = mapper.get(value);
 
   // index 不存在时，我们将 value 添加到原数组, 并更新 Map
-  if (mappedIndex < 0 || Number.isNaN(mappedIndex)) {
+  if (mappedIndex < 0 || isUndefined(mappedIndex) || Number.isNaN(mappedIndex)) {
     if (notFoundReturn) {
       return notFoundReturn;
     }
