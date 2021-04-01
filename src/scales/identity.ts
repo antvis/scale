@@ -1,6 +1,6 @@
 import { isNumber } from '@antv/util';
 import { Base } from './base';
-import { IdentityOptions } from '../types';
+import { IdentityOptions, Domain, Range } from '../types';
 
 export class Identity extends Base<IdentityOptions> {
   /**
@@ -8,7 +8,7 @@ export class Identity extends Base<IdentityOptions> {
    * @param x 输入值
    * @returns 输出值
    */
-  public map(x: number) {
+  public map(x: Domain<IdentityOptions>) {
     return isNumber(x) && !Number.isNaN(x) ? x : this.options.unknown;
   }
 
@@ -17,7 +17,7 @@ export class Identity extends Base<IdentityOptions> {
    * @param x 输出值
    * @returns 输入值
    */
-  public invert(x: number) {
+  public invert(x: Range<IdentityOptions>) {
     return this.map(x);
   }
 

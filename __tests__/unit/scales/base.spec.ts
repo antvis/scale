@@ -1,15 +1,15 @@
-import { Base, DEFAULT_OPTIONS } from '../../../src/scales/base';
-import { BaseOptions, Primitive } from '../../../src/types';
+import { Base } from '../../../src/scales/base';
+import { BaseOptions, Domain, Range } from '../../../src/types';
 import { ticks } from '../../../src/tick-method/basic';
 
 class Scale extends Base<BaseOptions> {
   // eslint-disable-next-line class-methods-use-this
-  public map(x: Primitive): Primitive {
+  public map(x: Domain<BaseOptions>) {
     return x;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public invert(x: Primitive): Primitive {
+  public invert(x: Range<BaseOptions>) {
     return x;
   }
 
@@ -49,7 +49,7 @@ describe('Scale', () => {
   });
 
   test('Scale({}, defaults) set defaults', () => {
-    const s = new Scale({}, { ...DEFAULT_OPTIONS, domain: [0, 20] });
+    const s = new Scale({}, { domain: [0, 20] });
 
     // @ts-ignore
     expect(s.options.domain).toEqual([0, 20]);
