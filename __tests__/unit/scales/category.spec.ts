@@ -1,0 +1,39 @@
+import { Category } from '../../../src/scales/category';
+
+describe('category scale', () => {
+  test('map func', () => {
+    const scale = new Category({
+      domain: ['一月', '二月', 3, 'Hello', 5],
+      range: ['January', 'February'],
+    });
+
+    // 正常映射
+    expect(scale.map('一月')).toStrictEqual('January');
+    expect(scale.map('二月')).toStrictEqual('February');
+
+    // domain 超过 range 界限, 取模映射
+    expect(scale.map(3)).toStrictEqual('January');
+    expect(scale.map('Hello')).toStrictEqual('February');
+    expect(scale.map(5)).toStrictEqual('January');
+
+    // 不存在的值 我们将新值插入 domain 中，并更新 map
+    expect(scale.map('3')).toStrictEqual('February');
+    expect(scale.getOptions().domain.length).toStrictEqual(6);
+  });
+
+  test('invert func', () => {
+    // 映射规则类似于 map 方法，这里不再赘述
+    const scale = new Category({
+      domain: ['一月', '二月', 3, 'Hello', 5],
+      range: ['January', 'February'],
+    });
+
+    expect(scale.invert('January')).toStrictEqual('一月');
+    expect(scale.invert('February')).toStrictEqual('二月');
+
+    expect(scale.invert('March')).toStrictEqual(3);
+    expect(scale.invert('April')).toStrictEqual('Hello');
+    expect(scale.invert('May')).toStrictEqual(5);
+    expect(scale.invert('June')).toStrictEqual('一月');
+  });
+});
