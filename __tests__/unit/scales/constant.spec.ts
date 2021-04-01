@@ -71,6 +71,20 @@ describe('Constant', () => {
     expect(x.invert(undefined)).toEqual([]);
   });
 
+  test('getTicks() call options.tickMethod and return its return value', () => {
+    const s = new Constant();
+    const mockFn = jest.fn();
+    s.update({
+      tickMethod: () => {
+        mockFn();
+        return [1, 2, 3, 4, 5];
+      },
+    });
+
+    expect(s.getTicks()).toEqual([1, 2, 3, 4, 5]);
+    expect(mockFn).toBeCalled();
+  });
+
   test('clone() return a scale belong to same class', () => {
     const s = new Constant();
     const s1 = s.clone();
