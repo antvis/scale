@@ -1,4 +1,4 @@
-import { isUndefined } from '@antv/util';
+import { clone } from '@antv/util';
 import { CategoryOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
@@ -34,7 +34,7 @@ const mapBetweenArrByMapIndex = (
   let mappedIndex = mapper.get(value);
 
   // index 不存在时，我们将 value 添加到原数组, 并更新 Map
-  if (mappedIndex < 0 || isUndefined(mappedIndex) || Number.isNaN(mappedIndex)) {
+  if (mappedIndex === undefined) {
     if (notFoundReturn) {
       return notFoundReturn;
     }
@@ -70,16 +70,10 @@ export class Category extends Base<CategoryOptions> {
   }
 
   public map(x: Domain<CategoryOptions>) {
-    if (!this.domainIndexMap) {
-      this.initDomainIndexMap();
-    }
     return mapBetweenArrByMapIndex(x, this.domainIndexMap, this.getDomain(), this.getRange(), this.options.unknown);
   }
 
   public invert(y: Range<CategoryOptions>) {
-    if (!this.rangeIndexMap) {
-      this.initRangeIndexMap();
-    }
     return mapBetweenArrByMapIndex(y, this.rangeIndexMap, this.getRange(), this.getDomain(), this.options.unknown);
   }
 
@@ -92,7 +86,7 @@ export class Category extends Base<CategoryOptions> {
   }
 
   public clone() {
-    return new Category(this.options);
+    return new Category(clone(this.options));
   }
 
   private getDomain() {

@@ -90,21 +90,6 @@ describe('category scale', () => {
     expect(scale.getOptions()).toStrictEqual(newScale.getOptions());
   });
 
-  test('rangeIndexMap has been set null when we use invert or map method', () => {
-    const scale = new Category({
-      domain: ['A', 'B', 'C'],
-      range: ['a', 'b', 'c'],
-    });
-
-    expect(scale.map('A')).toStrictEqual('a');
-    // @ts-ignore
-    scale.rangeIndexMap = null;
-    // @ts-ignore
-    scale.domainIndexMap = null;
-    expect(scale.map('A')).toStrictEqual('a');
-    expect(scale.invert('a')).toStrictEqual('A');
-  });
-
   test('use unknown data', () => {
     const scale = new Category({
       domain: ['A', 'B', 'C'],
