@@ -105,9 +105,12 @@ export class Category extends Base<CategoryOptions> {
 
   public update(options: Partial<CategoryOptions>) {
     super.update(options);
-
-    this.rangeIndexMap = undefined;
-    this.domainIndexMap = undefined;
+    if (options.range) {
+      this.rangeIndexMap = undefined;
+    }
+    if (options.domain) {
+      this.domainIndexMap = undefined;
+    }
   }
 
   public clone() {
