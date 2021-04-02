@@ -8,10 +8,10 @@ import { Base } from './base';
  * @param arr 初始的数组
  * @returns {Map<string, any>} 生成的 indexMap
  */
-const createIndexMap = (arr: any[]): Map<any, number> => {
+function createIndexMap(arr: any[]): Map<any, number> {
   const entries: [any, number][] = arr.map((item, index) => [item, index]);
   return new Map(entries);
-};
+}
 
 /**
  * 基于 indexMap 进行映射
@@ -24,13 +24,7 @@ const createIndexMap = (arr: any[]): Map<any, number> => {
  * @return {any} 映射结果
  *
  */
-const mapBetweenArrByMapIndex = (
-  value: any,
-  mapper: Map<any, number>,
-  from: any[],
-  to: any[],
-  notFoundReturn?: any
-) => {
+function mapBetweenArrByMapIndex(value: any, mapper: Map<any, number>, from: any[], to: any[], notFoundReturn?: any) {
   let mappedIndex = mapper.get(value);
 
   // index 不存在时，我们将 value 添加到原数组, 并更新 Map
@@ -43,7 +37,7 @@ const mapBetweenArrByMapIndex = (
   }
 
   return to[mappedIndex % to.length];
-};
+}
 
 export class Category extends Base<CategoryOptions> {
   private domainIndexMap: Map<any, number>;
