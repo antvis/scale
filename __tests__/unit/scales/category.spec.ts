@@ -1,3 +1,4 @@
+import * as d3 from 'd3-scale';
 import { Category } from '../../../src/scales/category';
 
 describe('category scale', () => {
@@ -115,5 +116,48 @@ describe('category scale', () => {
     expect(scale.map('苹果')).toStrictEqual('apple');
     expect(scale.invert('apple')).toStrictEqual('苹果');
     expect(scale.invert('orange')).toStrictEqual('橘子');
+  });
+
+  test('compare pref with d3', () => {
+    // 和 d3 对大数据（十万）情况做性能对比
+    const calculateTime = (callback: () => void) => {
+      const start = new Date().getTime();
+      callback();
+      const end = new Date().getTime();
+      return end - start;
+    };
+
+    const domain = new Array(100000).fill('').map((item, index) => index);
+    const range = new Array(100000).fill('').map((item, index) => index);
+
+    const timeForAntv = calculateTime(() => {
+      const antvScale = new Category({
+        domain,
+        range,
+      });
+      for (let i = 0; i < 100000; i += 1) {
+        antvScale.map(i);
+        // 中途重置 domain
+        if (i === 50000) {
+          antvScale.update({
+            domain: range,
+          });
+        }
+      }
+    });
+
+    const timeForD3 = calculateTime(() => {
+      const d3Scale = d3.scaleOrdinal().domain(domain).range(range);
+      for (let i = 0; i < 100000; i += 1) {
+        d3Scale(i);
+        if (i === 50000) {
+          // 中途重置 domain
+          d3Scale.domain(range);
+        }
+      }
+    });
+
+    console.info(`preference result(100000 size domain and range):
+    @antv/scale: ${timeForAntv}ms, d3-scale: ${timeForD3}ms`);
   });
 });
