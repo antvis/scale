@@ -64,7 +64,8 @@
     "testRegex": "(/__tests__/.*\\.(test|spec))\\.ts$",
     "collectCoverageFrom": [
       "src/**/*.ts"
-    ]
+    ],
+    "testEnvironment": "node"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
