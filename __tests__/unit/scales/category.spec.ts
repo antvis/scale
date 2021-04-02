@@ -87,7 +87,10 @@ describe('category scale', () => {
       range: ['a', 'b', 'c'],
     });
     const newScale = scale.clone();
-    expect(scale.getOptions()).toStrictEqual(newScale.getOptions());
+    const oldOpt = scale.getOptions();
+    const newOpt = newScale.getOptions();
+    expect(oldOpt).toStrictEqual(newOpt);
+    expect(oldOpt !== newOpt).toBeTruthy();
   });
 
   test('use unknown data', () => {
