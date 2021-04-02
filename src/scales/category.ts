@@ -9,8 +9,13 @@ import { Base } from './base';
  * @returns {Map<string, any>} 生成的 indexMap
  */
 function createIndexMap(arr: any[]): Map<any, number> {
-  const entries: [any, number][] = arr.map((item, index) => [item, index]);
-  return new Map(entries);
+  const indexMap = new Map();
+  for (let i = 0; i < arr.length; i += 1) {
+    if (!indexMap.has(arr[i])) {
+      indexMap.set(arr[i], i);
+    }
+  }
+  return indexMap;
 }
 
 interface MapBetweenArrOptions {

@@ -105,4 +105,15 @@ describe('category scale', () => {
     expect(scale.map('E')).toStrictEqual('hello world');
     expect(scale.invert('foo')).toStrictEqual('hello world');
   });
+
+  test('duplicate data in domain or range', () => {
+    const scale = new Category({
+      domain: ['苹果', '橘子', '苹果', '苹果'],
+      range: ['apple', 'orange'],
+    });
+
+    expect(scale.map('苹果')).toStrictEqual('apple');
+    expect(scale.invert('apple')).toStrictEqual('苹果');
+    expect(scale.invert('orange')).toStrictEqual('橘子');
+  });
 });
