@@ -3,19 +3,18 @@ import { CategoryOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
 /**
- * 基于一个初始数组，创建一个 indexMap，key 为数组的每一项，value 为该项所在的下标
+ * 更新 indexMap
  *
  * @param arr 初始的数组
+ * @param target 目标 map
  * @returns {Map<string, any>} 生成的 indexMap
  */
-function createIndexMap(arr: any[]): Map<any, number> {
-  const indexMap = new Map();
+function updateIndexMap(target: Map<any, number>, arr: any[]) {
   for (let i = 0; i < arr.length; i += 1) {
-    if (!indexMap.has(arr[i])) {
-      indexMap.set(arr[i], i);
+    if (!target.has(arr[i])) {
+      target.set(arr[i], i);
     }
   }
-  return indexMap;
 }
 
 interface MapBetweenArrOptions {
@@ -57,7 +56,11 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
 export class Category extends Base<CategoryOptions> {
   private domainIndexMap: Map<any, number>;
 
+  private shouldDomainIndexMapUpdate: boolean = true;
+
   private rangeIndexMap: Map<any, number>;
+
+  private shouldRangeIndexMapUpdate: boolean = true;
 
   // 覆盖默认配置
   constructor(options?: Partial<CategoryOptions>) {
@@ -68,15 +71,27 @@ export class Category extends Base<CategoryOptions> {
   }
 
   private initDomainIndexMap() {
-    this.domainIndexMap = createIndexMap(this.getDomain());
+    if (!this.domainIndexMap) {
+      this.domainIndexMap = new Map();
+    } else {
+      this.domainIndexMap.clear();
+    }
+    updateIndexMap(this.domainIndexMap, this.getDomain());
+    this.shouldDomainIndexMapUpdate = false;
   }
 
   private initRangeIndexMap() {
-    this.rangeIndexMap = createIndexMap(this.getRange());
+    if (!this.rangeIndexMap) {
+      this.rangeIndexMap = new Map();
+    } else {
+      this.rangeIndexMap.clear();
+    }
+    updateIndexMap(this.rangeIndexMap, this.getRange());
+    this.shouldRangeIndexMapUpdate = false;
   }
 
   public map(x: Domain<CategoryOptions>) {
-    if (!this.domainIndexMap) {
+    if (this.shouldDomainIndexMapUpdate) {
       this.initDomainIndexMap();
     }
 
@@ -90,7 +105,7 @@ export class Category extends Base<CategoryOptions> {
   }
 
   public invert(y: Range<CategoryOptions>) {
-    if (!this.rangeIndexMap) {
+    if (this.shouldRangeIndexMapUpdate) {
       this.initRangeIndexMap();
     }
 
@@ -106,10 +121,10 @@ export class Category extends Base<CategoryOptions> {
   public update(options: Partial<CategoryOptions>) {
     super.update(options);
     if (options.range) {
-      this.rangeIndexMap = undefined;
+      this.shouldRangeIndexMapUpdate = true;
     }
     if (options.domain) {
-      this.domainIndexMap = undefined;
+      this.shouldDomainIndexMapUpdate = true;
     }
   }
 

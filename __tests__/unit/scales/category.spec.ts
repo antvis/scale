@@ -132,7 +132,7 @@ describe('category scale', () => {
       for (let i = 0; i < 100000; i += 1) {
         antvScale.map(i);
         // 中途重置 domain
-        if (i === 50000) {
+        if (i % 10000 === 0) {
           antvScale.update({
             domain: range,
           });
@@ -144,7 +144,7 @@ describe('category scale', () => {
       const d3Scale = d3.scaleOrdinal().domain(domain).range(range);
       for (let i = 0; i < 100000; i += 1) {
         d3Scale(i);
-        if (i === 50000) {
+        if (i % 10000 === 0) {
           // 中途重置 domain
           d3Scale.domain(range);
         }
