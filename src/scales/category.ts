@@ -13,18 +13,28 @@ function createIndexMap(arr: any[]): Map<any, number> {
   return new Map(entries);
 }
 
+interface MapBetweenArrOptions {
+  // 需要映射的值
+  value: any;
+  // indexMapper 由定义域生成的映射表，键为定义域的每一个值，值为所在下标
+  mapper: Map<any, number>;
+  // 定义域
+  from: any[];
+  // 值域
+  to: any[];
+  // 当 mapper 中查询不到时的返回值
+  notFoundReturn?: any;
+}
+
 /**
  * 基于 indexMap 进行映射
  *
- * @param value 需要映射的值
- * @param from 定义域
- * @param to 值域
- * @param mapper indexMapper 由定义域生成的映射表，键为定义域的每一个值，值为所在下标
- * @param notFoundReturn 当 mapper 中查询不到时的返回值
+ * @param options 相关选项
+ * @see MapBetweenArrOptions
  * @return {any} 映射结果
- *
  */
-function mapBetweenArrByMapIndex(value: any, mapper: Map<any, number>, from: any[], to: any[], notFoundReturn?: any) {
+function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
+  const { value, from, to, mapper, notFoundReturn } = options;
   let mappedIndex = mapper.get(value);
 
   // index 不存在时，我们将 value 添加到原数组, 并更新 Map
@@ -50,9 +60,6 @@ export class Category extends Base<CategoryOptions> {
       domain: [],
       range: [],
     });
-
-    this.initDomainIndexMap();
-    this.initRangeIndexMap();
   }
 
   private initDomainIndexMap() {
@@ -64,19 +71,38 @@ export class Category extends Base<CategoryOptions> {
   }
 
   public map(x: Domain<CategoryOptions>) {
-    return mapBetweenArrByMapIndex(x, this.domainIndexMap, this.getDomain(), this.getRange(), this.options.unknown);
+    if (!this.domainIndexMap) {
+      this.initDomainIndexMap();
+    }
+
+    return mapBetweenArrByMapIndex({
+      value: x,
+      mapper: this.domainIndexMap,
+      from: this.getDomain(),
+      to: this.getRange(),
+      notFoundReturn: this.options.unknown,
+    });
   }
 
   public invert(y: Range<CategoryOptions>) {
-    return mapBetweenArrByMapIndex(y, this.rangeIndexMap, this.getRange(), this.getDomain(), this.options.unknown);
+    if (!this.rangeIndexMap) {
+      this.initRangeIndexMap();
+    }
+
+    return mapBetweenArrByMapIndex({
+      value: y,
+      mapper: this.rangeIndexMap,
+      from: this.getRange(),
+      to: this.getDomain(),
+      notFoundReturn: this.options.unknown,
+    });
   }
 
   public update(options: Partial<CategoryOptions>) {
     super.update(options);
 
-    // 重置 indexMap
-    this.initRangeIndexMap();
-    this.initDomainIndexMap();
+    this.rangeIndexMap = undefined;
+    this.domainIndexMap = undefined;
   }
 
   public clone() {
