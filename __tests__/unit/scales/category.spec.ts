@@ -1,6 +1,30 @@
 import { Category } from '../../../src/scales/category';
 
 describe('category scale', () => {
+  test('category has no expected defaults', () => {
+    const c = new Category();
+    expect(c.getOptions().domain).toStrictEqual([]);
+    expect(c.getOptions().range).toStrictEqual([]);
+    expect(c.getOptions().unknown).toBeUndefined();
+  });
+
+  test('default options', () => {
+    const scale = new Category();
+    expect(scale.map('A')).toStrictEqual(undefined);
+    expect(scale.getOptions().domain).toStrictEqual(['A']);
+    expect(scale.getOptions().range).toStrictEqual([]);
+
+    // reset
+    scale.update({
+      range: [],
+      domain: [],
+    });
+
+    expect(scale.invert('B')).toStrictEqual(undefined);
+    expect(scale.getOptions().range).toStrictEqual(['B']);
+    expect(scale.getOptions().domain).toStrictEqual([]);
+  });
+
   test('map func', () => {
     const scale = new Category({
       domain: ['一月', '二月', 3, 'Hello', 5],
