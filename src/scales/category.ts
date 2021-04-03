@@ -2,6 +2,19 @@ import { clone } from '@antv/util';
 import { CategoryOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
+interface MapBetweenArrOptions {
+  // 需要映射的值
+  value: any;
+  // indexMapper 由定义域生成的映射表，键为定义域的每一个值，值为所在下标
+  mapper: Map<any, number>;
+  // 定义域
+  from: any[];
+  // 值域
+  to: any[];
+  // 当 mapper 中查询不到时的返回值
+  notFoundReturn?: any;
+}
+
 /**
  * 更新 indexMap
  *
@@ -15,19 +28,6 @@ function updateIndexMap(target: Map<any, number>, arr: any[]) {
       target.set(arr[i], i);
     }
   }
-}
-
-interface MapBetweenArrOptions {
-  // 需要映射的值
-  value: any;
-  // indexMapper 由定义域生成的映射表，键为定义域的每一个值，值为所在下标
-  mapper: Map<any, number>;
-  // 定义域
-  from: any[];
-  // 值域
-  to: any[];
-  // 当 mapper 中查询不到时的返回值
-  notFoundReturn?: any;
 }
 
 /**
@@ -53,13 +53,28 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
   return to[mappedIndex % to.length];
 }
 
+/**
+ * Category 比例尺
+ *
+ * 该比例尺具有离散的域和范围，例如将一组命名类别映射到一组颜色
+ *
+ * - 使用 for 替代一些基于 map 的遍历，for 循环性能远高于 forEach, map
+ * - 阻止无意义的更新，只有到用户调用 map、invert 或者 update 之后才会进行相应的更新
+ * - 两个 map 只初始化一次，在之后的更新中复用他们，这样我们避免了重复 new Map 带来的性能问题
+ *   在大量调用 update 函数场景下，较 d3-scale 效率有质的提高
+ *
+ */
 export class Category extends Base<CategoryOptions> {
+  // 定义域映射表
   private domainIndexMap: Map<any, number>;
 
+  // 定义域映射表是否需要更新
   private shouldDomainIndexMapUpdate: boolean = true;
 
+  // 值域映射表
   private rangeIndexMap: Map<any, number>;
 
+  // 值域映射表是否需要更新
   private shouldRangeIndexMapUpdate: boolean = true;
 
   // 覆盖默认配置

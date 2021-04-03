@@ -120,7 +120,7 @@ describe('category scale', () => {
   });
 
   test('compare pref with d3', () => {
-    // 和 d3 对大数据（十万）情况做性能对比
+    // 和 d3 对大数据（十万）情况做性能对比，在调用 update 的数量较大的场景下，antv-scale 的效率较 d3 有质的提升
     const domain = new Array(100000).fill('').map((item, index) => index);
     const range = new Array(100000).fill('').map((item, index) => index);
 
