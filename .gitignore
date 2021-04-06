@@ -7,7 +7,6 @@ yarn-error.log*
 
 # lock
 package-lock.json
-yarn.lock
 
 # Runtime data
 pids
@@ -72,4 +71,3 @@ esm
 
 *.sw*
 *.un~
-
