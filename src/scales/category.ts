@@ -66,16 +66,10 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
  */
 export class Category extends Base<CategoryOptions> {
   // 定义域映射表
-  private domainIndexMap: Map<any, number>;
-
-  // 定义域映射表是否需要更新
-  private shouldDomainIndexMapUpdate: boolean = true;
+  private domainIndexMap: Map<any, number> = new Map();
 
   // 值域映射表
-  private rangeIndexMap: Map<any, number>;
-
-  // 值域映射表是否需要更新
-  private shouldRangeIndexMapUpdate: boolean = true;
+  private rangeIndexMap: Map<any, number> = new Map();
 
   // 覆盖默认配置
   constructor(options?: Partial<CategoryOptions>) {
@@ -86,27 +80,15 @@ export class Category extends Base<CategoryOptions> {
   }
 
   private initDomainIndexMap() {
-    if (!this.domainIndexMap) {
-      this.domainIndexMap = new Map();
-    } else {
-      this.domainIndexMap.clear();
-    }
     updateIndexMap(this.domainIndexMap, this.getDomain());
-    this.shouldDomainIndexMapUpdate = false;
   }
 
   private initRangeIndexMap() {
-    if (!this.rangeIndexMap) {
-      this.rangeIndexMap = new Map();
-    } else {
-      this.rangeIndexMap.clear();
-    }
     updateIndexMap(this.rangeIndexMap, this.getRange());
-    this.shouldRangeIndexMapUpdate = false;
   }
 
   public map(x: Domain<CategoryOptions>) {
-    if (this.shouldDomainIndexMapUpdate) {
+    if (this.domainIndexMap.size === 0) {
       this.initDomainIndexMap();
     }
 
@@ -120,7 +102,7 @@ export class Category extends Base<CategoryOptions> {
   }
 
   public invert(y: Range<CategoryOptions>) {
-    if (this.shouldRangeIndexMapUpdate) {
+    if (this.rangeIndexMap.size === 0) {
       this.initRangeIndexMap();
     }
 
@@ -135,11 +117,13 @@ export class Category extends Base<CategoryOptions> {
 
   public update(options: Partial<CategoryOptions>) {
     super.update(options);
+    // TODO: update 直接 clear 有点暴力，在实际情况下前后的数据应该是相似的, 有没有可能 diff 一下在对 Map 进行更新？
+    // 查看 range 和 domain, 是否更新，如果被更新，我们重置之
     if (options.range) {
-      this.shouldRangeIndexMapUpdate = true;
+      this.rangeIndexMap.clear();
     }
     if (options.domain) {
-      this.shouldDomainIndexMapUpdate = true;
+      this.domainIndexMap.clear();
     }
   }
 
