@@ -43,3 +43,12 @@ export type IdentityOptions = BaseOptions<number, number> & TickOptions;
 export type ConstantOptions = BaseOptions<number | string, number | string> & TickOptions;
 
 export type CategoryOptions = BaseOptions<number | string, number | string>;
+
+export interface BandOptions extends BaseOptions<number | string, number> {
+  bandWidth?: number;
+  step?: number;
+  round?: boolean;
+  paddingInner?: number;
+  paddingOuter?: number;
+  align?: number;
+}
