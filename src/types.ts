@@ -50,5 +50,6 @@ export interface BandOptions extends BaseOptions<number | string, number> {
   round?: boolean;
   paddingInner?: number;
   paddingOuter?: number;
+  padding?: number;
   align?: number;
 }

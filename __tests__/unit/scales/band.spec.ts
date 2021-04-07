@@ -32,6 +32,20 @@ describe('band scale', () => {
     expect(bandScale.categoryBase.getOptions().range).toStrictEqual([0, 25, 50, 75]);
   });
 
+  test('test invert fn(common usage)', () => {
+    const bandScale = new Band({
+      domain: ['one', 'two', 'three', 'four'],
+      range: [0, 100],
+    });
+
+    expect(bandScale.invert(0)).toStrictEqual('one');
+    expect(bandScale.invert(25)).toStrictEqual('two');
+    expect(bandScale.invert(50)).toStrictEqual('three');
+    expect(bandScale.invert(75)).toStrictEqual('four');
+
+    expect(bandScale.categoryBase.getOptions().domain).toStrictEqual(['one', 'two', 'three', 'four']);
+  });
+
   test('test padding-inner option', () => {
     const bandScale = new Band({
       domain: ['one', 'two', 'three', 'four'],
@@ -87,5 +101,22 @@ describe('band scale', () => {
       unknown: 'hello world~',
     });
     expect(bandScale.map('bar')).toStrictEqual('hello world~');
+  });
+
+  test('test padding option', () => {
+    const bandScale = new Band({
+      domain: ['A', 'B', 'C'],
+      range: [0, 500],
+      paddingInner: 0.2,
+      paddingOuter: 0.2,
+      round: true,
+    });
+
+    expect(bandScale.getOptions().step).toStrictEqual(156);
+    bandScale.update({
+      padding: 0.1,
+    });
+
+    expect(bandScale.getOptions().step).toStrictEqual(161);
   });
 });

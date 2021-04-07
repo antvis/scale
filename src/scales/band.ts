@@ -18,6 +18,7 @@ export class Band extends Base<BandOptions> {
       round: false,
       paddingInner: 0,
       paddingOuter: 0,
+      padding: 0,
     });
 
     this.categoryBase = new Category({
@@ -29,6 +30,12 @@ export class Band extends Base<BandOptions> {
 
   private adjustBandState() {
     const opt = this.getOptions();
+    // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
+    if (opt.padding !== 0) {
+      opt.paddingInner = opt.padding;
+      opt.paddingOuter = opt.padding;
+    }
+
     const n = opt.domain.length;
 
     let start = opt.range[0];
@@ -66,8 +73,7 @@ export class Band extends Base<BandOptions> {
   }
 
   public invert(y) {
-    console.log(this);
-    return y;
+    return this.categoryBase.invert(y);
   }
 
   public clone() {
