@@ -132,9 +132,10 @@ describe('category scale', () => {
       for (let i = 0; i < 100000; i += 1) {
         antvScale.map(i);
         // 中途重置 domain
-        if (i % 10000 === 0) {
+        if (i % 4000 === 0) {
           antvScale.update({
             domain: range,
+            range,
           });
         }
       }
@@ -144,9 +145,9 @@ describe('category scale', () => {
       const d3Scale = d3.scaleOrdinal().domain(domain).range(range);
       for (let i = 0; i < 100000; i += 1) {
         d3Scale(i);
-        if (i % 10000 === 0) {
+        if (i % 4000 === 0) {
           // 中途重置 domain
-          d3Scale.domain(range);
+          d3Scale.domain(range).range(range);
         }
       }
     };
@@ -167,9 +168,9 @@ describe('category scale', () => {
         console.log(String(event.target));
       })
       .on('complete', function () {
-        const info = this.filter('fastest').map('name');
-        console.log(`Fastest is ${info}`);
-        expect(info).toStrictEqual(['category#antv']);
+        const antvRes = this[0];
+        const d3Res = this[1];
+        expect(antvRes.hz / 1.5).toBeGreaterThan(d3Res.hz);
       });
     suite.run();
   });
