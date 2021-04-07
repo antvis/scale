@@ -58,4 +58,6 @@ export interface BandOptions extends BaseOptions<number | string, number> {
   padding?: number;
   /** 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 */
   align?: number;
+  /** 配置 range 设置 round 为 true */
+  rangeRound?: number[];
 }

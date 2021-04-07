@@ -75,6 +75,12 @@ export class Band extends Base<BandOptions> {
       opt.paddingOuter = opt.padding;
     }
 
+    // 配置了 rangeRound
+    if (opt.rangeRound) {
+      opt.range = opt.rangeRound;
+      opt.round = true;
+    }
+
     const stepAmount = opt.domain.length;
 
     // range 的计算方式如下：

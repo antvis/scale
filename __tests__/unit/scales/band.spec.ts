@@ -129,4 +129,16 @@ describe('band scale', () => {
     expect(oldBandScale.getOptions()).toStrictEqual(newBandScale.getOptions());
     expect(oldBandScale.getOptions() !== newBandScale.getOptions()).toBeTruthy();
   });
+
+  test('test rangeRound Option', () => {
+    const oldBandScale = new Band({
+      domain: ['A', 'B', 'C'],
+      range: [0, 500],
+      rangeRound: [0, 1000],
+      round: false,
+    });
+
+    expect(oldBandScale.getOptions().range).toStrictEqual([0, 1000]);
+    expect(oldBandScale.getOptions().round).toBeTruthy();
+  });
 });

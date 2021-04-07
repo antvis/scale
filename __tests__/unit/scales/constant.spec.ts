@@ -1,4 +1,4 @@
-import { Constant, ConstantOptions } from '../../../src/index';
+import { Constant, ConstantOptions } from '../../../src';
 import { ticks } from '../../../src/tick-method/basic';
 
 describe('Constant', () => {
