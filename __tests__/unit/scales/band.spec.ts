@@ -32,7 +32,7 @@ describe('band scale', () => {
     expect(bandScale.categoryBase.getOptions().range).toStrictEqual([0, 25, 50, 75]);
   });
 
-  test('test padding option', () => {
+  test('test padding-inner option', () => {
     const bandScale = new Band({
       domain: ['one', 'two', 'three', 'four'],
       range: [0, 100],
@@ -42,6 +42,37 @@ describe('band scale', () => {
       paddingInner: 0.6,
     });
     expect(bandScale.getOptions().step).toBeCloseTo(29.4, -1);
+  });
+
+  test('test padding-outer option', () => {
+    const bandScale = new Band({
+      domain: ['A', 'B', 'C'],
+      range: [0, 500],
+      paddingOuter: 0.2,
+    });
+
+    expect(bandScale.getOptions().step).toBeCloseTo(147.05, -2);
+  });
+
+  test('test round option', () => {
+    // 取整测试
+    const bandScale = new Band({
+      domain: ['A', 'B', 'C'],
+      range: [0, 500],
+      paddingOuter: 0.2,
+    });
+
+    expect(bandScale.map('A')).toBeCloseTo(29.41, -2);
+    expect(bandScale.map('B')).toBeCloseTo(176.47, -2);
+    expect(bandScale.map('C')).toBeCloseTo(323.52, -2);
+
+    bandScale.update({
+      round: true,
+    });
+
+    expect(bandScale.map('A')).toStrictEqual(30);
+    expect(bandScale.map('B')).toStrictEqual(177);
+    expect(bandScale.map('C')).toStrictEqual(324);
   });
 
   test('test unknown option', () => {
