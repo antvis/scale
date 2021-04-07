@@ -62,7 +62,6 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
  * - 阻止无意义的更新，只有到用户调用 map、invert 或者 update 之后才会进行相应的更新
  * - 两个 map 只初始化一次，在之后的更新中复用他们，这样我们避免了重复 new Map 带来的性能问题
  *   在大量调用 update 函数场景下，较 d3-scale 效率有质的提高
- *
  */
 export class Category extends Base<CategoryOptions> {
   // 定义域映射表

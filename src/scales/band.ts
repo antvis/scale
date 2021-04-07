@@ -4,8 +4,34 @@ import { Base } from './base';
 import { Category } from './category';
 import { sequence } from '../utils/sequence';
 
+/**
+ * Band 比例尺
+ *
+ * 一种特殊的 category scale，区别在于值域的范围是连续的。
+ * 使用的场景例如柱状图，可以用来定位各个柱子水平方向距离原点开始绘制的距离、各柱子之间的间距
+ *
+ * 由于部分选项较为抽象，见下图描述：
+ *
+ * PO = paddingOuter
+ * PI = paddingInner
+ *
+ * domain = [A, B]
+ *
+ * |<------------------------------------------- range ------------------------------------------->|
+ * |             |                   |             |                   |             |             |
+ * |<--step*PO-->|<----bandWidth---->|<--step*PI-->|<----bandWidth---->|<--step*PI-->|<--step*PO-->|
+ * |             | ***************** |             | ***************** |             |             |
+ * |             | ******* A ******* |             | ******* B ******* |             |             |
+ * |             | ***************** |             | ***************** |             |             |
+ * |             |<--------------step------------->|                                               |
+ * |-----------------------------------------------------------------------------------------------|
+ *
+ * TODO: 补充性能优化描述
+ */
 export class Band extends Base<BandOptions> {
-  public categoryBase: Category;
+  private readonly categoryBase: Category;
+
+  private step: number;
 
   // 覆盖默认配置
   constructor(options?: Partial<BandOptions>) {
@@ -14,7 +40,6 @@ export class Band extends Base<BandOptions> {
       range: [0, 1],
       align: 0.5,
       bandWidth: 0,
-      step: 1,
       round: false,
       paddingInner: 0,
       paddingOuter: 0,
@@ -24,6 +49,8 @@ export class Band extends Base<BandOptions> {
     };
 
     super(options, defaultOpts);
+
+    this.step = 1;
 
     this.categoryBase = new Category({
       ...this.options,
@@ -58,27 +85,27 @@ export class Band extends Base<BandOptions> {
     const deltaRange = rangeEnd - rangeStart;
     const outerTotal = opt.paddingOuter * 2;
     const innerTotal = stepAmount - opt.paddingInner;
-    opt.step = deltaRange / Math.max(1, outerTotal + innerTotal);
+    this.step = deltaRange / Math.max(1, outerTotal + innerTotal);
 
     // 优化成整数
     if (opt.round) {
-      opt.step = Math.floor(opt.step);
+      this.step = Math.floor(this.step);
     }
 
     // 基于 align 实现偏移
-    rangeStart += (deltaRange - opt.step * (stepAmount - opt.paddingInner)) * opt.align;
+    rangeStart += (deltaRange - this.step * (stepAmount - opt.paddingInner)) * opt.align;
 
     // 一个 step 的组成如下：
     // step = bandWidth + step * paddingInner，
     // 则 bandWidth = step - step * (paddingInner)
-    opt.bandWidth = opt.step * (1 - opt.paddingInner);
+    opt.bandWidth = this.step * (1 - opt.paddingInner);
 
     if (opt.round) {
       rangeStart = Math.round(rangeStart);
       opt.bandWidth = Math.round(opt.bandWidth);
     }
 
-    const targetRange = sequence(rangeStart, rangeEnd, opt.step);
+    const targetRange = sequence(rangeStart, rangeEnd, this.step);
 
     // 更新 category range
     this.categoryBase.update({
@@ -104,5 +131,13 @@ export class Band extends Base<BandOptions> {
 
   public clone() {
     return new Band(clone(this.options));
+  }
+
+  public getStep() {
+    return this.step;
+  }
+
+  public getCategoryBase() {
+    return this.categoryBase;
   }
 }
