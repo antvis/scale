@@ -51,13 +51,13 @@ describe('Constant', () => {
     expect(x.map(undefined)).toBe('unknown');
   });
 
-  test('invert(x) return options.domain if x is the constant', () => {
+  test('invert(x) returns options.domain if x is the constant', () => {
     const x = new Constant();
 
     expect(x.invert(0)).toEqual([0, 1]);
   });
 
-  test('invert(x) return [] if x is not the constant', () => {
+  test('invert(x) returns [] if x is not the constant', () => {
     const x = new Constant();
 
     expect(x.invert(-0.5)).toEqual([]);
@@ -71,7 +71,7 @@ describe('Constant', () => {
     expect(x.invert(undefined)).toEqual([]);
   });
 
-  test('getTicks() call options.tickMethod and return its return value', () => {
+  test('getTicks() call options.tickMethod and returns its return value', () => {
     const s = new Constant();
     const mockFn = jest.fn();
     s.update({
@@ -85,19 +85,19 @@ describe('Constant', () => {
     expect(mockFn).toBeCalled();
   });
 
-  test('clone() return a scale belong to same class', () => {
+  test('clone() returns a scale belong to same class', () => {
     const s = new Constant();
     const s1 = s.clone();
     expect(s1).toBeInstanceOf(Constant);
   });
 
-  test('clone() return a scale with the same options as the original one', () => {
+  test('clone() returns a scale with the same options as the original one', () => {
     const s = new Constant();
     const s1 = s.clone();
     expect(s.getOptions()).toEqual(s1.getOptions());
   });
 
-  test('clone() return a scale isolating change with the original one', () => {
+  test('clone() returns a scale isolating change with the original one', () => {
     const s = new Constant();
     const s1 = s.clone();
 

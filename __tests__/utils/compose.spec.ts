@@ -1,7 +1,7 @@
 import { compose } from '../../src/utils';
 
 describe('compose', () => {
-  test('compose(fn) return fn', () => {
+  test('compose(fn) returns fn', () => {
     const fn1 = (x: string) => `fn1(${x})`;
     expect(compose(fn1)('x')).toBe('fn1(x)');
   });

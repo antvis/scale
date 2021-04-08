@@ -46,7 +46,7 @@ describe('Scale', () => {
     expect(s.options.domain).toEqual([0, 20]);
   });
 
-  test('getOptions() return current Options', () => {
+  test('getOptions() returns current Options', () => {
     const s = new Scale();
     // @ts-ignore
     expect(s.options).toEqual(s.getOptions());
@@ -63,19 +63,19 @@ describe('Scale', () => {
     expect(options.domain).toEqual([0, 10]);
   });
 
-  test('clone() return a scale belong to same class', () => {
+  test('clone() returns a scale belong to same class', () => {
     const s = new Scale();
     const s1 = s.clone();
     expect(s1).toBeInstanceOf(Scale);
   });
 
-  test('clone() return a scale with the same options as the original one', () => {
+  test('clone() returns a scale with the same options as the original one', () => {
     const s = new Scale();
     const s1 = s.clone();
     expect(s.getOptions()).toEqual(s1.getOptions());
   });
 
-  test('clone() return a scale isolating change with the original one', () => {
+  test('clone() returns a scale isolating change with the original one', () => {
     const s = new Scale();
     const s1 = s.clone();
 
