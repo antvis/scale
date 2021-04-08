@@ -1,6 +1,6 @@
 import * as d3 from 'd3-scale';
-import Benchmark from 'benchmark';
 import { Category } from '../../../src/scales/category';
+import { benchMarkBetween } from '../../test-utils/benchmark';
 
 describe('category scale', () => {
   test('category has no expected defaults', () => {
@@ -119,7 +119,7 @@ describe('category scale', () => {
     expect(scale.invert('orange')).toStrictEqual('橘子');
   });
 
-  test('compare pref with d3', () => {
+  test('compare pref with d3', async () => {
     // 和 d3 对大数据（十万）情况做性能对比，在调用 update 的数量较大的场景下，antv-scale 的效率较 d3 有质的提升
     const domain = new Array(100000).fill('').map((item, index) => index);
     const range = new Array(100000).fill('').map((item, index) => index);
@@ -152,26 +152,6 @@ describe('category scale', () => {
       }
     };
 
-    // test env, do not use browser to prevent bugs
-    Benchmark.support.browser = false;
-    const suite = new Benchmark.Suite();
-
-    suite
-      .add('category#antv', () => {
-        timeForAntv();
-      })
-      .add('category#d3', () => {
-        timeForD3();
-      })
-      // add listeners
-      .on('cycle', (event) => {
-        console.log(String(event.target));
-      })
-      .on('complete', function () {
-        const antvRes = this[0];
-        const d3Res = this[1];
-        expect(antvRes.hz / 1.5).toBeGreaterThan(d3Res.hz);
-      });
-    suite.run();
+    await benchMarkBetween(timeForAntv, timeForD3, 1.5);
   });
 });

@@ -44,7 +44,6 @@ export class Band extends Base<BandOptions> {
       paddingInner: 0,
       paddingOuter: 0,
       padding: 0,
-      // 默认情况下使用 undefined 而不是 category 默认的配置 -- 自动补充
       unknown: undefined,
     };
 

@@ -1,4 +1,6 @@
+import * as d3 from 'd3-scale';
 import { Band } from '../../../src/scales/band';
+import { benchMarkBetween } from '../../test-utils/benchmark';
 
 describe('band scale', () => {
   test('default options', () => {
@@ -140,5 +142,29 @@ describe('band scale', () => {
 
     expect(oldBandScale.getOptions().range).toStrictEqual([0, 1000]);
     expect(oldBandScale.getOptions().round).toBeTruthy();
+  });
+
+  test('compare pref with d3', async () => {
+    const domain = new Array(10000).fill('').map((item, index) => index);
+    const oldBandScale = new Band({
+      domain,
+      range: [0, 1000000],
+    });
+
+    const antvTest = () => {
+      for (let i = 0; i < 100000; i += 1) {
+        oldBandScale.map(i);
+      }
+    };
+
+    const d3Scale = d3.scaleBand().domain(domain).range([0, 1000000]);
+
+    const d3Test = () => {
+      for (let i = 0; i < 100000; i += 1) {
+        d3Scale(i);
+      }
+    };
+    // 两者暂时不相上下，先不断言
+    await benchMarkBetween(antvTest, d3Test, 1, false);
   });
 });
