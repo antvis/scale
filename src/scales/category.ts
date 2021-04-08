@@ -72,11 +72,11 @@ export class Category extends Base<CategoryOptions> {
   private rangeIndexMap: Map<any, number> = new Map();
 
   // 覆盖默认配置
-  constructor(options?: Partial<CategoryOptions>) {
-    super(options, {
+  protected getOverrideDefaultOptions() {
+    return {
       domain: [],
       range: [],
-    });
+    };
   }
 
   private initDomainIndexMap() {
