@@ -1,4 +1,4 @@
-import { createClamp } from '../../src/utils';
+import { createClamp } from '../../../src/utils';
 
 describe('createClamp', () => {
   test('createClamp(lo, hi) returns a clamp function', () => {

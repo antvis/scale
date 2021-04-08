@@ -1,4 +1,4 @@
-import { compose } from '../../src/utils';
+import { compose } from '../../../src/utils';
 
 describe('compose', () => {
   test('compose(fn) returns fn', () => {

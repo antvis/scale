@@ -1,9 +1,8 @@
-import { bisect } from '../../src/utils';
+import { bisect } from '../../../src/utils';
 
 /**
  * https://github.com/d3/d3-array/blob/master/test/bisect-test.js
  */
-
 describe('bisect', () => {
   test('bisect(array, x) returns the index after the exact match', () => {
     const array = [1, 2, 3, 4];
