@@ -5,7 +5,7 @@ export type TickMethod<T> = (options?: T) => any[];
  * D：定义域元素的类型
  * R：值域元素的类型
  */
-export type BaseOptions<D = any, R = any> = {
+export type BaseOptions<D = any, R = D> = {
   /** 当需要映射的值不合法的时候，返回的值 */
   unknown?: any;
   /** 值域，默认为 [0, 1] */
@@ -38,6 +38,8 @@ export type Range<O extends BaseOptions> = O['range'][number];
 /** 获得比例尺选项中 unknown 的类型 */
 export type Unknown<O extends BaseOptions> = O['unknown'];
 
-export type IdentityOptions = BaseOptions<number, number> & TickOptions;
+/** Identity 比例尺的选项 */
+export type IdentityOptions = BaseOptions<number> & TickOptions;
 
-export type ConstantOptions = BaseOptions<number | string, number | string> & TickOptions;
+/** Constant 比例尺的选项 */
+export type ConstantOptions = BaseOptions<number | string> & TickOptions;
