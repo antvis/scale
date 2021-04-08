@@ -1,5 +1,7 @@
 export type TickMethod<T> = (options?: T) => any[];
 
+export type Interpolate<T> = (a: T, b: T) => (t: number) => T;
+
 /**
  * 所有比例尺选项的默认类型
  * D：定义域元素的类型
@@ -43,3 +45,11 @@ export type IdentityOptions = BaseOptions<number> & TickOptions;
 
 /** Constant 比例尺的选项 */
 export type ConstantOptions = BaseOptions<number | string> & TickOptions;
+/** Continuous 比例尺的选项 */
+export type ContinuousOptions = BaseOptions<number> &
+  TickOptions & {
+    nice?: boolean;
+    clamp?: boolean;
+    round?: boolean;
+    interpolate?: Interpolate<number>;
+  };
