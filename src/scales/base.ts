@@ -35,15 +35,15 @@ export abstract class Base<O extends BaseOptions> {
    * @param options 需要自定义配置的选项
    */
   constructor(options?: Partial<O>) {
-    assign(this.defaultOptions, this.getDefaultOptions());
-    assign(this.options, this.defaultOptions, options);
+    this.defaultOptions = assign(this.defaultOptions, this.getDefaultOptions()) as O;
+    this.options = assign(this.options, this.defaultOptions, options);
   }
 
   /**
    * 子类需要覆盖的默认配置
    */
   protected getDefaultOptions(): Partial<O> {
-    return {} as O;
+    return {};
   }
 
   /**
