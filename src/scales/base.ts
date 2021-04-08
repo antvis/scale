@@ -23,7 +23,7 @@ export abstract class Base<O extends BaseOptions> {
   /** 比例尺的选项，用于配置数据映射的规则和 ticks 的生成方式 */
   protected options: O = {} as O;
 
-  /** 比例尺扽默认选项，子类可以自定义默认选项 */
+  /** 比例尺的默认选项，子类可以自定义默认选项 */
   protected defaultOptions: O = {
     domain: [0, 1],
     range: [0, 1],
@@ -35,8 +35,8 @@ export abstract class Base<O extends BaseOptions> {
    * @param options 需要自定义配置的选项
    */
   constructor(options?: Partial<O>) {
-    this.defaultOptions = assign(this.defaultOptions, this.getDefaultOptions()) as O;
-    this.options = assign(this.options, this.defaultOptions, options);
+    this.defaultOptions = assign({} as O, this.defaultOptions, this.getDefaultOptions());
+    this.options = assign({} as O, this.defaultOptions, options);
   }
 
   /**
@@ -48,7 +48,7 @@ export abstract class Base<O extends BaseOptions> {
 
   /**
    * 返回当前的所有选项
-   * @returns
+   * @returns 当前的所有选项
    */
   public getOptions() {
     return this.options;
