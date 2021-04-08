@@ -4,16 +4,16 @@ import { ticks } from '../tick-method/basic';
 
 export class Constant extends Base<ConstantOptions> {
   /**
-   * 覆盖默认配置
-   * @param options 需要自定义配置的选项
+   * 返回需要覆盖的默认选项
+   * @returns 需要覆盖的默认选项
    */
-  constructor(options?: Partial<ConstantOptions>) {
-    super(options, {
+  protected getDefaultOptions() {
+    return {
       range: [0],
       tickCount: 5,
       tickInterval: 10,
       tickMethod: ticks,
-    });
+    };
   }
 
   /**

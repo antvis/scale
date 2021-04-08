@@ -33,11 +33,17 @@ export abstract class Base<O extends BaseOptions> {
   /**
    * 构造函数
    * @param options 需要自定义配置的选项
-   * @param overrideDefaultOptions 覆盖默认选项，子类可以通过这个参数对基本的默认选项进行覆盖
    */
-  constructor(options?: Partial<O>, overrideDefaultOptions?: Partial<O>) {
-    assign(this.defaultOptions, overrideDefaultOptions);
+  constructor(options?: Partial<O>) {
+    assign(this.defaultOptions, this.getDefaultOptions());
     assign(this.options, this.defaultOptions, options);
+  }
+
+  /**
+   * 子类需要覆盖的默认配置
+   */
+  protected getDefaultOptions(): Partial<O> {
+    return {} as O;
   }
 
   /**
