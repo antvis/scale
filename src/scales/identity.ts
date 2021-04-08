@@ -8,7 +8,7 @@ export class Identity extends Base<IdentityOptions> {
    * 返回需要覆盖的默认选项
    * @returns 需要覆盖的默认选项
    */
-  protected getDefaultOptions() {
+  protected getOverrideDefaultOptions() {
     return {
       tickCount: 5,
       tickInterval: 10,

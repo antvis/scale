@@ -7,7 +7,7 @@ export class Constant extends Base<ConstantOptions> {
    * 返回需要覆盖的默认选项
    * @returns 需要覆盖的默认选项
    */
-  protected getDefaultOptions() {
+  protected getOverrideDefaultOptions() {
     return {
       range: [0],
       tickCount: 5,

@@ -21,28 +21,29 @@ export abstract class Base<O extends BaseOptions> {
   abstract clone(): Base<O>;
 
   /** 比例尺的选项，用于配置数据映射的规则和 ticks 的生成方式 */
-  protected options: O = {} as O;
+  protected options: O;
 
   /** 比例尺的默认选项，子类可以自定义默认选项 */
-  protected defaultOptions: O = {
-    domain: [0, 1],
-    range: [0, 1],
-    formatter: (x: Range<O>) => `${x}`,
-  } as O;
+  protected readonly defaultOptions: O;
 
   /**
-   * 构造函数
+   * 构造函数，根据自定义的选项和默认选项生成当前选项
    * @param options 需要自定义配置的选项
    */
   constructor(options?: Partial<O>) {
-    this.defaultOptions = assign({} as O, this.defaultOptions, this.getDefaultOptions());
+    const BASE_DEFAULT_OPTIONS = {
+      domain: [0, 1],
+      range: [0, 1],
+      formatter: (x: Range<O>) => `${x}`,
+    } as O;
+    this.defaultOptions = assign({} as O, BASE_DEFAULT_OPTIONS, this.getOverrideDefaultOptions());
     this.options = assign({} as O, this.defaultOptions, options);
   }
 
   /**
    * 子类需要覆盖的默认配置
    */
-  protected getDefaultOptions(): Partial<O> {
+  protected getOverrideDefaultOptions(): Partial<O> {
     return {};
   }
 
