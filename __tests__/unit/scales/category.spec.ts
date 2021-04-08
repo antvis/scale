@@ -152,6 +152,11 @@ describe('category scale', () => {
       }
     };
 
-    await benchMarkBetween(timeForAntv, timeForD3, 1.5);
+    await benchMarkBetween({
+      cb1: timeForAntv,
+      cb2: timeForD3,
+      magnification: 1.5,
+      check: true,
+    });
   });
 });

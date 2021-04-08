@@ -165,6 +165,11 @@ describe('band scale', () => {
       }
     };
     // 两者暂时不相上下，先不断言
-    await benchMarkBetween(antvTest, d3Test, 1, false);
+    await benchMarkBetween({
+      cb1: antvTest,
+      cb2: d3Test,
+      magnification: 1,
+      check: false,
+    });
   });
 });

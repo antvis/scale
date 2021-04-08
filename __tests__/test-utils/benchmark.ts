@@ -1,21 +1,27 @@
 import Benchmark from 'benchmark';
 
+interface BenchMarkBetweenOptions {
+  // 回调函数 1
+  cb1: Function;
+  // 回调函数 2
+  cb2: Function;
+  // 期望的倍率，默认为 1
+  magnification?: number;
+  // 执行断言
+  check?: boolean;
+}
+
 /**
  * benchMark 两个回调函数, 并为倍率进行断言
  * 由于本库经常要和 d3 进行性能优化，故添加了这个工具函数
  *
- * @param cb1 回调函数 1
- * @param cb2 回调函数 2
- * @param magnification 期望的倍率，默认为 1
- * @param check 执行断言
+ * @param opt 相关选项，请参考定义
+ * @see BenchMarkBetweenOptions
  */
-export const benchMarkBetween = async (
-  cb1: Function,
-  cb2: Function,
-  magnification: number = 1,
-  check: boolean = true
-) =>
-  new Promise((resolve) => {
+export const benchMarkBetween = async (opt: BenchMarkBetweenOptions) => {
+  const { check, magnification, cb1, cb2 } = opt;
+
+  return new Promise((resolve) => {
     // test env, do not use browser to prevent bugs
     Benchmark.support.browser = false;
     const suite = new Benchmark.Suite();
@@ -31,11 +37,11 @@ export const benchMarkBetween = async (
       .on('cycle', (event) => {
         console.log(String(event.target));
       })
-      .on('complete', function () {
+      .on('complete', function complete() {
         const first = this[0];
         const second = this[1];
         if (check) {
-          expect(first.hz / magnification).toBeGreaterThan(second.hz);
+          expect(first.hz / magnification || 5).toBeGreaterThan(second.hz);
         }
         resolve({
           first,
@@ -44,3 +50,4 @@ export const benchMarkBetween = async (
       });
     suite.run();
   });
+};
