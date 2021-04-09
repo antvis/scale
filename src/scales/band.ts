@@ -53,6 +53,7 @@ export class Band extends Category<BandOptions> {
 
   constructor(options?: Partial<BandOptions>) {
     super(options);
+
     // 保存用户传入的 range
     this.bandRange = this.options.range;
 

@@ -7,13 +7,13 @@ describe('band scale', () => {
   test('default options and methods', () => {
     const bandScale = new Band();
     const opt = bandScale.getOptions() as BandOptions;
-
     expect(opt.domain).toStrictEqual([]);
     expect(opt.bandWidth).toStrictEqual(1);
     expect(opt.round).toStrictEqual(false);
     expect(opt.paddingInner).toStrictEqual(0);
     expect(opt.paddingOuter).toStrictEqual(0);
     expect(opt.align).toStrictEqual(0.5);
+    expect(opt.range).toStrictEqual([0.5]);
 
     expect(bandScale.getBandRange()).toStrictEqual([0, 1]);
     expect(bandScale.getStep()).toStrictEqual(1);
