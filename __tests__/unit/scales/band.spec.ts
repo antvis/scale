@@ -4,18 +4,19 @@ import { benchMarkBetween } from '../../test-utils/benchmark';
 import { BandOptions } from '../../../src/types';
 
 describe('band scale', () => {
-  test('default options', () => {
+  test('default options and methods', () => {
     const bandScale = new Band();
     const opt = bandScale.getOptions() as BandOptions;
 
     expect(opt.domain).toStrictEqual([]);
-    expect(bandScale.getBandRange()).toStrictEqual([0, 1]);
     expect(opt.bandWidth).toStrictEqual(1);
-    expect(bandScale.getStep()).toStrictEqual(1);
     expect(opt.round).toStrictEqual(false);
     expect(opt.paddingInner).toStrictEqual(0);
     expect(opt.paddingOuter).toStrictEqual(0);
     expect(opt.align).toStrictEqual(0.5);
+
+    expect(bandScale.getBandRange()).toStrictEqual([0, 1]);
+    expect(bandScale.getStep()).toStrictEqual(1);
   });
 
   test('test map fn(common usage)', () => {
@@ -55,14 +56,14 @@ describe('band scale', () => {
 
   test('test padding-inner option', () => {
     const bandScale = new Band({
-      domain: ['one', 'two', 'three', 'four'],
-      range: [0, 100],
+      domain: ['A', 'B', 'C'],
+      range: [0, 500],
     });
 
     bandScale.update({
-      paddingInner: 0.6,
+      paddingInner: 0.1,
     });
-    expect(bandScale.getStep()).toBeCloseTo(29.4, -1);
+    expect(bandScale.getStep()).toBeCloseTo(172.41, -2);
   });
 
   test('test padding-outer option', () => {
@@ -98,7 +99,7 @@ describe('band scale', () => {
 
   test('test unknown option', () => {
     const bandScale = new Band({
-      domain: ['one', 'two', 'three', 'four'],
+      domain: ['A', 'B', 'C'],
       range: [0, 100],
     });
     // 注：category 对于不存在数据的默认处理方式是添加进去，所以这里是 0
