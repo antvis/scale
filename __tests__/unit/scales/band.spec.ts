@@ -15,6 +15,7 @@ describe('band scale', () => {
     expect(opt.align).toStrictEqual(0.5);
     expect(opt.range).toStrictEqual([0.5]);
 
+    expect(bandScale.getBandWidth()).toStrictEqual(1);
     expect(bandScale.getBandRange()).toStrictEqual([0, 1]);
     expect(bandScale.getStep()).toStrictEqual(1);
   });

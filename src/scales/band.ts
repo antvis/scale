@@ -114,7 +114,7 @@ export class Band extends Category<BandOptions> {
     this.options.range = sequence(rangeStart, rangeEnd, this.step);
   }
 
-  clone() {
+  public clone() {
     const opt = clone(this.options);
     opt.range = clone(this.bandRange);
     return new Band(opt);
@@ -147,5 +147,9 @@ export class Band extends Category<BandOptions> {
 
   public getBandRange() {
     return this.bandRange;
+  }
+
+  public getBandWidth() {
+    return this.options.bandWidth;
   }
 }
