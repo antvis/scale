@@ -1,4 +1,3 @@
-import { clone } from '@antv/util';
 import { CategoryOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
@@ -63,7 +62,10 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
  * - 两个 map 只初始化一次，在之后的更新中复用他们，这样我们避免了重复 new Map 带来的性能问题
  *   在大量调用 update 函数场景下，较 d3-scale 效率有质的提高
  */
-export class Category extends Base<CategoryOptions> {
+export class Category<O extends CategoryOptions = CategoryOptions> extends Base<CategoryOptions> {
+  // 添加 option 属性，这样子类就不用进行断言
+  protected options: O;
+
   // 定义域映射表
   private domainIndexMap: Map<any, number> = new Map();
 
@@ -75,7 +77,7 @@ export class Category extends Base<CategoryOptions> {
     return {
       domain: [],
       range: [],
-    };
+    } as O;
   }
 
   private initDomainIndexMap() {
@@ -127,7 +129,7 @@ export class Category extends Base<CategoryOptions> {
   }
 
   public clone() {
-    return new Category(clone(this.options));
+    return new Category(this.options);
   }
 
   private getDomain() {

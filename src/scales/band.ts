@@ -1,6 +1,4 @@
-import { clone } from '@antv/util';
-import { BandOptions, Domain } from '../types';
-import { Base } from './base';
+import { BandOptions } from '../types';
 import { Category } from './category';
 import { sequence } from '../utils/sequence';
 
@@ -28,14 +26,18 @@ import { sequence } from '../utils/sequence';
  *
  * TODO: 补充性能优化描述
  */
-export class Band extends Base<BandOptions> {
-  private readonly categoryBase: Category;
-
+export class Band extends Category<BandOptions> {
+  // 步长，见上图
   private step: number;
 
+  // band 的 range 属性，由于 band 是基于 category 的，range 会被转换
+  // 当用户直接获取 option.range 时，获取的属性是转化后的 range
+  // 如果你需要获取转换前的 range，那么必须调用 getBandRange 方法
+  private bandRange: number[];
+
   // 覆盖默认配置
-  constructor(options?: Partial<BandOptions>) {
-    const defaultOpts: BandOptions = {
+  protected getOverrideDefaultOptions() {
+    return {
       domain: [],
       range: [0, 1],
       align: 0.5,
@@ -46,15 +48,17 @@ export class Band extends Base<BandOptions> {
       padding: 0,
       unknown: undefined,
     };
+  }
 
-    super(options, defaultOpts);
+  constructor(options?: Partial<BandOptions>) {
+    super(options);
+    // 保存用户传入的 range
+    this.bandRange = options.range;
 
+    // 配置步长
     this.step = 1;
 
-    this.categoryBase = new Category({
-      ...this.options,
-    });
-
+    // 为 band 作初始化工作
     this.adjustBandState();
   }
 
@@ -62,7 +66,7 @@ export class Band extends Base<BandOptions> {
    * 更新/调整 band 配置
    */
   private adjustBandState() {
-    const opt = this.getOptions();
+    const opt = this.getOptions() as BandOptions;
 
     let rangeStart = opt.range[0];
     const rangeEnd = opt.range[1];
@@ -110,39 +114,26 @@ export class Band extends Base<BandOptions> {
       opt.bandWidth = Math.round(opt.bandWidth);
     }
 
-    const targetRange = sequence(rangeStart, rangeEnd, this.step);
-
-    // 更新 category range
-    this.categoryBase.update({
-      range: targetRange,
-    });
+    // 转化后的 range
+    this.options.range = sequence(rangeStart, rangeEnd, this.step);
   }
 
-  public map(x: Domain<BandOptions>) {
-    return this.categoryBase.map(x);
+  clone() {
+    return new Band(this.options);
   }
 
   public update(updateOptions: Partial<BandOptions>) {
-    super.update(updateOptions);
-    this.categoryBase.update({
-      ...updateOptions,
-    });
+    // 更新 band 相关配置
     this.adjustBandState();
-  }
-
-  public invert(y) {
-    return this.categoryBase.invert(y);
-  }
-
-  public clone() {
-    return new Band(clone(this.options));
+    // 调用 category 的 update
+    super.update(updateOptions);
   }
 
   public getStep() {
     return this.step;
   }
 
-  public getCategoryBase() {
-    return this.categoryBase;
+  public getBandRange() {
+    return this.bandRange;
   }
 }

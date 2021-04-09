@@ -45,7 +45,7 @@ export type ConstantOptions = BaseOptions<number | string, number | string> & Ti
 export type CategoryOptions = BaseOptions<number | string, number | string>;
 
 /** 详细请参阅 scale/band.ts */
-export interface BandOptions extends BaseOptions<number | string, number> {
+export type BandOptions = BaseOptions<number | string, number> & {
   /** 单个 band 宽度 */
   bandWidth?: number;
   /** 是否取整 */
@@ -60,4 +60,4 @@ export interface BandOptions extends BaseOptions<number | string, number> {
   align?: number;
   /** 配置 range 设置 round 为 true */
   rangeRound?: number[];
-}
+};
