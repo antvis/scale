@@ -2,7 +2,7 @@
 
 Identity scales are a special case of linear scales where the domain and range are identical.
 
-## Example
+## Usage
 
 ```ts
 import { Identity, IdentityOptions } from '@antv/scale';
