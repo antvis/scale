@@ -5,15 +5,15 @@ import { ticks } from '../tick-method/basic';
 
 export class Identity extends Base<IdentityOptions> {
   /**
-   * 覆盖默认配置
-   * @param options 需要自定义配置的选项
+   * 返回需要覆盖的默认选项
+   * @returns 需要覆盖的默认选项
    */
-  constructor(options?: Partial<IdentityOptions>) {
-    super(options, {
+  protected getOverrideDefaultOptions() {
+    return {
       tickCount: 5,
       tickInterval: 10,
       tickMethod: ticks,
-    });
+    };
   }
 
   /**
