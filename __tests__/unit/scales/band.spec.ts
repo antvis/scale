@@ -1,14 +1,15 @@
 import * as d3 from 'd3-scale';
 import { Band } from '../../../src/scales/band';
 import { benchMarkBetween } from '../../test-utils/benchmark';
+import { BandOptions } from '../../../src/types';
 
 describe('band scale', () => {
   test('default options', () => {
     const bandScale = new Band();
-    const opt = bandScale.getOptions();
+    const opt = bandScale.getOptions() as BandOptions;
 
     expect(opt.domain).toStrictEqual([]);
-    expect(opt.range).toStrictEqual([0, 1]);
+    expect(bandScale.getBandRange()).toStrictEqual([0, 1]);
     expect(opt.bandWidth).toStrictEqual(1);
     expect(bandScale.getStep()).toStrictEqual(1);
     expect(opt.round).toStrictEqual(false);
@@ -28,10 +29,12 @@ describe('band scale', () => {
     expect(bandScale.map('three')).toStrictEqual(50);
     expect(bandScale.map('four')).toStrictEqual(75);
 
-    expect(bandScale.getOptions().bandWidth).toStrictEqual(25);
+    const opt = bandScale.getOptions() as BandOptions;
+
+    expect(opt.bandWidth).toStrictEqual(25);
     expect(bandScale.getStep()).toStrictEqual(25);
 
-    expect(bandScale.getCategoryBase().getOptions().range).toStrictEqual([0, 25, 50, 75]);
+    expect(opt.range).toStrictEqual([0, 25, 50, 75]);
   });
 
   test('test invert fn(common usage)', () => {
@@ -40,12 +43,14 @@ describe('band scale', () => {
       range: [0, 100],
     });
 
+    const opt = bandScale.getOptions() as BandOptions;
+
     expect(bandScale.invert(0)).toStrictEqual('one');
     expect(bandScale.invert(25)).toStrictEqual('two');
     expect(bandScale.invert(50)).toStrictEqual('three');
     expect(bandScale.invert(75)).toStrictEqual('four');
 
-    expect(bandScale.getCategoryBase().getOptions().domain).toStrictEqual(['one', 'two', 'three', 'four']);
+    expect(opt.domain).toStrictEqual(['one', 'two', 'three', 'four']);
   });
 
   test('test padding-inner option', () => {
@@ -130,18 +135,6 @@ describe('band scale', () => {
     const newBandScale = oldBandScale.clone();
     expect(oldBandScale.getOptions()).toStrictEqual(newBandScale.getOptions());
     expect(oldBandScale.getOptions() !== newBandScale.getOptions()).toBeTruthy();
-  });
-
-  test('test rangeRound Option', () => {
-    const oldBandScale = new Band({
-      domain: ['A', 'B', 'C'],
-      range: [0, 500],
-      rangeRound: [0, 1000],
-      round: false,
-    });
-
-    expect(oldBandScale.getOptions().range).toStrictEqual([0, 1000]);
-    expect(oldBandScale.getOptions().round).toBeTruthy();
   });
 
   test('compare pref with d3', async () => {

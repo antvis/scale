@@ -92,6 +92,7 @@ describe('category scale', () => {
     const oldOpt = scale.getOptions();
     const newOpt = newScale.getOptions();
     expect(oldOpt).toStrictEqual(newOpt);
+    expect(oldOpt !== newOpt).toBeTruthy();
     expect(oldOpt.domain !== newOpt.domain).toBeTruthy();
   });
 

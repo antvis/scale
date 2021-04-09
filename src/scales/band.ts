@@ -1,3 +1,4 @@
+import { clone } from '@antv/util';
 import { BandOptions } from '../types';
 import { Category } from './category';
 import { sequence } from '../utils/sequence';
@@ -53,7 +54,7 @@ export class Band extends Category<BandOptions> {
   constructor(options?: Partial<BandOptions>) {
     super(options);
     // 保存用户传入的 range
-    this.bandRange = options.range;
+    this.bandRange = this.options.range;
 
     // 配置步长
     this.step = 1;
@@ -68,20 +69,14 @@ export class Band extends Category<BandOptions> {
   private adjustBandState() {
     const opt = this.getOptions() as BandOptions;
 
-    let rangeStart = opt.range[0];
-    const rangeEnd = opt.range[1];
+    let rangeStart = this.bandRange[0];
+    const rangeEnd = this.bandRange[1];
 
     // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
     // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
     if (opt.padding > 0) {
       opt.paddingInner = opt.padding;
       opt.paddingOuter = opt.padding;
-    }
-
-    // 配置了 rangeRound
-    if (opt.rangeRound) {
-      opt.range = opt.rangeRound;
-      opt.round = true;
     }
 
     const stepAmount = opt.domain.length;
@@ -119,14 +114,30 @@ export class Band extends Category<BandOptions> {
   }
 
   clone() {
-    return new Band(this.options);
+    const opt = clone(this.options);
+    opt.range = clone(this.bandRange);
+    return new Band(opt);
   }
 
   public update(updateOptions: Partial<BandOptions>) {
+    this.options = {
+      ...this.options,
+      ...updateOptions,
+    };
+
+    // 如果用户传入了新的 range, 更新之
+    if (updateOptions.range) {
+      this.bandRange = updateOptions.range;
+    }
+
+    // 配置步长
+    this.step = 1;
+
     // 更新 band 相关配置
     this.adjustBandState();
+
     // 调用 category 的 update
-    super.update(updateOptions);
+    super.update(this.options);
   }
 
   public getStep() {

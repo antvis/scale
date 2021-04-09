@@ -1,3 +1,4 @@
+import { clone } from '@antv/util';
 import { CategoryOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
@@ -129,7 +130,7 @@ export class Category<O extends CategoryOptions = CategoryOptions> extends Base<
   }
 
   public clone() {
-    return new Category(this.options);
+    return new Category(clone(this.options));
   }
 
   private getDomain() {
