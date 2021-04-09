@@ -20,7 +20,7 @@ Toolkit for mapping abstract data into visual representation.
 
 - Powerful
 - High performance
-- Fully embrace Typescript
+- Fully embrace TypeScript
 
 ## 📦 Installation
 
@@ -66,10 +66,6 @@ x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 - [ ] Point
 
 ### 🧮 Tick Methods
-
-## 🏷️ Releases
-
-## 🤝 How to Contribute
 
 ## 📄 License
 
