@@ -2,12 +2,10 @@ import { Base } from '../../../src/scales/base';
 import { BaseOptions, Domain, Range } from '../../../src/types';
 
 class Scale extends Base<BaseOptions> {
-  // eslint-disable-next-line class-methods-use-this
   public map(x: Domain<BaseOptions>) {
     return x;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   public invert(x: Range<BaseOptions>) {
     return x;
   }
@@ -17,7 +15,7 @@ class Scale extends Base<BaseOptions> {
   }
 }
 
-describe('Scale', () => {
+describe('Base', () => {
   test('Scale() has expected defaults', () => {
     const s = new Scale();
     // @ts-ignore
@@ -39,14 +37,7 @@ describe('Scale', () => {
     expect(s.options.domain).toEqual([0, 10]);
   });
 
-  test('Scale({}, defaults) set defaults', () => {
-    const s = new Scale({}, { domain: [0, 20] });
-
-    // @ts-ignore
-    expect(s.options.domain).toEqual([0, 20]);
-  });
-
-  test('getOptions() returns current Options', () => {
+  test('getOptions() return current Options', () => {
     const s = new Scale();
     // @ts-ignore
     expect(s.options).toEqual(s.getOptions());

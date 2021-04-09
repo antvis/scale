@@ -45,6 +45,10 @@ export type IdentityOptions = BaseOptions<number> & TickOptions;
 
 /** Constant 比例尺的选项 */
 export type ConstantOptions = BaseOptions<number | string> & TickOptions;
+
+/** CategoryOptions 比例尺的选项 */
+export type CategoryOptions = BaseOptions<number | string, number | string>;
+
 /** Continuous 比例尺的选项 */
 export type ContinuousOptions = BaseOptions<number> &
   TickOptions & {
