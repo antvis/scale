@@ -10,7 +10,6 @@ describe('Identity', () => {
       range: [0, 1],
       domain: [0, 1],
       tickCount: 5,
-      tickInterval: 10,
     });
     expect(formatter(1)).toBe('1');
     expect(tickMethod).toEqual(ticks);

@@ -11,7 +11,6 @@ export class Constant extends Base<ConstantOptions> {
     return {
       range: [0],
       tickCount: 5,
-      tickInterval: 10,
       tickMethod: ticks,
     };
   }

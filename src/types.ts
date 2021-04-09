@@ -25,8 +25,6 @@ export type BaseOptions<D = any, R = D> = {
 export type TickOptions<T = any> = {
   /** tick 个数，默认值为 5 */
   tickCount?: number;
-  /** tick 间隔的最大值，默认值为 10 */
-  tickInterval?: number;
   /** 计算 ticks 的算法 */
   tickMethod?: TickMethod<T>;
 };

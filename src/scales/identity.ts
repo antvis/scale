@@ -11,7 +11,6 @@ export class Identity extends Base<IdentityOptions> {
   protected getOverrideDefaultOptions() {
     return {
       tickCount: 5,
-      tickInterval: 10,
       tickMethod: ticks,
     };
   }
