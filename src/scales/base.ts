@@ -1,4 +1,4 @@
-import { assign } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { BaseOptions, Domain, Range, Unknown } from '../types';
 
 export abstract class Base<O extends BaseOptions> {
@@ -36,8 +36,8 @@ export abstract class Base<O extends BaseOptions> {
       range: [0, 1],
       formatter: (x: Range<O>) => `${x}`,
     } as O;
-    this.defaultOptions = assign({} as O, BASE_DEFAULT_OPTIONS, this.getOverrideDefaultOptions());
-    this.options = assign({} as O, this.defaultOptions, options);
+    this.defaultOptions = deepMix({}, BASE_DEFAULT_OPTIONS, this.getOverrideDefaultOptions());
+    this.options = deepMix({}, this.defaultOptions, options);
   }
 
   /**
@@ -60,6 +60,6 @@ export abstract class Base<O extends BaseOptions> {
    * @param updateOptions 需要更新的选项
    */
   public update(updateOptions: Partial<O>) {
-    assign(this.options, updateOptions);
+    this.options = deepMix({}, this.options, updateOptions);
   }
 }
