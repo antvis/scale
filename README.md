@@ -25,7 +25,7 @@ Toolkit for mapping abstract data into visual representation.
 ## 📦 Installation
 
 ```bash
-$ npm install @antv/g2
+$ npm install @antv/scale
 ```
 
 ## 🔨 Getting Started
@@ -33,7 +33,7 @@ $ npm install @antv/g2
 ```ts
 import { Linear } from "@antv/scale";
 
-const x = Linear({
+const x = new Linear({
   domain: [0, 10],
   range: [0, 100],
 });
@@ -44,6 +44,8 @@ x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 ```
 
 ## 📜 API reference
+
+### ⚖️ Scales
 
 - [x] [Identity](./docs/identity.md)
 - [x] Constant
@@ -62,6 +64,8 @@ x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 - [ ] Ordinal
 - [ ] Band
 - [ ] Point
+
+### 🧮 Tick Methods
 
 ## 🏷️ Releases
 
