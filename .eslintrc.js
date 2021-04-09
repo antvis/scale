@@ -20,6 +20,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'object-curly-newline': 'off',
     'class-methods-use-this': 'off',
+    'no-console': 'off',
   },
   settings: {
     'import/parsers': {
