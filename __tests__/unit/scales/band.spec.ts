@@ -140,30 +140,39 @@ describe('band scale', () => {
 
   test('compare pref with d3', async () => {
     const domain = new Array(10000).fill('').map((item, index) => index);
-    const oldBandScale = new Band({
-      domain,
-      range: [0, 1000000],
-    });
 
     const antvTest = () => {
+      const antvScale = new Band({
+        domain,
+        range: [0, 100000],
+      });
+
       for (let i = 0; i < 100000; i += 1) {
-        oldBandScale.map(i);
+        antvScale.map(i);
+        if (i % 1000 === 0) {
+          antvScale.update({
+            domain: [0, 100000],
+            range: [0, 100000],
+          });
+        }
       }
     };
 
-    const d3Scale = d3.scaleBand().domain(domain).range([0, 1000000]);
-
     const d3Test = () => {
+      const d3Scale = d3.scaleBand().domain(domain).range([0, 100000]);
       for (let i = 0; i < 100000; i += 1) {
         d3Scale(i);
+        if (i % 1000 === 0) {
+          d3Scale.domain(domain).range([0, 100000]);
+        }
       }
     };
     // 两者暂时不相上下，先不断言
     await benchMarkBetween({
       cb1: antvTest,
       cb2: d3Test,
-      magnification: 1,
-      check: false,
+      magnification: 9,
+      check: true,
     });
   });
 
