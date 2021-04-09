@@ -1,4 +1,4 @@
-import { createNormalize } from '../../../src/utils/normalize';
+import { createNormalize } from '../../../src/utils';
 
 describe('createNormalize(a, b)', () => {
   test('createNormalize(a, a) returns a constant function of 0.5', () => {
