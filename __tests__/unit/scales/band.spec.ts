@@ -8,12 +8,12 @@ describe('band scale', () => {
     const bandScale = new Band();
     const opt = bandScale.getOptions() as BandOptions;
     expect(opt.domain).toStrictEqual([]);
-    expect(opt.bandWidth).toStrictEqual(1);
+    expect(bandScale.getBandWidth()).toStrictEqual(1);
     expect(opt.round).toStrictEqual(false);
     expect(opt.paddingInner).toStrictEqual(0);
     expect(opt.paddingOuter).toStrictEqual(0);
     expect(opt.align).toStrictEqual(0.5);
-    expect(opt.range).toStrictEqual([0.5]);
+    expect(opt.range).toStrictEqual([0, 1]);
 
     expect(bandScale.getBandWidth()).toStrictEqual(1);
     expect(bandScale.getBandRange()).toStrictEqual([0, 1]);
@@ -31,12 +31,12 @@ describe('band scale', () => {
     expect(bandScale.map('three')).toStrictEqual(50);
     expect(bandScale.map('four')).toStrictEqual(75);
 
-    const opt = bandScale.getOptions() as BandOptions;
+    const opt = bandScale.getOptions();
 
-    expect(opt.bandWidth).toStrictEqual(25);
+    expect(bandScale.getBandWidth()).toStrictEqual(25);
     expect(bandScale.getStep()).toStrictEqual(25);
 
-    expect(opt.range).toStrictEqual([0, 25, 50, 75]);
+    expect(opt.range).toStrictEqual([0, 100]);
   });
 
   test('test invert fn(common usage)', () => {
@@ -182,12 +182,12 @@ describe('band scale', () => {
       domain: ['one', 'two', 'three', 'four'],
       range: [0, 100],
     });
-    expect(bandScale.getOptions().range).toStrictEqual([0, 25, 50, 75]);
+    expect(bandScale.getOptions().range).toStrictEqual([0, 100]);
 
     bandScale.update({
       range: [0, 1000],
     });
 
-    expect(bandScale.getOptions().range).toStrictEqual([0, 250, 500, 750]);
+    expect(bandScale.getOptions().range).toStrictEqual([0, 1000]);
   });
 });

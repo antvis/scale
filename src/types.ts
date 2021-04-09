@@ -46,8 +46,6 @@ export type CategoryOptions = BaseOptions<number | string, number | string>;
 
 /** 详细请参阅 scale/band.ts */
 export type BandOptions = BaseOptions<number | string, number> & {
-  /** 单个 band 宽度 */
-  bandWidth?: number;
   /** 是否取整 */
   round?: boolean;
   /** 内部边距 */

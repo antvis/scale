@@ -134,10 +134,10 @@ export class Category<O extends CategoryOptions = CategoryOptions> extends Base<
   }
 
   private getDomain() {
-    return this.getOptions().domain;
+    return this.options.domain;
   }
 
   private getRange() {
-    return this.getOptions().range;
+    return this.options.range;
   }
 }
