@@ -165,4 +165,18 @@ describe('band scale', () => {
       check: false,
     });
   });
+
+  test('test update options', () => {
+    const bandScale = new Band({
+      domain: ['one', 'two', 'three', 'four'],
+      range: [0, 100],
+    });
+    expect(bandScale.getOptions().range).toStrictEqual([0, 25, 50, 75]);
+
+    bandScale.update({
+      range: [0, 1000],
+    });
+
+    expect(bandScale.getOptions().range).toStrictEqual([0, 250, 500, 750]);
+  });
 });
