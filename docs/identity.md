@@ -22,20 +22,38 @@ x.getTicks(); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 ## Options
 
-| name | type | default | description |
-| ---- | ---- | ------- | ----------- |
-| domain | `number[]` | `[0, 1`] |Sets the scale’s domain to the specified array of values. |
-| range | `number[]` | `[0, 1]` |Sets the scale’s range to the specified array of values. |
-| unknown | `any` | `undefined` |Sets the output value of the scale for undefined (or NaN) input values. |
-| formatter | `(x: any) => string` | ```(x) => `${x}```|Sets the format function to display a tick value. |
-| tickCount | `number` | `5` |Sets approximately count representative values from the scale’s domain. |
-| tickMethod | `(options?: IdentityOptions) => number[]` | r-pretty|Sets the method for computing representative values from the scale’s domain.|
+| Key | Description | Type | Default|  
+| ----| ----------- | -----| -------|
+| domain | Sets the scale’s domain to the specified array of values. | `number[]` | `[0, 1]` |
+| range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
+| unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
+| formatter | Sets the format function to display a tick value. | `(x: any) => string` | ```(x) => `${x}```|
+| tickCount | Sets approximately count representative values from the scale’s domain. | `number` | `5` |
+| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: IdentityOptions) => number[]` | r-pretty|
 
 ## Methods
 
-- `map(x: number): number | any`: Returns the input value itself if it is not undefined (or NaN), otherwise `options.unknown`.
-- `invert(x: number)`: Returns the output value itself.
-- `getTicks()`: Returns representative values from the scale’s domain computed by specified `options.tickMethod` with `options.tickCount`.
-- `update(options: Partial<IdentityOptions>)`: Update the scale's options and rescale.
-- `getOptions(): IdentityOptions`: Returns the scale's current options.
-- `clone(): Identity`: Return a new identity scale with the independent and same options as the original one.
+<a name="indentity_map" href="#indentity_map">#</a> **map**<i>(x: number): number | any</i>
+
+Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
+
+<a name="indentity_invert" href="#indentity_invert">#</a> **invert**<i>(x: number): number</i>
+
+Returns the output value itself.
+
+<a name="indentity_getTicks" href="#indentity_getTicks">#</a> **getTicks**<i>(): number[]</i>
+
+Returns representative values from the scale’s domain computed by specified `options.tickMethod` with `options.
+tickCount`.
+
+<a name="indentity_update" href="#indentity_update">#</a> **update**<i>(options: IdentityOptions): void</i>
+
+Update the scale's options and rescale.
+
+<a name="indentity_getOptions" href="#indentity_getOptions">#</a> **getOptions**<i>(): IdentityOptions</i>
+
+Returns the scale's current options.
+
+<a name="indentity_clone" href="#indentity_clone">#</a> **clone**<i>(): Identity</i>
+
+Returns a new identity scale with the independent and same options as the original one.
