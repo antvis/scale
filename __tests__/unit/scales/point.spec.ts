@@ -10,4 +10,17 @@ describe('point scale test', () => {
     expect(align).toStrictEqual(0.5);
     expect(domain).toStrictEqual([]);
   });
+
+  test('test common usage', () => {
+    const scale = new Point({
+      domain: ['A', 'B', 'C'],
+      padding: 0.6,
+      align: 1,
+      range: [0, 500],
+    });
+
+    expect(scale.map('A')).toStrictEqual(187.5);
+    expect(scale.getStep()).toStrictEqual(156.25);
+    expect(scale.getBandWidth()).toStrictEqual(0);
+  });
 });

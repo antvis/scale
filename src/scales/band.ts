@@ -28,7 +28,7 @@ interface BandStateOptions {
  * adjustedRange -- 最终得到的 range
  * bandWidth -- band 宽度
  */
-function getBandState(opt: BandStateOptions) {
+export function getBandState(opt: BandStateOptions) {
   const DEFAULT_OPTIONS = {
     range: [0, 1],
     align: 0.5,
@@ -112,7 +112,10 @@ function getBandState(opt: BandStateOptions) {
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
-export class Band extends Category<BandOptions> {
+export class Band<O extends BandOptions = BandOptions> extends Category<BandOptions> {
+  // 添加 option 属性，这样子类就不用进行断言
+  protected options: O;
+
   // 步长，见上图
   private step: number = 0;
 
