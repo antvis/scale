@@ -160,18 +160,10 @@ export class Band extends Category<BandOptions> {
     return this.bandWidth;
   }
 
-  protected getRange() {
-    // 如果有缓存，返回之，防止出现性能问题
-    if (this.rangeCache) {
-      return this.rangeCache;
-    }
-
+  protected getBandState(bandOption: BandOptions) {
     // 更新 bandRange, 这里拿到的 this.options 是没有处理过的 range
-    const { align, domain, padding, paddingOuter, paddingInner, range, round } = this.options;
-
-    // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
-    // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
-    const newState = getBandState({
+    const { align, domain, padding, paddingOuter, paddingInner, range, round } = bandOption;
+    return getBandState({
       align,
       range,
       round,
@@ -179,6 +171,17 @@ export class Band extends Category<BandOptions> {
       paddingOuter: padding > 0 ? padding : paddingOuter,
       stepAmount: domain.length,
     });
+  }
+
+  protected getRange() {
+    // 如果有缓存，返回之，防止出现性能问题
+    if (this.rangeCache) {
+      return this.rangeCache;
+    }
+
+    // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
+    // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
+    const newState = this.getBandState(this.options);
 
     // 更新必要的属性
     this.step = newState.step;
