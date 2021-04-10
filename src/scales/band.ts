@@ -28,7 +28,7 @@ interface BandStateOptions {
  * adjustedRange -- 最终得到的 range
  * bandWidth -- band 宽度
  */
-function getBandState(opt: BandStateOptions) {
+export function getBandState(opt: BandStateOptions) {
   const DEFAULT_OPTIONS = {
     range: [0, 1],
     align: 0.5,

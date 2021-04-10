@@ -79,6 +79,10 @@ Returns a new band scale with the independent and same options as the original o
 
 Returns band scale's step, for more info about `step`, please see [example](#example).
 
+<a name="band_get_band_width" href="#band_get_band_width">#</a> **getBandWidth**<i>(): number</i>
+
+Returns band scale's bandWidth, for more info about this, please see [example](#example).
+
 
 
 
