@@ -11,25 +11,24 @@ describe('Continuous', () => {
   const transformCallback = jest.fn();
   const untransformCallback = jest.fn();
 
-  const transform = (x) => {
-    transformCallback();
-    return identity(x);
-  };
-
-  const untransform = (x) => {
-    untransformCallback();
-    return identity(x);
-  };
-
   class Scale extends Continuous<ScaleOptions> {
-    constructor(options?: ContinuousOptions) {
-      super(transform, untransform, options);
+    protected chooseUntransform() {
+      return (x) => {
+        untransformCallback();
+        return identity(x);
+      };
+    }
+
+    protected chooseTransform() {
+      return (x) => {
+        transformCallback();
+        return identity(x);
+      };
     }
 
     protected nice() {
       niceCallback();
-      const [a, b] = this.options.domain;
-      return [a, b + 1];
+      this.options.domain = [0, 2];
     }
 
     public clone() {
@@ -75,15 +74,6 @@ describe('Continuous', () => {
     expect(s.options.domain).toEqual([0, 10]);
   });
 
-  test('Continuous(options) call nice() if options.nice === true', () => {
-    const s = new Scale({
-      nice: true,
-    });
-
-    expect(niceCallback).toBeCalledTimes(1);
-    expect(s.getOptions().domain).toEqual([0, 2]);
-  });
-
   test('map(undefined | NaN) map undefined or NaN to options.unknown', () => {
     const s = new Scale({
       unknown: 'dirty',
@@ -127,6 +117,26 @@ describe('Continuous', () => {
 
     // @ts-ignore
     expect(untransformCallback).toBeCalled();
+  });
+
+  test('map(x) call nice() if options.nice === true', () => {
+    const s = new Scale({
+      nice: true,
+    });
+
+    s.map(0);
+    expect(niceCallback).toBeCalledTimes(1);
+    expect(s.getOptions().domain).toEqual([0, 2]);
+  });
+
+  test('invert(x) call nice() if options.nice === true', () => {
+    const s = new Scale({
+      nice: true,
+    });
+
+    s.invert(0);
+    expect(niceCallback).toBeCalledTimes(2);
+    expect(s.getOptions().domain).toEqual([0, 2]);
   });
 
   test('map(x) compose the output', () => {

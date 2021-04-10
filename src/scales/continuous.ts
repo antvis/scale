@@ -81,18 +81,17 @@ export abstract class Continuous<O extends Options> extends Base<O> {
   protected input: Transform;
 
   /** 在设置了选项后对 domain 进行优化 */
-  protected abstract nice(): Options['domain'];
+  protected abstract nice(): void;
 
-  /**
-   * 设置选项，根据选项对 domain 进行优化
-   * @param transform y = a * f(x) + b 中的 f(x)
-   * @param untransform x = a * f'(y) + b 中的 f'(y)
-   * @param options 自定义选项
+  /** 根据比例尺 和 options 选择对应的 transform 函数
+   * y = a * f(x) + b 中的 f(x)
    */
-  constructor(protected transform: Transform, protected untransform: Transform, options?: Partial<O>) {
-    super(options);
-    this.niceDomain();
-  }
+  protected abstract chooseTransform(): Transform;
+
+  /** 根据比例尺 和 options 选择对应的 untransform 函数
+   * x = a * f'(y) + b 中的 f'(y)
+   */
+  protected abstract chooseUntransform(): Transform;
 
   protected getOverrideDefaultOptions() {
     return {
@@ -138,7 +137,7 @@ export abstract class Continuous<O extends Options> extends Base<O> {
 
   protected niceDomain() {
     if (this.options.nice) {
-      this.options.domain = this.nice();
+      this.nice();
     }
   }
 
@@ -150,10 +149,12 @@ export abstract class Continuous<O extends Options> extends Base<O> {
    * interpolate: t: [0, 1] -> y: [r0, r1]
    */
   protected composeOutput() {
+    this.niceDomain();
     const { clamp: shouldClamp, domain, round, range, interpolate } = this.options;
     const clamp = chooseClamp(domain, range, shouldClamp);
-    const piecewise = choosePiecewise(domain.map(this.transform), range, interpolate, round);
-    this.output = compose(piecewise, this.transform, clamp);
+    const transform = this.chooseTransform();
+    const piecewise = choosePiecewise(domain.map(transform), range, interpolate, round);
+    this.output = compose(piecewise, transform, clamp);
   }
 
   /**
@@ -164,9 +165,12 @@ export abstract class Continuous<O extends Options> extends Base<O> {
    * clamp: x: [c, d] -> x: [d0, d1]
    */
   protected composeInput() {
+    this.niceDomain();
     const { clamp: shouldClamp, domain, range, interpolate } = this.options;
     const clamp = chooseClamp(domain, range, shouldClamp);
-    const piecewise = choosePiecewise(range, domain.map(this.transform), interpolate);
-    this.input = compose(clamp, this.untransform, piecewise);
+    const untransform = this.chooseUntransform();
+    const transform = this.chooseUntransform();
+    const piecewise = choosePiecewise(range, domain.map(transform), interpolate);
+    this.input = compose(clamp, untransform, piecewise);
   }
 }
