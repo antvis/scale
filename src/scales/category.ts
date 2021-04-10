@@ -82,7 +82,7 @@ export class Category<O extends CategoryOptions = CategoryOptions> extends Base<
   }
 
   private initDomainIndexMap() {
-    updateIndexMap(this.domainIndexMap, this.getDomain());
+    updateIndexMap(this.domainIndexMap, this.options.domain);
   }
 
   private initRangeIndexMap() {
@@ -97,7 +97,7 @@ export class Category<O extends CategoryOptions = CategoryOptions> extends Base<
     return mapBetweenArrByMapIndex({
       value: x,
       mapper: this.domainIndexMap,
-      from: this.getDomain(),
+      from: this.options.domain,
       to: this.getRange(),
       notFoundReturn: this.options.unknown,
     });
@@ -112,7 +112,7 @@ export class Category<O extends CategoryOptions = CategoryOptions> extends Base<
       value: y,
       mapper: this.rangeIndexMap,
       from: this.getRange(),
-      to: this.getDomain(),
+      to: this.options.domain,
       notFoundReturn: this.options.unknown,
     });
   }
@@ -133,11 +133,7 @@ export class Category<O extends CategoryOptions = CategoryOptions> extends Base<
     return new Category(clone(this.options));
   }
 
-  private getDomain() {
-    return this.options.domain;
-  }
-
-  private getRange() {
+  protected getRange() {
     return this.options.range;
   }
 }

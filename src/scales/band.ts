@@ -124,10 +124,8 @@ export class Band extends Category<BandOptions> {
   // band 宽度
   private bandWidth: number = 0;
 
-  // band 的 range 属性，由于 band 是基于 category 的，range 会被转换
-  // 当用户直接获取 option.range 时，获取的属性是转化后的 range
-  // 如果你需要获取转换前的 range，那么必须调用 getBandRange 方法
-  private bandRange: number[] = [];
+  // 转换过的 range 缓存
+  protected rangeCache: number[] = undefined;
 
   // 覆盖默认配置
   protected getOverrideDefaultOptions() {
@@ -145,20 +143,36 @@ export class Band extends Category<BandOptions> {
 
   constructor(options?: Partial<BandOptions>) {
     super(options);
-
-    // 为 band 作初始化工作
-    this.adjustBandState();
+    this.rangeCache = this.getRange();
   }
 
-  /**
-   * 基于当前实例的配置来重置 band 相关内容
-   */
-  private adjustBandState() {
+  public clone() {
+    return new Band(clone(this.getOptions()));
+  }
+
+  public update(updateOptions: Partial<BandOptions>) {
+    // 调用 category 的 update
+    super.update(updateOptions);
+    this.rangeCache = undefined;
+    this.rangeCache = this.getRange();
+  }
+
+  public getStep() {
+    return this.step;
+  }
+
+  public getBandWidth() {
+    return this.bandWidth;
+  }
+
+  protected getRange() {
+    // 如果有缓存，返回之，防止出现性能问题
+    if (this.rangeCache) {
+      return this.rangeCache;
+    }
+
     // 更新 bandRange, 这里拿到的 this.options 是没有处理过的 range
     const { align, domain, padding, paddingOuter, paddingInner, range, round } = this.options;
-
-    // 保存 bandRange 属性
-    this.bandRange = range;
 
     const newState = getBandState({
       align,
@@ -170,44 +184,10 @@ export class Band extends Category<BandOptions> {
       stepAmount: domain.length,
     });
 
-    // 更新 range 以及其它必要的属性
-    this.options.range = newState.adjustedRange;
+    // 更新必要的属性
     this.step = newState.step;
     this.bandWidth = newState.bandWidth;
-  }
 
-  public clone() {
-    return new Band(clone(this.getOptions()));
-  }
-
-  public update(updateOptions: Partial<BandOptions>) {
-    this.options = { ...this.getOptions(), ...updateOptions };
-
-    // 更新 band 相关配置
-    this.adjustBandState();
-
-    // 覆盖新的 range
-    const newUpdateOptions = {
-      ...this.options,
-      range: this.options.range,
-    };
-
-    // 调用 category 的 update
-    super.update(newUpdateOptions);
-  }
-
-  public getStep() {
-    return this.step;
-  }
-
-  public getBandWidth() {
-    return this.bandWidth;
-  }
-
-  public getOptions() {
-    return {
-      ...this.options,
-      range: this.bandRange,
-    };
+    return newState.adjustedRange;
   }
 }
