@@ -151,7 +151,7 @@ export class Band extends Category<BandOptions> {
   }
 
   /**
-   * 更新/调整 band 配置
+   * 基于当前实例的配置来重置 band 相关内容
    */
   private adjustBandState() {
     // 更新 bandRange, 这里拿到的 this.options 是没有处理过的 range
