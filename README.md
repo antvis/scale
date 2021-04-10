@@ -1,22 +1,72 @@
-# Template
+<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
 
-> Repository template for AntV.
+<h1 align="center">
+<b>Scale</b>
+</h1>
 
+<div align="center">
 
-[![Build Status](https://github.com/antvis/template/workflows/build/badge.svg)](https://github.com/antvis/template/actions)
-[![Coverage Status](https://coveralls.io/repos/github/antvis/template/badge.svg?branch=master)](https://coveralls.io/github/antvis/template?branch=master)
-[![npm Version](https://img.shields.io/npm/v/@antv/template.svg)](https://www.npmjs.com/package/@antv/template)
-[![npm Download](https://img.shields.io/npm/dm/@antv/template.svg)](https://www.npmjs.com/package/@antv/template)
-[![npm License](https://img.shields.io/npm/l/@antv/template.svg)](https://www.npmjs.com/package/@antv/template)
+Toolkit for mapping abstract data into visual representation.
 
+[![Build Status](https://github.com/antvis/scale/workflows/build/badge.svg)](https://github.com/antvis/scale/actions)
+[![Coverage Status](https://coveralls.io/repos/github/antvis/scale/badge.svg?branch=master)](https://coveralls.io/github/antvis/scale?branch=master)
+[![npm Version](https://img.shields.io/npm/v/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
+[![npm Download](https://img.shields.io/npm/dm/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
+[![npm License](https://img.shields.io/npm/l/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
 
+</div>
 
+## ✨ Features
 
-## Usage
+- Powerful
+- High performance
+- Fully embrace TypeScript
 
+## 📦 Installation
 
+```bash
+$ npm install @antv/scale
+```
 
+## 🔨 Getting Started
 
-## License
+```ts
+import { Linear } from "@antv/scale";
+
+const x = new Linear({
+  domain: [0, 10],
+  range: [0, 100],
+});
+
+x.map(2); // 20
+x.invert(20); // 2
+x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+```
+
+## 📜 API reference
+
+### ⚖️ Scales
+
+- [x] [Identity](./docs/identity.md)
+- [x] Constant
+- [ ] Linear
+- [ ] Log
+- [ ] Sqrt
+- [ ] Pow
+- [ ] Time
+- [ ] Symlog
+- [ ] Quantize
+- [ ] Quantile
+- [ ] Threshold
+- [ ] Diverging
+- [ ] Sequential
+- [x] Category
+- [ ] Ordinal
+- [ ] Band
+- [ ] Point
+
+### 🧮 Tick Methods
+
+## 📄 License
 
 MIT@[AntV](https://github.com/antvis).
