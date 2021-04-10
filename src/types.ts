@@ -57,3 +57,5 @@ export type BandOptions = BaseOptions<number | string, number> & {
   /** 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 */
   align?: number;
 };
+
+export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
