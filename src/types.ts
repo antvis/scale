@@ -50,8 +50,12 @@ export type CategoryOptions = BaseOptions<number | string, number | string>;
 /** Continuous 比例尺的选项 */
 export type ContinuousOptions = BaseOptions<number> &
   TickOptions & {
+    /** 是否需要对定义域的范围进行优化 */
     nice?: boolean;
+    /** 是否需要限制输入的范围在值域内 */
     clamp?: boolean;
+    /** 是否需要对输出进行四舍五入 */
     round?: boolean;
+    /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
     interpolate?: Interpolate<number>;
   };
