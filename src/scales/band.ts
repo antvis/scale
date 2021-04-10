@@ -8,8 +8,6 @@ interface BandStateOptions {
   stepAmount: number;
   /** 初始的值域，连续 */
   range: number[];
-  /** 同时设置内部边距和两侧边距 */
-  padding?: number;
   /** 内部边距 */
   paddingInner?: number;
   /** 两侧边距 */
@@ -25,7 +23,10 @@ interface BandStateOptions {
  *
  * @param opt 相关选项
  * @see BandStateOptions
- * @return {object} 一个新对象
+ * @return {object} 一个新对象, 包含以下内容：
+ * step -- 步长
+ * adjustedRange -- 最终得到的 range
+ * bandWidth -- band 宽度
  */
 function getBandState(opt: BandStateOptions) {
   const DEFAULT_OPTIONS = {
@@ -34,7 +35,6 @@ function getBandState(opt: BandStateOptions) {
     round: false,
     paddingInner: 0,
     paddingOuter: 0,
-    padding: 0,
   };
 
   const option = {
@@ -42,18 +42,13 @@ function getBandState(opt: BandStateOptions) {
     ...opt,
   };
 
-  const { range, padding, stepAmount } = option;
+  const { range, stepAmount, paddingOuter, paddingInner } = option;
 
   let step: number;
   let bandWidth: number;
 
   let rangeStart = range[0];
   const rangeEnd = range[1];
-
-  // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
-  // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
-  const paddingInner = padding > 0 ? padding : option.paddingInner;
-  const paddingOuter = padding > 0 ? padding : option.paddingOuter;
 
   // range 的计算方式如下：
   // = stop - start
@@ -174,13 +169,14 @@ export class Band extends Category<BandOptions> {
     // 更新 bandRange, 这里拿到的 this.options 是没有处理过的 range
     const { align, domain, padding, paddingOuter, paddingInner, range, round } = this.options;
 
+    // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
+    // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
     const newState = getBandState({
       align,
       range,
-      padding,
-      paddingOuter,
-      paddingInner,
       round,
+      paddingInner: padding > 0 ? padding : paddingInner,
+      paddingOuter: padding > 0 ? padding : paddingOuter,
       stepAmount: domain.length,
     });
 
