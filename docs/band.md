@@ -1,6 +1,6 @@
 # Band
 
-Identity scales are a special case of ordinal scales where the range is continuous.
+Band scales are a special case of ordinal scales where the range is continuous.
 
 For example, in the bar chart, the horizontal positions of the bars is given by a band scale.
 
@@ -34,9 +34,9 @@ x.getBandWidth();  // 25
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | round | If round option is truthy, the start and stop of each band will be integers. | `boolean` | `false` |
 | paddingInner | Set the scale's paddingInner, the value should in the range [0, 1]. For more info, please see the [example](#example) below | `number` | `0` |
-| paddingOuter | Set the scale's paddingOuter, the value should in the range [0, 1]. for more info, please see the [example](#example) below | `number` | `0` |
-| padding | A easy way to set the paddingInner and paddingOuter for the scale. Notice: It's priority is higher than `paddingInner` and `paddingOuter` | `number` | `0` |
-| align | The `align` option specifies how outer padding is distributed in the range. the value should in the range [0, 1]. For example, value of 0.5 means that bands should be centered within the range, value of 0 or 1 may be used to shift the bands to one side. | `number` | `0.5` |
+| paddingOuter | Set the scale's paddingOuter, the value should in the range [0, 1]. For more info, please see the [example](#example) below | `number` | `0` |
+| padding | An easy way to set the paddingInner and paddingOuter for the scale. Notice: It's priority is higher than `paddingInner` and `paddingOuter` | `number` | `0` |
+| align | The `align` option specifies how outer padding is distributed in the range, the value should in the range [0, 1]. For example, value of 0.5 means that bands should be centered within the range, value of 0 or 1 may be used to shift the bands to one side. | `number` | `0.5` |
 
 <a name="band_map" href="#example">**Example**</a>
 
@@ -77,7 +77,7 @@ Returns a new band scale with the independent and same options as the original o
 
 <a name="band_step" href="#band_clone">#</a> **getStep**<i>(): number</i>
 
-Returns band's scale's step, for more info about `step`, please see [example](#example).
+Returns band scale's step, for more info about `step`, please see [example](#example).
 
 
 
