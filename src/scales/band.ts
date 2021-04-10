@@ -147,19 +147,18 @@ export class Band extends Category<BandOptions> {
     super(options);
 
     // 为 band 作初始化工作
-    this.adjustBandState(this.options.range);
+    this.adjustBandState();
   }
 
   /**
    * 更新/调整 band 配置
    */
-  private adjustBandState(range: number[]) {
-    // 更新 bandRange
-    if (range) {
-      this.bandRange = range;
-    }
+  private adjustBandState() {
+    // 更新 bandRange, 这里拿到的 this.options 是没有处理过的 range
+    const { align, domain, padding, paddingOuter, paddingInner, range, round } = this.options;
 
-    const { align, domain, padding, paddingOuter, paddingInner, round } = this.getOptions();
+    // 保存 bandRange 属性
+    this.bandRange = range;
 
     const newState = getBandState({
       align,
@@ -171,7 +170,7 @@ export class Band extends Category<BandOptions> {
       stepAmount: domain.length,
     });
 
-    // 更新 range
+    // 更新 range 以及其它必要的属性
     this.options.range = newState.adjustedRange;
     this.step = newState.step;
     this.bandWidth = newState.bandWidth;
@@ -182,21 +181,23 @@ export class Band extends Category<BandOptions> {
   }
 
   public update(updateOptions: Partial<BandOptions>) {
-    this.options = { ...this.options, ...updateOptions };
+    this.options = { ...this.getOptions(), ...updateOptions };
 
     // 更新 band 相关配置
-    this.adjustBandState(updateOptions.range || this.bandRange);
+    this.adjustBandState();
+
+    // 覆盖新的 range
+    const newUpdateOptions = {
+      ...this.options,
+      range: this.options.range,
+    };
 
     // 调用 category 的 update
-    super.update(this.options);
+    super.update(newUpdateOptions);
   }
 
   public getStep() {
     return this.step;
-  }
-
-  public getBandRange() {
-    return this.bandRange;
   }
 
   public getBandWidth() {
