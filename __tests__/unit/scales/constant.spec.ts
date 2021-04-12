@@ -1,30 +1,24 @@
-import { Constant, ConstantOptions } from '../../../src';
-import { ticks } from '../../../src/tick-method/basic';
+import { Constant, ConstantOptions } from '../../../src/index';
 
 describe('Constant', () => {
   test('Constant() has expected defaults', () => {
     const s = new Constant();
-    const { tickMethod, formatter, ...restProps } = s.getOptions();
+    const { formatter, ...restProps } = s.getOptions();
 
     expect(restProps).toEqual({
       range: [0],
       domain: [0, 1],
-      tickCount: 5,
     });
     expect(formatter(1)).toBe('1');
-    expect(tickMethod).toEqual(ticks);
   });
 
   test('Constant(options) override defaults', () => {
     const options: ConstantOptions = {
-      tickCount: 20,
       domain: [1],
     };
 
     const s = new Constant(options);
 
-    // @ts-ignore
-    expect(s.options.tickCount).toBe(20);
     // @ts-ignore
     expect(s.options.domain).toEqual([1]);
   });
@@ -70,20 +64,6 @@ describe('Constant', () => {
     expect(x.invert(undefined)).toEqual([]);
   });
 
-  test('getTicks() call options.tickMethod and returns its return value', () => {
-    const s = new Constant();
-    const mockFn = jest.fn();
-    s.update({
-      tickMethod: () => {
-        mockFn();
-        return [1, 2, 3, 4, 5];
-      },
-    });
-
-    expect(s.getTicks()).toEqual([1, 2, 3, 4, 5]);
-    expect(mockFn).toBeCalled();
-  });
-
   test('clone() returns a scale belong to same class', () => {
     const s = new Constant();
     const s1 = s.clone();
@@ -101,13 +81,13 @@ describe('Constant', () => {
     const s1 = s.clone();
 
     s.update({
-      tickCount: 20,
+      range: [10],
     });
-    expect(s1.getOptions().tickCount).toBe(5);
+    expect(s1.getOptions().range).toEqual([0]);
 
     s1.update({
-      tickCount: 30,
+      range: [20],
     });
-    expect(s.getOptions().tickCount).toBe(20);
+    expect(s.getOptions().range).toEqual([10]);
   });
 });

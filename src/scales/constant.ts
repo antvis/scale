@@ -1,6 +1,5 @@
 import { ConstantOptions, Domain, Range } from '../types';
 import { Base } from './base';
-import { ticks } from '../tick-method/basic';
 
 export class Constant extends Base<ConstantOptions> {
   /**
@@ -10,8 +9,6 @@ export class Constant extends Base<ConstantOptions> {
   protected getOverrideDefaultOptions() {
     return {
       range: [0],
-      tickCount: 5,
-      tickMethod: ticks,
     };
   }
 
@@ -42,13 +39,5 @@ export class Constant extends Base<ConstantOptions> {
    */
   public clone() {
     return new Constant(this.options);
-  }
-
-  /**
-   * 根据比例尺的配置去生成 ticks，该 ticks 主要用于生成坐标轴
-   * @returns 返回一个 ticks 的数组
-   */
-  public getTicks(): Range<ConstantOptions>[] {
-    return this.options.tickMethod(this.options);
   }
 }
