@@ -30,7 +30,7 @@ x.invert('2'); // [0, 10]
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` or `string[]` | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display a output value. | `(x: any) => string` | ```(x) => `${x}` ```|
+| formatter | Sets the format function to display the output value. | `(x: any) => string` | ```(x) => `${x}` ```|
 
 ## Methods
 
@@ -42,14 +42,14 @@ Returns the first element of range if it is not `undefined` (or `NaN`), otherwis
 
 Returns the domain.
 
-<a name="constant_update" href="#constant_update">#</a> **update**<i>(options: constantOptions): void</i>
+<a name="constant_update" href="#constant_update">#</a> **update**<i>(options: ConstantOptions): void</i>
 
 Update the scale's options and rescale.
 
-<a name="constant_getOptions" href="#constant_getOptions">#</a> **getOptions**<i>(): constantOptions</i>
+<a name="constant_getOptions" href="#constant_getOptions">#</a> **getOptions**<i>(): ConstantOptions</i>
 
 Returns the scale's current options.
 
-<a name="constant_clone" href="#constant_clone">#</a> **clone**<i>(): constant</i>
+<a name="constant_clone" href="#constant_clone">#</a> **clone**<i>(): Constant</i>
 
 Returns a new constant scale with the independent and same options as the original one.

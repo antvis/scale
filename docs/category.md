@@ -28,15 +28,15 @@ x.map('C'); // c
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` or `string[]` | `[]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` or `string[]` | `[]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display a output value. | `(x: any) => string` | ```(x) => `${x}` ```|
+| formatter | Sets the format function to display the output value. | `(x: any) => string` | ```(x) => `${x}` ```|
 
 ## Methods
 
-<a name="category_map" href="#category_map">#</a> **map**<i>(x: number[] or string[]): number[] or string[]</i>
+<a name="category_map" href="#category_map">#</a> **map**<i>(x: (number | string)[]): (number | string)[]</i>
 
 Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
 
-<a name="category_invert" href="#category_invert">#</a> **invert**<i>(x: x: number[] or string[]): x: number[] or string[]</i>
+<a name="category_invert" href="#category_invert">#</a> **invert**<i>(x: (number | string) []): (number| string)[]</i>
 
 Returns the output value itself.
 
