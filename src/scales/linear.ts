@@ -1,9 +1,17 @@
+import { clone } from '@antv/util';
 import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate } from '../utils';
 import { linerTick } from '../tick-method/linear';
+import { d3LinearNice } from '../utils/d3-linear-nice';
 
+/**
+ * 给定一个序列和一个数字，获取该数字在该序列的百分比
+ *
+ * @param value 数字
+ * @param range 序列
+ */
 export function getPercent(value: number, range: number[]) {
   const [rangeMin, rangeMax] = range;
   return (value - rangeMin) / (rangeMax - rangeMin);
@@ -38,14 +46,16 @@ export class Linear extends Continuous<LinearOptions> {
     };
   }
 
-  // eslint-disable-next-line no-useless-constructor
-  constructor(options: LinearOptions) {
+  constructor(options?: LinearOptions) {
     super(options);
   }
 
   clone(): Base<LinearOptions> {
-    return undefined;
+    return new Linear(clone(this.options));
   }
 
-  protected nice() {}
+  public nice() {
+    const { domain } = this.options;
+    this.options.domain = d3LinearNice(domain);
+  }
 }

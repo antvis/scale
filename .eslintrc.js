@@ -22,6 +22,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-shadow': 'off',
     'no-console': 'off',
+    'no-useless-constructor': 'off',
   },
   settings: {
     'import/parsers': {

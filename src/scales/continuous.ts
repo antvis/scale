@@ -97,6 +97,8 @@ export abstract class Continuous<O extends Options> extends Base<O> {
 
   protected getOverrideDefaultOptions() {
     return {
+      domain: [0, 1],
+      range: [0, 1],
       nice: false,
       clamp: false,
       round: false,

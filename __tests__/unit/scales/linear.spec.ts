@@ -1,8 +1,19 @@
 import { Linear } from '../../../src/scales/linear';
+import { linerTick } from '../../../src/tick-method/linear';
 
 describe('Linear Scale Test', () => {
-  test('test', () => {
-    console.log('TODO test');
+  test('test default options', () => {
+    const scale = new Linear();
+    const { domain, range, round, tickCount, nice, clamp, unknown, tickMethod } = scale.getOptions();
+
+    expect(domain).toStrictEqual([0, 1]);
+    expect(range).toStrictEqual([0, 1]);
+    expect(round).toBeFalsy();
+    expect(tickCount).toStrictEqual(5);
+    expect(nice).toBeFalsy();
+    expect(clamp).toBeFalsy();
+    expect(unknown).toBeUndefined();
+    expect(tickMethod).toBe(linerTick);
   });
 
   test('test map fn', () => {
@@ -43,7 +54,7 @@ describe('Linear Scale Test', () => {
     expect(scale.map(Number.NaN)).toStrictEqual('hello world');
   });
 
-  test('test nice options', () => {
+  test('test round options', () => {
     const scale = new Linear({
       domain: [0, 100],
       range: [500, 1000],
@@ -87,5 +98,16 @@ describe('Linear Scale Test', () => {
     });
 
     expect(scale.getTicks()).toStrictEqual([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
+  });
+
+  test('test nice option', () => {
+    const scale = new Linear({
+      domain: [1.1, 10.9],
+      range: [500, 1000],
+      nice: true,
+    });
+
+    scale.nice();
+    expect(scale.getOptions().domain).toStrictEqual([1, 11]);
   });
 });
