@@ -48,7 +48,7 @@ x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 ### ⚖️ Scales
 
 - [x] [Identity](./docs/identity.md)
-- [x] Constant
+- [x] [Constant](./docs/constant.md)
 - [ ] Linear
 - [ ] Log
 - [ ] Sqrt
