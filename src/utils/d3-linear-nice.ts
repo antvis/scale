@@ -44,10 +44,10 @@ export function d3LinearNice(domain: number[], count: number = 10) {
   if (step > 0) {
     d[i0] = Math.floor(start / step) * step;
     d[i1] = Math.ceil(stop / step) * step;
-    return d;
+  } else if (step < 0) {
+    d[i0] = Math.ceil(start * step) / step;
+    d[i1] = Math.floor(stop * step) / step;
   }
 
-  d[i0] = Math.ceil(start * step) / step;
-  d[i1] = Math.floor(stop * step) / step;
   return d;
 }
