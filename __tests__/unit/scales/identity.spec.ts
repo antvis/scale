@@ -1,4 +1,4 @@
-import { Identity, IdentityOptions } from '../../../src/index';
+import { Identity, IdentityOptions } from '../../../src';
 import { ticks } from '../../../src/tick-method/basic';
 
 describe('Identity', () => {

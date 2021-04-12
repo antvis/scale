@@ -110,4 +110,17 @@ describe('Linear Scale Test', () => {
     scale.nice();
     expect(scale.getOptions().domain).toStrictEqual([1, 11]);
   });
+
+  test('test clone', () => {
+    const scale = new Linear({
+      domain: [1.1, 10.9],
+      range: [500, 1000],
+      nice: true,
+    });
+
+    const newScale = scale.clone();
+
+    expect(scale.getOptions()).toStrictEqual(newScale.getOptions());
+    expect(scale.getOptions() === newScale.getOptions()).toBeFalsy();
+  });
 });

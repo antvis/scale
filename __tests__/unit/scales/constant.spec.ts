@@ -1,4 +1,4 @@
-import { Constant, ConstantOptions } from '../../../src/index';
+import { Constant, ConstantOptions } from '../../../src';
 
 describe('Constant', () => {
   test('Constant() has expected defaults', () => {
