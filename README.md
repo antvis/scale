@@ -60,7 +60,7 @@ x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 - [ ] Threshold
 - [ ] Diverging
 - [ ] Sequential
-- [x] Category
+- [x] [Category](./docs/category.md)
 - [ ] Band
 - [ ] Point
 
