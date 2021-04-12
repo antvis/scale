@@ -171,7 +171,7 @@ export abstract class Continuous<O extends Options> extends Base<O> {
     const { clamp: shouldClamp, domain, range, interpolate } = this.options;
     const clamp = chooseClamp(domain, range, shouldClamp);
     const untransform = this.chooseUntransform();
-    const transform = this.chooseUntransform();
+    const transform = this.chooseTransform();
     const piecewise = choosePiecewise(range, domain.map(transform), interpolate);
     this.input = compose(clamp, untransform, piecewise);
   }

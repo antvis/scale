@@ -2,7 +2,7 @@ import { identity } from '@antv/util';
 import { Continuous } from '../../../src/scales/continuous';
 import { ContinuousOptions } from '../../../src/types';
 import { ticks } from '../../../src/tick-method/basic';
-import { createInterpolate } from '../../../src/utils/interpolate';
+import { createInterpolate } from '../../../src/utils';
 
 describe('Continuous', () => {
   type ScaleOptions = ContinuousOptions;
