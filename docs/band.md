@@ -32,7 +32,7 @@ x.getBandWidth();  // 25
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` or `string[]` | `[]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display a tick value. | `(x: any) => string` | ```(x) => `${x}```|
+| formatter | Sets the format function to display a output value. | `(x: any) => string` | ```(x) => `${x}```|
 | round | If round option is truthy, the start and stop of each band will be integers. | `boolean` | `false` |
 | paddingInner | Set the scale's paddingInner, the value should in the range [0, 1]. For more info, please see the [example](#example) below | `number` | `0` |
 | paddingOuter | Set the scale's paddingOuter, the value should in the range [0, 1]. For more info, please see the [example](#example) below | `number` | `0` |

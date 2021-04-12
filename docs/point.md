@@ -28,7 +28,7 @@ scale.getBandWidth(); // always 0
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` or `string[]` | `[]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display a tick value. | `(x: any) => string` | ```(x) => `${x}```|
+| formatter | Sets the format function to display a output value. | `(x: any) => string` | ```(x) => `${x}```|
 | round | If round option is truthy, the start and stop of each point will be integers. | `boolean` | `false` |
 | padding | Set the scale's padding. In fact, this is the `outerPadding` of the band option. For more info about this, please see [example](#example). | `number` | `0` |
 | align | The `align` option specifies how outer padding is distributed in the range, the value should in the range [0, 1]. For example, value of 0.5 means that points should be centered within the range, value of 0 or 1 may be used to shift the points to one side. | `number` | `0.5` |
