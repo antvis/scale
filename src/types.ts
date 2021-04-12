@@ -59,3 +59,19 @@ export type ContinuousOptions = BaseOptions<number> &
     /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
     interpolate?: Interpolate<number>;
   };
+
+/** 详细请参阅 scale/band.ts */
+export type BandOptions = BaseOptions<number | string, number> & {
+  /** 是否取整 */
+  round?: boolean;
+  /** 内部边距 */
+  paddingInner?: number;
+  /** 两侧边距 */
+  paddingOuter?: number;
+  /** 同时定义内部边距和两侧边距，如果该值大于 0，则 paddingInner 和 paddingOuter 无效 */
+  padding?: number;
+  /** 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 */
+  align?: number;
+};
+
+export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;

@@ -1,6 +1,6 @@
 import * as d3 from 'd3-scale';
-import Benchmark from 'benchmark';
 import { Category } from '../../../src/scales/category';
+import { benchMarkBetween } from '../../test-utils/benchmark';
 
 describe('category scale', () => {
   test('category has no expected defaults', () => {
@@ -92,6 +92,7 @@ describe('category scale', () => {
     const oldOpt = scale.getOptions();
     const newOpt = newScale.getOptions();
     expect(oldOpt).toStrictEqual(newOpt);
+    expect(oldOpt !== newOpt).toBeTruthy();
     expect(oldOpt.domain !== newOpt.domain).toBeTruthy();
   });
 
@@ -119,7 +120,7 @@ describe('category scale', () => {
     expect(scale.invert('orange')).toStrictEqual('橘子');
   });
 
-  test('compare pref with d3', () => {
+  test('compare pref with d3', async () => {
     // 和 d3 对大数据（十万）情况做性能对比，在调用 update 的数量较大的场景下，antv-scale 的效率较 d3 有质的提升
     const domain = new Array(100000).fill('').map((item, index) => index);
     const range = new Array(100000).fill('').map((item, index) => index);
@@ -132,9 +133,10 @@ describe('category scale', () => {
       for (let i = 0; i < 100000; i += 1) {
         antvScale.map(i);
         // 中途重置 domain
-        if (i % 10000 === 0) {
+        if (i % 4000 === 0) {
           antvScale.update({
             domain: range,
+            range,
           });
         }
       }
@@ -144,33 +146,18 @@ describe('category scale', () => {
       const d3Scale = d3.scaleOrdinal().domain(domain).range(range);
       for (let i = 0; i < 100000; i += 1) {
         d3Scale(i);
-        if (i % 10000 === 0) {
+        if (i % 4000 === 0) {
           // 中途重置 domain
-          d3Scale.domain(range);
+          d3Scale.domain(range).range(range);
         }
       }
     };
 
-    // test env, do not use browser to prevent bugs
-    Benchmark.support.browser = false;
-    const suite = new Benchmark.Suite();
-
-    suite
-      .add('category#antv', () => {
-        timeForAntv();
-      })
-      .add('category#d3', () => {
-        timeForD3();
-      })
-      // add listeners
-      .on('cycle', (event) => {
-        console.log(String(event.target));
-      })
-      .on('complete', function () {
-        const info = this.filter('fastest').map('name');
-        console.log(`Fastest is ${info}`);
-        expect(info).toStrictEqual(['category#antv']);
-      });
-    suite.run();
+    await benchMarkBetween({
+      cb1: timeForAntv,
+      cb2: timeForD3,
+      magnification: 1.5,
+      check: true,
+    });
   });
 });
