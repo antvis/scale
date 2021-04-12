@@ -1,12 +1,13 @@
 export type TickMethod<T> = (options?: T) => any[];
 
+export type Interpolate<T> = (a: T, b: T) => (t: number) => T;
+
 /**
  * 所有比例尺选项的默认类型
  * D：定义域元素的类型
  * R：值域元素的类型
- * T：tickMethod 配置项的类型
  */
-export type BaseOptions<D = any, R = any> = {
+export type BaseOptions<D = any, R = D> = {
   /** 当需要映射的值不合法的时候，返回的值 */
   unknown?: any;
   /** 值域，默认为 [0, 1] */
@@ -19,12 +20,11 @@ export type BaseOptions<D = any, R = any> = {
 
 /**
  * 支持 getTicks 的比例尺的选项
+ * T：tickMethod 配置项的类型
  */
 export type TickOptions<T = any> = {
   /** tick 个数，默认值为 5 */
   tickCount?: number;
-  /** tick 间隔的最大值，默认值为 10 */
-  tickInterval?: number;
   /** 计算 ticks 的算法 */
   tickMethod?: TickMethod<T>;
 };
@@ -38,11 +38,27 @@ export type Range<O extends BaseOptions> = O['range'][number];
 /** 获得比例尺选项中 unknown 的类型 */
 export type Unknown<O extends BaseOptions> = O['unknown'];
 
-export type IdentityOptions = BaseOptions<number, number> & TickOptions;
+/** Identity 比例尺的选项 */
+export type IdentityOptions = BaseOptions<number> & TickOptions;
 
-export type ConstantOptions = BaseOptions<number | string, number | string> & TickOptions;
+/** Constant 比例尺的选项 */
+export type ConstantOptions = BaseOptions<number | string> & TickOptions;
 
+/** CategoryOptions 比例尺的选项 */
 export type CategoryOptions = BaseOptions<number | string, number | string>;
+
+/** Continuous 比例尺的选项 */
+export type ContinuousOptions = BaseOptions<number> &
+  TickOptions & {
+    /** 是否需要对定义域的范围进行优化 */
+    nice?: boolean;
+    /** 是否需要限制输入的范围在值域内 */
+    clamp?: boolean;
+    /** 是否需要对输出进行四舍五入 */
+    round?: boolean;
+    /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
+    interpolate?: Interpolate<number>;
+  };
 
 /** 详细请参阅 scale/band.ts */
 export type BandOptions = BaseOptions<number | string, number> & {

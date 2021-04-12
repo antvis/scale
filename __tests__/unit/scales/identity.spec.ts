@@ -10,7 +10,6 @@ describe('Identity', () => {
       range: [0, 1],
       domain: [0, 1],
       tickCount: 5,
-      tickInterval: 10,
     });
     expect(formatter(1)).toBe('1');
     expect(tickMethod).toEqual(ticks);
@@ -56,7 +55,7 @@ describe('Identity', () => {
     expect(x.invert(2.5)).toBe(2.5);
   });
 
-  test('getTicks() call options.tickMethod and return its return value', () => {
+  test('getTicks() call options.tickMethod and returns its return value', () => {
     const s = new Identity();
     const mockFn = jest.fn();
     s.update({
@@ -70,19 +69,19 @@ describe('Identity', () => {
     expect(mockFn).toBeCalled();
   });
 
-  test('clone() return a scale belong to same class', () => {
+  test('clone() returns a scale belong to same class', () => {
     const s = new Identity();
     const s1 = s.clone();
     expect(s1).toBeInstanceOf(Identity);
   });
 
-  test('clone() return a scale with the same options as the original one', () => {
+  test('clone() returns a scale with the same options as the original one', () => {
     const s = new Identity();
     const s1 = s.clone();
     expect(s.getOptions()).toEqual(s1.getOptions());
   });
 
-  test('clone() return a scale isolating change with the original one', () => {
+  test('clone() returns a scale isolating change with the original one', () => {
     const s = new Identity();
     const s1 = s.clone();
 
