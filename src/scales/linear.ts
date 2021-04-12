@@ -1,6 +1,8 @@
 import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
+import { createInterpolate } from '../utils';
+import { linerTick } from '../tick-method/linear';
 
 export function getPercent(value: number, range: number[]) {
   const [rangeMin, rangeMax] = range;
@@ -15,6 +17,17 @@ export class Linear extends Continuous<LinearOptions> {
       const [rMin, rMax] = this.options.range;
       return rMin + p * (rMax - rMin);
     };
+  }
+
+  protected getOverrideDefaultOptions() {
+    return {
+      nice: false,
+      clamp: false,
+      round: false,
+      interpolate: createInterpolate,
+      tickMethod: linerTick,
+      tickCount: 5,
+    } as LinearOptions;
   }
 
   protected chooseUntransform(): Transform {
