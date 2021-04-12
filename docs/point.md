@@ -29,10 +29,26 @@ scale.getBandWidth(); // always 0
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | round | If round option is truthy, the start and stop of each point will be integers. | `boolean` | `false` |
-| padding | Set the scale's padding. In fact, this is the `outerPadding` of the band option. For more info about this, please see **band scale** docs. | `number` | `0` |
+| padding | Set the scale's padding. In fact, this is the `outerPadding` of the band option. For more info about this, please see **
+band scale** docs. | `number` | `0` |
 | align | The `align` option specifies how outer padding is distributed in the range, the value should in the range [0, 1]. For example, value of 0.5 means that points should be centered within the range, value of 0 or 1 may be used to shift the points to one side. | `number` | `0.5` |
 
 <a name="point_map" href="#example">**Example**</a>
+
+```plain
+We can easily find that point scale's bandwidth is always zero.
+
+PO = Padding = PaddingInner
+domain =  ["A", "B", "C"]
+
+
+|<------------------------------------------- range ------------------------------------------->|
+|             |                                 |                                 |             |
+|<--step*PO-->|<--------------step------------->|<--------------step------------->|<--step*PO-->|
+|             |                                 |                                 |             |
+|             A                                 B                                 C             |
+|-----------------------------------------------------------------------------------------------|
+```
 
 ## Methods
 
@@ -58,7 +74,8 @@ Returns point scale's step, for more info about this, please see **band scale** 
 
 <a name="point_get_band_width" href="#point_get_band_width">#</a> **getBandWidth**<i>(): number</i>
 
-Returns point scale's `bandWidth`, In fact, the value is always 0. For more info about this, please see **band scale** docs.
+Returns point scale's `bandWidth`, In fact, the value is always 0. For more info about this, please see **band scale**
+docs.
 
 
 
