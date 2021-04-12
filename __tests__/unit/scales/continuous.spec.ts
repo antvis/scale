@@ -74,23 +74,25 @@ describe('Continuous', () => {
     expect(s.options.domain).toEqual([0, 10]);
   });
 
-  test('map(undefined | NaN) map undefined or NaN to options.unknown', () => {
+  test('map(undefined | NaN | null) map undefined or NaN to options.unknown', () => {
     const s = new Scale({
       unknown: 'dirty',
     });
     expect(s.map(undefined)).toBe('dirty');
     expect(s.map(NaN)).toBe('dirty');
+    expect(s.map(null)).toBe('dirty');
 
     // @ts-ignore
     expect(s.output).toBeUndefined();
   });
 
-  test('invert(undefined | NaN) invert undefined or NaN to options.unknown', () => {
+  test('invert(undefined | NaN | null) invert undefined or NaN to options.unknown', () => {
     const s = new Scale({
       unknown: 'dirty',
     });
     expect(s.invert(undefined)).toBe('dirty');
     expect(s.invert(NaN)).toBe('dirty');
+    expect(s.invert(null)).toBe('dirty');
 
     // @ts-ignore
     expect(s.input).toBeUndefined();

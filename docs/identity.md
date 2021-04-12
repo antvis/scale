@@ -33,27 +33,27 @@ x.getTicks(); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 ## Methods
 
-<a name="indentity_map" href="#indentity_map">#</a> **map**<i>(x: number): number | any</i>
+<a name="identity_map" href="#identity_map">#</a> **map**<i>(x: number): number | any</i>
 
 Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
 
-<a name="indentity_invert" href="#indentity_invert">#</a> **invert**<i>(x: number): number</i>
+<a name="identity_invert" href="#identity_invert">#</a> **invert**<i>(x: number): number</i>
 
 Returns the output value itself.
 
-<a name="indentity_getTicks" href="#indentity_getTicks">#</a> **getTicks**<i>(): number[]</i>
+<a name="identity_getTicks" href="#identity_getTicks">#</a> **getTicks**<i>(): number[]</i>
 
 Returns representative values from the scale’s domain computed by specified `options.tickMethod` with `options.
 tickCount`.
 
-<a name="indentity_update" href="#indentity_update">#</a> **update**<i>(options: IdentityOptions): void</i>
+<a name="identity_update" href="#identity_update">#</a> **update**<i>(options: IdentityOptions): void</i>
 
 Update the scale's options and rescale.
 
-<a name="indentity_getOptions" href="#indentity_getOptions">#</a> **getOptions**<i>(): IdentityOptions</i>
+<a name="identity_getOptions" href="#identity_getOptions">#</a> **getOptions**<i>(): IdentityOptions</i>
 
 Returns the scale's current options.
 
-<a name="indentity_clone" href="#indentity_clone">#</a> **clone**<i>(): Identity</i>
+<a name="identity_clone" href="#identity_clone">#</a> **clone**<i>(): Identity</i>
 
 Returns a new identity scale with the independent and same options as the original one.
