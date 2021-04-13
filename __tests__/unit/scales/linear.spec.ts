@@ -23,9 +23,28 @@ describe('Linear Scale Test', () => {
     });
 
     expect(scale.map(0)).toStrictEqual(500);
-    expect(scale.map(50)).toStrictEqual(750);
     expect(scale.map(100)).toStrictEqual(1000);
     expect(scale.map(250)).toStrictEqual(1750);
+
+    // poly range
+    scale.update({
+      range: [0, 100, 500],
+    });
+
+    expect(scale.map(0)).toStrictEqual(0);
+    expect(scale.map(50)).toStrictEqual(50);
+
+    scale.update({
+      domain: [0, 5, 10],
+      range: [0, 50, 1000],
+    });
+
+    expect(scale.map(5)).toStrictEqual(50);
+    expect(scale.map(2.5)).toStrictEqual(25);
+    expect(scale.map(7.5)).toStrictEqual(525);
+    expect(scale.map(10)).toStrictEqual(1000);
+    expect(scale.map(100)).toStrictEqual(18100);
+    expect(scale.map(-10)).toStrictEqual(-100);
   });
 
   test('test invert fn', () => {
@@ -33,11 +52,31 @@ describe('Linear Scale Test', () => {
       domain: [0, 100],
       range: [500, 1000],
     });
-    // 500 / 100 = 5
+
     expect(scale.invert(500)).toStrictEqual(0);
     expect(scale.invert(750)).toStrictEqual(50);
     expect(scale.invert(1000)).toStrictEqual(100);
     expect(scale.invert(1750)).toStrictEqual(250);
+
+    // poly range
+    scale.update({
+      range: [0, 100, 500],
+    });
+
+    expect(scale.invert(0)).toStrictEqual(0);
+    expect(scale.invert(50)).toStrictEqual(50);
+
+    scale.update({
+      domain: [0, 5, 10],
+      range: [0, 50, 1000],
+    });
+
+    expect(scale.invert(50)).toStrictEqual(5);
+    expect(scale.invert(25)).toStrictEqual(2.5);
+    expect(scale.invert(525)).toStrictEqual(7.5);
+    expect(scale.invert(1000)).toStrictEqual(10);
+    expect(scale.invert(18100)).toStrictEqual(100);
+    expect(scale.invert(-100)).toStrictEqual(-10);
   });
 
   test('test getTicks()', () => {
