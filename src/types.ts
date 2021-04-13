@@ -77,3 +77,8 @@ export type BandOptions = BaseOptions<number | string, number> & {
 export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 
 export type LinearOptions = ContinuousOptions;
+
+export type PowOptions = ContinuousOptions & {
+  /** 指数 */
+  exponent?: number;
+};
