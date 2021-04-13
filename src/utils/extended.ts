@@ -1,4 +1,4 @@
-import { head, indexOf, last, map, size } from '@antv/util';
+import { indexOf, map, size } from '@antv/util';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -70,7 +70,7 @@ function legibility() {
  * @param Q nice numbers集合
  * @param w 四个优化组件的权重
  */
-export default function extended(
+export function extended(
   dMin: number,
   dMax: number,
   m: number = 5,
@@ -174,9 +174,10 @@ export default function extended(
   }
   const ticks = toFixed ? map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
 
+  const lastIndex = ticks.length - 1;
   return {
-    min: Math.min(dMin, head(ticks)),
-    max: Math.max(dMax, last(ticks)),
+    min: Math.min(dMin, ticks[0]),
+    max: Math.max(dMax, ticks[lastIndex]),
     ticks,
   };
 }
