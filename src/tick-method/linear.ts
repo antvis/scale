@@ -1,6 +1,6 @@
 import { head, last } from '@antv/util';
 import { LinearOptions } from '../types';
-import extended from '../utils/extended';
+import { extended } from '../utils/extended';
 
 /**
  * 计算线性的 ticks，使用 wilkinson extended 方法
