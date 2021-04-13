@@ -4,26 +4,30 @@ describe('pow scales', () => {
   test('map fn', () => {
     const scale = new Pow({
       domain: [0, 100],
+      range: [0, 100],
       exponent: 2,
     });
 
-    expect(scale.map(25)).toBeCloseTo(0.5, 0.1);
-    expect(scale.map(50)).toBeCloseTo(Math.sqrt(0.5));
+    // [0, 10000]
+
     expect(scale.map(0)).toStrictEqual(0);
-    expect(scale.map(100)).toStrictEqual(1);
+    expect(scale.map(25)).toStrictEqual(6.25);
+    expect(scale.map(50)).toBeCloseTo(25);
+    expect(scale.map(100)).toStrictEqual(100);
   });
 
   test('invert fn', () => {
     const scale = new Pow({
       domain: [0, 100],
+      range: [0, 100],
       exponent: 2,
     });
 
     expect(scale.invert(0)).toStrictEqual(0);
-    expect(scale.invert(0.5)).toStrictEqual(25);
+    expect(scale.invert(25)).toStrictEqual(50);
     // 50.00000000000001
-    expect(scale.invert(Math.sqrt(0.5))).toBeCloseTo(50, 0.001);
-    expect(scale.invert(1)).toStrictEqual(100);
+    expect(scale.invert(100)).toStrictEqual(100);
+    expect(scale.invert(6.25)).toStrictEqual(25);
   });
 
   test('test getTicks', () => {
@@ -66,5 +70,15 @@ describe('pow scales', () => {
     expect(scale.map(0)).toStrictEqual(0);
 
     expect(scale.getOptions().domain).toStrictEqual([0, 11]);
+  });
+
+  test('test getTicks', () => {
+    const scale = new Pow({
+      domain: [0, 100],
+      range: [0, 100],
+      exponent: 2,
+    });
+    console.log(scale.map(0));
+    console.log(scale.map(50));
   });
 });
