@@ -26,15 +26,11 @@ export class Linear extends Continuous<LinearOptions> {
     return identity;
   }
 
-  constructor(options?: LinearOptions) {
-    super(options);
-  }
-
   clone(): Base<LinearOptions> {
     return new Linear(this.options);
   }
 
-  public nice() {
+  protected nice() {
     const { domain } = this.options;
     this.options.domain = d3LinearNice(domain);
   }

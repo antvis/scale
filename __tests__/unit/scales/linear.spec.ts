@@ -107,7 +107,9 @@ describe('Linear Scale Test', () => {
       nice: true,
     });
 
-    scale.nice();
+    // 调用 map 之后才会触发 nice
+    expect(scale.map(1)).toStrictEqual(500);
+
     expect(scale.getOptions().domain).toStrictEqual([1, 11]);
   });
 
