@@ -119,7 +119,6 @@ describe('Linear Scale Test', () => {
     });
 
     const newScale = scale.clone();
-
     expect(scale.getOptions()).toStrictEqual(newScale.getOptions());
     expect(scale.getOptions() === newScale.getOptions()).toBeFalsy();
   });

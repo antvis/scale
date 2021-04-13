@@ -1,3 +1,4 @@
+import { head, last } from '@antv/util';
 import { LinearOptions } from '../types';
 import extended from '../utils/extended';
 
@@ -9,6 +10,7 @@ import extended from '../utils/extended';
  */
 export function linerTick(config: LinearOptions): number[] {
   const { tickCount, domain, nice } = config;
-  const [dMin, dMax] = domain;
+  const dMin = head(domain);
+  const dMax = last(domain);
   return extended(dMin, dMax, tickCount, nice).ticks;
 }

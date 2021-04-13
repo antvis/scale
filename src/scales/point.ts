@@ -1,4 +1,3 @@
-import { clone } from '@antv/util';
 import { Band, getBandState } from './band';
 import { BandOptions, PointOptions } from '../types';
 
@@ -42,7 +41,7 @@ export class Point extends Band<PointOptions> {
   }
 
   public clone() {
-    return new Point(clone(this.getOptions()));
+    return new Point(this.options);
   }
 
   protected getBandState(bandOption: BandOptions) {
