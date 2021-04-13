@@ -8,9 +8,12 @@ import { d3LinearNice } from '../utils/d3-linear-nice';
 export class Pow extends Continuous<PowOptions> {
   protected getOverrideDefaultOptions() {
     return {
+      domain: [0, 1],
+      range: [0, 1],
       nice: false,
       clamp: false,
       round: false,
+      exponent: 2,
       interpolate: createInterpolate,
       tickMethod: calculatePowTicks,
       tickCount: 5,
