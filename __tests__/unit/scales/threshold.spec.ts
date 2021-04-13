@@ -1,4 +1,4 @@
-import { Threshold, ThresholdOptions } from '../../../src/index';
+import { Threshold, ThresholdOptions } from '../../../src';
 
 describe('Threshold', () => {
   test('Threshold() has expected options', () => {
