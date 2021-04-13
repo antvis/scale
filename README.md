@@ -57,7 +57,7 @@ x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 - [ ] Symlog
 - [ ] Quantize
 - [ ] Quantile
-- [ ] Threshold
+- [x] [Threshold](./docs/threshold.md)
 - [ ] Diverging
 - [ ] Sequential
 - [x] [Category](./docs/category.md)
