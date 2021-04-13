@@ -45,7 +45,7 @@ export type IdentityOptions = BaseOptions<number> & TickOptions;
 export type ConstantOptions = BaseOptions<number | string>;
 
 /** CategoryOptions 比例尺的选项 */
-export type CategoryOptions = BaseOptions<number | string, number | string>;
+export type CategoryOptions = BaseOptions<number | string>;
 
 /** Continuous 比例尺的选项 */
 export type ContinuousOptions = BaseOptions<number> &
@@ -75,3 +75,5 @@ export type BandOptions = BaseOptions<number | string, number> & {
 };
 
 export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
+
+export type ThresholdOptions = BaseOptions<number, any>;
