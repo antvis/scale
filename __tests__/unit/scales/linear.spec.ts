@@ -24,6 +24,7 @@ describe('Linear Scale Test', () => {
 
     expect(scale.map(0)).toStrictEqual(500);
     expect(scale.map(100)).toStrictEqual(1000);
+    expect(scale.map(50)).toStrictEqual(750);
     expect(scale.map(250)).toStrictEqual(1750);
 
     // poly range
