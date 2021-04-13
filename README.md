@@ -49,7 +49,7 @@ x.getTicks(); // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 - [x] [Identity](./docs/identity.md)
 - [x] [Constant](./docs/constant.md)
-- [ ] Linear
+- [x] [Linear](./docs/linear.md)
 - [ ] Log
 - [ ] Sqrt
 - [ ] Pow
