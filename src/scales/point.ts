@@ -36,11 +36,6 @@ export class Point extends Band<PointOptions> {
     };
   }
 
-  // eslint-disable-next-line
-  constructor(options?: PointOptions) {
-    super(options);
-  }
-
   public clone() {
     return new Point(clone(this.getOptions()));
   }

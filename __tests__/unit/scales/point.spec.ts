@@ -23,4 +23,13 @@ describe('point scale test', () => {
     expect(scale.getStep()).toStrictEqual(156.25);
     expect(scale.getBandWidth()).toStrictEqual(0);
   });
+
+  test('clone() returns a Threshold scale with same and independent options ', () => {
+    const x1 = new Point();
+    const x2 = x1.clone();
+
+    expect(x2).toBeInstanceOf(Point);
+    expect(x1.getOptions()).toEqual(x2.getOptions());
+    expect(x1.getOptions() !== x2.getOptions()).toBeTruthy();
+  });
 });
