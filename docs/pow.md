@@ -27,7 +27,7 @@ scale.getTicks() // [0, 4, 16, 36, 64, 100]
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | formatter | Sets the format function to display a tick value. | `(x: any) => string` | ```(x) => `${x}```|
 | tickCount | Sets approximately count representative values from the scale’s domain. | `number` | `5` |
-| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: PowOptions) => number[]` | `linerTick` |
+| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: PowOptions) => number[]` | `calculatePowTicks` |
 | round | round the output of map or invert. | `boolean` | `false` |
 | clamp | If clamp option is truthy, the return value of the scale is always within the scale’s range. | `boolean` | `false` |
 | nice | Extends the domain so that it starts and ends on nice round values. | `boolean` | `false` |
