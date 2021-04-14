@@ -31,7 +31,7 @@ scale.getTicks() // [0, 4, 16, 36, 64, 100]
 | round | round the output of map or invert. | `boolean` | `false` |
 | clamp | If clamp option is truthy, the return value of the scale is always within the scale’s range. | `boolean` | `false` |
 | nice | Extends the domain so that it starts and ends on nice round values. | `boolean` | `false` |
-| interpolate | If interpolate is specified, sets the scale’s range interpolator factory. | `(a: T, b: T) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |
+| interpolate | If interpolate is specified, sets the scale’s range interpolator factory. | `(a: number, b: number) => (t: number) => number` | `(a, b) => (t) => a * (1 - t) + b * t` |
 | exponent | Sets the scale’s exponent for map or invert methods. | `number` | `2` |
 
 ## Methods
@@ -55,3 +55,7 @@ Returns the scale's current options.
 <a name="Pow_clone" href="#Pow_clone">#</a> **clone**<i>(): Pow</i>
 
 Returns a new Pow scale with the independent and same options as the original one.
+
+<a name="Pow_get_ticks" href="#Pow_get_ticks">#</a> **getTicks()**<i>(): number[]</i>
+
+Returns a series of representative values from the scale’s domain.
