@@ -24,13 +24,12 @@ describe('point scale test', () => {
     expect(scale.getBandWidth()).toStrictEqual(0);
   });
 
-  test('test clone method', () => {
-    const scale = new Point({
-      domain: ['A', 'B', 'C'],
-      range: [0, 500],
-    });
-    const newScale = scale.clone();
-    expect(scale.getOptions()).toStrictEqual(newScale.getOptions());
-    expect(scale.getOptions().domain !== newScale.getOptions().domain).toBeTruthy();
+  test('clone() returns a Threshold scale with same and independent options ', () => {
+    const x1 = new Point();
+    const x2 = x1.clone();
+
+    expect(x2).toBeInstanceOf(Point);
+    expect(x1.getOptions()).toEqual(x2.getOptions());
+    expect(x1.getOptions() !== x2.getOptions()).toBeTruthy();
   });
 });
