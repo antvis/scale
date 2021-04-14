@@ -23,4 +23,14 @@ describe('point scale test', () => {
     expect(scale.getStep()).toStrictEqual(156.25);
     expect(scale.getBandWidth()).toStrictEqual(0);
   });
+
+  test('test clone method', () => {
+    const scale = new Point({
+      domain: ['A', 'B', 'C'],
+      range: [0, 500],
+    });
+    const newScale = scale.clone();
+    expect(scale.getOptions()).toStrictEqual(newScale.getOptions());
+    expect(scale.getOptions().domain !== newScale.getOptions().domain).toBeTruthy();
+  });
 });

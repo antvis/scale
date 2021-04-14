@@ -75,3 +75,5 @@ export type BandOptions = BaseOptions<number | string, number> & {
 };
 
 export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
+
+export type LinearOptions = ContinuousOptions;
