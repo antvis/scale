@@ -7,7 +7,7 @@ import { extended } from '../utils/extended';
  * @param config 度量的配置项
  * @returns {number[]} 计算后的 ticks
  */
-export function linerTick(config: LinearOptions): number[] {
+export function wilkinsonExtended(config: LinearOptions): number[] {
   const { tickCount, domain, nice } = config;
 
   const lastIndex = domain.length - 1;

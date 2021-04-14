@@ -1,15 +1,15 @@
-import { linerTick } from '../../../src/tick-method/linear';
+import { wilkinsonExtended } from '../../../src/tick-method/wilkinson-extended';
 
 describe('linear tick method', () => {
   test('test linear tick', () => {
-    const res = linerTick({
+    const res = wilkinsonExtended({
       domain: [0, 1],
     });
     expect(res).toStrictEqual([0, 0.3, 0.5, 0.8, 1]);
   });
 
   test('test tickCount option', () => {
-    const res = linerTick({
+    const res = wilkinsonExtended({
       domain: [0, 1],
       tickCount: 10,
     });
