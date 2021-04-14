@@ -79,7 +79,8 @@ export function wilkinsonExtended(
   w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
 ): { min: number; max: number; ticks: number[] } {
   // 异常数据情况下，直接返回，防止 oom
-  if (typeof dMin !== 'number' || typeof dMax !== 'number' || !m) {
+  // nan 也会导致异常
+  if (Number.isNaN(dMin) || Number.isNaN(dMax) || typeof dMin !== 'number' || typeof dMax !== 'number' || !m) {
     return {
       min: 0,
       max: 0,
@@ -108,9 +109,6 @@ export function wilkinsonExtended(
     for (let i = 0; i < Q.length; i += 1) {
       const q = Q[i];
       const sm = simplicityMax(q, Q, j);
-      if (Number.isNaN(sm)) {
-        throw new Error('NaN');
-      }
       if (w[0] * sm + w[1] + w[2] + w[3] < best.score) {
         j = Infinity;
         break;
