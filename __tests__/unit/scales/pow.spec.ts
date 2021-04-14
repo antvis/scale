@@ -8,8 +8,6 @@ describe('pow scales', () => {
       exponent: 2,
     });
 
-    // [0, 10000]
-
     expect(scale.map(0)).toStrictEqual(0);
     expect(scale.map(25)).toStrictEqual(6.25);
     expect(scale.map(50)).toBeCloseTo(25);
