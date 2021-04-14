@@ -44,9 +44,6 @@ export type IdentityOptions = BaseOptions<number> & TickOptions;
 /** Constant 比例尺的选项 */
 export type ConstantOptions = BaseOptions<number | string>;
 
-/** CategoryOptions 比例尺的选项 */
-export type CategoryOptions = BaseOptions<number | string>;
-
 /** Continuous 比例尺的选项 */
 export type ContinuousOptions = BaseOptions<number> &
   TickOptions & {
@@ -59,6 +56,12 @@ export type ContinuousOptions = BaseOptions<number> &
     /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
     interpolate?: Interpolate<number>;
   };
+
+/** Linear 比例尺的选项 */
+export type LinearOptions = ContinuousOptions;
+
+/** CategoryOptions 比例尺的选项 */
+export type CategoryOptions = BaseOptions<number | string>;
 
 /** 详细请参阅 scale/band.ts */
 export type BandOptions = BaseOptions<number | string, number> & {
@@ -74,8 +77,8 @@ export type BandOptions = BaseOptions<number | string, number> & {
   align?: number;
 };
 
+/** Point 比例尺的选项 */
 export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 
+/** Threshold 比例尺的选项 */
 export type ThresholdOptions = BaseOptions<number, any>;
-
-export type LinearOptions = ContinuousOptions;
