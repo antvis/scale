@@ -12,6 +12,7 @@ describe('pow scales', () => {
     expect(scale.map(25)).toStrictEqual(6.25);
     expect(scale.map(50)).toBeCloseTo(25);
     expect(scale.map(100)).toStrictEqual(100);
+    expect(scale.map(-25)).toStrictEqual(-6.25);
   });
 
   test('test for poly range or domain', () => {
@@ -28,6 +29,7 @@ describe('pow scales', () => {
     expect(scale.invert(100)).toStrictEqual(100);
     expect(scale.invert(6.25)).toStrictEqual(25);
     expect(scale.invert(625)).toStrictEqual(110);
+    expect(scale.invert(-6.25)).toStrictEqual(-25);
   });
 
   test('invert fn', () => {
