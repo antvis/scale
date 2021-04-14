@@ -3,7 +3,7 @@ import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate } from '../utils';
-import { wilkinsonExtended } from '../tick-method/wilkinson-extended';
+import { linear } from '../tick-method/linear';
 import { d3LinearNice } from '../utils/d3-linear-nice';
 
 export class Linear extends Continuous<LinearOptions> {
@@ -13,7 +13,7 @@ export class Linear extends Continuous<LinearOptions> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickMethod: wilkinsonExtended,
+      tickMethod: linear,
       tickCount: 5,
     } as LinearOptions;
   }
