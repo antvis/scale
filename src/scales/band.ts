@@ -1,4 +1,3 @@
-import { clone } from '@antv/util';
 import { BandOptions } from '../types';
 import { Category } from './category';
 import { sequence } from '../utils/sequence';
@@ -145,7 +144,7 @@ export class Band<O extends BandOptions = BandOptions> extends Category<BandOpti
   }
 
   public clone() {
-    return new Band(clone(this.getOptions()));
+    return new Band(this.options);
   }
 
   public update(updateOptions: Partial<BandOptions>) {

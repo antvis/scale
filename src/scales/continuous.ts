@@ -5,10 +5,10 @@ import { ContinuousOptions as Options, Domain, Range } from '../types';
 import { createInterpolate, createInterpolateRound, createClamp, createNormalize, bisect, compose } from '../utils';
 
 /** 柯里化后的函数的类型，对输入的值进行处理 */
-type Transform = (x: number) => number;
+export type Transform = (x: number) => number;
 
 /** 柯里化后的函数的工厂函数类型 */
-type CreateTransform = (...args: any[]) => Transform;
+export type CreateTransform = (...args: any[]) => Transform;
 
 /** 当 domain 和 range 只有一段的时候的 map 的 工厂函数 */
 const createBiMap: CreateTransform = (domain, range, createInterpolate) => {
@@ -83,18 +83,22 @@ export abstract class Continuous<O extends Options> extends Base<O> {
   /** 在设置了选项后对 domain 进行优化 */
   protected abstract nice(): void;
 
-  /** 根据比例尺 和 options 选择对应的 transform 函数
+  /**
+   * 根据比例尺 和 options 选择对应的 transform 函数
    * y = a * f(x) + b 中的 f(x)
    */
   protected abstract chooseTransform(): Transform;
 
-  /** 根据比例尺 和 options 选择对应的 untransform 函数
+  /**
+   * 根据比例尺 和 options 选择对应的 untransform 函数
    * x = a * f'(y) + b 中的 f'(y)
    */
   protected abstract chooseUntransform(): Transform;
 
   protected getOverrideDefaultOptions() {
     return {
+      domain: [0, 1],
+      range: [0, 1],
       nice: false,
       clamp: false,
       round: false,
@@ -169,7 +173,7 @@ export abstract class Continuous<O extends Options> extends Base<O> {
     const { clamp: shouldClamp, domain, range, interpolate } = this.options;
     const clamp = chooseClamp(domain, range, shouldClamp);
     const untransform = this.chooseUntransform();
-    const transform = this.chooseUntransform();
+    const transform = this.chooseTransform();
     const piecewise = choosePiecewise(range, domain.map(transform), interpolate);
     this.input = compose(clamp, untransform, piecewise);
   }
