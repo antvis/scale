@@ -56,6 +56,6 @@ Returns the scale's current options.
 
 Returns a new Pow scale with the independent and same options as the original one.
 
-<a name="Pow_get_ticks" href="#Pow_get_ticks">#</a> **getTicks()**<i>(): number[]</i>
+<a name="Pow_get_ticks" href="#Pow_get_ticks">#</a> **getTicks**<i>(): number[]</i>
 
 Returns a series of representative values from the scale’s domain.
