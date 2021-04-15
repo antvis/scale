@@ -88,3 +88,6 @@ export type PowOptions = ContinuousOptions & {
   /** 指数 */
   exponent?: number;
 };
+
+/** Sqrt 比例尺的选项 */
+export type SqrtOptions = PowOptions;
