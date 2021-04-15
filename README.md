@@ -31,7 +31,7 @@ $ npm install @antv/scale
 ## 🔨 Getting Started
 
 ```ts
-import { Linear } from "@antv/scale";
+import { Linear } from '@antv/scale';
 
 const x = new Linear({
   domain: [0, 10],
@@ -40,7 +40,7 @@ const x = new Linear({
 
 x.map(2); // 20
 x.invert(20); // 2
-x.getTicks(); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 ```
 
 ## 📜 API reference
@@ -51,8 +51,8 @@ x.getTicks(); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 - [x] [Constant](./docs/constant.md)
 - [x] [Linear](./docs/linear.md)
 - [ ] Log
-- [ ] Sqrt
-- [ ] Pow
+- [x] [Sqrt](./docs/sqrt.md)
+- [x] [Pow](./docs/pow.md)
 - [ ] Time
 - [ ] Symlog
 - [x] [Quantize](./docs/quantize.md)

@@ -1,5 +1,5 @@
 import * as d3 from 'd3-scale';
-import { Category } from '../../src/scales/category';
+import { Category } from '../../src';
 import { benchMarkBetween } from './benchmark';
 
 describe('category perf test', () => {

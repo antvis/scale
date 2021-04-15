@@ -85,3 +85,12 @@ export type ThresholdOptions = BaseOptions<number, any>;
 
 /** Quantize 比例尺的选项 */
 export type QuantizeOptions = ThresholdOptions & TickOptions & { nice?: boolean };
+
+/** Pow 比例尺的选项 */
+export type PowOptions = ContinuousOptions & {
+  /** 指数 */
+  exponent?: number;
+};
+
+/** Sqrt 比例尺的选项 */
+export type SqrtOptions = PowOptions;

@@ -62,7 +62,11 @@ domain = [A, B]
 
 <a name="band_map" href="#band_map">#</a> **map**<i>(x: number | string): number</i>
 
-Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
+Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
+
+<a name="Band_invert" href="#Pow_invert">#</a> **invert**<i>(x: number): number | string</i>
+
+Given a value from the range, returns the corresponding value from the domain.
 
 <a name="band_update" href="#band_update">#</a> **update**<i>(options: BandOptions): void</i>
 
@@ -83,8 +87,3 @@ Returns band scale's step, for more info about `step`, please see [example](#exa
 <a name="band_get_band_width" href="#band_get_band_width">#</a> **getBandWidth**<i>(): number</i>
 
 Returns band scale's bandWidth, for more info about this, please see [example](#example).
-
-
-
-
-
