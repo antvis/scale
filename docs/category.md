@@ -34,11 +34,11 @@ x.map('C'); // c
 
 <a name="category_map" href="#category_map">#</a> **map**<i>(x: (number | string)[]): (number | string)[]</i>
 
-Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
+Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
 
 <a name="category_invert" href="#category_invert">#</a> **invert**<i>(x: (number | string) []): (number| string)[]</i>
 
-Returns the output value itself.
+Given a value from the range, returns the corresponding value from the domain.
 
 <a name="category_update" href="#category_update">#</a> **update**<i>(options: CategoryOptions): void</i>
 

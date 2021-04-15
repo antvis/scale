@@ -39,11 +39,11 @@ x.invert(500); // 0
 
 <a name="Linear_map" href="#Linear_map">#</a> **map**<i>(x: number): number</i>
 
-Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
+Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
 
-<a name="Linear_invert" href="#Linear_invert">#</a> **invert**<i>(x: number): x: number</i>
+<a name="Linear_invert" href="#Linear_invert">#</a> **invert**<i>(x: number): number</i>
 
-Returns the output value itself.
+Given a value from the range, returns the corresponding value from the domain.
 
 <a name="Linear_update" href="#Linear_update">#</a> **update**<i>(options: LinearOptions): void</i>
 

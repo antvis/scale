@@ -21,7 +21,8 @@ module.exports = {
     'object-curly-newline': 'off',
     'class-methods-use-this': 'off',
     'no-shadow': 'off',
-    'no-console': 'off'
+    'no-console': 'off',
+    'arrow-body-style': 'off',
   },
   settings: {
     'import/parsers': {
