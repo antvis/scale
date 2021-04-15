@@ -60,7 +60,7 @@ Returns the scale's current options.
 
 <a name="Sqrt_clone" href="#Sqrt_clone">#</a> **clone**<i>(): Sqrt</i>
 
-Returns a new Sqrt scale with the independent and same options as the original one.
+Returns a new sqrt scale with the independent and same options as the original one.
 
 <a name="Sqrt_get_ticks" href="#Sqrt_get_ticks">#</a> **getTicks()**<i>(): number[]</i>
 
