@@ -8,8 +8,8 @@
 
 Toolkit for mapping abstract data into visual representation.
 
-[![Build Status](https://github.com/antvis/scale/workflows/build/badge.svg)](https://github.com/antvis/scale/actions)
-[![Coverage Status](https://coveralls.io/repos/github/antvis/scale/badge.svg?branch=master)](https://coveralls.io/github/antvis/scale?branch=master)
+[![Build Status](https://github.com/antvis/scale/workflows/build/badge.svg?branch=master)](https://github.com/antvis/scale/actions)
+[![Coverage Status](https://img.shields.io/coveralls/github/antvis/scale/master.svg)](https://coveralls.io/github/antvis/scale?branch=master)
 [![npm Version](https://img.shields.io/npm/v/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
 [![npm Download](https://img.shields.io/npm/dm/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
 [![npm License](https://img.shields.io/npm/l/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
