@@ -1,6 +1,22 @@
 import { Pow } from '../../../src/scales/pow';
+import { calculatePowTicks } from '../../../src/tick-method/pow';
 
 describe('pow scales', () => {
+  test('test default options', () => {
+    const scale = new Pow();
+    const { domain, range, round, tickCount, nice, clamp, unknown, tickMethod, exponent } = scale.getOptions();
+
+    expect(exponent).toStrictEqual(2);
+    expect(domain).toStrictEqual([0, 1]);
+    expect(range).toStrictEqual([0, 1]);
+    expect(round).toBeFalsy();
+    expect(tickCount).toStrictEqual(5);
+    expect(nice).toBeFalsy();
+    expect(clamp).toBeFalsy();
+    expect(unknown).toBeUndefined();
+    expect(tickMethod).toBe(calculatePowTicks);
+  });
+
   test('map fn', () => {
     const scale = new Pow({
       domain: [0, 100],
