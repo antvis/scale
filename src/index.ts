@@ -9,7 +9,7 @@ export { Point } from './scales/point';
 export { Pow } from './scales/pow';
 export { Threshold } from './scales/threshold';
 
-export {
+export type {
   BandOptions,
   BaseOptions,
   CategoryOptions,
