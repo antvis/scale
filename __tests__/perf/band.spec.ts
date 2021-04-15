@@ -1,5 +1,5 @@
 import * as d3 from 'd3-scale';
-import { Band } from '../../src/scales/band';
+import { Band } from '../../src';
 import { benchMarkBetween } from './benchmark';
 
 describe('band perf test', () => {
