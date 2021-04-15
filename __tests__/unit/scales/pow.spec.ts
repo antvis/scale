@@ -17,6 +17,17 @@ describe('pow scales', () => {
     expect(tickMethod).toBe(calculatePowTicks);
   });
 
+  test('test when exponent is 0.5, we use Math.sqrt API, not Math.pow', () => {
+    const scale = new Pow({
+      exponent: 0.5,
+      domain: [0, 100],
+      range: [0, 100],
+    });
+
+    expect(scale.map(25)).toStrictEqual(50);
+    expect(scale.map(50)).toBeCloseTo(70.71, -2);
+  });
+
   test('map fn', () => {
     const scale = new Pow({
       domain: [0, 100],
