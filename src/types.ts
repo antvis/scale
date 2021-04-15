@@ -90,7 +90,4 @@ export type PowOptions = ContinuousOptions & {
 };
 
 /** Sqrt 比例尺的选项 */
-export type SqrtOptions = PowOptions & {
-  /** 指数固定为 0.5 */
-  exponent: 0.5;
-};
+export type SqrtOptions = PowOptions;

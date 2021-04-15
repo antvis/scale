@@ -18,7 +18,7 @@ export class Sqrt extends Pow {
     } as SqrtOptions;
   }
 
-  clone(): Sqrt {
+  public clone(): Sqrt {
     return new Sqrt(this.options);
   }
 }

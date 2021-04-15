@@ -44,11 +44,11 @@ scale.getTicks() // [0, 4, 16, 36, 64, 100]
 
 <a name="Sqrt_map" href="#Sqrt_map">#</a> **map**<i>(x: number): number</i>
 
-Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
+Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
 
-<a name="Sqrt_invert" href="#Sqrt_invert">#</a> **invert**<i>(x: number): x: number</i>
+<a name="Sqrt_invert" href="#Sqrt_invert">#</a> **invert**<i>(x: number): number</i>
 
-Returns the output value itself.
+Given a value from the range, returns the corresponding value from the domain.
 
 <a name="Sqrt_update" href="#Sqrt_update">#</a> **update**<i>(options: SqrtOptions): void</i>
 
