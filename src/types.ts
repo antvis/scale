@@ -82,3 +82,9 @@ export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 
 /** Threshold 比例尺的选项 */
 export type ThresholdOptions = BaseOptions<number, any>;
+
+/** Pow 比例尺的选项 */
+export type PowOptions = ContinuousOptions & {
+  /** 指数 */
+  exponent?: number;
+};
