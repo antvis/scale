@@ -38,11 +38,11 @@ scale.getTicks() // [0, 4, 16, 36, 64, 100]
 
 <a name="Pow_map" href="#Pow_map">#</a> **map**<i>(x: number): number</i>
 
-Returns the input value itself if it is not `undefined` (or `NaN`), otherwise `options.unknown`.
+Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
 
 <a name="Pow_invert" href="#Pow_invert">#</a> **invert**<i>(x: number): x: number</i>
 
-Returns the output value itself.
+Given a value from the range, returns the corresponding value from the domain.
 
 <a name="Pow_update" href="#Pow_update">#</a> **update**<i>(options: PowOptions): void</i>
 
