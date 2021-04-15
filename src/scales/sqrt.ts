@@ -1,6 +1,6 @@
 import { createInterpolate } from '../utils';
 import { calculatePowTicks } from '../tick-method/pow';
-import { PowOptions } from '../types';
+import { SqrtOptions } from '../types';
 import { Pow } from './pow';
 
 export class Sqrt extends Pow {
@@ -15,7 +15,7 @@ export class Sqrt extends Pow {
       interpolate: createInterpolate,
       tickMethod: calculatePowTicks,
       tickCount: 5,
-    } as PowOptions;
+    } as SqrtOptions;
   }
 
   clone(): Sqrt {

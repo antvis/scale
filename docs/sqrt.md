@@ -1,6 +1,6 @@
 # Sqrt
 
-Sqrter scales creates a Sqrter based scale, which transform the output by exponent option.
+Sqrt scales creates a square-root based scale, similar to Pow scale.
 
 ## Usage
 
@@ -10,8 +10,15 @@ const scale = new Sqrt({
   range: [0, 100]
 });
 
+// same as:
+// const scale = new Pow({
+//   domain: [0, 100],
+//   range: [0, 100],
+//   exponent: 0.5
+// });
+
 scale.map(0); // 0
-scale.map(50); // 25
+scale.map(25); // 50
 scale.invert(50); // 25
 
 scale.getTicks() // [0, 4, 16, 36, 64, 100]
@@ -26,7 +33,7 @@ scale.getTicks() // [0, 4, 16, 36, 64, 100]
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | formatter | Sets the format function to display a tick value. | `(x: any) => string` | ```(x) => `${x}```|
 | tickCount | Sets approximately count representative values from the scale’s domain. | `number` | `5` |
-| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: SqrtOptions) => number[]` | `calculateSqrtTicks` |
+| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: SqrtOptions) => number[]` | `calculatePowTicks` |
 | round | round the output of map or invert. | `boolean` | `false` |
 | clamp | If clamp option is truthy, the return value of the scale is always within the scale’s range. | `boolean` | `false` |
 | nice | Extends the domain so that it starts and ends on nice round values. | `boolean` | `false` |

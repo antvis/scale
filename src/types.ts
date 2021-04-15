@@ -88,3 +88,9 @@ export type PowOptions = ContinuousOptions & {
   /** 指数 */
   exponent?: number;
 };
+
+/** Sqrt 比例尺的选项 */
+export type SqrtOptions = PowOptions & {
+  /** 指数固定为 0.5 */
+  exponent: 0.5;
+};
