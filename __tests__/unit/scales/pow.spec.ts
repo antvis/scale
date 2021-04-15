@@ -1,4 +1,4 @@
-import { Pow } from '../../../src/scales/pow';
+import { Pow } from '../../../src';
 import { calculatePowTicks } from '../../../src/tick-method/pow';
 
 describe('pow scales', () => {
@@ -27,6 +27,18 @@ describe('pow scales', () => {
     expect(scale.map(25)).toStrictEqual(50);
     expect(scale.map(-25)).toStrictEqual(-50);
     expect(scale.map(50)).toBeCloseTo(70.71, -2);
+  });
+
+  test('test when exponent is 1, we use identity', () => {
+    const scale = new Pow({
+      exponent: 1,
+      domain: [0, 100],
+      range: [0, 100],
+    });
+
+    expect(scale.map(25)).toStrictEqual(25);
+    expect(scale.map(-25)).toStrictEqual(-25);
+    expect(scale.map(50)).toBeCloseTo(50);
   });
 
   test('map fn', () => {
