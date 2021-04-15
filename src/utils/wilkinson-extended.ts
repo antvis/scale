@@ -77,24 +77,16 @@ export function wilkinsonExtended(
   onlyLoose: boolean = true,
   Q: number[] = DEFAULT_Q,
   w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
-): { min: number; max: number; ticks: number[] } {
+): number[] {
   // 异常数据情况下，直接返回，防止 oom
   // nan 也会导致异常
   if (Number.isNaN(dMin) || Number.isNaN(dMax) || typeof dMin !== 'number' || typeof dMax !== 'number' || !m) {
-    return {
-      min: 0,
-      max: 0,
-      ticks: [],
-    };
+    return [];
   }
 
   // js 极大值极小值问题，差值小于 1e-15 会导致计算出错
   if (dMax - dMin < 1e-15 || m === 1) {
-    return {
-      min: dMin,
-      max: dMax,
-      ticks: [dMin],
-    };
+    return [dMin];
   }
 
   const best = {
@@ -103,6 +95,7 @@ export function wilkinsonExtended(
     lmax: 0,
     lstep: 0,
   };
+
   let j = 1;
   while (j < Infinity) {
     // for (const q of Q)
@@ -172,10 +165,5 @@ export function wilkinsonExtended(
   }
   const ticks = toFixed ? map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
 
-  const lastIndex = ticks.length - 1;
-  return {
-    min: Math.min(dMin, ticks[0]),
-    max: Math.max(dMax, ticks[lastIndex]),
-    ticks,
-  };
+  return ticks;
 }

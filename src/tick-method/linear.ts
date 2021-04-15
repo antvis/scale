@@ -13,5 +13,5 @@ export function linear(config: LinearOptions): number[] {
   const lastIndex = domain.length - 1;
   const dMin = domain[0];
   const dMax = domain[lastIndex];
-  return wilkinsonExtended(dMin, dMax, tickCount, nice).ticks;
+  return wilkinsonExtended(dMin, dMax, tickCount, nice);
 }

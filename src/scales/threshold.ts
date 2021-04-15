@@ -6,7 +6,7 @@ import { bisect } from '../utils';
 /**
  * 将连续的定义域分段，每一段所有的值对应离散的值域中一个值
  */
-export class Threshold<O extends ThresholdOptions> extends Base<ThresholdOptions> {
+export class Threshold<O extends ThresholdOptions> extends Base<O> {
   /** threshold 的数量 */
   protected n: number;
 
@@ -17,7 +17,7 @@ export class Threshold<O extends ThresholdOptions> extends Base<ThresholdOptions
     } as O;
   }
 
-  constructor(options?: Partial<ThresholdOptions>) {
+  constructor(options?: Partial<O>) {
     super(options);
     this.rescale();
   }
@@ -35,16 +35,17 @@ export class Threshold<O extends ThresholdOptions> extends Base<ThresholdOptions
    * 在值域中找到对应的值，并返回在定义域中属于哪一段
    */
   public invert(y: Range<ThresholdOptions>) {
-    const { range, domain } = this.options;
+    const { range } = this.options;
     const index = range.indexOf(y);
+    const domain = this.getDomain();
     return [domain[index - 1], domain[index]];
   }
 
   public clone() {
-    return new Threshold(this.options);
+    return new Threshold<O>(this.options);
   }
 
-  public update(options?: Partial<ThresholdOptions>) {
+  public update(options?: Partial<O>) {
     super.update(options);
     this.rescale();
   }
