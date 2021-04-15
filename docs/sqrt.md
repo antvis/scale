@@ -62,6 +62,6 @@ Returns the scale's current options.
 
 Returns a new sqrt scale with the independent and same options as the original one.
 
-<a name="Sqrt_get_ticks" href="#Sqrt_get_ticks">#</a> **getTicks()**<i>(): number[]</i>
+<a name="Sqrt_get_ticks" href="#Sqrt_get_ticks">#</a> **getTicks**<i>(): number[]</i>
 
 Returns a series of representative values from the scale’s domain.
