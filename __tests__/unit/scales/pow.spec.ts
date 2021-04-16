@@ -38,6 +38,7 @@ describe('pow scales', () => {
 
     expect(scale.map(25)).toStrictEqual(25);
     expect(scale.map(-25)).toStrictEqual(-25);
+    expect(scale.invert(-25)).toStrictEqual(-25);
     expect(scale.map(50)).toBeCloseTo(50);
   });
 
