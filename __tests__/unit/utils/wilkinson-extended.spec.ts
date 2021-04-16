@@ -44,4 +44,9 @@ describe('wilkinson-extended test', () => {
       ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     });
   });
+
+  test('tiny number', () => {
+    expect(wilkinsonExtended(0, 0.1, 5).ticks).toStrictEqual([0, 0.025, 0.05, 0.075, 0.1]);
+    expect(wilkinsonExtended(0, 0.01, 5).ticks).toStrictEqual([0, 0.0025, 0.005, 0.0075, 0.01]);
+  });
 });
