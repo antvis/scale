@@ -2,15 +2,15 @@ import { identity } from '@antv/util';
 import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
-import { createInterpolate } from '../utils';
-import { d3LinearNice } from '../utils/d3-linear-nice';
-import { calculateLinearTicks } from '../tick-method/linear';
+import { createInterpolate, d3LinearNice } from '../utils';
+import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 
 /**
  * Linear 比例尺
  *
  * 构造可创建一个在输入和输出之间具有线性关系的比例尺
  */
+
 export class Linear extends Continuous<LinearOptions> {
   protected getOverrideDefaultOptions() {
     return {
@@ -18,7 +18,7 @@ export class Linear extends Continuous<LinearOptions> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickMethod: calculateLinearTicks,
+      tickMethod: wilkinsonExtended,
       tickCount: 5,
     } as LinearOptions;
   }
@@ -33,6 +33,14 @@ export class Linear extends Continuous<LinearOptions> {
 
   public clone(): Base<LinearOptions> {
     return new Linear(this.options);
+  }
+
+  public getTicks() {
+    const { tickCount, domain, tickMethod } = this.options;
+    const lastIndex = domain.length - 1;
+    const dMin = domain[0];
+    const dMax = domain[lastIndex];
+    return tickMethod(dMin, dMax, tickCount);
   }
 
   protected nice() {

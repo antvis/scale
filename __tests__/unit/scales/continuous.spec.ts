@@ -1,6 +1,6 @@
 import { identity } from '@antv/util';
-import { Continuous, ContinuousOptions } from '../../../src';
-import { ticks } from '../../../src/tick-method/basic';
+import { Continuous } from '../../../src/scales/continuous';
+import { ContinuousOptions } from '../../../src/types';
 import { createInterpolate } from '../../../src/utils';
 
 describe('Continuous', () => {
@@ -33,11 +33,15 @@ describe('Continuous', () => {
     public clone() {
       return new Scale(this.options);
     }
+
+    public getTicks() {
+      return [];
+    }
   }
 
   test('Continuous() has expected defaults', () => {
     const s = new Scale();
-    const { tickMethod, formatter, interpolate, ...restProps } = s.getOptions();
+    const { formatter, interpolate, ...restProps } = s.getOptions();
 
     expect(restProps).toEqual({
       range: [0, 1],
@@ -49,7 +53,6 @@ describe('Continuous', () => {
     });
 
     expect(formatter(1)).toBe('1');
-    expect(tickMethod).toEqual(ticks);
     expect(interpolate).toEqual(createInterpolate);
 
     // @ts-ignore
@@ -333,18 +336,9 @@ describe('Continuous', () => {
     expect(s.map(1)).toBe(12);
   });
 
-  test('getTicks() calls options.tickMethod and returns its return value', () => {
+  test('getTicks() return []', () => {
     const s = new Scale();
-    const mockFn = jest.fn();
-    s.update({
-      tickMethod: () => {
-        mockFn();
-        return [1, 2, 3, 4, 5];
-      },
-    });
-
-    expect(s.getTicks()).toEqual([1, 2, 3, 4, 5]);
-    expect(mockFn).toBeCalled();
+    expect(s.getTicks()).toEqual([]);
   });
 
   test('clone() returns a scale belong to same class', () => {

@@ -1,6 +1,8 @@
-export type TickMethod<T> = (options?: T) => any[];
+/** 获得 ticks 的方法 */
+export type TickMethod = (min: number, max: number, n?: number, ...rest: any[]) => number[];
 
-export type Interpolate<T> = (a: T, b: T) => (t: number) => T;
+/** 插值器工厂 */
+export type Interpolate = (a: number, b: number) => (t: number) => number;
 
 /**
  * 所有比例尺选项的默认类型
@@ -22,11 +24,11 @@ export type BaseOptions<D = any, R = D> = {
  * 支持 getTicks 的比例尺的选项
  * T：tickMethod 配置项的类型
  */
-export type TickOptions<T = any> = {
+export type TickOptions = {
   /** tick 个数，默认值为 5 */
   tickCount?: number;
   /** 计算 ticks 的算法 */
-  tickMethod?: TickMethod<T>;
+  tickMethod?: TickMethod;
 };
 
 /** 获得比例尺选项中定义域元素的类型 */
@@ -54,7 +56,7 @@ export type ContinuousOptions = BaseOptions<number> &
     /** 是否需要对输出进行四舍五入 */
     round?: boolean;
     /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
-    interpolate?: Interpolate<number>;
+    interpolate?: Interpolate;
   };
 
 /** Linear 比例尺的选项 */
@@ -82,6 +84,9 @@ export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 
 /** Threshold 比例尺的选项 */
 export type ThresholdOptions = BaseOptions<number, any>;
+
+/** Quantize 比例尺的选项 */
+export type QuantizeOptions = ThresholdOptions & TickOptions & { nice?: boolean };
 
 /** Pow 比例尺的选项 */
 export type PowOptions = ContinuousOptions & {
