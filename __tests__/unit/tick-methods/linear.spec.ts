@@ -1,4 +1,4 @@
-import { calculateLinearTicks } from '../../../src/tick-method/calculateLinearTicks';
+import { calculateLinearTicks } from '../../../src/tick-method/linear';
 
 describe('linear tick method', () => {
   test('test linear tick', () => {
