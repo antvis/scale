@@ -1,4 +1,5 @@
 import { indexOf, map, size } from '@antv/util';
+import { TickMethod } from '../types';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -6,7 +7,6 @@ export const ALL_Q = [1, 5, 2, 2.5, 4, 3, 1.5, 7, 6, 8, 9];
 
 const eps = Number.EPSILON * 100;
 
-// https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
 function mod(n: number, m: number) {
   return ((n % m) + m) % m;
 }
@@ -70,15 +70,14 @@ function legibility() {
  * @param Q nice numbers集合
  * @param w 四个优化组件的权重
  */
-export function wilkinsonExtended(
+export const wilkinsonExtended: TickMethod = (
   dMin: number,
   dMax: number,
   m: number = 5,
   onlyLoose: boolean = true,
   Q: number[] = DEFAULT_Q,
   w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
-): number[] {
-  // 异常数据情况下，直接返回，防止 oom
+) => {
   // nan 也会导致异常
   if (Number.isNaN(dMin) || Number.isNaN(dMax) || typeof dMin !== 'number' || typeof dMax !== 'number' || !m) {
     return [];
@@ -166,4 +165,4 @@ export function wilkinsonExtended(
   const ticks = toFixed ? map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
 
   return ticks;
-}
+};

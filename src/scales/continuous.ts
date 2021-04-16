@@ -1,6 +1,5 @@
 import { isNumber, identity } from '@antv/util';
 import { Base } from './base';
-import { ticks } from '../tick-method/basic';
 import { ContinuousOptions as Options, Domain, Range } from '../types';
 import { createInterpolate, createInterpolateRound, createClamp, createNormalize, bisect, compose } from '../utils';
 
@@ -83,6 +82,9 @@ export abstract class Continuous<O extends Options> extends Base<O> {
   /** 在设置了选项后对 domain 进行优化 */
   protected abstract nice(): void;
 
+  /** 从 domain 获得 ticks */
+  protected abstract getTicks(): Domain<O>[];
+
   /**
    * 根据比例尺 和 options 选择对应的 transform 函数
    * y = a * f(x) + b 中的 f(x)
@@ -103,7 +105,6 @@ export abstract class Continuous<O extends Options> extends Base<O> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickMethod: ticks,
       tickCount: 5,
     } as O;
   }
@@ -133,10 +134,6 @@ export abstract class Continuous<O extends Options> extends Base<O> {
     super.update(options);
     this.input = undefined;
     this.output = undefined;
-  }
-
-  public getTicks() {
-    return this.options.tickMethod(this.options);
   }
 
   protected niceDomain() {

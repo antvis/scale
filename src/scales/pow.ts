@@ -2,9 +2,8 @@ import { identity } from '@antv/util';
 import { Continuous, Transform } from './continuous';
 import { PowOptions } from '../types';
 import { Base } from './base';
-import { createInterpolate } from '../utils';
-import { calculatePowTicks } from '../tick-method/pow';
-import { d3LinearNice } from '../utils/d3-linear-nice';
+import { createInterpolate, d3LinearNice } from '../utils';
+import { pretty } from '../tick-method/pretty';
 
 const transformPow = (exponent: number) => {
   return (x: number) => {
@@ -38,7 +37,7 @@ export class Pow extends Continuous<PowOptions> {
       round: false,
       exponent: 2,
       interpolate: createInterpolate,
-      tickMethod: calculatePowTicks,
+      tickMethod: pretty,
       tickCount: 5,
     } as PowOptions;
   }
@@ -58,6 +57,14 @@ export class Pow extends Continuous<PowOptions> {
 
   public clone(): Base<PowOptions> {
     return new Pow(this.options);
+  }
+
+  public getTicks() {
+    const { tickCount, domain, tickMethod } = this.options;
+    const lastIndex = domain.length - 1;
+    const min = domain[0];
+    const max = domain[lastIndex];
+    return tickMethod(min, max, tickCount);
   }
 
   protected nice() {

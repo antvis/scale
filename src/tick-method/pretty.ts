@@ -1,6 +1,7 @@
+import { TickMethod } from '../types';
+
 /**
  * 创建分割点
- *
  * @param min 左区间
  * @param max 右区间
  * @param n 分割点个数
@@ -8,7 +9,7 @@
  * @see R pretty https://svn.r-project.org/R/trunk/src/appl/pretty.c
  * @see R pretty https://www.rdocumentation.org/packages/base/versions/3.5.2/topics/pretty
  */
-export function pretty(min: number, max: number, n: number = 5) {
+export const pretty: TickMethod = (min, max, n = 5) => {
   const res = {
     max: 0,
     min: 0,
@@ -16,11 +17,7 @@ export function pretty(min: number, max: number, n: number = 5) {
   };
 
   if (min === max) {
-    return {
-      max,
-      min,
-      ticks: [min],
-    };
+    return [min];
   }
 
   // high.u.bias
@@ -66,5 +63,5 @@ export function pretty(min: number, max: number, n: number = 5) {
   }
   res.ticks.push(x);
 
-  return res;
-}
+  return res.ticks;
+};

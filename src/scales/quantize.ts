@@ -1,6 +1,6 @@
 import { Threshold } from './threshold';
 import { QuantizeOptions } from '../types';
-import { wilkinsonExtended } from '../utils/wilkinson-extended';
+import { wilkinsonExtended } from '../tick-method/wilkinson-extended';
 import { d3LinearNice } from '../utils/d3-linear-nice';
 
 export class Quantize extends Threshold<QuantizeOptions> {
@@ -21,9 +21,17 @@ export class Quantize extends Threshold<QuantizeOptions> {
     return this.thresholds;
   }
 
-  protected rescale() {
-    const { range, domain, nice, tickCount } = this.options;
+  protected niceDomain() {
+    const { nice, domain } = this.options;
+    if (nice) {
+      this.options.domain = d3LinearNice(domain);
+    }
+  }
 
+  protected rescale() {
+    this.niceDomain();
+
+    const { range, domain, nice, tickCount } = this.options;
     this.n = range.length - 1;
     this.thresholds = new Array(this.n);
     const [x0, x1] = nice ? d3LinearNice(domain, tickCount) : domain;
@@ -42,10 +50,10 @@ export class Quantize extends Threshold<QuantizeOptions> {
   }
 
   public getTicks() {
-    const { tickCount, domain, nice } = this.options;
+    const { tickCount, domain, tickMethod } = this.options;
     const lastIndex = domain.length - 1;
-    const dMin = domain[0];
-    const dMax = domain[lastIndex];
-    return this.options.tickMethod(dMin, dMax, tickCount, nice);
+    const min = domain[0];
+    const max = domain[lastIndex];
+    return tickMethod(min, max, tickCount);
   }
 }

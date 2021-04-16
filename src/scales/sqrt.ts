@@ -1,5 +1,5 @@
 import { createInterpolate } from '../utils';
-import { calculatePowTicks } from '../tick-method/pow';
+import { pretty } from '../tick-method/pretty';
 import { SqrtOptions } from '../types';
 import { Pow } from './pow';
 
@@ -13,7 +13,7 @@ export class Sqrt extends Pow {
       round: false,
       exponent: 0.5,
       interpolate: createInterpolate,
-      tickMethod: calculatePowTicks,
+      tickMethod: pretty,
       tickCount: 5,
     } as SqrtOptions;
   }

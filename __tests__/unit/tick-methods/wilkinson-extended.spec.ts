@@ -1,4 +1,4 @@
-import { wilkinsonExtended } from '../../../src/utils/wilkinson-extended';
+import { wilkinsonExtended } from '../../../src/tick-method/wilkinson-extended';
 
 describe('wilkinson-extended test', () => {
   test('invalid data for dMin and dMax', () => {
