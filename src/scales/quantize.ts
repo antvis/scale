@@ -3,6 +3,9 @@ import { QuantizeOptions } from '../types';
 import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 import { d3LinearNice } from '../utils/d3-linear-nice';
 
+/**
+ * 类似 Threshold 比例尺，区别在于 thresholds 是根据连续的 domain 根据离散的 range 的数量计算而得到的。
+ */
 export class Quantize extends Threshold<QuantizeOptions> {
   // 这里不能给 thresholds 赋值，否者会编译后，会在 constructor 后面执行：this.thresholds = []
   private thresholds: QuantizeOptions['domain'];
@@ -31,10 +34,13 @@ export class Quantize extends Threshold<QuantizeOptions> {
   protected rescale() {
     this.niceDomain();
 
-    const { range, domain, nice, tickCount } = this.options;
+    const {
+      range,
+      domain: [x0, x1],
+    } = this.options;
+
     this.n = range.length - 1;
     this.thresholds = new Array(this.n);
-    const [x0, x1] = nice ? d3LinearNice(domain, tickCount) : domain;
 
     for (let i = 0; i < this.n; i += 1) {
       this.thresholds[i] = ((i + 1) * x1 - (i - this.n) * x0) / (this.n + 1);

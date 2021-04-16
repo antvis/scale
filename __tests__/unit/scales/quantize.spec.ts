@@ -74,12 +74,17 @@ describe('Threshold', () => {
     expect(x.getThresholds()).toEqual([1 / 3, 2 / 3]);
   });
 
-  test('getTicks() returns a series of representative values from the scale’s domain.', () => {
+  test('getTicks() calls options.tickMethod and return its return value', () => {
     const scale = new Quantize({
       domain: [0, 100],
+      tickMethod: (min, max, count) => {
+        expect(min).toBe(0);
+        expect(max).toBe(100);
+        expect(count).toBe(5);
+        return [];
+      },
     });
-
-    expect(scale.getTicks()).toStrictEqual([0, 25, 50, 75, 100]);
+    expect(scale.getTicks()).toStrictEqual([]);
   });
 
   test('option.nice === true nice the domain', () => {
