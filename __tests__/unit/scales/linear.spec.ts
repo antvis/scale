@@ -1,5 +1,5 @@
 import { Linear } from '../../../src';
-import { calculateLinearTicks } from '../../../src/tick-method/calculateLinearTicks';
+import { calculateLinearTicks } from '../../../src/tick-method/linear';
 
 describe('Linear Scale Test', () => {
   test('test default options', () => {

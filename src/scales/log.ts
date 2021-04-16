@@ -3,6 +3,7 @@ import { LogOptions, PowOptions } from '../types';
 import { createInterpolate } from '../utils';
 import { log } from '../utils/log';
 import { calculateLogTicks } from '../tick-method/log';
+import { d3LinearNice } from '../utils/d3-linear-nice';
 
 const transformLog = (base: number) => {
   return (x: number) => {
@@ -45,5 +46,8 @@ export class Log extends Continuous<LogOptions> {
     return new Log(this.options);
   }
 
-  protected nice(): void {}
+  protected nice(): void {
+    const { domain } = this.options;
+    this.options.domain = d3LinearNice(domain);
+  }
 }
