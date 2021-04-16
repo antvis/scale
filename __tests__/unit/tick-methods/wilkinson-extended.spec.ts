@@ -24,4 +24,9 @@ describe('wilkinson-extended test', () => {
     const res1 = wilkinsonExtended(0, 100, 10);
     expect(res1).toStrictEqual([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
   });
+
+  test('tiny number', () => {
+    expect(wilkinsonExtended(0, 0.1, 5)).toStrictEqual([0, 0.025, 0.05, 0.075, 0.1]);
+    expect(wilkinsonExtended(0, 0.01, 5)).toStrictEqual([0, 0.0025, 0.005, 0.0075, 0.01]);
+  });
 });

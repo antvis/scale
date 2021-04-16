@@ -1,4 +1,4 @@
-import { indexOf, map, size } from '@antv/util';
+import { indexOf, size } from '@antv/util';
 import { TickMethod } from '../types';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
@@ -58,6 +58,11 @@ function coverageMax(dMin: number, dMax: number, span: number) {
 
 function legibility() {
   return 1;
+}
+
+function getDigitFixedSize(data: number) {
+  const res = data.toString().split('.');
+  return res[1].length;
 }
 
 /**
@@ -157,12 +162,17 @@ export const wilkinsonExtended: TickMethod = (
     j += 1;
   }
   // 步长为浮点数时处理精度
-  const toFixed = Number.isInteger(best.lstep) ? 0 : Math.ceil(Math.abs(Math.log10(best.lstep)));
+  const toFixed = Number.isInteger(best.lstep) ? 0 : getDigitFixedSize(best.lstep);
   const range = [];
-  for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
-    range.push(tick);
-  }
-  const ticks = toFixed ? map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
+  let tick;
 
-  return ticks;
+  for (tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
+    if (toFixed) {
+      range.push(Number.parseFloat(tick.toFixed(toFixed)));
+    } else {
+      range.push(tick);
+    }
+  }
+
+  return range;
 };
