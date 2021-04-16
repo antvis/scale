@@ -1,5 +1,5 @@
 import { Pow } from '../../../src';
-import { calculatePowTicks } from '../../../src/tick-method/pow';
+import { pretty } from '../../../src/tick-methods/pretty';
 
 describe('pow scales', () => {
   test('test default options', () => {
@@ -14,7 +14,7 @@ describe('pow scales', () => {
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
-    expect(tickMethod).toBe(calculatePowTicks);
+    expect(tickMethod).toBe(pretty);
   });
 
   test('test when exponent is 0.5, we use Math.sqrt API, not Math.pow', () => {
@@ -38,6 +38,7 @@ describe('pow scales', () => {
 
     expect(scale.map(25)).toStrictEqual(25);
     expect(scale.map(-25)).toStrictEqual(-25);
+    expect(scale.invert(-25)).toStrictEqual(-25);
     expect(scale.map(50)).toBeCloseTo(50);
   });
 
@@ -90,16 +91,16 @@ describe('pow scales', () => {
     const scale = new Pow({
       domain: [0, 120],
       exponent: 2,
+      tickMethod: (min, max, count) => {
+        expect(min).toBe(0);
+        expect(max).toBe(120);
+        expect(count).toBe(5);
+        return [];
+      },
     });
 
     // getTicks Method
-    expect(scale.getTicks()).toStrictEqual([0, 4, 16, 36, 64, 100, 144]);
-
-    // update tickCount
-    scale.update({
-      tickCount: 10,
-    });
-    expect(scale.getTicks()).toStrictEqual([0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]);
+    expect(scale.getTicks()).toStrictEqual([]);
   });
 
   test('test negative data', () => {
@@ -112,7 +113,6 @@ describe('pow scales', () => {
     expect(scale.map(0)).toStrictEqual(0);
     expect(scale.map(60)).toBeCloseTo(70.71, -2);
     expect(scale.map(-60)).toBeCloseTo(-70.71, -2);
-    expect(scale.getTicks()).toStrictEqual([-225, -100, -25, 0, 25, 100, 225]);
   });
 
   test('test nice option', () => {

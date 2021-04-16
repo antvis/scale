@@ -1,7 +1,7 @@
 import { isNumber } from '@antv/util';
 import { Base } from './base';
 import { IdentityOptions, Domain, Range } from '../types';
-import { ticks } from '../tick-method/basic';
+import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 
 export class Identity extends Base<IdentityOptions> {
   /**
@@ -11,7 +11,7 @@ export class Identity extends Base<IdentityOptions> {
   protected getOverrideDefaultOptions() {
     return {
       tickCount: 5,
-      tickMethod: ticks,
+      tickMethod: wilkinsonExtended,
     };
   }
 
@@ -46,6 +46,8 @@ export class Identity extends Base<IdentityOptions> {
    * @returns 返回一个 ticks 的数组
    */
   public getTicks(): Range<IdentityOptions>[] {
-    return this.options.tickMethod(this.options);
+    const { domain, tickCount, tickMethod } = this.options;
+    const [min, max] = domain;
+    return tickMethod(min, max, tickCount);
   }
 }
