@@ -1,5 +1,5 @@
 import { Linear } from '../../../src/scales/linear';
-import { linear } from '../../../src/tick-method/linear';
+import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Linear Scale Test', () => {
   test('test default options', () => {
@@ -13,7 +13,7 @@ describe('Linear Scale Test', () => {
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
-    expect(tickMethod).toBe(linear);
+    expect(tickMethod).toBe(wilkinsonExtended);
   });
 
   test('test map fn', () => {
