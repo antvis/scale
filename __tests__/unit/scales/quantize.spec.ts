@@ -61,9 +61,9 @@ describe('Threshold', () => {
       range: ['a', 'b', 'c'],
     });
 
-    expect(x.invert('a')).toEqual([undefined, 1 / 3]);
+    expect(x.invert('a')).toEqual([0, 1 / 3]);
     expect(x.invert('b')).toEqual([1 / 3, 2 / 3]);
-    expect(x.invert('c')).toEqual([2 / 3, undefined]);
+    expect(x.invert('c')).toEqual([2 / 3, 1]);
     expect(x.invert('d')).toEqual([undefined, undefined]);
   });
 

@@ -1,5 +1,5 @@
 import { Threshold } from './threshold';
-import { QuantizeOptions } from '../types';
+import { QuantizeOptions, Range } from '../types';
 import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 import { d3LinearNice } from '../utils/d3-linear-nice';
 
@@ -34,10 +34,8 @@ export class Quantize extends Threshold<QuantizeOptions> {
   protected rescale() {
     this.niceDomain();
 
-    const {
-      range,
-      domain: [x0, x1],
-    } = this.options;
+    const { range, domain } = this.options;
+    const [x0, x1] = domain;
 
     this.n = range.length - 1;
     this.thresholds = new Array(this.n);
@@ -45,6 +43,15 @@ export class Quantize extends Threshold<QuantizeOptions> {
     for (let i = 0; i < this.n; i += 1) {
       this.thresholds[i] = ((i + 1) * x1 - (i - this.n) * x0) / (this.n + 1);
     }
+  }
+
+  /**
+   * 如果是在第一段后或者最后一段就把两端的值添加上
+   */
+  public invert(y: Range<QuantizeOptions>) {
+    const [a, b] = super.invert(y);
+    const [x0, x1] = this.options.domain;
+    return a === undefined && b === undefined ? [a, b] : [a || x0, b || x1];
   }
 
   public getThresholds() {
