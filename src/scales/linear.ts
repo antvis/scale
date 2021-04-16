@@ -3,8 +3,8 @@ import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate } from '../utils';
-import { calculateLinearTicks } from '../tick-method/calculateLinearTicks';
 import { d3LinearNice } from '../utils/d3-linear-nice';
+import { calculateLogTicks } from '../tick-method/log';
 
 /**
  * Linear 比例尺
@@ -18,7 +18,7 @@ export class Linear extends Continuous<LinearOptions> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickMethod: calculateLinearTicks,
+      tickMethod: calculateLogTicks,
       tickCount: 5,
     } as LinearOptions;
   }

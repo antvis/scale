@@ -1,8 +1,8 @@
 import { Continuous } from './continuous';
 import { LogOptions, PowOptions } from '../types';
 import { createInterpolate } from '../utils';
-import { calculatePowTicks } from '../tick-method/pow';
 import { log } from '../utils/log';
+import { calculateLogTicks } from '../tick-method/log';
 
 const transformLog = (base: number) => {
   return (x: number) => {
@@ -28,7 +28,7 @@ export class Log extends Continuous<LogOptions> {
       range: [0, 1],
       base: 10,
       interpolate: createInterpolate,
-      tickMethod: calculatePowTicks,
+      tickMethod: calculateLogTicks,
       tickCount: 5,
     } as PowOptions;
   }

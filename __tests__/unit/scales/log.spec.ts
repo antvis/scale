@@ -44,4 +44,13 @@ describe('log scale test', () => {
     expect(x1.getOptions()).toEqual(x2.getOptions());
     expect(x1.getOptions() !== x2.getOptions()).toBeTruthy();
   });
+
+  test('test for tick methods', () => {
+    const scale = new Log({
+      domain: [1, 100],
+      range: [0, 1],
+      tickCount: 10,
+    });
+    expect(scale.getTicks()).toStrictEqual([]);
+  });
 });
