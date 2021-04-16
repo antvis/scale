@@ -1,6 +1,6 @@
 import { Threshold } from './threshold';
 import { QuantizeOptions } from '../types';
-import { wilkinsonExtended } from '../tick-method/wilkinson-extended';
+import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 import { d3LinearNice } from '../utils/d3-linear-nice';
 
 export class Quantize extends Threshold<QuantizeOptions> {

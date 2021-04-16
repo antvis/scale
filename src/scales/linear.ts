@@ -3,7 +3,7 @@ import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate, d3LinearNice } from '../utils';
-import { wilkinsonExtended } from '../tick-method/wilkinson-extended';
+import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 
 /**
  * Linear 比例尺

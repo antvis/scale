@@ -3,7 +3,7 @@ import { Continuous, Transform } from './continuous';
 import { PowOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate, d3LinearNice } from '../utils';
-import { pretty } from '../tick-method/pretty';
+import { pretty } from '../tick-methods/pretty';
 
 const transformPow = (exponent: number) => {
   return (x: number) => {

@@ -1,5 +1,5 @@
 import { createInterpolate } from '../utils';
-import { pretty } from '../tick-method/pretty';
+import { pretty } from '../tick-methods/pretty';
 import { SqrtOptions } from '../types';
 import { Pow } from './pow';
 
