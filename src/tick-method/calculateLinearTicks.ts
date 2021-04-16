@@ -2,12 +2,12 @@ import { LinearOptions } from '../types';
 import { wilkinsonExtended } from '../utils/wilkinson-extended';
 
 /**
- * 计算线性的 ticks，使用  linear 方法
+ * 计算线性的 ticks，使用 wilkinsonExtended 方法
  *
  * @param config 度量的配置项
  * @returns {number[]} 计算后的 ticks
  */
-export function linear(config: LinearOptions): number[] {
+export function calculateLinearTicks(config: LinearOptions): number[] {
   const { tickCount, domain, nice } = config;
 
   const lastIndex = domain.length - 1;

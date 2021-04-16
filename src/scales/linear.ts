@@ -3,7 +3,7 @@ import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate } from '../utils';
-import { linear } from '../tick-method/linear';
+import { calculateLinearTicks } from '../tick-method/calculateLinearTicks';
 import { d3LinearNice } from '../utils/d3-linear-nice';
 
 /**
@@ -11,7 +11,6 @@ import { d3LinearNice } from '../utils/d3-linear-nice';
  *
  * 构造可创建一个在输入和输出之间具有线性关系的比例尺
  */
-
 export class Linear extends Continuous<LinearOptions> {
   protected getOverrideDefaultOptions() {
     return {
@@ -19,7 +18,7 @@ export class Linear extends Continuous<LinearOptions> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickMethod: linear,
+      tickMethod: calculateLinearTicks,
       tickCount: 5,
     } as LinearOptions;
   }

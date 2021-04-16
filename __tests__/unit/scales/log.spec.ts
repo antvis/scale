@@ -1,6 +1,19 @@
 import { Log } from '../../../src';
 
 describe('log scale test', () => {
+  test('test default options', () => {
+    const scale = new Log();
+    const { domain, range, round, tickCount, nice, clamp, unknown } = scale.getOptions();
+
+    expect(domain).toStrictEqual([1, 10]);
+    expect(range).toStrictEqual([0, 1]);
+    expect(round).toBeFalsy();
+    expect(tickCount).toStrictEqual(5);
+    expect(nice).toBeFalsy();
+    expect(clamp).toBeFalsy();
+    expect(unknown).toBeUndefined();
+  });
+
   test('test map()', () => {
     const scale = new Log({
       domain: [1, 10],

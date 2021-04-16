@@ -1,5 +1,5 @@
 import { Linear } from '../../../src';
-import { linear } from '../../../src/tick-method/linear';
+import { calculateLinearTicks } from '../../../src/tick-method/calculateLinearTicks';
 
 describe('Linear Scale Test', () => {
   test('test default options', () => {
@@ -13,7 +13,7 @@ describe('Linear Scale Test', () => {
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
-    expect(tickMethod).toBe(linear);
+    expect(tickMethod).toBe(calculateLinearTicks);
   });
 
   test('test map fn', () => {

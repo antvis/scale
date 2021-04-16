@@ -16,6 +16,11 @@ const unTransformLog = (base: number) => {
   };
 };
 
+/**
+ * Linear 比例尺
+ *
+ * 构造一个线性的对数比例尺
+ */
 export class Log extends Continuous<LogOptions> {
   protected getOverrideDefaultOptions() {
     return {
