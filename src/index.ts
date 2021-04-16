@@ -8,6 +8,7 @@ export { Linear } from './scales/linear';
 export { Point } from './scales/point';
 export { Pow } from './scales/pow';
 export { Threshold } from './scales/threshold';
+export { Log } from './scales/log';
 
 export type {
   BandOptions,
@@ -21,4 +22,5 @@ export type {
   PowOptions,
   ThresholdOptions,
   TickOptions,
+  LogOptions,
 } from './types';
