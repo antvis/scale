@@ -1,4 +1,4 @@
-import { Category } from '../../../src/scales/category';
+import { Category } from '../../../src';
 
 describe('category scale', () => {
   test('category has no expected defaults', () => {

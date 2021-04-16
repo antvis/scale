@@ -1,5 +1,4 @@
-import { Band } from '../../../src/scales/band';
-import { BandOptions } from '../../../src/types';
+import { Band, BandOptions } from '../../../src';
 
 describe('band scale', () => {
   test('default options and methods', () => {
