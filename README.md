@@ -67,7 +67,7 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 ### 🧮 Tick Methods
 
 - [x] [Wilkinson Extended](./docs/tickMethods/wilkinson-extended.md)
-- [x] [Pretty](./docs/tickMethods/pretty.md)
+- [x] [R Pretty](./docs/tickMethods/pretty.md)
 
 ## 📄 License
 
