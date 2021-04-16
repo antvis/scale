@@ -1,4 +1,4 @@
-import { pretty } from '../../../src/tick-method/pretty';
+import { pretty } from '../../../src/tick-methods/pretty';
 
 describe('pretty ticks', () => {
   it('pretty for c(0, 0)', () => {
