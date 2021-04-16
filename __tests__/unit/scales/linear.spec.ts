@@ -1,4 +1,4 @@
-import { Linear } from '../../../src/scales/linear';
+import { Linear } from '../../../src';
 import { linear } from '../../../src/tick-method/linear';
 
 describe('Linear Scale Test', () => {
