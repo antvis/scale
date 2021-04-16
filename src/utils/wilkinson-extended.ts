@@ -60,12 +60,9 @@ function legibility() {
   return 1;
 }
 
-function getFixedSize(data: number) {
+function getDigitFixedSize(data: number) {
   const res = data.toString().split('.');
-  if (res.length === 2) {
-    return res[1].length;
-  }
-  return res[0].length;
+  return res[1].length;
 }
 
 /**
@@ -173,7 +170,7 @@ export function wilkinsonExtended(
     j += 1;
   }
   // 步长为浮点数时处理精度
-  const toFixed = Number.isInteger(best.lstep) ? 0 : getFixedSize(best.lstep);
+  const toFixed = Number.isInteger(best.lstep) ? 0 : getDigitFixedSize(best.lstep);
   const range = [];
   let tick;
 
