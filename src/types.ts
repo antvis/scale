@@ -95,5 +95,5 @@ export type SqrtOptions = PowOptions;
 /** Log 比例尺的选项 */
 export type LogOptions = ContinuousOptions & {
   /** 底数 */
-  base: number;
+  base?: number;
 };
