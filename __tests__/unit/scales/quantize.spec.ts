@@ -1,5 +1,5 @@
 import { Quantize, QuantizeOptions } from '../../../src';
-import { wilkinsonExtended } from '../../../src/utils/wilkinson-extended';
+import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Threshold', () => {
   test('Quantize() has expected options', () => {
