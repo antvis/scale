@@ -8,7 +8,7 @@ Log scales creates a Log based scale, before calculating the output range value,
 const scale = new Log({
   domain: [1, 10],
   range: [0, 1],
-  exponent: 2
+  base: 10
 });
 
 scale.map(1); // 0
