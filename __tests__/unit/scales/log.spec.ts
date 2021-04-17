@@ -44,4 +44,32 @@ describe('log scale test', () => {
     expect(x1.getOptions()).toEqual(x2.getOptions());
     expect(x1.getOptions() !== x2.getOptions()).toBeTruthy();
   });
+
+  test('test nice option', () => {
+    const scale = new Log({
+      domain: [1.6, 10.4],
+      nice: true,
+    });
+
+    // 调用 map 之后才会触发 nice
+    expect(scale.map(1)).toStrictEqual(0);
+
+    expect(scale.getOptions().domain).toStrictEqual([1, 11]);
+  });
+
+  test('test getTicks', () => {
+    const scale = new Log({
+      domain: [0, 120],
+      base: 2,
+      tickMethod: (min, max, count) => {
+        expect(min).toBe(0);
+        expect(max).toBe(120);
+        expect(count).toBe(5);
+        return [];
+      },
+    });
+
+    // getTicks Method
+    expect(scale.getTicks()).toStrictEqual([]);
+  });
 });
