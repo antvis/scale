@@ -1,9 +1,8 @@
 import { Continuous } from './continuous';
 import { LogOptions, PowOptions } from '../types';
-import { createInterpolate } from '../utils';
+import { createInterpolate, d3LinearNice } from '../utils';
 import { log } from '../utils/log';
-import { calculateLogTicks } from '../tick-method/log';
-import { d3LinearNice } from '../utils/d3-linear-nice';
+import { pretty } from '../tick-methods/pretty';
 
 const transformLog = (base: number) => {
   return (x: number) => {
@@ -29,7 +28,7 @@ export class Log extends Continuous<LogOptions> {
       range: [0, 1],
       base: 10,
       interpolate: createInterpolate,
-      tickMethod: calculateLogTicks,
+      tickMethod: pretty,
       tickCount: 5,
     } as PowOptions;
   }
@@ -49,5 +48,13 @@ export class Log extends Continuous<LogOptions> {
   protected nice(): void {
     const { domain } = this.options;
     this.options.domain = d3LinearNice(domain);
+  }
+
+  public getTicks() {
+    const { tickCount, domain, tickMethod, base } = this.options;
+    const lastIndex = domain.length - 1;
+    const dMin = domain[0];
+    const dMax = domain[lastIndex];
+    return tickMethod(dMin, dMax, tickCount, base);
   }
 }
