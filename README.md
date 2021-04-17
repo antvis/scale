@@ -50,7 +50,7 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 - [x] [Identity](./docs/scales/identity.md)
 - [x] [Constant](./docs/scales/constant.md)
 - [x] [Linear](./docs/scales/linear.md)
-- [ ] Log
+- [x] [Log](./docs/scales/log.md)
 - [x] [Sqrt](./docs/scales/sqrt.md)
 - [x] [Pow](./docs/scales/pow.md)
 - [ ] Time
@@ -66,8 +66,8 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 
 ### 🧮 Tick Methods
 
-- [x] [Wilkinson Extended](./docs/tickMethods/wilkinson-extended.md)
-- [x] [R Pretty](./docs/tickMethods/pretty.md)
+- [x] [Wilkinson Extended](docs/tick-methods/wilkinson-extended.md)
+- [x] [R Pretty](docs/tick-methods/pretty.md)
 
 ## 📄 License
 
