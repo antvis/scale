@@ -16,14 +16,14 @@ Category 比例尺
 
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
-| unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `[]` |
-| range | 值域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `[]` |
-| domain | 定义域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `[]` |
-| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: string 丨 number) => string</code> | `[]` |
+| unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `undefined` |
+| range | 值域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `undefined` |
+| domain | 定义域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `undefined` |
+| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: string 丨 number) => string</code> | `undefined` |
 
 ## Methods
 
-**map(x Domain&lt;CategoryOptions&gt;)**
+**map(x: Domain&lt;CategoryOptions&gt;)**
 
 
 Parameters:
@@ -34,7 +34,7 @@ Return:
 
 void 
 
-**invert(y Range&lt;CategoryOptions&gt;)**
+**invert(y: Range&lt;CategoryOptions&gt;)**
 
 
 Parameters:
@@ -45,7 +45,7 @@ Return:
 
 void 
 
-**update(options Partial&lt;CategoryOptions&gt;)**
+**update(options: Partial&lt;CategoryOptions&gt;)**
 
 
 Parameters:

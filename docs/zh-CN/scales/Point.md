@@ -29,12 +29,12 @@ domain =  ["A", "B", "C"]
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 | domain | 定义域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `[]` |
-| range | 值域，默认为 [0, 1] | <code>number[]</code> | `[]` |
-| unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `[]` |
-| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: number) => string</code> | `[]` |
-| round | 是否取整 | <code>boolean</code> | `[]` |
-| padding | 同时定义内部边距和两侧边距，如果该值大于 0，则 paddingInner 和 paddingOuter 无效 | <code>number</code> | `[]` |
-| align | 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 | <code>number</code> | `[]` |
+| range | 值域，默认为 [0, 1] | <code>number[]</code> | `[0, 1]` |
+| unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `undefined` |
+| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: number) => string</code> | `undefined` |
+| round | 是否取整 | <code>boolean</code> | `false` |
+| padding | 同时定义内部边距和两侧边距，如果该值大于 0，则 paddingInner 和 paddingOuter 无效 | <code>number</code> | `0` |
+| align | 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 | <code>number</code> | `0.5` |
 
 ## Methods
 

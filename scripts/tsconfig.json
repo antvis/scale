@@ -6,6 +6,5 @@
     "declaration": true,
     "sourceMap": true
   },
-  "include": ["./**/*"],
-  "exclude": ["node_modules"]
+  "include": ["./**/*"]
 }

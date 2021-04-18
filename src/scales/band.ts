@@ -23,6 +23,7 @@ interface BandStateOptions {
  * @param opt 相关选项
  * @see BandStateOptions
  * @return {object} 一个新对象, 包含以下内容：
+ *
  * step -- 步长
  * adjustedRange -- 最终得到的 range
  * bandWidth -- band 宽度

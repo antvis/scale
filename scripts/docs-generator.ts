@@ -71,8 +71,10 @@ class DocsGenerator {
     return totalScaleSource.map((cs) => {
       // 项目约定只有一个 class，我们可以放心地取下标 0
       const targetClass = cs.getClasses()[0];
-
-      return targetClass.getStructure();
+      return {
+        structure: targetClass.getStructure(),
+        base: targetClass,
+      };
     });
   }
 
@@ -85,14 +87,22 @@ class DocsGenerator {
     return content;
   }
 
-  static formatOptions(props: any[]) {
+  static formatOptions(props: any[], defaults: string[]) {
+    const dfs = defaults.map((res) => {
+      const matchResults = res.match(/(.*): (.*)/).slice(1, 3);
+      return {
+        key: matchResults[0],
+        value: matchResults[1],
+      };
+    });
+
     return props
       .map(
         (p) =>
           `| ${p.typeName} | ${DocsGenerator.formatComment(p.comment)} | <code>${p.typeContent.replace(
             '|',
             '丨'
-          )}</code> | \`[]\` |`
+          )}</code> | \`${dfs.find((d) => d.key === p.typeName)?.value}\` |`
       )
       .join('\n');
   }
@@ -154,25 +164,25 @@ class DocsGenerator {
 
   static getMethodInfo(methods: OptionalKind<MethodDeclarationStructure>[]) {
     const getParams = (params: OptionalKind<ParameterDeclarationStructure>[]) => {
-      const pms = params.map((p) => `${p.name} ${p.type}`);
+      const pms = params.map((p) => `${p.name}: ${p.type}`);
       return pms.join(', ');
     };
 
     // 筛选出所有 public 的 methods
     const publicMethods = methods.filter((m) => m.scope === 'public');
     const res = publicMethods.map((m) => {
-      const pandR = this.getParamsAndReturnInfoFormDocs(m.docs);
+      const paramsAndReturnInfo = this.getParamsAndReturnInfoFormDocs(m.docs);
 
       return `**${m.name}(${this.formatType(getParams(m.parameters))})**
 ${m.docs.map((d: any) => d.description).join('\n')}
 
 Parameters:
 
-${pandR.params.map((res) => `${res.name} ${res.value}`).join('\n') || 'None'}
+${paramsAndReturnInfo.params.map((res) => `${res.name} ${res.value}`).join('\n') || 'None'}
 
 Return:
 
-${pandR.returns.name} ${pandR.returns.value}
+${paramsAndReturnInfo.returns.name} ${paramsAndReturnInfo.returns.value}
 `;
     });
 
@@ -183,30 +193,39 @@ ${pandR.returns.name} ${pandR.returns.value}
     const cs = this.getTotalClassesInfo();
     const optionPropsInfo = this.getOptionsAndPropsInfo();
     const mdResults = cs.map((c) => {
+      const { structure, base } = c;
+
+      const defaults = base
+        .getMethods()
+        .find((m) => m.getName() === 'getOverrideDefaultOptions')
+        .getReturnType()
+        .getProperties()
+        .map((res) => res.getValueDeclaration().getText());
+
       // 匹配对应的 Options
-      const targetOptions = optionPropsInfo.find((optInfo) => optInfo.name === `${c.name}Options`);
+      const targetOptions = optionPropsInfo.find((optInfo) => optInfo.name === `${structure.name}Options`);
       const { props } = targetOptions;
 
-      const md = `# ${c.name}
-${c.docs.map((d: any) => d.description).join('\n')}
+      const md = `# ${structure.name}
+${structure.docs.map((d: any) => d.description).join('\n')}
 
 ## Usage
-${DocsGenerator.getCommentByTag('usage', c.docs)}
+${DocsGenerator.getCommentByTag('usage', structure.docs)}
 
 ## Options
 
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
-${DocsGenerator.formatOptions(props)}
+${DocsGenerator.formatOptions(props, defaults)}
 
 ## Methods
 
-${DocsGenerator.getMethodInfo(c.methods)}
+${DocsGenerator.getMethodInfo(structure.methods)}
 `;
 
       return {
         mdContent: md,
-        mdFileName: `${c.name}.md`,
+        mdFileName: `${structure.name}.md`,
       };
     });
 
