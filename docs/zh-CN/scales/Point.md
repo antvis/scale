@@ -25,6 +25,7 @@ domain =  ["A", "B", "C"]
 
 
 ## Options
+
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 | domain | 定义域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `[]` |
@@ -34,3 +35,17 @@ domain =  ["A", "B", "C"]
 | round | 是否取整 | <code>boolean</code> | `[]` |
 | padding | 同时定义内部边距和两侧边距，如果该值大于 0，则 paddingInner 和 paddingOuter 无效 | <code>number</code> | `[]` |
 | align | 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 | <code>number</code> | `[]` |
+
+## Methods
+
+**clone()**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+

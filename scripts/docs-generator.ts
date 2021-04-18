@@ -1,4 +1,13 @@
-import { Project, ProjectOptions, ScriptTarget, TypeAliasDeclaration, TypeChecker } from 'ts-morph';
+import {
+  MethodDeclarationStructure,
+  OptionalKind,
+  ParameterDeclarationStructure,
+  Project,
+  ProjectOptions,
+  ScriptTarget,
+  TypeAliasDeclaration,
+  TypeChecker,
+} from 'ts-morph';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -76,13 +85,95 @@ class DocsGenerator {
     return content;
   }
 
-  private getCommentByTag(tagName: string, docs: any[]) {
+  static formatOptions(props: any[]) {
+    return props
+      .map(
+        (p) =>
+          `| ${p.typeName} | ${DocsGenerator.formatComment(p.comment)} | <code>${p.typeContent.replace(
+            '|',
+            '丨'
+          )}</code> | \`[]\` |`
+      )
+      .join('\n');
+  }
+
+  static getCommentByTag(tagName: string, docs: any[]) {
     if (!docs) {
       return '';
     }
 
     const res = docs.map((d) => {
       return d.tags.length ? d.tags.find((t) => t.tagName === tagName)?.text : '';
+    });
+
+    return res.join('\n');
+  }
+
+  static getParamsAndReturnInfoFormDocs(docs: any[]) {
+    const ret = {
+      name: 'void',
+      value: '',
+    };
+
+    let params = [];
+
+    if (docs.length) {
+      params = docs[0].tags
+        .filter((t) => t.tagName === 'param')
+        .map((res) => {
+          const matcher = (res.text as string).match(/(^\S*)(.*)/);
+          return {
+            name: matcher[1],
+            value: matcher[2],
+          };
+        });
+      const returns: string = docs[0].tags.filter((t) => t.tagName === 'return');
+      if (returns.length) {
+        const matcher = (returns[0] as any).text.match(/({(.*)?})(.*)/);
+        if (matcher.length === 4) {
+          // eslint-disable-next-line prefer-destructuring
+          ret.name = matcher[2];
+          // eslint-disable-next-line prefer-destructuring
+          ret.value = matcher[3];
+        }
+      }
+    }
+
+    return {
+      params,
+      returns: ret,
+    };
+  }
+
+  static formatType(str: string) {
+    if (!str) {
+      return '';
+    }
+    return str.replace('<', '&lt;').replace('>', '&gt;');
+  }
+
+  static getMethodInfo(methods: OptionalKind<MethodDeclarationStructure>[]) {
+    const getParams = (params: OptionalKind<ParameterDeclarationStructure>[]) => {
+      const pms = params.map((p) => `${p.name} ${p.type}`);
+      return pms.join(', ');
+    };
+
+    // 筛选出所有 public 的 methods
+    const publicMethods = methods.filter((m) => m.scope === 'public');
+    const res = publicMethods.map((m) => {
+      const pandR = this.getParamsAndReturnInfoFormDocs(m.docs);
+
+      return `**${m.name}(${this.formatType(getParams(m.parameters))})**
+${m.docs.map((d: any) => d.description).join('\n')}
+
+Parameters:
+
+${pandR.params.map((res) => `${res.name} ${res.value}`).join('\n') || 'None'}
+
+Return:
+
+${pandR.returns.name} ${pandR.returns.value}
+`;
     });
 
     return res.join('\n');
@@ -100,20 +191,18 @@ class DocsGenerator {
 ${c.docs.map((d: any) => d.description).join('\n')}
 
 ## Usage
-${this.getCommentByTag('usage', c.docs)}
+${DocsGenerator.getCommentByTag('usage', c.docs)}
 
 ## Options
+
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
-${props
-  .map(
-    (p) =>
-      `| ${p.typeName} | ${DocsGenerator.formatComment(p.comment)} | <code>${p.typeContent.replace(
-        '|',
-        '丨'
-      )}</code> | \`[]\` |`
-  )
-  .join('\n')}`;
+${DocsGenerator.formatOptions(props)}
+
+## Methods
+
+${DocsGenerator.getMethodInfo(c.methods)}
+`;
 
       return {
         mdContent: md,

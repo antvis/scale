@@ -23,6 +23,7 @@ domain = [A, B]
 |-----------------------------------------------------------------------------------------------|
 ```
 
+
 ## Usage
 
 ```ts
@@ -43,6 +44,7 @@ x.getBandWidth();  // 25
 ```
 
 ## Options
+
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 | unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `[]` |
@@ -54,3 +56,57 @@ x.getBandWidth();  // 25
 | paddingOuter | 两侧边距 | <code>number</code> | `[]` |
 | padding | 同时定义内部边距和两侧边距，如果该值大于 0，则 paddingInner 和 paddingOuter 无效 | <code>number</code> | `[]` |
 | align | 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 | <code>number</code> | `[]` |
+
+## Methods
+
+**clone()**
+
+基于当前实例复制一个新的 Band 实例
+
+Parameters:
+
+None
+
+Return:
+
+void 
+
+**update(updateOptions Partial&lt;BandOptions&gt;)**
+
+更新 band 信息
+
+
+Parameters:
+
+updateOptions  需要覆盖的选项
+
+Return:
+
+void 
+
+**getStep()**
+
+获取步长
+
+
+Parameters:
+
+None
+
+Return:
+
+string  计算得到的步长
+
+**getBandWidth()**
+
+获取 band 的宽度
+
+
+Parameters:
+
+None
+
+Return:
+
+number  band 宽度
+

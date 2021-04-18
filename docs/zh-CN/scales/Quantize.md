@@ -6,6 +6,7 @@
 
 
 ## Options
+
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 | unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `[]` |
@@ -15,3 +16,51 @@
 | tickCount | tick 个数，默认值为 5 | <code>number</code> | `[]` |
 | tickMethod | 计算 ticks 的算法 | <code>import("D:/projects/scale/src/types").TickMethod</code> | `[]` |
 | nice |  | <code>boolean</code> | `[]` |
+
+## Methods
+
+**invert(y Range&lt;QuantizeOptions&gt;)**
+
+如果是在第一段后或者最后一段就把两端的值添加上
+
+Parameters:
+
+None
+
+Return:
+
+void 
+
+**getThresholds()**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+
+**clone()**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+
+**getTicks()**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+

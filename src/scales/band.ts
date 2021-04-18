@@ -110,6 +110,7 @@ export function getBandState(opt: BandStateOptions) {
  * |             |<--------------step------------->|                                               |
  * |-----------------------------------------------------------------------------------------------|
  *```
+ *
  * @usage
  * ```ts
  * import { Band, BandOptions } from '@antv/scale';
@@ -160,10 +161,18 @@ export class Band<O extends BandOptions = BandOptions> extends Category<BandOpti
     this.rangeCache = this.getRange();
   }
 
+  /**
+   * 基于当前实例复制一个新的 Band 实例
+   */
   public clone() {
     return new Band(this.options);
   }
 
+  /**
+   * 更新 band 信息
+   *
+   * @param updateOptions 需要覆盖的选项
+   */
   public update(updateOptions: Partial<BandOptions>) {
     // 调用 category 的 update
     super.update(updateOptions);
@@ -171,10 +180,20 @@ export class Band<O extends BandOptions = BandOptions> extends Category<BandOpti
     this.rangeCache = this.getRange();
   }
 
+  /**
+   * 获取步长
+   *
+   * @return {string} 计算得到的步长
+   */
   public getStep() {
     return this.step;
   }
 
+  /**
+   * 获取 band 的宽度
+   *
+   * @return {number} band 宽度
+   */
   public getBandWidth() {
     return this.bandWidth;
   }

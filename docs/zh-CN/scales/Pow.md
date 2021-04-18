@@ -9,6 +9,7 @@ Pow 比例尺
 
 
 ## Options
+
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 | unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `[]` |
@@ -22,3 +23,28 @@ Pow 比例尺
 | round | 是否需要对输出进行四舍五入 | <code>boolean</code> | `[]` |
 | interpolate | 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 | <code>import("D:/projects/scale/src/types").Interpolate</code> | `[]` |
 | exponent | 指数 | <code>number</code> | `[]` |
+
+## Methods
+
+**clone()**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+
+**getTicks()**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+

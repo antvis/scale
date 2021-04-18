@@ -11,6 +11,7 @@ Continuous 比例尺 的输入 x 和输出 y 满足：y = a * f(x) + b
 
 
 ## Options
+
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 | unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `[]` |
@@ -23,3 +24,45 @@ Continuous 比例尺 的输入 x 和输出 y 满足：y = a * f(x) + b
 | clamp | 是否需要限制输入的范围在值域内 | <code>boolean</code> | `[]` |
 | round | 是否需要对输出进行四舍五入 | <code>boolean</code> | `[]` |
 | interpolate | 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 | <code>import("D:/projects/scale/src/types").Interpolate</code> | `[]` |
+
+## Methods
+
+**map(x Domain&lt;Options&gt;)**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+
+**invert(x Range&lt;Options&gt;)**
+
+
+Parameters:
+
+None
+
+Return:
+
+void 
+
+**update(options Partial&lt;O&gt;)**
+
+这里只要有选项更新，就是清除 input 和 output 函数。
+
+更好的做法是，只有依赖选项更新时才清除 input 和 output 函数，
+但是得到 input 和 output 的函数开销很小，所以这里选择简单的写法。
+
+子类在这个函数中可能更新 transform 和 untransform
+
+Parameters:
+
+options  更新的选项
+
+Return:
+
+void 
+
