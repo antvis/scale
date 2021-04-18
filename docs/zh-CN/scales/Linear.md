@@ -15,12 +15,12 @@ Linear 比例尺
 | range | 值域，默认为 [0, 1] | <code>number[]</code> | `[0, 1]` |
 | domain | 定义域，默认为 [0, 1] | <code>number[]</code> | `[0, 1]` |
 | formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: number) => string</code> | `(x) => string` |
-| tickCount | tick 个数，默认值为 5 | <code>number</code> | `undefined` |
-| tickMethod | 计算 ticks 的算法 | <code>import("D:/projects/scale/src/types").TickMethod</code> | `undefined` |
-| nice | 是否需要对定义域的范围进行优化 | <code>boolean</code> | `undefined` |
-| clamp | 是否需要限制输入的范围在值域内 | <code>boolean</code> | `undefined` |
-| round | 是否需要对输出进行四舍五入 | <code>boolean</code> | `undefined` |
-| interpolate | 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 | <code>import("D:/projects/scale/src/types").Interpolate</code> | `undefined` |
+| tickCount | tick 个数，默认值为 5 | <code>number</code> | `5` |
+| tickMethod | 计算 ticks 的算法 | <code>import("D:/projects/scale/src/types").TickMethod</code> | `wilkinsonExtended` |
+| nice | 是否需要对定义域的范围进行优化 | <code>boolean</code> | `false` |
+| clamp | 是否需要限制输入的范围在值域内 | <code>boolean</code> | `false` |
+| round | 是否需要对输出进行四舍五入 | <code>boolean</code> | `false` |
+| interpolate | 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 | <code>import("D:/projects/scale/src/types").Interpolate</code> | `createInterpolate` |
 
 ## Methods
 

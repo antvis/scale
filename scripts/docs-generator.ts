@@ -75,6 +75,7 @@ class DocsGenerator {
       .getDirectory('src/scales')
       .getSourceFiles()
       .filter((s) => s.getBaseName() !== 'base.ts');
+
     return totalScaleSource.map((cs) => {
       // 项目约定只有一个 class，我们可以放心地取下标 0
       const targetClass = cs.getClasses()[0];
@@ -234,12 +235,14 @@ ${DocsGenerator.getMethodInfo(structure.methods)}
 
       return {
         mdContent: md,
-        mdFileName: `${structure.name}.md`,
+        mdFileName: `${structure.name.toLowerCase()}.md`,
       };
     });
 
     mdResults.forEach((m) => {
-      fs.writeFileSync(path.resolve(process.cwd(), 'docs', 'zh-CN', 'scales', m.mdFileName), m.mdContent);
+      if (m.mdFileName !== 'continuous.md') {
+        fs.writeFileSync(path.resolve(process.cwd(), 'docs', 'zh-CN', 'scales', m.mdFileName), m.mdContent);
+      }
     });
   }
 }

@@ -20,7 +20,7 @@ export class Linear extends Continuous<LinearOptions> {
       interpolate: createInterpolate,
       tickMethod: wilkinsonExtended,
       tickCount: 5,
-    } as LinearOptions;
+    };
   }
 
   protected chooseTransform(): Transform {
