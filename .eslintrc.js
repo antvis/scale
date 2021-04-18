@@ -23,6 +23,7 @@ module.exports = {
     'no-shadow': 'off',
     'no-console': 'off',
     'arrow-body-style': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   settings: {
     'import/parsers': {

@@ -73,3 +73,7 @@ esm
 *.sw*
 *.un~
 
+# scripts-tmp-files
+scripts/*.js
+scripts/*.map
+scripts/*.d.ts
