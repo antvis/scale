@@ -3,7 +3,7 @@
 类似 Threshold 比例尺，区别在于 thresholds 是根据连续的 domain 根据离散的 range 的数量计算而得到的。
 
 ## Usage
-TODO
+
 
 ## Options
 | Key | Description | Type | Default|

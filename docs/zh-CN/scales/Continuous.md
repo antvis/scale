@@ -8,7 +8,7 @@ Continuous 比例尺 的输入 x 和输出 y 满足：y = a * f(x) + b
 参考：https://github.com/d3/d3-scale/blob/master/src/continuous.js
 
 ## Usage
-TODO
+
 
 ## Options
 | Key | Description | Type | Default|

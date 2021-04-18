@@ -70,10 +70,22 @@ class DocsGenerator {
   static formatComment(content: string) {
     // /** hello world */ -> hello world
     const matcher = content.match(/(\/\*\*)(.*)(\*\/)/);
-    if (matcher.length === 4) {
+    if (matcher && matcher.length === 4) {
       return matcher[2].trim();
     }
     return content;
+  }
+
+  private getCommentByTag(tagName: string, docs: any[]) {
+    if (!docs) {
+      return '';
+    }
+
+    const res = docs.map((d) => {
+      return d.tags.length ? d.tags.find((t) => t.tagName === tagName)?.text : '';
+    });
+
+    return res.join('\n');
   }
 
   public generateMarkdown() {
@@ -88,7 +100,7 @@ class DocsGenerator {
 ${c.docs.map((d: any) => d.description).join('\n')}
 
 ## Usage
-TODO
+${this.getCommentByTag('usage', c.docs)}
 
 ## Options
 | Key | Description | Type | Default|

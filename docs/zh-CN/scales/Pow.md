@@ -6,7 +6,7 @@ Pow 比例尺
 即 y = x ^ k 其中 k（指数）可以是任何实数。
 
 ## Usage
-TODO
+
 
 ## Options
 | Key | Description | Type | Default|

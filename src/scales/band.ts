@@ -95,7 +95,7 @@ export function getBandState(opt: BandStateOptions) {
  *
  * 由于部分选项较为抽象，见下图描述：
  *
- *```
+ *```plain
  * PO = paddingOuter
  * PI = paddingInner
  *
@@ -110,8 +110,23 @@ export function getBandState(opt: BandStateOptions) {
  * |             |<--------------step------------->|                                               |
  * |-----------------------------------------------------------------------------------------------|
  *```
+ * @usage
+ * ```ts
+ * import { Band, BandOptions } from '@antv/scale';
  *
- * 性能方便较 d3 快出 8 - 9 倍
+ * const options: BandOptions = {
+ *  domain: ['one', 'two', 'three', 'four'],
+ *  range: [0, 100],
+ * };
+ *
+ * const x = new Band(options);
+ *
+ * x.map('one'); // 0
+ * x.map('two'); // 25
+ * x.invert(50); // 'three'
+ * x.invert(75); // 'four'
+ * x.getBandWidth();  // 25
+ * ```
  */
 export class Band<O extends BandOptions = BandOptions> extends Category<BandOptions> {
   // 添加 option 属性，这样子类就不用进行断言

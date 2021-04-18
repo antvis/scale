@@ -3,7 +3,7 @@
 将连续的定义域分段，每一段所有的值对应离散的值域中一个值
 
 ## Usage
-TODO
+
 
 ## Options
 | Key | Description | Type | Default|

@@ -7,7 +7,7 @@ Band 比例尺
 
 由于部分选项较为抽象，见下图描述：
 
-```
+```plain
 PO = paddingOuter
 PI = paddingInner
 
@@ -23,10 +23,24 @@ domain = [A, B]
 |-----------------------------------------------------------------------------------------------|
 ```
 
-性能方便较 d3 快出 8 - 9 倍
-
 ## Usage
-TODO
+
+```ts
+import { Band, BandOptions } from '@antv/scale';
+
+const options: BandOptions = {
+ domain: ['one', 'two', 'three', 'four'],
+ range: [0, 100],
+};
+
+const x = new Band(options);
+
+x.map('one'); // 0
+x.map('two'); // 25
+x.invert(50); // 'three'
+x.invert(75); // 'four'
+x.getBandWidth();  // 25
+```
 
 ## Options
 | Key | Description | Type | Default|

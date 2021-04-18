@@ -10,7 +10,7 @@ Category 比例尺
   在大量调用 update 函数场景下，较 d3-scale 效率有质的提高
 
 ## Usage
-TODO
+
 
 ## Options
 | Key | Description | Type | Default|
