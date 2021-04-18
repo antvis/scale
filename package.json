@@ -21,6 +21,8 @@
     "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix && prettier ./src ./__tests__ --write ",
     "test": "jest",
     "scripts:build": "cd scripts && tsc",
+    "scripts:watch": "cd scripts && tsc -w",
+    "docs:generate": "node scripts/docs-generator.js",
     "build:umd": "rimraf ./dist && rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",

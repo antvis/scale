@@ -47,27 +47,27 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 
 ### ⚖️ Scales
 
-- [x] [Identity](./docs/scales/identity.md)
-- [x] [Constant](./docs/scales/constant.md)
-- [x] [Linear](./docs/scales/linear.md)
+- [x] [Identity](docs/en-US/scales/identity.md)
+- [x] [Constant](docs/en-US/scales/constant.md)
+- [x] [Linear](docs/en-US/scales/linear.md)
 - [ ] Log
-- [x] [Sqrt](./docs/scales/sqrt.md)
-- [x] [Pow](./docs/scales/pow.md)
+- [x] [Sqrt](docs/en-US/scales/sqrt.md)
+- [x] [Pow](docs/en-US/scales/pow.md)
 - [ ] Time
 - [ ] Symlog
-- [x] [Quantize](./docs/scales/quantize.md)
+- [x] [Quantize](docs/en-US/scales/quantize.md)
 - [ ] Quantile
-- [x] [Threshold](./docs/scales/threshold.md)
+- [x] [Threshold](docs/en-US/scales/threshold.md)
 - [ ] Diverging
 - [ ] Sequential
-- [x] [Category](./docs/scales/category.md)
-- [x] [Point](./docs/scales/point.md)
-- [x] [Band](./docs/scales/band.md)
+- [x] [Category](docs/en-US/scales/category.md)
+- [x] [Point](docs/en-US/scales/point.md)
+- [x] [Band](docs/en-US/scales/band.md)
 
 ### 🧮 Tick Methods
 
-- [x] [Wilkinson Extended](./docs/tickMethods/wilkinson-extended.md)
-- [x] [R Pretty](./docs/tickMethods/pretty.md)
+- [x] [Wilkinson Extended](docs/en-US/tickMethods/wilkinson-extended.md)
+- [x] [R Pretty](docs/en-US/tickMethods/pretty.md)
 
 ## 📄 License
 

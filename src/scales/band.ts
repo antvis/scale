@@ -95,6 +95,7 @@ export function getBandState(opt: BandStateOptions) {
  *
  * 由于部分选项较为抽象，见下图描述：
  *
+ *```
  * PO = paddingOuter
  * PI = paddingInner
  *
@@ -108,6 +109,7 @@ export function getBandState(opt: BandStateOptions) {
  * |             | ***************** |             | ***************** |             |             |
  * |             |<--------------step------------->|                                               |
  * |-----------------------------------------------------------------------------------------------|
+ *```
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
