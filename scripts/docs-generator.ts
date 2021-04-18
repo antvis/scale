@@ -21,7 +21,7 @@ class DocsGenerator {
     this.project.addSourceFilesAtPaths(DocsGenerator.BASE_PATH_GLOBS);
   }
 
-  getTypeAliasInfoByNode(checker: TypeChecker, typeAliasDeclaration: TypeAliasDeclaration) {
+  private getTypeAliasInfoByNode(checker: TypeChecker, typeAliasDeclaration: TypeAliasDeclaration) {
     const targetType = typeAliasDeclaration.getType();
     const typeProperties = targetType.getProperties();
     const propsInfo = typeProperties.map((t) => {
@@ -45,7 +45,7 @@ class DocsGenerator {
     };
   }
 
-  public getOptionsAndPropsInfo() {
+  private getOptionsAndPropsInfo() {
     // 获取所有的 type Alias
     const aliasInTypesExports = this.project.getSourceFile('types.ts').getTypeAliases();
 
@@ -54,7 +54,7 @@ class DocsGenerator {
       .filter((res) => res.name.includes('Options'));
   }
 
-  public getTotalClassesInfo() {
+  private getTotalClassesInfo() {
     const totalScaleSource = this.project
       .getDirectory('src/scales')
       .getSourceFiles()
@@ -65,6 +65,15 @@ class DocsGenerator {
 
       return targetClass.getStructure();
     });
+  }
+
+  static formatComment(content: string) {
+    // /** hello world */ -> hello world
+    const matcher = content.match(/(\/\*\*)(.*)(\*\/)/);
+    if (matcher.length === 4) {
+      return matcher[2].trim();
+    }
+    return content;
   }
 
   public generateMarkdown() {
@@ -85,7 +94,13 @@ TODO
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 ${props
-  .map((p) => `| ${p.typeName} | ${p.comment} | <code>${p.typeContent.replace('|', '丨')}</code> | \`[]\` |`)
+  .map(
+    (p) =>
+      `| ${p.typeName} | ${DocsGenerator.formatComment(p.comment)} | <code>${p.typeContent.replace(
+        '|',
+        '丨'
+      )}</code> | \`[]\` |`
+  )
   .join('\n')}`;
 
       return {
