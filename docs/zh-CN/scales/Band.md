@@ -50,7 +50,7 @@ x.getBandWidth();  // 25
 | unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `undefined` |
 | range | 值域，默认为 [0, 1] | <code>number[]</code> | `[0, 1]` |
 | domain | 定义域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `[]` |
-| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: number) => string</code> | `undefined` |
+| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: number) => string</code> | `(x) => string` |
 | round | 是否取整 | <code>boolean</code> | `false` |
 | paddingInner | 内部边距 | <code>number</code> | `0` |
 | paddingOuter | 两侧边距 | <code>number</code> | `0` |

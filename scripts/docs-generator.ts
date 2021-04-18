@@ -20,6 +20,13 @@ class DocsGenerator {
 
   static BASE_PATH_GLOBS = 'src/**/*{.d.ts,.ts}';
 
+  static BASE_DEFAULT_VALUES = {
+    domain: '[0, 1]',
+    range: '[0, 1]',
+    unknown: 'undefined',
+    formatter: '(x) => string',
+  };
+
   private project: Project;
 
   constructor() {
@@ -96,15 +103,17 @@ class DocsGenerator {
       };
     });
 
-    return props
-      .map(
-        (p) =>
-          `| ${p.typeName} | ${DocsGenerator.formatComment(p.comment)} | <code>${p.typeContent.replace(
-            '|',
-            '丨'
-          )}</code> | \`${dfs.find((d) => d.key === p.typeName)?.value}\` |`
-      )
-      .join('\n');
+    const result = props.map((p) => {
+      const t = p.typeName;
+      const desc = DocsGenerator.formatComment(p.comment);
+      const typeContent = p.typeContent.replace('|', '丨');
+      const defaultValue =
+        dfs.find((d) => d.key === p.typeName)?.value || DocsGenerator.BASE_DEFAULT_VALUES[p.typeName];
+
+      return `| ${t} | ${desc} | <code>${typeContent}</code> | \`${defaultValue}\` |`;
+    });
+
+    return result.join('\n');
   }
 
   static getCommentByTag(tagName: string, docs: any[]) {

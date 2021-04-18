@@ -17,9 +17,9 @@ Category 比例尺
 | Key | Description | Type | Default|
 | ----| ----------- | -----| -------|
 | unknown | 当需要映射的值不合法的时候，返回的值 | <code>any</code> | `undefined` |
-| range | 值域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `undefined` |
-| domain | 定义域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `undefined` |
-| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: string 丨 number) => string</code> | `undefined` |
+| range | 值域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `[0, 1]` |
+| domain | 定义域，默认为 [0, 1] | <code>(string 丨 number)[]</code> | `[0, 1]` |
+| formatter | tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 | <code>(x: string 丨 number) => string</code> | `(x) => string` |
 
 ## Methods
 
