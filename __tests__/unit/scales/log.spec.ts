@@ -46,6 +46,7 @@ describe('log scale test', () => {
     expect(scale.map(-20)).toBeCloseTo(0.369, 3);
     expect(scale.map(-16)).toBeCloseTo(0.572, 3);
     expect(scale.invert(0.369)).toBeCloseTo(-20);
+    expect(scale.invert(-0.369)).toBeCloseTo(-44.997, 3);
   });
 
   test('clone() returns a Log scale with same and independent options', () => {
@@ -116,5 +117,9 @@ describe('log scale test', () => {
     });
 
     expect(scale.invert(0.301)).toBeCloseTo(1.9999, 4);
+
+    scale.update({
+      base: 5,
+    });
   });
 });

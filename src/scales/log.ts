@@ -25,7 +25,7 @@ const transformLog = (base: number, shouldReflect: boolean) => {
 };
 
 const unTransformLog = (base: number, shouldReflect: boolean) => {
-  const pow = base === Math.E ? Math.exp : (x) => (base > 0 ? base ** x : (-base) ** x);
+  const pow = base === Math.E ? Math.exp : (x) => (base > 0 ? base ** x : (-1 * base) ** x);
   return shouldReflect ? reflect(pow) : pow;
 };
 
