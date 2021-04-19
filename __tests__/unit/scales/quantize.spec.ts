@@ -1,5 +1,5 @@
 import { Quantize, QuantizeOptions } from '../../../src';
-import { wilkinsonExtended } from '../../../src/utils/wilkinson-extended';
+import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Threshold', () => {
   test('Quantize() has expected options', () => {
@@ -61,9 +61,9 @@ describe('Threshold', () => {
       range: ['a', 'b', 'c'],
     });
 
-    expect(x.invert('a')).toEqual([undefined, 1 / 3]);
+    expect(x.invert('a')).toEqual([0, 1 / 3]);
     expect(x.invert('b')).toEqual([1 / 3, 2 / 3]);
-    expect(x.invert('c')).toEqual([2 / 3, undefined]);
+    expect(x.invert('c')).toEqual([2 / 3, 1]);
     expect(x.invert('d')).toEqual([undefined, undefined]);
   });
 
@@ -74,12 +74,17 @@ describe('Threshold', () => {
     expect(x.getThresholds()).toEqual([1 / 3, 2 / 3]);
   });
 
-  test('getTicks() returns a series of representative values from the scale’s domain.', () => {
+  test('getTicks() calls options.tickMethod and return its return value', () => {
     const scale = new Quantize({
       domain: [0, 100],
+      tickMethod: (min, max, count) => {
+        expect(min).toBe(0);
+        expect(max).toBe(100);
+        expect(count).toBe(5);
+        return [];
+      },
     });
-
-    expect(scale.getTicks()).toStrictEqual([0, 25, 50, 75, 100]);
+    expect(scale.getTicks()).toStrictEqual([]);
   });
 
   test('option.nice === true nice the domain', () => {

@@ -1,8 +1,11 @@
 import { Threshold } from './threshold';
-import { QuantizeOptions } from '../types';
-import { wilkinsonExtended } from '../utils/wilkinson-extended';
+import { QuantizeOptions, Range } from '../types';
+import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 import { d3LinearNice } from '../utils/d3-linear-nice';
 
+/**
+ * 类似 Threshold 比例尺，区别在于 thresholds 是根据连续的 domain 根据离散的 range 的数量计算而得到的。
+ */
 export class Quantize extends Threshold<QuantizeOptions> {
   // 这里不能给 thresholds 赋值，否者会编译后，会在 constructor 后面执行：this.thresholds = []
   private thresholds: QuantizeOptions['domain'];
@@ -21,16 +24,34 @@ export class Quantize extends Threshold<QuantizeOptions> {
     return this.thresholds;
   }
 
+  protected niceDomain() {
+    const { nice, domain } = this.options;
+    if (nice) {
+      this.options.domain = d3LinearNice(domain);
+    }
+  }
+
   protected rescale() {
-    const { range, domain, nice, tickCount } = this.options;
+    this.niceDomain();
+
+    const { range, domain } = this.options;
+    const [x0, x1] = domain;
 
     this.n = range.length - 1;
     this.thresholds = new Array(this.n);
-    const [x0, x1] = nice ? d3LinearNice(domain, tickCount) : domain;
 
     for (let i = 0; i < this.n; i += 1) {
       this.thresholds[i] = ((i + 1) * x1 - (i - this.n) * x0) / (this.n + 1);
     }
+  }
+
+  /**
+   * 如果是在第一段后或者最后一段就把两端的值添加上
+   */
+  public invert(y: Range<QuantizeOptions>) {
+    const [a, b] = super.invert(y);
+    const [x0, x1] = this.options.domain;
+    return a === undefined && b === undefined ? [a, b] : [a || x0, b || x1];
   }
 
   public getThresholds() {
@@ -42,10 +63,10 @@ export class Quantize extends Threshold<QuantizeOptions> {
   }
 
   public getTicks() {
-    const { tickCount, domain, nice } = this.options;
+    const { tickCount, domain, tickMethod } = this.options;
     const lastIndex = domain.length - 1;
-    const dMin = domain[0];
-    const dMax = domain[lastIndex];
-    return this.options.tickMethod(dMin, dMax, tickCount, nice);
+    const min = domain[0];
+    const max = domain[lastIndex];
+    return tickMethod(min, max, tickCount);
   }
 }

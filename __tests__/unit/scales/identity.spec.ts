@@ -1,5 +1,5 @@
 import { Identity, IdentityOptions } from '../../../src';
-import { ticks } from '../../../src/tick-method/basic';
+import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Identity', () => {
   test('Identity() has expected defaults', () => {
@@ -12,7 +12,7 @@ describe('Identity', () => {
       tickCount: 5,
     });
     expect(formatter(1)).toBe('1');
-    expect(tickMethod).toEqual(ticks);
+    expect(tickMethod).toEqual(wilkinsonExtended);
   });
 
   test('Identity(options) override defaults', () => {
@@ -55,18 +55,17 @@ describe('Identity', () => {
     expect(x.invert(2.5)).toBe(2.5);
   });
 
-  test('getTicks() call options.tickMethod and returns its return value', () => {
+  test('getTicks() call options.tickMethod and return its return value', () => {
     const s = new Identity();
-    const mockFn = jest.fn();
     s.update({
-      tickMethod: () => {
-        mockFn();
-        return [1, 2, 3, 4, 5];
+      tickMethod: (min, max) => {
+        expect(min).toBe(0);
+        expect(max).toBe(1);
+        return [];
       },
     });
 
-    expect(s.getTicks()).toEqual([1, 2, 3, 4, 5]);
-    expect(mockFn).toBeCalled();
+    expect(s.getTicks()).toEqual([]);
   });
 
   test('clone() returns a scale belong to same class', () => {
