@@ -21,8 +21,8 @@ describe('log scale test', () => {
     });
 
     expect(scale.map(1)).toStrictEqual(0);
-    expect(scale.map(2)).toBeCloseTo(0.301, -3);
-    expect(scale.map(5)).toBeCloseTo(0.698, -3);
+    expect(scale.map(2)).toBeCloseTo(0.301, 3);
+    expect(scale.map(5)).toBeCloseTo(0.699, 3);
   });
 
   test('test invert()', () => {
@@ -32,8 +32,20 @@ describe('log scale test', () => {
     });
 
     expect(scale.invert(0)).toStrictEqual(1);
-    expect(scale.invert(0.301)).toBeCloseTo(1.999, -3);
-    expect(scale.invert(0.698)).toBeCloseTo(4.988, -3);
+    expect(scale.invert(0.301)).toBeCloseTo(1.9999, 4);
+    expect(scale.invert(0.698)).toBeCloseTo(4.989, 3);
+  });
+
+  test('test for negative data', () => {
+    const scale = new Log({
+      domain: [-30, -10],
+      range: [0, 1],
+    });
+
+    expect(scale.map(-30)).toStrictEqual(0);
+    expect(scale.map(-20)).toBeCloseTo(0.369, 3);
+    expect(scale.map(-16)).toBeCloseTo(0.572, 3);
+    expect(scale.invert(0.369)).toBeCloseTo(-20);
   });
 
   test('clone() returns a Log scale with same and independent options', () => {

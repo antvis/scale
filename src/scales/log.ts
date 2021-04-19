@@ -10,9 +10,9 @@ const transformLog = (base: number) => {
   };
 };
 
-const unTransformLog = (base: number) => {
+const unTransformLog = (base: number, positive: boolean) => {
   return (y: number) => {
-    return base ** y;
+    return positive ? base ** y : -1 * base ** y;
   };
 };
 
@@ -38,7 +38,8 @@ export class Log extends Continuous<LogOptions> {
   }
 
   protected chooseUntransform() {
-    return unTransformLog(this.options.base);
+    const positive = this.options.domain[0];
+    return unTransformLog(this.options.base, positive > 0);
   }
 
   public clone(): Log {

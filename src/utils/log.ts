@@ -6,5 +6,5 @@
  * @returns {number} 计算结果
  */
 export function log(a: number, b: number) {
-  return Math.log(b) / Math.log(a);
+  return Math.log(b > 0 ? b : -b) / Math.log(a > 0 ? a : -a);
 }
