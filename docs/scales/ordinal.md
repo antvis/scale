@@ -22,7 +22,7 @@ x.map('C'); // c
 ```
 
 ```ts
-import { Ordinal, OrdinalOptions} from '@antv/scale';
+import { Ordinal} from '@antv/scale';
 
 const time = new Ordinal({
   domain: ['2021-04-19', '2021-04-20', '2021-04-18'],
@@ -43,7 +43,7 @@ time.map('2021-04-20'); // 'C'
 | range | Sets the scale’s range to the specified array of values. | `number[]` or `string[]` | `[]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | formatter | Sets the format function to display the output value. | `(x: any) => string` | ```(x) => `${x}` ```|
-| compare | Sets the comparator for sorting the domain before mapping. | ```(a: string | number, b: string | number) => number```| |`undefined`|
+| compare | Sets the comparator for sorting the domain before mapping. | ```(a: string or number, b: string or number) => number```| `undefined` |
 
 ## Methods
 
