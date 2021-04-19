@@ -39,7 +39,7 @@ describe('ordinal perf test', () => {
       cb1: timeForAntv,
       cb2: timeForD3,
       // TODO: 这里有较大幅度的摇摆，先改为 1.0，后续优化
-      magnification: 1.0,
+      magnification: 0.8,
       check: true,
     });
   });
