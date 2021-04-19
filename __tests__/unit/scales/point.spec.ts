@@ -1,4 +1,4 @@
-import { Point } from '../../../src/scales/point';
+import { Point } from '../../../src';
 
 describe('point scale test', () => {
   test('test default options', () => {

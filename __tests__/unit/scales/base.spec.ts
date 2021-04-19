@@ -1,4 +1,4 @@
-import { Base } from '../../../src/scales/base';
+import { Base } from '../../../src';
 import { BaseOptions, Domain, Range } from '../../../src/types';
 
 class Scale extends Base<BaseOptions> {
