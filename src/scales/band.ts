@@ -1,5 +1,5 @@
 import { BandOptions } from '../types';
-import { Category } from './category';
+import { Ordinal } from './ordinal';
 import { sequence } from '../utils/sequence';
 
 interface BandStateOptions {
@@ -90,7 +90,7 @@ export function getBandState(opt: BandStateOptions) {
 /**
  * Band 比例尺
  *
- * 一种特殊的 category scale，区别在于值域的范围是连续的。
+ * 一种特殊的 ordinal scale，区别在于值域的范围是连续的。
  * 使用的场景例如柱状图，可以用来定位各个柱子水平方向距离原点开始绘制的距离、各柱子之间的间距
  *
  * 由于部分选项较为抽象，见下图描述：
@@ -111,7 +111,7 @@ export function getBandState(opt: BandStateOptions) {
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
-export class Band<O extends BandOptions = BandOptions> extends Category<BandOptions> {
+export class Band<O extends BandOptions = BandOptions> extends Ordinal<BandOptions> {
   // 添加 option 属性，这样子类就不用进行断言
   protected options: O;
 
@@ -148,7 +148,7 @@ export class Band<O extends BandOptions = BandOptions> extends Category<BandOpti
   }
 
   public update(updateOptions: Partial<BandOptions>) {
-    // 调用 category 的 update
+    // 调用 ordinal 的 update
     super.update(updateOptions);
     this.rangeCache = undefined;
     this.rangeCache = this.getRange();
