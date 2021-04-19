@@ -12,7 +12,12 @@ const transformLog = (base: number) => {
 
 const unTransformLog = (base: number, positive: boolean) => {
   return (y: number) => {
-    return positive ? base ** y : -1 * base ** y;
+    let b = base;
+    if (base < 0) {
+      // eslint-disable-next-line no-param-reassign
+      b = -base;
+    }
+    return positive ? b ** y : -1 * b ** y;
   };
 };
 

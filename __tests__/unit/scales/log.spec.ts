@@ -71,10 +71,10 @@ describe('log scale test', () => {
 
   test('test getTicks', () => {
     const scale = new Log({
-      domain: [0, 120],
+      domain: [1, 120],
       base: 2,
       tickMethod: (min, max, count) => {
-        expect(min).toBe(0);
+        expect(min).toBe(1);
         expect(max).toBe(120);
         expect(count).toBe(5);
         return [];
@@ -83,5 +83,17 @@ describe('log scale test', () => {
 
     // getTicks Method
     expect(scale.getTicks()).toStrictEqual([]);
+  });
+
+  test('test negative base value', () => {
+    const scale = new Log({
+      domain: [1, 10],
+      range: [0, 1],
+      base: -2,
+    });
+
+    expect(scale.invert(0)).toStrictEqual(1);
+    expect(scale.invert(0.301)).toBeCloseTo(1.9999, 4);
+    expect(scale.invert(0.698)).toBeCloseTo(4.989, 3);
   });
 });
