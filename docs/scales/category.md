@@ -1,24 +1,38 @@
-# Category
+# Ordinal
 
-Category scales have discrete domain and range.
+Ordinal scales have discrete domain and range.
 
 ## Usage
 
 ```ts
-import { Category, CategoryOptions } from '@antv/scale';
+import { Ordinal, OrdinalOptions } from '@antv/scale';
 
-const options: CategoryOptions = {
+const options: OrdinalOptions = {
   domain: ['A', 'B', 'C'],
   range: ['a', 'b', 'c'],
   unknown: 'hello world'
 };
 
-const x = new Category(options);
+const x = new Ordinal(options);
 
 x.map('A'); // a
 x.map(undefined); // 'hello world'
 x.map('B'); // b
 x.map('C'); // c
+```
+
+```ts
+import { Ordinal, OrdinalOptions} from '@antv/scale';
+
+const time = new Ordinal({
+  domain: ['2021-04-19', '2021-04-20', '2021-04-18'],
+  range: ['A', 'B', 'C'],
+  compare: (a, b) => +new Date(a) - +new Date(b),
+});
+
+time.map('2021-04-18'); // 'A'
+time.map('2021-04-19'); // 'B'
+time.map('2021-04-20'); // 'C'
 ```
 
 ## Options
@@ -29,25 +43,30 @@ x.map('C'); // c
 | range | Sets the scale’s range to the specified array of values. | `number[]` or `string[]` | `[]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | formatter | Sets the format function to display the output value. | `(x: any) => string` | ```(x) => `${x}` ```|
+| compare | Sets the comparator for sorting the domain before mapping. | ```(a: string | number, b: string | number) => number```| |`undefined`|
 
 ## Methods
 
-<a name="category_map" href="#category_map">#</a> **map**<i>(x: (number | string)[]): (number | string)[]</i>
+<a name="ordinal_map" href="#ordinal_map">#</a> **map**<i>(x: (number | string)[]): (number | string)[]</i>
 
 Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
 
-<a name="category_invert" href="#category_invert">#</a> **invert**<i>(x: (number | string) []): (number| string)[]</i>
+<a name="ordinal_invert" href="#ordinal_invert">#</a> **invert**<i>(x: (number | string) []): (number| string)[]</i>
 
 Given a value from the range, returns the corresponding value from the domain.
 
-<a name="category_update" href="#category_update">#</a> **update**<i>(options: CategoryOptions): void</i>
+<a name="ordinal_update" href="#ordinal_update">#</a> **update**<i>(options: OrdinalOptions): void</i>
 
 Update the scale's options and rescale.
 
-<a name="category_getOptions" href="#category_getOptions">#</a> **getOptions**<i>(): CategoryOptions</i>
+<a name="ordinal_getOptions" href="#ordinal_getOptions">#</a> **getOptions**<i>(): OrdinalOptions</i>
 
 Returns the scale's current options.
 
-<a name="category_clone" href="#category_clone">#</a> **clone**<i>(): Category</i>
+<a name="ordinal_clone" href="#ordinal_clone">#</a> **clone**<i>(): Ordinal</i>
 
-Returns a new Category scale with the independent and same options as the original one.
+Returns a new Ordinal scale with the independent and same options as the original one.
+
+<a name="ordinal_get_domain" href="#ordinal_get_domain">#</a> **getDomain**<i>(): (number | string)</i>
+
+Returns the sorted domain.

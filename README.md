@@ -60,7 +60,7 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 - [x] [Threshold](./docs/scales/threshold.md)
 - [ ] Diverging
 - [ ] Sequential
-- [x] [Category](./docs/scales/category.md)
+- [x] [Ordinal](./docs/scales/ordinal.md)
 - [x] [Point](./docs/scales/point.md)
 - [x] [Band](./docs/scales/band.md)
 
