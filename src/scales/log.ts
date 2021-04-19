@@ -18,7 +18,7 @@ const transformLog = (base: number, shouldReflect: boolean) => {
     logFn = Math.log2;
   } else {
     // 使用换底公式
-    logFn = (x) => Math.log(x > 0 ? x : -x) / Math.log(base > 0 ? base : -base);
+    logFn = (x) => Math.log(x) / Math.log(base > 0 ? base : -base);
   }
 
   return shouldReflect ? reflect(logFn) : logFn;
