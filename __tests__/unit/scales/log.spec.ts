@@ -90,7 +90,7 @@ describe('log scale test', () => {
     const scale = new Log({
       domain: [1, 10],
       range: [0, 1],
-      base: -2,
+      base: -3,
     });
 
     expect(scale.invert(0)).toStrictEqual(1);
@@ -121,5 +121,7 @@ describe('log scale test', () => {
     scale.update({
       base: 5,
     });
+
+    expect(scale.map(1)).toStrictEqual(0);
   });
 });
