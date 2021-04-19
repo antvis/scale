@@ -1,24 +1,32 @@
 import { Continuous } from './continuous';
 import { LogOptions, PowOptions } from '../types';
 import { createInterpolate, d3LinearNice } from '../utils';
-import { log } from '../utils/log';
 import { pretty } from '../tick-methods/pretty';
 
-const transformLog = (base: number) => {
-  return (x: number) => {
-    return log(base, x);
-  };
+const reflect = (f) => {
+  return (x) => -f(-x);
 };
 
-const unTransformLog = (base: number, positive: boolean) => {
-  return (y: number) => {
-    let b = base;
-    if (base < 0) {
-      // eslint-disable-next-line no-param-reassign
-      b = -base;
-    }
-    return positive ? b ** y : -1 * b ** y;
-  };
+const transformLog = (base: number, shouldReflect: boolean) => {
+  let logFn;
+
+  if (base === Math.E) {
+    logFn = Math.log;
+  } else if (base === 10) {
+    logFn = Math.log10;
+  } else if (base === 2) {
+    logFn = Math.log2;
+  } else {
+    // 使用换底公式
+    logFn = (x) => Math.log(x > 0 ? x : -x) / Math.log(base > 0 ? base : -base);
+  }
+
+  return shouldReflect ? reflect(logFn) : logFn;
+};
+
+const unTransformLog = (base: number, shouldReflect: boolean) => {
+  const pow = base === Math.E ? Math.exp : (x) => (base > 0 ? base ** x : (-base) ** x);
+  return shouldReflect ? reflect(pow) : pow;
 };
 
 /**
@@ -39,12 +47,15 @@ export class Log extends Continuous<LogOptions> {
   }
 
   protected chooseTransform() {
-    return transformLog(this.options.base);
+    const { base, domain } = this.options;
+    const isReflect = domain[0] < 0;
+    return transformLog(base, isReflect);
   }
 
   protected chooseUntransform() {
-    const positive = this.options.domain[0];
-    return unTransformLog(this.options.base, positive > 0);
+    const { base, domain } = this.options;
+    const isReflect = domain[0] < 0;
+    return unTransformLog(base, isReflect);
   }
 
   public clone(): Log {

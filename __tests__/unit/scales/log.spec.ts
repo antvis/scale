@@ -96,4 +96,25 @@ describe('log scale test', () => {
     expect(scale.invert(0.301)).toBeCloseTo(1.9999, 4);
     expect(scale.invert(0.698)).toBeCloseTo(4.989, 3);
   });
+
+  test('special log', () => {
+    const scale = new Log({
+      domain: [1, 10],
+      range: [0, 1],
+      base: Math.E,
+    });
+    expect(scale.invert(0.301)).toBeCloseTo(1.9999, 4);
+
+    scale.update({
+      base: 10,
+    });
+
+    expect(scale.invert(0.301)).toBeCloseTo(1.9999, 4);
+
+    scale.update({
+      base: 2,
+    });
+
+    expect(scale.invert(0.301)).toBeCloseTo(1.9999, 4);
+  });
 });
