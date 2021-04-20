@@ -1,6 +1,6 @@
 import { isNumber, identity } from '@antv/util';
 import { Base } from './base';
-import { ContinuousOptions as Options, Domain, Range } from '../types';
+import { ContinuousOptions, Domain, Range } from '../types';
 import { createInterpolate, createInterpolateRound, createClamp, createNormalize, bisect, compose } from '../utils';
 
 /** 柯里化后的函数的类型，对输入的值进行处理 */
@@ -72,7 +72,7 @@ const choosePiecewise: CreateTransform = (domain, range, interpolate, shouldRoun
  * 这样当配置选项更新的时候需要重新合成函数。
  * 参考：https://github.com/d3/d3-scale/blob/master/src/continuous.js
  */
-export abstract class Continuous<O extends Options> extends Base<O> {
+export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
   /** 实际上将 x 映射为 y 的函数 */
   protected output: Transform;
 
@@ -109,13 +109,13 @@ export abstract class Continuous<O extends Options> extends Base<O> {
     } as O;
   }
 
-  public map(x: Domain<Options>) {
+  public map(x: Domain<O>) {
     if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
     if (!this.output) this.composeOutput();
     return this.output(x);
   }
 
-  public invert(x: Range<Options>) {
+  public invert(x: Range<O>) {
     if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
     if (!this.input) this.composeInput();
     return this.input(x);
