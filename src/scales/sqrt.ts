@@ -3,7 +3,7 @@ import { pretty } from '../tick-methods/pretty';
 import { SqrtOptions } from '../types';
 import { Pow } from './pow';
 
-export class Sqrt extends Pow {
+export class Sqrt extends Pow<SqrtOptions> {
   protected getOverrideDefaultOptions() {
     return {
       domain: [0, 1],
@@ -11,11 +11,14 @@ export class Sqrt extends Pow {
       nice: false,
       clamp: false,
       round: false,
-      exponent: 0.5,
       interpolate: createInterpolate,
       tickMethod: pretty,
       tickCount: 5,
     } as SqrtOptions;
+  }
+
+  protected getExponent() {
+    return 0.5;
   }
 
   public clone(): Sqrt {
