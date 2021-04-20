@@ -1,12 +1,8 @@
 import { Threshold } from './threshold';
-import { QuantizeOptions, Range } from '../types';
+import { QuantileOptions, QuantizeOptions, Range } from '../types';
 import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
-import { d3LinearNice } from '../utils';
 
-/**
- * 类似 Threshold 比例尺，区别在于 thresholds 是根据连续的 domain 根据离散的 range 的数量计算而得到的。
- */
-export class Quantize extends Threshold<QuantizeOptions> {
+export class Quantile extends Threshold<QuantileOptions> {
   // 这里不能给 thresholds 赋值，否者会编译后，会在 constructor 后面执行：this.thresholds = []
   private thresholds: QuantizeOptions['domain'];
 
@@ -24,16 +20,7 @@ export class Quantize extends Threshold<QuantizeOptions> {
     return this.thresholds;
   }
 
-  protected niceDomain() {
-    const { nice, domain } = this.options;
-    if (nice) {
-      this.options.domain = d3LinearNice(domain);
-    }
-  }
-
   protected rescale() {
-    this.niceDomain();
-
     const { range, domain } = this.options;
     const [x0, x1] = domain;
 
@@ -59,7 +46,7 @@ export class Quantize extends Threshold<QuantizeOptions> {
   }
 
   public clone() {
-    return new Quantize(this.options);
+    return new Quantile(this.options);
   }
 
   public getTicks() {

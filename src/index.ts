@@ -10,6 +10,7 @@ export { Pow } from './scales/pow';
 export { Threshold } from './scales/threshold';
 export { Log } from './scales/log';
 export { Quantize } from './scales/quantize';
+export { Quantile } from './scales/quantile';
 
 export type {
   BandOptions,
@@ -24,5 +25,6 @@ export type {
   ThresholdOptions,
   TickOptions,
   QuantizeOptions,
+  QuantileOptions,
   LogOptions,
 } from './types';
