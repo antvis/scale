@@ -5,7 +5,7 @@ export type TickMethod = (min: number, max: number, n?: number, ...rest: any[]) 
 export type Interpolate = (a: number, b: number) => (t: number) => number;
 
 /** 比较器 */
-export type Compare = (a: string | number, b: string | number) => number;
+export type Comparator = (a: string | number, b: string | number) => number;
 
 /**
  * 所有比例尺选项的默认类型
@@ -66,7 +66,7 @@ export type ContinuousOptions = BaseOptions<number> &
 export type LinearOptions = ContinuousOptions;
 
 /** OrdinalOptions 比例尺的选项 */
-export type OrdinalOptions = BaseOptions<number | string> & { compare?: Compare };
+export type OrdinalOptions = BaseOptions<number | string> & { compare?: Comparator };
 
 /** 详细请参阅 scale/band.ts */
 export type BandOptions = BaseOptions<number | string, number> & {
