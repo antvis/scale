@@ -62,10 +62,7 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
  * - 两个 map 只初始化一次，在之后的更新中复用他们，这样我们避免了重复 new Map 带来的性能问题
  *   在大量调用 update 函数场景下，较 d3-scale 效率有质的提高
  */
-export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<OrdinalOptions> {
-  // 添加 option 属性，这样子类就不用进行断言
-  protected options: O;
-
+export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> {
   // 定义域映射表
   private domainIndexMap: Map<any, number> = new Map();
 
@@ -73,7 +70,7 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<Ord
   private rangeIndexMap: Map<any, number> = new Map();
 
   // 排序后的 domain
-  protected sortedDomain: OrdinalOptions['domain'];
+  protected sortedDomain: O['domain'];
 
   // 覆盖默认配置
   protected getOverrideDefaultOptions() {
@@ -91,7 +88,7 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<Ord
     updateIndexMap(this.rangeIndexMap, this.getRange());
   }
 
-  public map(x: Domain<OrdinalOptions>) {
+  public map(x: Domain<O>) {
     if (this.domainIndexMap.size === 0) {
       this.initDomainIndexMap();
     }
@@ -105,7 +102,7 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<Ord
     });
   }
 
-  public invert(y: Range<OrdinalOptions>) {
+  public invert(y: Range<O>) {
     if (this.rangeIndexMap.size === 0) {
       this.initRangeIndexMap();
     }
@@ -119,7 +116,7 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<Ord
     });
   }
 
-  public update(options: Partial<OrdinalOptions>) {
+  public update(options: Partial<O>) {
     super.update(options);
     // TODO: update 直接 clear 有点暴力，在实际情况下前后的数据应该是相似的, 有没有可能 diff 一下在对 Map 进行更新？
     // 查看 range 和 domain, 是否更新，如果被更新，我们重置之
@@ -134,7 +131,7 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<Ord
   }
 
   public clone() {
-    return new Ordinal(this.options);
+    return new Ordinal<O>(this.options);
   }
 
   protected getRange() {

@@ -130,7 +130,7 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
    * 子类在这个函数中可能更新 transform 和 untransform
    * @param options 更新的选项
    */
-  public update(options?: Partial<O>) {
+  public update(options: Partial<O>) {
     super.update(options);
     this.input = undefined;
     this.output = undefined;

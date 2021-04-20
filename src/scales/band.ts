@@ -119,7 +119,7 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
   private bandWidth: number = 0;
 
   // 转换过的 range
-  private adjustedRange: BandOptions['range'];
+  private adjustedRange: O['range'];
 
   // 覆盖默认配置
   protected getOverrideDefaultOptions() {

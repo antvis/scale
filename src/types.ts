@@ -69,7 +69,7 @@ export type LinearOptions = ContinuousOptions;
 export type OrdinalOptions = BaseOptions<number | string> & { compare?: Comparator };
 
 /** 详细请参阅 scale/band.ts */
-export type BandOptions = BaseOptions<number | string, number> & {
+export type BandOptions = BaseOptions<number | string, number> & { compare?: Comparator } & {
   /** 是否取整 */
   round?: boolean;
   /** 内部边距 */

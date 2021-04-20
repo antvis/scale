@@ -61,6 +61,7 @@ describe('band scale', () => {
     bandScale.update({
       paddingInner: 0.1,
     });
+
     expect(bandScale.getStep()).toBeCloseTo(172.414, 3);
   });
 
