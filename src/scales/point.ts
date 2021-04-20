@@ -30,8 +30,6 @@ export class Point extends Band<PointOptions> {
       round: false,
       padding: 0,
       unknown: undefined,
-      paddingOuter: 0,
-      paddingInner: 1,
     };
   }
 

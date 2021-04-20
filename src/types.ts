@@ -83,10 +83,7 @@ export type BandOptions = BaseOptions<number | string, number> & {
 };
 
 /** Point 比例尺的选项 */
-export type PointOptions = BandOptions & {
-  readonly paddingInner: 1;
-  readonly paddingOuter: 0;
-};
+export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 
 /** Threshold 比例尺的选项 */
 export type ThresholdOptions = BaseOptions<number, any>;
