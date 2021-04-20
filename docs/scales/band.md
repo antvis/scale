@@ -29,10 +29,10 @@ x.getBandWidth();  // 25
 
 | Key | Description | Type | Default|  
 | ----| ----------- | -----| -------|
-| domain | Sets the scale’s domain to the specified array of values. | `number[]` or `string[]` | `[]` |
+| domain | Sets the scale’s domain to the specified array of values. | <code>number[] &#124; string[]</code> | `[]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display the output value. | `(x: any) => string` | ```(x) => `${x}` ```|
+| formatter | Sets the format function to display the output value. | `(x: any) => string` | <code>(x) => &#96;${x}&#96;</code>|
 | round | If round option is truthy, the start and stop of each band will be integers. | `boolean` | `false` |
 | paddingInner | Set the scale's paddingInner, the value should in the range [0, 1]. For more info, please see the [example](#example) below | `number` | `0` |
 | paddingOuter | Set the scale's paddingOuter, the value should in the range [0, 1]. For more info, please see the [example](#example) below | `number` | `0` |

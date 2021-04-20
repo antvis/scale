@@ -39,10 +39,10 @@ time.map('2021-04-20'); // 'C'
 
 | Key | Description | Type | Default|  
 | ----| ----------- | -----| -------|
-| domain | Sets the scale’s domain to the specified array of values. | `number[]` or `string[]` | `[]` |
-| range | Sets the scale’s range to the specified array of values. | `number[]` or `string[]` | `[]` |
+| domain | Sets the scale’s domain to the specified array of values. | <code>number[] &#124; string[]</code> | `[]` |
+| range | Sets the scale’s range to the specified array of values. | <code>number[] &#124; string[]</code> | `[]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display the output value. | `(x: any) => string` | ```(x) => `${x}` ```|
+| formatter | Sets the format function to display the output value. | `(x: any) => string` | <code>(x) => &#96;${x}&#96;</code> |
 | compare | Sets the comparator for sorting the domain before mapping. | ```(a: string or number, b: string or number) => number```| `undefined` |
 
 ## Methods

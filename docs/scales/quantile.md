@@ -32,7 +32,7 @@ x.getThresholds(); // [10, 20, 30]
 | domain |Sets the scale’s domain to the specified array of values. | `number[]` | `[]` |
 | range | Sets the scale’s range to the specified array of values. | `any[]` | `[]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display a tick value. | `(x: any) => string` | ```(x) => `${x}```|
+| formatter | Sets the format function to display a tick value. | `(x: any) => string` | ```(x) => ${x}```|
 
 ## Methods
 
