@@ -1,4 +1,4 @@
-import { Ordinal } from '../../../src/scales/ordinal';
+import { Ordinal } from '../../../src';
 
 describe('ordinal scale', () => {
   test('ordinal has no expected defaults', () => {
