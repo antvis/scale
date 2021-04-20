@@ -11,6 +11,12 @@ describe('sqrt scale test', () => {
     expect(exponent).toStrictEqual(0.5);
   });
 
+  test('test update', () => {
+    const sqrt = new Sqrt();
+    sqrt.update({ domain: [0, 10] });
+    expect(sqrt.getOptions().domain).toEqual([0, 10]);
+  });
+
   test('clone() returns a Sqrt scale with same and independent options', () => {
     const x1 = new Sqrt();
     const x2 = x1.clone();

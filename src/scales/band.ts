@@ -111,10 +111,7 @@ function getBandState(opt: BandStateOptions) {
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
-export class Band<O extends BandOptions = BandOptions> extends Ordinal<BandOptions> {
-  // 添加 option 属性，这样子类就不用进行断言
-  protected options: O;
-
+export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
   // 步长，见上图
   private step: number = 0;
 
@@ -135,10 +132,10 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<BandOptio
       paddingOuter: 0,
       padding: 0,
       unknown: undefined,
-    };
+    } as O;
   }
 
-  constructor(options?: Partial<BandOptions>) {
+  constructor(options?: Partial<O>) {
     super(options);
     this.rescale();
   }
@@ -147,8 +144,7 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<BandOptio
     return new Band<O>(this.options);
   }
 
-  public update(updateOptions: Partial<BandOptions>) {
-    // 调用 ordinal 的 update
+  public update(updateOptions: Partial<O>) {
     super.update(updateOptions);
     this.rescale();
   }

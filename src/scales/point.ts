@@ -1,5 +1,5 @@
 import { Band } from './band';
-import { PointOptions } from '../types';
+import { PointOptions, BandOptions } from '../types';
 
 /**
  * Point 比例尺
@@ -20,7 +20,7 @@ import { PointOptions } from '../types';
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
-export class Point extends Band<PointOptions> {
+export class Point extends Band<PointOptions & BandOptions> {
   // 覆盖默认配置
   protected getOverrideDefaultOptions() {
     return {
@@ -30,15 +30,25 @@ export class Point extends Band<PointOptions> {
       round: false,
       padding: 0,
       unknown: undefined,
+      paddingInner: 1,
+      paddingOuter: 0,
     };
+  }
+
+  constructor(options?: Partial<PointOptions>) {
+    super(options);
+  }
+
+  protected getPaddingInner() {
+    return this.options.paddingInner;
   }
 
   public clone() {
     return new Point(this.options);
   }
 
-  protected getPaddingInner() {
-    return 1;
+  public update(options?: Partial<PointOptions>) {
+    super.update(options);
   }
 
   protected getPaddingOuter() {

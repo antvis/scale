@@ -43,7 +43,7 @@ export class Pow<O extends PowOptions = PowOptions> extends Continuous<O> {
   }
 
   protected chooseTransform(): Transform {
-    const exponent = this.getExponent();
+    const { exponent } = this.options;
     if (exponent === 1) {
       return identity;
     }
@@ -51,12 +51,8 @@ export class Pow<O extends PowOptions = PowOptions> extends Continuous<O> {
   }
 
   protected chooseUntransform(): Transform {
-    const exponent = this.getExponent();
+    const { exponent } = this.options;
     return exponent === 1 ? identity : transformPowInvert(exponent);
-  }
-
-  protected getExponent() {
-    return this.options.exponent;
   }
 
   public clone(): Base<O> {

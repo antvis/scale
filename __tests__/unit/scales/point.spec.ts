@@ -11,6 +11,13 @@ describe('point scale test', () => {
     expect(domain).toStrictEqual([]);
   });
 
+  test('test update', () => {
+    const scale = new Point();
+
+    scale.update({ domain: ['A', 'B'] });
+    expect(scale.getOptions().domain).toEqual(['A', 'B']);
+  });
+
   test('test common usage', () => {
     const scale = new Point({
       domain: ['A', 'B', 'C'],

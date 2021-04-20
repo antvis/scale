@@ -1,9 +1,9 @@
 import { createInterpolate } from '../utils';
 import { pretty } from '../tick-methods/pretty';
-import { SqrtOptions } from '../types';
+import { SqrtOptions, PowOptions } from '../types';
 import { Pow } from './pow';
 
-export class Sqrt extends Pow<SqrtOptions> {
+export class Sqrt extends Pow<SqrtOptions & PowOptions> {
   protected getOverrideDefaultOptions() {
     return {
       domain: [0, 1],
@@ -14,7 +14,16 @@ export class Sqrt extends Pow<SqrtOptions> {
       interpolate: createInterpolate,
       tickMethod: pretty,
       tickCount: 5,
+      exponent: 0.5,
     } as SqrtOptions;
+  }
+
+  constructor(options?: Partial<PowOptions>) {
+    super(options);
+  }
+
+  update(options?: Partial<PowOptions>) {
+    super.update(options);
   }
 
   protected getExponent() {
