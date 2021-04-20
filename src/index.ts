@@ -7,6 +7,7 @@ export { Identity } from './scales/identity';
 export { Linear } from './scales/linear';
 export { Point } from './scales/point';
 export { Pow } from './scales/pow';
+export { Sqrt } from './scales/sqrt';
 export { Threshold } from './scales/threshold';
 export { Quantize } from './scales/quantize';
 
@@ -23,4 +24,5 @@ export type {
   ThresholdOptions,
   TickOptions,
   QuantizeOptions,
+  SqrtOptions,
 } from './types';
