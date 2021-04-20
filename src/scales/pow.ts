@@ -27,7 +27,7 @@ const transformSqrt = (x: number) => {
  * 类似于 linear scale, 不同之处在于在计算输出范围值之前对输入域值应用了指数变换,.
  * 即 y = x ^ k 其中 k（指数）可以是任何实数。
  */
-export class Pow extends Continuous<PowOptions> {
+export class Pow<O extends PowOptions = PowOptions> extends Continuous<O> {
   protected getOverrideDefaultOptions() {
     return {
       domain: [0, 1],
@@ -39,11 +39,11 @@ export class Pow extends Continuous<PowOptions> {
       interpolate: createInterpolate,
       tickMethod: pretty,
       tickCount: 5,
-    } as PowOptions;
+    } as O;
   }
 
   protected chooseTransform(): Transform {
-    const { exponent } = this.options;
+    const exponent = this.getExponent();
     if (exponent === 1) {
       return identity;
     }
@@ -51,12 +51,16 @@ export class Pow extends Continuous<PowOptions> {
   }
 
   protected chooseUntransform(): Transform {
-    const { exponent } = this.options;
+    const exponent = this.getExponent();
     return exponent === 1 ? identity : transformPowInvert(exponent);
   }
 
-  public clone(): Base<PowOptions> {
-    return new Pow(this.options);
+  protected getExponent() {
+    return this.options.exponent;
+  }
+
+  public clone(): Base<O> {
+    return new Pow<O>(this.options);
   }
 
   public getTicks() {
