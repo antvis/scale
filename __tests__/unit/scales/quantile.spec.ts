@@ -1,3 +1,3 @@
 describe('quantile scale test', () => {
-  // TODO
+  test('', () => {});
 });
