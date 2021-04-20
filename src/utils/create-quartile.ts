@@ -1,11 +1,11 @@
 /**
- * 给予一个数组，计算 n 分位数
+ * 给予一个排序好的数组，分位数
  *
- * @param arr
- * @param percentage
- * @returns {array} 四分位数
+ * @param arr 排序好的数组
+ * @param percentage 百分比
+ * @returns {number} 计算结果
  */
-export function quantileSorted(arr: number[], percentage: number) {
+function quantileSorted(arr: number[], percentage: number) {
   const len = arr.length;
   if (!len) {
     return undefined;
@@ -22,6 +22,14 @@ export function quantileSorted(arr: number[], percentage: number) {
   return v0 + (v1 - v0) * (i - i0);
 }
 
+/**
+ * 给定一个数组, 创建分位数数组
+ *
+ * @param arr 排序好的数组
+ * @param n 分位数数组长度
+ * @param isSorted 数组是否排序好
+ * @returns {number[]} 分位数数组
+ */
 export function createQuartile(arr: number[], n: number, isSorted: boolean = false) {
   const numberArr = arr;
 
