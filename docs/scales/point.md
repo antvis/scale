@@ -80,3 +80,7 @@ Returns point scale's step, for more info about this, please see [example](#exam
 
 Returns point scale's `bandWidth`, In fact, the value is always 0. For more info about this, please
 see [example](#example).
+
+<a name="point_get_range" href="#point_get_range">#</a> **getRange**<i>(): number[]</i>
+
+Returns band scale's adjusted range [example](#example).

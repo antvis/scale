@@ -87,3 +87,7 @@ Returns band scale's step, for more info about `step`, please see [example](#exa
 <a name="band_get_band_width" href="#band_get_band_width">#</a> **getBandWidth**<i>(): number</i>
 
 Returns band scale's bandWidth, for more info about this, please see [example](#example).
+
+<a name="band_get_range" href="#band_get_range">#</a> **getRange**<i>(): number[]</i>
+
+Returns band scale's adjusted range [example](#example).
