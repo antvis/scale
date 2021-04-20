@@ -12,20 +12,18 @@ const transformLog = (base: number, shouldReflect: boolean) => {
 
   if (base === Math.E) {
     logFn = Math.log;
-  } else if (base === 10) {
-    logFn = Math.log10;
-  } else if (base === 2) {
-    logFn = Math.log2;
   } else {
+    // 只计算一次 Math.log(base)
+    const baseCache = Math.log(base);
     // 使用换底公式
-    logFn = (x) => Math.log(x) / Math.log(base > 0 ? base : -base);
+    logFn = (x) => Math.log(x) / baseCache;
   }
 
   return shouldReflect ? reflect(logFn) : logFn;
 };
 
-const unTransformLog = (base: number, shouldReflect: boolean) => {
-  const pow = base === Math.E ? Math.exp : (x) => (base > 0 ? base ** x : (-1 * base) ** x);
+const transformPow = (base: number, shouldReflect: boolean) => {
+  const pow = base === Math.E ? Math.exp : (x) => base ** x;
   return shouldReflect ? reflect(pow) : pow;
 };
 
@@ -55,7 +53,7 @@ export class Log extends Continuous<LogOptions> {
   protected chooseUntransform() {
     const { base, domain } = this.options;
     const isReflect = domain[0] < 0;
-    return unTransformLog(base, isReflect);
+    return transformPow(base, isReflect);
   }
 
   public clone(): Log {
