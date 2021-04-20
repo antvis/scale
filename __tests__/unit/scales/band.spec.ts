@@ -1,5 +1,4 @@
-import { Band } from '../../../src/scales/band';
-import { BandOptions } from '../../../src/types';
+import { Band, BandOptions } from '../../../src';
 
 describe('band scale', () => {
   test('default options and methods', () => {
@@ -62,7 +61,7 @@ describe('band scale', () => {
     bandScale.update({
       paddingInner: 0.1,
     });
-    expect(bandScale.getStep()).toBeCloseTo(172.41, -2);
+    expect(bandScale.getStep()).toBeCloseTo(172.414, 3);
   });
 
   test('test padding-outer option', () => {
@@ -72,7 +71,7 @@ describe('band scale', () => {
       paddingOuter: 0.2,
     });
 
-    expect(bandScale.getStep()).toBeCloseTo(147.05, -2);
+    expect(bandScale.getStep()).toBeCloseTo(147.059, 3);
   });
 
   test('test round option', () => {
@@ -83,9 +82,9 @@ describe('band scale', () => {
       paddingOuter: 0.2,
     });
 
-    expect(bandScale.map('A')).toBeCloseTo(29.41, -2);
-    expect(bandScale.map('B')).toBeCloseTo(176.47, -2);
-    expect(bandScale.map('C')).toBeCloseTo(323.52, -2);
+    expect(bandScale.map('A')).toBeCloseTo(29.41, 2);
+    expect(bandScale.map('B')).toBeCloseTo(176.47, 2);
+    expect(bandScale.map('C')).toBeCloseTo(323.53, 2);
 
     bandScale.update({
       round: true,

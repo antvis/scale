@@ -26,7 +26,7 @@ describe('pow scales', () => {
 
     expect(scale.map(25)).toStrictEqual(50);
     expect(scale.map(-25)).toStrictEqual(-50);
-    expect(scale.map(50)).toBeCloseTo(70.71, -2);
+    expect(scale.map(50)).toBeCloseTo(70.71, 2);
   });
 
   test('test when exponent is 1, we use identity', () => {
@@ -39,7 +39,7 @@ describe('pow scales', () => {
     expect(scale.map(25)).toStrictEqual(25);
     expect(scale.map(-25)).toStrictEqual(-25);
     expect(scale.invert(-25)).toStrictEqual(-25);
-    expect(scale.map(50)).toBeCloseTo(50);
+    expect(scale.map(50)).toStrictEqual(50);
   });
 
   test('map fn', () => {
@@ -51,7 +51,7 @@ describe('pow scales', () => {
 
     expect(scale.map(0)).toStrictEqual(0);
     expect(scale.map(25)).toStrictEqual(6.25);
-    expect(scale.map(50)).toBeCloseTo(25);
+    expect(scale.map(50)).toStrictEqual(25);
     expect(scale.map(100)).toStrictEqual(100);
     expect(scale.map(-25)).toStrictEqual(-6.25);
   });
@@ -111,8 +111,8 @@ describe('pow scales', () => {
     });
 
     expect(scale.map(0)).toStrictEqual(0);
-    expect(scale.map(60)).toBeCloseTo(70.71, -2);
-    expect(scale.map(-60)).toBeCloseTo(-70.71, -2);
+    expect(scale.map(60)).toStrictEqual(25);
+    expect(scale.map(-60)).toStrictEqual(-25);
   });
 
   test('test nice option', () => {
