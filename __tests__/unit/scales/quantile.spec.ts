@@ -66,6 +66,7 @@ describe('Threshold', () => {
     expect(x.invert('b')).toEqual([10, 20]);
     expect(x.invert('c')).toEqual([20, 30]);
     expect(x.invert('d')).toEqual([30, 40]);
+    expect(x.invert('e')).toEqual([undefined, undefined]);
   });
 
   test('getThresholds() returns the array of computed thresholds within the domain.', () => {
