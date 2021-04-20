@@ -61,7 +61,7 @@ describe('band scale', () => {
     bandScale.update({
       paddingInner: 0.1,
     });
-    expect(bandScale.getStep()).toBeCloseTo(172.41, -2);
+    expect(bandScale.getStep()).toBeCloseTo(172.414, 3);
   });
 
   test('test padding-outer option', () => {
@@ -71,7 +71,7 @@ describe('band scale', () => {
       paddingOuter: 0.2,
     });
 
-    expect(bandScale.getStep()).toBeCloseTo(147.05, -2);
+    expect(bandScale.getStep()).toBeCloseTo(147.059, 3);
   });
 
   test('test round option', () => {
@@ -82,9 +82,9 @@ describe('band scale', () => {
       paddingOuter: 0.2,
     });
 
-    expect(bandScale.map('A')).toBeCloseTo(29.41, -2);
-    expect(bandScale.map('B')).toBeCloseTo(176.47, -2);
-    expect(bandScale.map('C')).toBeCloseTo(323.52, -2);
+    expect(bandScale.map('A')).toBeCloseTo(29.41, 2);
+    expect(bandScale.map('B')).toBeCloseTo(176.47, 2);
+    expect(bandScale.map('C')).toBeCloseTo(323.53, 2);
 
     bandScale.update({
       round: true,
@@ -100,7 +100,7 @@ describe('band scale', () => {
       domain: ['A', 'B', 'C'],
       range: [0, 100],
     });
-    // 注：category 对于不存在数据的默认处理方式是添加进去，所以这里是 0
+    // 注：ordinal 对于不存在数据的默认处理方式是添加进去，所以这里是 0
     expect(bandScale.map('wow')).toStrictEqual(0);
 
     bandScale.update({

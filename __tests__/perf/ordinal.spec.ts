@@ -1,14 +1,14 @@
 import * as d3 from 'd3-scale';
-import { Category } from '../../src';
+import { Ordinal } from '../../src';
 import { benchMarkBetween } from './benchmark';
 
-describe('category perf test', () => {
+describe('ordinal perf test', () => {
   test('100000 map and update call', async () => {
     const domain = new Array(100000).fill('').map((item, index) => index);
     const range = new Array(100000).fill('').map((item, index) => index);
 
     const timeForAntv = () => {
-      const antvScale = new Category({
+      const antvScale = new Ordinal({
         domain,
         range,
       });
@@ -39,7 +39,7 @@ describe('category perf test', () => {
       cb1: timeForAntv,
       cb2: timeForD3,
       // TODO: 这里有较大幅度的摇摆，先改为 1.0，后续优化
-      magnification: 1.0,
+      magnification: 1,
       check: true,
     });
   });
