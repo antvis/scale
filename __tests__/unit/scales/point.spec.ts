@@ -24,7 +24,7 @@ describe('point scale test', () => {
     expect(scale.getBandWidth()).toStrictEqual(0);
   });
 
-  test('clone() returns a Point scale with same and independent options ', () => {
+  test('clone() returns a Point scale with same and independent options', () => {
     const x1 = new Point();
     const x2 = x1.clone();
 

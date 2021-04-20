@@ -104,3 +104,9 @@ export type PowOptions = ContinuousOptions & {
 export type SqrtOptions = PowOptions & {
   readonly exponent: 0.5;
 };
+
+/** Log 比例尺的选项 */
+export type LogOptions = ContinuousOptions & {
+  /** 底数 */
+  base?: number;
+};
