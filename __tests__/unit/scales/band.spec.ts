@@ -100,7 +100,7 @@ describe('band scale', () => {
       domain: ['A', 'B', 'C'],
       range: [0, 100],
     });
-    // 注：category 对于不存在数据的默认处理方式是添加进去，所以这里是 0
+    // 注：ordinal 对于不存在数据的默认处理方式是添加进去，所以这里是 0
     expect(bandScale.map('wow')).toStrictEqual(0);
 
     bandScale.update({

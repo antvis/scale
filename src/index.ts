@@ -1,6 +1,6 @@
 export { Band } from './scales/band';
 export { Base } from './scales/base';
-export { Category } from './scales/category';
+export { Ordinal } from './scales/ordinal';
 export { Constant } from './scales/constant';
 export { Continuous } from './scales/continuous';
 export { Identity } from './scales/identity';
@@ -13,7 +13,7 @@ export { Quantize } from './scales/quantize';
 export type {
   BandOptions,
   BaseOptions,
-  CategoryOptions,
+  OrdinalOptions,
   ConstantOptions,
   ContinuousOptions,
   IdentityOptions,

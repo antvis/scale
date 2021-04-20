@@ -36,7 +36,7 @@ describe('band perf test', () => {
     await benchMarkBetween({
       cb1: antvTest,
       cb2: d3Test,
-      magnification: 9,
+      magnification: 8,
       check: true,
     });
   });

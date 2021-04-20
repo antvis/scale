@@ -4,6 +4,9 @@ export type TickMethod = (min: number, max: number, n?: number, ...rest: any[]) 
 /** 插值器工厂 */
 export type Interpolate = (a: number, b: number) => (t: number) => number;
 
+/** 比较器 */
+export type Comparator = (a: string | number, b: string | number) => number;
+
 /**
  * 所有比例尺选项的默认类型
  * D：定义域元素的类型
@@ -62,8 +65,8 @@ export type ContinuousOptions = BaseOptions<number> &
 /** Linear 比例尺的选项 */
 export type LinearOptions = ContinuousOptions;
 
-/** CategoryOptions 比例尺的选项 */
-export type CategoryOptions = BaseOptions<number | string>;
+/** OrdinalOptions 比例尺的选项 */
+export type OrdinalOptions = BaseOptions<number | string> & { compare?: Comparator };
 
 /** 详细请参阅 scale/band.ts */
 export type BandOptions = BaseOptions<number | string, number> & {
@@ -80,7 +83,10 @@ export type BandOptions = BaseOptions<number | string, number> & {
 };
 
 /** Point 比例尺的选项 */
-export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
+export type PointOptions = BandOptions & {
+  readonly paddingInner: 1;
+  readonly paddingOuter: 0;
+};
 
 /** Threshold 比例尺的选项 */
 export type ThresholdOptions = BaseOptions<number, any>;
@@ -95,4 +101,6 @@ export type PowOptions = ContinuousOptions & {
 };
 
 /** Sqrt 比例尺的选项 */
-export type SqrtOptions = PowOptions;
+export type SqrtOptions = PowOptions & {
+  readonly exponent: 0.5;
+};

@@ -1,5 +1,5 @@
 import { identity } from '@antv/util';
-import { Continuous } from '../../../src/scales/continuous';
+import { Continuous } from '../../../src';
 import { ContinuousOptions } from '../../../src/types';
 import { createInterpolate } from '../../../src/utils';
 

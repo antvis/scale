@@ -1,15 +1,15 @@
-import { Category } from '../../../src/scales/category';
+import { Ordinal } from '../../../src/scales/ordinal';
 
-describe('category scale', () => {
-  test('category has no expected defaults', () => {
-    const c = new Category();
+describe('ordinal scale', () => {
+  test('ordinal has no expected defaults', () => {
+    const c = new Ordinal();
     expect(c.getOptions().domain).toStrictEqual([]);
     expect(c.getOptions().range).toStrictEqual([]);
     expect(c.getOptions().unknown).toBeUndefined();
   });
 
   test('default options', () => {
-    const scale = new Category();
+    const scale = new Ordinal();
     expect(scale.map('A')).toStrictEqual(undefined);
     expect(scale.getOptions().domain).toStrictEqual(['A']);
     expect(scale.getOptions().range).toStrictEqual([]);
@@ -26,7 +26,7 @@ describe('category scale', () => {
   });
 
   test('map func', () => {
-    const scale = new Category({
+    const scale = new Ordinal({
       domain: ['一月', '二月', 3, 'Hello', 5],
       range: ['January', 'February'],
     });
@@ -52,7 +52,7 @@ describe('category scale', () => {
 
   test('invert func', () => {
     // 映射规则类似于 map 方法，这里不再赘述
-    const scale = new Category({
+    const scale = new Ordinal({
       domain: ['一月', '二月', 3, 'Hello', 5],
       range: ['January', 'February'],
     });
@@ -67,7 +67,7 @@ describe('category scale', () => {
   });
 
   test('update scale', () => {
-    const scale = new Category({
+    const scale = new Ordinal({
       domain: ['A', 'B', 'C'],
       range: ['a', 'b', 'c'],
     });
@@ -82,7 +82,7 @@ describe('category scale', () => {
   });
 
   test('clone scale', () => {
-    const scale = new Category({
+    const scale = new Ordinal({
       domain: ['A', 'B', 'C'],
       range: ['a', 'b', 'c'],
     });
@@ -95,7 +95,7 @@ describe('category scale', () => {
   });
 
   test('use unknown data', () => {
-    const scale = new Category({
+    const scale = new Ordinal({
       domain: ['A', 'B', 'C'],
       range: ['a', 'b', 'c'],
     });
@@ -108,7 +108,7 @@ describe('category scale', () => {
   });
 
   test('duplicate data in domain or range', () => {
-    const scale = new Category({
+    const scale = new Ordinal({
       domain: ['苹果', '橘子', '苹果', '苹果'],
       range: ['apple', 'orange'],
     });
@@ -116,5 +116,26 @@ describe('category scale', () => {
     expect(scale.map('苹果')).toStrictEqual('apple');
     expect(scale.invert('apple')).toStrictEqual('苹果');
     expect(scale.invert('orange')).toStrictEqual('橘子');
+  });
+
+  test('options.compare should sort the domain before mapping', () => {
+    const scale = new Ordinal({
+      domain: ['2021-04-19', '2021-04-20', '2021-04-18'],
+      range: ['A', 'B', 'C'],
+    });
+
+    expect(scale.map('2021-04-19')).toBe('A');
+    expect(scale.map('2021-04-20')).toBe('B');
+    expect(scale.map('2021-04-18')).toBe('C');
+    expect(scale.getDomain()).toEqual(['2021-04-19', '2021-04-20', '2021-04-18']);
+
+    scale.update({
+      compare: (a, b) => +new Date(a) - +new Date(b),
+    });
+
+    expect(scale.map('2021-04-18')).toBe('A');
+    expect(scale.map('2021-04-19')).toBe('B');
+    expect(scale.map('2021-04-20')).toBe('C');
+    expect(scale.getDomain()).toEqual(['2021-04-18', '2021-04-19', '2021-04-20']);
   });
 });
