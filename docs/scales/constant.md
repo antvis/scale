@@ -30,7 +30,6 @@ x.invert('2'); // [0, 10]
 | domain | Sets the scale’s domain to the specified array of values. | <code>number[] &#124; string[]</code> | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display the output value. | `(x: any) => string` | <code>(x) => &#96;${x}&#96;</code> |
 
 ## Methods
 

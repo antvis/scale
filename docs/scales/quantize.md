@@ -34,7 +34,6 @@ x.invert('d'); // [undefined,undefined]
 | range | Sets the scale’s range to the specified array of values. | `any[]` | `[0.5]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | nice | Extends the domain so that it starts and ends on nice round values. | `boolean` | `false` |
-| formatter | Sets the format function to display a tick value. | `(x: any) => string` | <code>(x) => &#96;${x}&#96;</code> |
 
 ## Methods
 
