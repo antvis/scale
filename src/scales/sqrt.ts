@@ -18,11 +18,11 @@ export class Sqrt extends Pow<SqrtOptions & PowOptions> {
     } as SqrtOptions;
   }
 
-  constructor(options?: PowOptions) {
+  constructor(options?: SqrtOptions) {
     super(options);
   }
 
-  update(options?: PowOptions) {
+  update(options?: SqrtOptions) {
     super.update(options);
   }
 
