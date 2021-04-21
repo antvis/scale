@@ -1,3 +1,4 @@
+// scales
 export { Band } from './scales/band';
 export { Ordinal } from './scales/ordinal';
 export { Constant } from './scales/constant';
@@ -11,6 +12,12 @@ export { Log } from './scales/log';
 export { Quantize } from './scales/quantize';
 export { Quantile } from './scales/quantile';
 
+// tick-methods
+export { linearTicks } from './tick-methods/linear';
+export { pretty } from './tick-methods/pretty';
+export { wilkinsonExtended } from './tick-methods/wilkinson-extended';
+
+// types
 export type {
   BandOptions,
   OrdinalOptions,

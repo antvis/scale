@@ -1,4 +1,4 @@
-import { linearTicks as fn } from '../../../src/tick-methods/linear';
+import { linearTicks as fn } from '../../../src';
 
 describe('linear ticks', () => {
   test('common usage', () => {
