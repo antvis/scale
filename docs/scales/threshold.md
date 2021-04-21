@@ -39,7 +39,6 @@ x.invert('d'); // [undefined,undefined]
 | domain | Sets the scale’s domain to the specified array of values. The values must be in ascending order and will divide the domain into slices based on them. | `number[]` | `[0.5]` |
 | range | Sets the scale’s range to the specified array of values. | `any[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| formatter | Sets the format function to display a tick value. | `(x: any) => string` | <code>(x) => &#96;${x}&#96;</code> |
 
 ## Methods
 

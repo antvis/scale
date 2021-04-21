@@ -4,7 +4,7 @@ import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended'
 describe('Threshold', () => {
   test('Quantile() has expected options', () => {
     const x = new Quantile();
-    const { formatter, tickMethod, ...options } = x.getOptions();
+    const { tickMethod, ...options } = x.getOptions();
 
     expect(options).toEqual({
       domain: [],
@@ -18,7 +18,6 @@ describe('Threshold', () => {
 
     expect(x.getThresholds()).toEqual([]);
     expect(tickMethod).toBe(wilkinsonExtended);
-    expect(formatter(1)).toBe('1');
   });
 
   test('Threshold(options) override default options', () => {

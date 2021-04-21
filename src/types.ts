@@ -19,8 +19,6 @@ export type BaseOptions<D = any, R = D> = {
   range?: R[];
   /** 定义域，默认为 [0, 1] */
   domain?: D[];
-  /** tick 格式化函数，会影响数据在坐标轴 axis、legend、tooltip 上的显示 */
-  formatter?: (x: R) => string;
 };
 
 /**

@@ -14,7 +14,6 @@ describe('band scale', () => {
 
     expect(bandScale.getBandWidth()).toStrictEqual(1);
     expect(bandScale.getStep()).toStrictEqual(1);
-    expect(bandScale.getOptions().formatter(1)).toBe('1');
   });
 
   test('test map fn(common usage)', () => {
