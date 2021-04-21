@@ -1,21 +1,7 @@
 // 参考 d3-linear nice 的实现
 // https://github.com/d3/d3-scale
 
-const e10 = Math.sqrt(50);
-const e5 = Math.sqrt(10);
-const e2 = Math.sqrt(2);
-
-function tickIncrement(start: number, stop: number, count: number): number {
-  const step = (stop - start) / Math.max(0, count);
-  const power = Math.floor(Math.log(step) / Math.LN10);
-  const error = step / 10 ** power;
-  if (power >= 0) {
-    // eslint-disable-next-line no-nested-ternary
-    return (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * 10 ** power;
-  }
-  // eslint-disable-next-line no-nested-ternary
-  return -(10 ** -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
-}
+import { tickIncrement } from './tick-utils';
 
 export function d3LinearNice(domain: number[], count: number = 10) {
   const d = domain.slice();
@@ -48,6 +34,5 @@ export function d3LinearNice(domain: number[], count: number = 10) {
     d[i0] = Math.ceil(start * step) / step;
     d[i1] = Math.floor(stop * step) / step;
   }
-
   return d;
 }

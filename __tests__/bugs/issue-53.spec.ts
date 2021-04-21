@@ -7,6 +7,6 @@ describe('issue-53', () => {
       tickCount: 5,
     });
 
-    expect(instance.getTicks()).toStrictEqual([0, 0.25, 0.5, 0.75, 1]);
+    expect(instance.getTicks()).toStrictEqual([0, 0.2, 0.4, 0.6, 0.8, 1]);
   });
 });

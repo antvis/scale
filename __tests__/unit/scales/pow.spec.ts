@@ -1,5 +1,5 @@
 import { Pow } from '../../../src';
-import { pretty } from '../../../src/tick-methods/pretty';
+import { linearTicks } from '../../../src/tick-methods/linear';
 
 describe('pow scales', () => {
   test('test default options', () => {
@@ -14,7 +14,7 @@ describe('pow scales', () => {
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
-    expect(tickMethod).toBe(pretty);
+    expect(tickMethod).toBe(linearTicks);
   });
 
   test('test when exponent is 0.5, we use Math.sqrt API, not Math.pow', () => {
@@ -89,18 +89,11 @@ describe('pow scales', () => {
 
   test('test getTicks', () => {
     const scale = new Pow({
-      domain: [0, 120],
+      domain: [0.01, 100000],
       exponent: 2,
-      tickMethod: (min, max, count) => {
-        expect(min).toBe(0);
-        expect(max).toBe(120);
-        expect(count).toBe(5);
-        return [];
-      },
+      tickCount: 10,
     });
-
-    // getTicks Method
-    expect(scale.getTicks()).toStrictEqual([]);
+    expect(scale.getTicks()).toStrictEqual([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]);
   });
 
   test('test negative data', () => {
