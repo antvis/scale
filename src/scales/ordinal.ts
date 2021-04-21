@@ -62,7 +62,7 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
  * - 两个 map 只初始化一次，在之后的更新中复用他们，这样我们避免了重复 new Map 带来的性能问题
  *   在大量调用 update 函数场景下，较 d3-scale 效率有质的提高
  */
-export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> {
+export class Ordinal<O extends OrdinalOptions> extends Base<O> {
   // 定义域映射表
   private domainIndexMap: Map<any, number> = new Map();
 
@@ -78,6 +78,11 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
       domain: [],
       range: [],
     } as O;
+  }
+
+  // 显示指定 options 的类型为 OrdinalOptions，从而推断出 O 的类型
+  constructor(options?: OrdinalOptions) {
+    super(options as O);
   }
 
   private initDomainIndexMap() {

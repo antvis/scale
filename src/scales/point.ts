@@ -35,7 +35,8 @@ export class Point extends Band<PointOptions & BandOptions> {
     };
   }
 
-  constructor(options?: Partial<PointOptions>) {
+  // 能接受的参数只是 PointOptions，不能有 paddingInner 这些属性
+  constructor(options?: PointOptions) {
     super(options);
   }
 
@@ -47,7 +48,7 @@ export class Point extends Band<PointOptions & BandOptions> {
     return new Point(this.options);
   }
 
-  public update(options?: Partial<PointOptions>) {
+  public update(options?: PointOptions) {
     super.update(options);
   }
 
