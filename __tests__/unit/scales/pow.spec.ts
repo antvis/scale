@@ -93,7 +93,7 @@ describe('pow scales', () => {
       exponent: 2,
       tickCount: 10,
     });
-    expect(scale.getTicks()).toStrictEqual([0, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]);
+    expect(scale.getTicks()).toStrictEqual([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]);
   });
 
   test('test negative data', () => {
