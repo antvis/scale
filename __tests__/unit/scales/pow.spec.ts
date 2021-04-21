@@ -89,18 +89,11 @@ describe('pow scales', () => {
 
   test('test getTicks', () => {
     const scale = new Pow({
-      domain: [0, 120],
+      domain: [0.01, 100000],
       exponent: 2,
-      tickMethod: (min, max, count) => {
-        expect(min).toBe(0);
-        expect(max).toBe(120);
-        expect(count).toBe(5);
-        return [];
-      },
+      tickCount: 10,
     });
-
-    // getTicks Method
-    expect(scale.getTicks()).toStrictEqual([]);
+    expect(scale.getTicks()).toStrictEqual([0, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]);
   });
 
   test('test negative data', () => {

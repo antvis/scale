@@ -3,7 +3,7 @@ import { Continuous, Transform } from './continuous';
 import { PowOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate, d3LinearNice } from '../utils';
-import { pretty } from '../tick-methods/pretty';
+import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 
 const transformPow = (exponent: number) => {
   return (x: number) => {
@@ -37,7 +37,7 @@ export class Pow<O extends PowOptions> extends Continuous<O> {
       round: false,
       exponent: 2,
       interpolate: createInterpolate,
-      tickMethod: pretty,
+      tickMethod: wilkinsonExtended,
       tickCount: 5,
     } as O;
   }
