@@ -15,7 +15,7 @@ export class Sqrt extends Pow<SqrtOptions & PowOptions> {
       tickMethod: pretty,
       tickCount: 5,
       exponent: 0.5,
-    } as SqrtOptions;
+    };
   }
 
   constructor(options?: SqrtOptions) {
@@ -24,10 +24,6 @@ export class Sqrt extends Pow<SqrtOptions & PowOptions> {
 
   update(options?: SqrtOptions) {
     super.update(options);
-  }
-
-  protected getExponent() {
-    return 0.5;
   }
 
   public clone(): Sqrt {
