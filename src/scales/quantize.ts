@@ -1,7 +1,7 @@
 import { Threshold } from './threshold';
 import { QuantizeOptions, Range } from '../types';
 import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
-import { d3LinearNice } from '../utils/d3-linear-nice';
+import { d3LinearNice } from '../utils';
 
 /**
  * 类似 Threshold 比例尺，区别在于 thresholds 是根据连续的 domain 根据离散的 range 的数量计算而得到的。

@@ -1,4 +1,4 @@
-import { Linear } from '../../../src/scales/linear';
+import { Linear } from '../../../src';
 import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Linear Scale Test', () => {

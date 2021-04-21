@@ -89,7 +89,13 @@ export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 export type ThresholdOptions = BaseOptions<number, any>;
 
 /** Quantize 比例尺的选项 */
-export type QuantizeOptions = ThresholdOptions & TickOptions & { nice?: boolean };
+export type QuantizeOptions = ThresholdOptions &
+  TickOptions & {
+    nice?: boolean;
+  };
+
+/** Quantile 比例尺的选项 */
+export type QuantileOptions = ThresholdOptions & TickOptions;
 
 /** Pow 比例尺的选项 */
 export type PowOptions = ContinuousOptions & {
@@ -99,3 +105,9 @@ export type PowOptions = ContinuousOptions & {
 
 /** Sqrt 比例尺的选项 */
 export type SqrtOptions = Omit<PowOptions, 'exponent'>;
+
+/** Log 比例尺的选项 */
+export type LogOptions = ContinuousOptions & {
+  /** 底数 */
+  base?: number;
+};
