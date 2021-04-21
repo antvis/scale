@@ -41,7 +41,7 @@ describe('Continuous', () => {
 
   test('Continuous() has expected defaults', () => {
     const s = new Scale();
-    const { formatter, interpolate, ...restProps } = s.getOptions();
+    const { interpolate, ...restProps } = s.getOptions();
 
     expect(restProps).toEqual({
       range: [0, 1],
@@ -52,7 +52,6 @@ describe('Continuous', () => {
       tickCount: 5,
     });
 
-    expect(formatter(1)).toBe('1');
     expect(interpolate).toEqual(createInterpolate);
 
     // @ts-ignore

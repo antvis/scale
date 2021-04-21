@@ -3,13 +3,12 @@ import { Constant, ConstantOptions } from '../../../src';
 describe('Constant', () => {
   test('Constant() has expected defaults', () => {
     const s = new Constant();
-    const { formatter, ...restProps } = s.getOptions();
+    const { ...restProps } = s.getOptions();
 
     expect(restProps).toEqual({
       range: [0],
       domain: [0, 1],
     });
-    expect(formatter(1)).toBe('1');
   });
 
   test('Constant(options) override defaults', () => {

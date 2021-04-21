@@ -3,7 +3,7 @@ import { Threshold, ThresholdOptions } from '../../../src';
 describe('Threshold', () => {
   test('Threshold() has expected options', () => {
     const x = new Threshold();
-    const { formatter, ...options } = x.getOptions();
+    const { ...options } = x.getOptions();
     expect(options).toEqual({
       domain: [0.5],
       range: [0, 1],
@@ -12,8 +12,6 @@ describe('Threshold', () => {
 
     // @ts-ignore
     expect(x.n).toBe(1);
-
-    expect(formatter(1)).toBe('1');
   });
 
   test('Threshold(options) override default options', () => {

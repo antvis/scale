@@ -4,14 +4,13 @@ import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended'
 describe('Identity', () => {
   test('Identity() has expected defaults', () => {
     const s = new Identity();
-    const { tickMethod, formatter, ...restProps } = s.getOptions();
+    const { tickMethod, ...restProps } = s.getOptions();
 
     expect(restProps).toEqual({
       range: [0, 1],
       domain: [0, 1],
       tickCount: 5,
     });
-    expect(formatter(1)).toBe('1');
     expect(tickMethod).toEqual(wilkinsonExtended);
   });
 

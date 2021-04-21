@@ -34,7 +34,6 @@ export abstract class Base<O extends BaseOptions> {
     const BASE_DEFAULT_OPTIONS = {
       domain: [0, 1],
       range: [0, 1],
-      formatter: (x: Range<O>) => `${x}`,
     } as O;
     this.defaultOptions = deepMix({}, BASE_DEFAULT_OPTIONS, this.getOverrideDefaultOptions());
     this.options = deepMix({}, this.defaultOptions, options);
