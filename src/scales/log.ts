@@ -1,7 +1,7 @@
 import { Continuous } from './continuous';
 import { LogOptions, PowOptions } from '../types';
 import { createInterpolate, d3LinearNice } from '../utils';
-import { pretty } from '../tick-methods/pretty';
+import { rPretty } from '../tick-methods/r-pretty';
 
 const reflect = (f) => {
   return (x) => -f(-x);
@@ -39,7 +39,7 @@ export class Log extends Continuous<LogOptions> {
       range: [0, 1],
       base: 10,
       interpolate: createInterpolate,
-      tickMethod: pretty,
+      tickMethod: rPretty,
       tickCount: 5,
     } as PowOptions;
   }

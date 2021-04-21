@@ -1,7 +1,8 @@
 import { identity } from '@antv/util';
-import { Continuous } from '../../../src';
+import { Continuous } from '../../../src/scales/continuous';
 import { ContinuousOptions } from '../../../src/types';
 import { createInterpolate } from '../../../src/utils';
+import { Interpolate } from '../../../src';
 
 describe('Continuous', () => {
   type ScaleOptions = ContinuousOptions;
@@ -289,10 +290,12 @@ describe('Continuous', () => {
 
   test('options.interpolate sets a custom interpolator factory', () => {
     // y^2 = mx + b
+    const interpolate: Interpolate = (a, b) => (t) => Math.sqrt(a * a * (1 - t) + b * b * t);
+
     const s = new Scale({
       domain: [0, 4],
       range: [0, 2],
-      interpolate: (a, b) => (t) => Math.sqrt(a * a * (1 - t) + b * b * t),
+      interpolate,
     });
 
     expect(s.map(0)).toBe(0);

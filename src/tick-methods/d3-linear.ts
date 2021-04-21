@@ -1,6 +1,6 @@
 import { tickIncrement } from '../utils/tick-utils';
 
-export function linearTicks(begin: number, end: number, count: number) {
+export function d3Linear(begin: number, end: number, count: number) {
   let n;
   let ticks;
 

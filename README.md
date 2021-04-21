@@ -64,7 +64,8 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 ### 🧮 Tick Methods
 
 - [x] [Wilkinson Extended](docs/tick-methods/wilkinson-extended.md)
-- [x] [R Pretty](docs/tick-methods/pretty.md)
+- [x] [R Pretty](docs/tick-methods/r-pretty.md)
+- [x] [D3 Linear](docs/tick-methods/d3-linear.md)
 
 ## 📄 License
 

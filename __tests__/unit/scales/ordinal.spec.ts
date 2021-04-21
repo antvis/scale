@@ -1,4 +1,4 @@
-import { Ordinal } from '../../../src';
+import { Ordinal, Comparator } from '../../../src';
 
 describe('ordinal scale', () => {
   test('ordinal has no expected defaults', () => {
@@ -129,8 +129,9 @@ describe('ordinal scale', () => {
     expect(scale.map('2021-04-18')).toBe('C');
     expect(scale.getDomain()).toEqual(['2021-04-19', '2021-04-20', '2021-04-18']);
 
+    const compare: Comparator = (a, b) => +new Date(a) - +new Date(b);
     scale.update({
-      compare: (a, b) => +new Date(a) - +new Date(b),
+      compare,
     });
 
     expect(scale.map('2021-04-18')).toBe('A');
