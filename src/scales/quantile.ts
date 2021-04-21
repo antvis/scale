@@ -21,6 +21,10 @@ export class Quantile extends Threshold<QuantileOptions> {
     } as QuantileOptions;
   }
 
+  constructor(options?: QuantileOptions) {
+    super(options);
+  }
+
   protected getDomain() {
     return this.thresholds;
   }
