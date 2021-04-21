@@ -92,7 +92,13 @@ export type PointOptions = BandOptions & {
 export type ThresholdOptions = BaseOptions<number, any>;
 
 /** Quantize 比例尺的选项 */
-export type QuantizeOptions = ThresholdOptions & TickOptions & { nice?: boolean };
+export type QuantizeOptions = ThresholdOptions &
+  TickOptions & {
+    nice?: boolean;
+  };
+
+/** Quantile 比例尺的选项 */
+export type QuantileOptions = ThresholdOptions & TickOptions;
 
 /** Pow 比例尺的选项 */
 export type PowOptions = ContinuousOptions & {
