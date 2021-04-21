@@ -3,9 +3,7 @@ import { Constant, ConstantOptions } from '../../../src';
 describe('Constant', () => {
   test('Constant() has expected defaults', () => {
     const s = new Constant();
-    const { ...restProps } = s.getOptions();
-
-    expect(restProps).toEqual({
+    expect(s.getOptions()).toEqual({
       range: [0],
       domain: [0, 1],
     });

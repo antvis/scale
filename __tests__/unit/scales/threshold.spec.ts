@@ -3,8 +3,7 @@ import { Threshold, ThresholdOptions } from '../../../src';
 describe('Threshold', () => {
   test('Threshold() has expected options', () => {
     const x = new Threshold();
-    const { ...options } = x.getOptions();
-    expect(options).toEqual({
+    expect(x.getOptions()).toEqual({
       domain: [0.5],
       range: [0, 1],
       unknown: undefined,

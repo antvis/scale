@@ -19,9 +19,7 @@ describe('Base', () => {
   test('Scale() has expected defaults', () => {
     const s = new Scale();
     // @ts-ignore
-    const { ...restOptions } = s.options;
-
-    expect(restOptions).toEqual({
+    expect(s.options).toEqual({
       domain: [0, 1],
       range: [0, 1],
     });
