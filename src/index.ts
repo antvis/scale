@@ -1,8 +1,6 @@
 export { Band } from './scales/band';
-export { Base } from './scales/base';
 export { Ordinal } from './scales/ordinal';
 export { Constant } from './scales/constant';
-export { Continuous } from './scales/continuous';
 export { Identity } from './scales/identity';
 export { Linear } from './scales/linear';
 export { Point } from './scales/point';
@@ -22,7 +20,6 @@ export type {
   PointOptions,
   PowOptions,
   ThresholdOptions,
-  TickOptions,
   QuantizeOptions,
   SqrtOptions,
   QuantileOptions,
