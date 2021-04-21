@@ -54,12 +54,9 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 - [x] [Sqrt](./docs/scales/sqrt.md)
 - [x] [Pow](./docs/scales/pow.md)
 - [ ] Time
-- [ ] Symlog
 - [x] [Quantize](./docs/scales/quantize.md)
-- [ ] Quantile
+- [x] [Quantile](./docs/scales/quantile.md)
 - [x] [Threshold](./docs/scales/threshold.md)
-- [ ] Diverging
-- [ ] Sequential
 - [x] [Ordinal](./docs/scales/ordinal.md)
 - [x] [Point](./docs/scales/point.md)
 - [x] [Band](./docs/scales/band.md)
