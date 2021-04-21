@@ -9,7 +9,7 @@ import { TickMethod } from '../types';
  * @see R pretty https://svn.r-project.org/R/trunk/src/appl/pretty.c
  * @see R pretty https://www.rdocumentation.org/packages/base/versions/3.5.2/topics/pretty
  */
-export const pretty: TickMethod = (min, max, n = 5) => {
+export const rPretty: TickMethod = (min, max, n = 5) => {
   const res = {
     max: 0,
     min: 0,

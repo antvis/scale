@@ -1,5 +1,5 @@
-import { Linear } from '../../../src';
-import { linearTicks } from '../../../src/tick-methods/linear';
+import { Linear, TickMethod } from '../../../src';
+import { d3Linear } from '../../../src/tick-methods/d3-linear';
 
 describe('Linear Scale Test', () => {
   test('test default options', () => {
@@ -13,7 +13,7 @@ describe('Linear Scale Test', () => {
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
-    expect(tickMethod).toBe(linearTicks);
+    expect(tickMethod).toBe(d3Linear);
   });
 
   test('test map fn', () => {
@@ -87,6 +87,12 @@ describe('Linear Scale Test', () => {
     });
 
     expect(scale.getTicks()).toStrictEqual([0, 20, 40, 60, 80, 100]);
+  });
+
+  test('test custom tickMethod', () => {
+    const tickMethod: TickMethod = () => [1, 2];
+    const scale = new Linear({ tickMethod });
+    expect(scale.getTicks()).toEqual([1, 2]);
   });
 
   test('test interval option', () => {

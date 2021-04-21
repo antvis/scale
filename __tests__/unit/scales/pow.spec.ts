@@ -1,5 +1,5 @@
 import { Pow } from '../../../src';
-import { linearTicks } from '../../../src/tick-methods/linear';
+import { d3Linear } from '../../../src/tick-methods/d3-linear';
 
 describe('pow scales', () => {
   test('test default options', () => {
@@ -14,7 +14,7 @@ describe('pow scales', () => {
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
-    expect(tickMethod).toBe(linearTicks);
+    expect(tickMethod).toBe(d3Linear);
   });
 
   test('test when exponent is 0.5, we use Math.sqrt API, not Math.pow', () => {

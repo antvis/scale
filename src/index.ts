@@ -13,11 +13,11 @@ export { Quantize } from './scales/quantize';
 export { Quantile } from './scales/quantile';
 
 // tick-methods
-export { linearTicks } from './tick-methods/linear';
-export { pretty } from './tick-methods/pretty';
+export { d3Linear } from './tick-methods/d3-linear';
+export { rPretty } from './tick-methods/r-pretty';
 export { wilkinsonExtended } from './tick-methods/wilkinson-extended';
 
-// types
+// scales types
 export type {
   BandOptions,
   OrdinalOptions,
@@ -32,3 +32,6 @@ export type {
   QuantileOptions,
   LogOptions,
 } from './types';
+
+// others
+export type { TickMethod, Interpolate, Comparator } from './types';
