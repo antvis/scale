@@ -17,8 +17,8 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
     } as O;
   }
 
-  constructor(options?: Partial<O>) {
-    super(options);
+  constructor(options?: ThresholdOptions) {
+    super(options as O);
     this.rescale();
   }
 
@@ -45,7 +45,7 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
     return new Threshold<O>(this.options);
   }
 
-  public update(options?: Partial<O>) {
+  public update(options?: O) {
     super.update(options);
     this.rescale();
   }

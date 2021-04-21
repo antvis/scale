@@ -38,6 +38,7 @@ x.getBandWidth();  // 25
 | paddingOuter | Set the scale's paddingOuter, the value should in the range [0, 1]. For more info, please see the [example](#example) below | `number` | `0` |
 | padding | An easy way to set the paddingInner and paddingOuter for the scale. Notice: It's priority is higher than `paddingInner` and `paddingOuter` | `number` | `0` |
 | align | The `align` option specifies how outer padding is distributed in the range, the value should in the range [0, 1]. For example, value of 0.5 means that bands should be centered within the range, value of 0 or 1 may be used to shift the bands to one side. | `number` | `0.5` |
+| compare | Sets the comparator for sorting the domain before mapping. | ```(a: string or number, b: string or number) => number```| `undefined` |
 
 <a name="band_map" href="#example">**Example**</a>
 
@@ -87,3 +88,7 @@ Returns band scale's step, for more info about `step`, please see [example](#exa
 <a name="band_get_band_width" href="#band_get_band_width">#</a> **getBandWidth**<i>(): number</i>
 
 Returns band scale's bandWidth, for more info about this, please see [example](#example).
+
+<a name="band_get_range" href="#band_get_range">#</a> **getRange**<i>(): number[]</i>
+
+Returns band scale's adjusted range [example](#example).

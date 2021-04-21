@@ -27,7 +27,7 @@ interface BandStateOptions {
  * adjustedRange -- 最终得到的 range
  * bandWidth -- band 宽度
  */
-export function getBandState(opt: BandStateOptions) {
+function getBandState(opt: BandStateOptions) {
   const DEFAULT_OPTIONS = {
     range: [0, 1],
     align: 0.5,
@@ -111,18 +111,15 @@ export function getBandState(opt: BandStateOptions) {
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
-export class Band<O extends BandOptions = BandOptions> extends Ordinal<BandOptions> {
-  // 添加 option 属性，这样子类就不用进行断言
-  protected options: O;
-
+export class Band<O extends BandOptions> extends Ordinal<O> {
   // 步长，见上图
   private step: number = 0;
 
   // band 宽度
   private bandWidth: number = 0;
 
-  // 转换过的 range 缓存
-  protected rangeCache: number[] = undefined;
+  // 转换过的 range
+  private adjustedRange: O['range'];
 
   // 覆盖默认配置
   protected getOverrideDefaultOptions() {
@@ -135,23 +132,22 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<BandOptio
       paddingOuter: 0,
       padding: 0,
       unknown: undefined,
-    };
+    } as O;
   }
 
-  constructor(options?: Partial<BandOptions>) {
-    super(options);
-    this.rangeCache = this.getRange();
+  // 显示指定 options 的类型为 OrdinalOptions，从而推断出 O 的类型
+  constructor(options?: BandOptions) {
+    super(options as O);
+    this.rescale();
   }
 
   public clone() {
-    return new Band(this.options);
+    return new Band<O>(this.options);
   }
 
-  public update(updateOptions: Partial<BandOptions>) {
-    // 调用 ordinal 的 update
+  public update(updateOptions: Partial<O>) {
     super.update(updateOptions);
-    this.rangeCache = undefined;
-    this.rangeCache = this.getRange();
+    this.rescale();
   }
 
   public getStep() {
@@ -162,33 +158,35 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<BandOptio
     return this.bandWidth;
   }
 
-  protected getBandState(bandOption: BandOptions) {
-    // 更新 bandRange, 这里拿到的 this.options 是没有处理过的 range
-    const { align, domain, padding, paddingOuter, paddingInner, range, round } = bandOption;
-    return getBandState({
+  public getRange() {
+    return this.adjustedRange;
+  }
+
+  protected getPaddingInner() {
+    const { padding, paddingInner } = this.options;
+    return padding > 0 ? padding : paddingInner;
+  }
+
+  protected getPaddingOuter() {
+    const { padding, paddingOuter } = this.options;
+    return padding > 0 ? padding : paddingOuter;
+  }
+
+  protected rescale() {
+    // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
+    // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
+    const { align, domain, range, round } = this.options;
+    const { step, bandWidth, adjustedRange } = getBandState({
       align,
       range,
       round,
-      paddingInner: padding > 0 ? padding : paddingInner,
-      paddingOuter: padding > 0 ? padding : paddingOuter,
+      paddingInner: this.getPaddingInner(),
+      paddingOuter: this.getPaddingOuter(),
       stepAmount: domain.length,
     });
-  }
-
-  protected getRange() {
-    // 如果有缓存，返回之，防止出现性能问题
-    if (this.rangeCache) {
-      return this.rangeCache;
-    }
-
-    // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
-    // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
-    const newState = this.getBandState(this.options);
-
     // 更新必要的属性
-    this.step = newState.step;
-    this.bandWidth = newState.bandWidth;
-
-    return newState.adjustedRange;
+    this.step = step;
+    this.bandWidth = bandWidth;
+    this.adjustedRange = adjustedRange;
   }
 }

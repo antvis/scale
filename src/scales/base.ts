@@ -30,7 +30,7 @@ export abstract class Base<O extends BaseOptions> {
    * 构造函数，根据自定义的选项和默认选项生成当前选项
    * @param options 需要自定义配置的选项
    */
-  constructor(options?: Partial<O>) {
+  constructor(options?: O) {
     const BASE_DEFAULT_OPTIONS = {
       domain: [0, 1],
       range: [0, 1],

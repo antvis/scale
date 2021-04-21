@@ -69,7 +69,7 @@ export type LinearOptions = ContinuousOptions;
 export type OrdinalOptions = BaseOptions<number | string> & { compare?: Comparator };
 
 /** 详细请参阅 scale/band.ts */
-export type BandOptions = BaseOptions<number | string, number> & {
+export type BandOptions = BaseOptions<number | string, number> & { compare?: Comparator } & {
   /** 是否取整 */
   round?: boolean;
   /** 内部边距 */
@@ -83,10 +83,7 @@ export type BandOptions = BaseOptions<number | string, number> & {
 };
 
 /** Point 比例尺的选项 */
-export type PointOptions = BandOptions & {
-  readonly paddingInner: 1;
-  readonly paddingOuter: 0;
-};
+export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 
 /** Threshold 比例尺的选项 */
 export type ThresholdOptions = BaseOptions<number, any>;
@@ -107,9 +104,7 @@ export type PowOptions = ContinuousOptions & {
 };
 
 /** Sqrt 比例尺的选项 */
-export type SqrtOptions = PowOptions & {
-  readonly exponent: 0.5;
-};
+export type SqrtOptions = Omit<PowOptions, 'exponent'>;
 
 /** Log 比例尺的选项 */
 export type LogOptions = ContinuousOptions & {

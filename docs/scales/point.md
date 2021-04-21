@@ -32,6 +32,7 @@ scale.getBandWidth(); // always 0
 | round | If round option is truthy, the start and stop of each point will be integers. | `boolean` | `false` |
 | padding | Set the scale's padding. In fact, this is the `outerPadding` of the band option. For more info about this, please see [example](#example). | `number` | `0` |
 | align | The `align` option specifies how outer padding is distributed in the range, the value should in the range [0, 1]. For example, value of 0.5 means that points should be centered within the range, value of 0 or 1 may be used to shift the points to one side. | `number` | `0.5` |
+| compare | Sets the comparator for sorting the domain before mapping. | ```(a: string or number, b: string or number) => number```| `undefined` |
 
 <a name="point_map" href="#example">**Example**</a>
 
@@ -80,3 +81,7 @@ Returns point scale's step, for more info about this, please see [example](#exam
 
 Returns point scale's `bandWidth`, In fact, the value is always 0. For more info about this, please
 see [example](#example).
+
+<a name="point_get_range" href="#point_get_range">#</a> **getRange**<i>(): number[]</i>
+
+Returns band scale's adjusted range [example](#example).

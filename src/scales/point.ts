@@ -1,5 +1,5 @@
-import { Band, getBandState } from './band';
-import { BandOptions, PointOptions } from '../types';
+import { Band } from './band';
+import { PointOptions, BandOptions } from '../types';
 
 /**
  * Point 比例尺
@@ -20,7 +20,7 @@ import { BandOptions, PointOptions } from '../types';
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
-export class Point extends Band<PointOptions> {
+export class Point extends Band<PointOptions & BandOptions> {
   // 覆盖默认配置
   protected getOverrideDefaultOptions() {
     return {
@@ -28,33 +28,31 @@ export class Point extends Band<PointOptions> {
       range: [0, 1],
       align: 0.5,
       round: false,
-      paddingInner: 1,
-      paddingOuter: 0,
       padding: 0,
       unknown: undefined,
+      paddingInner: 1,
+      paddingOuter: 0,
     };
+  }
+
+  // 能接受的参数只是 PointOptions，不能有 paddingInner 这些属性
+  constructor(options?: PointOptions) {
+    super(options);
+  }
+
+  protected getPaddingInner() {
+    return this.options.paddingInner;
   }
 
   public clone() {
     return new Point(this.options);
   }
 
-  protected getBandState(bandOption: BandOptions) {
-    // 覆写 paddingOuter
-    // 因为新的选项的 padding 就是 paddingOuter，且 paddingInner 是定死的
-    const { align, domain, padding, range, round, paddingInner } = bandOption;
-
-    return getBandState({
-      align,
-      range,
-      round,
-      paddingInner,
-      paddingOuter: padding,
-      stepAmount: domain.length,
-    });
+  public update(options?: PointOptions) {
+    super.update(options);
   }
 
-  getOptions() {
-    return this.options;
+  protected getPaddingOuter() {
+    return this.options.padding;
   }
 }

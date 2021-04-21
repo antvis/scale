@@ -67,6 +67,6 @@ Returns the scale's current options.
 
 Returns a new Ordinal scale with the independent and same options as the original one.
 
-<a name="ordinal_get_domain" href="#ordinal_get_domain">#</a> **getDomain**<i>(): (number | string)</i>
+<a name="ordinal_get_domain" href="#ordinal_get_domain">#</a> **getDomain**<i>(): (number | string)[]</i>
 
 Returns the sorted domain.

@@ -20,6 +20,10 @@ export class Quantize extends Threshold<QuantizeOptions> {
     } as QuantizeOptions;
   }
 
+  constructor(options?: QuantizeOptions) {
+    super(options);
+  }
+
   protected getDomain() {
     return this.thresholds;
   }
