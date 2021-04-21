@@ -104,9 +104,7 @@ export type PowOptions = ContinuousOptions & {
 };
 
 /** Sqrt 比例尺的选项 */
-export type SqrtOptions = PowOptions & {
-  exponent?: 0.5;
-};
+export type SqrtOptions = Omit<PowOptions, 'exponent'>;
 
 /** Log 比例尺的选项 */
 export type LogOptions = ContinuousOptions & {
