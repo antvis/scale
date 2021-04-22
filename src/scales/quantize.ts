@@ -28,7 +28,7 @@ export class Quantize extends Threshold<QuantizeOptions> {
     return this.thresholds;
   }
 
-  protected niceDomain() {
+  protected nice() {
     const { nice, domain } = this.options;
     if (nice) {
       this.options.domain = d3LinearNice(domain);
@@ -36,7 +36,7 @@ export class Quantize extends Threshold<QuantizeOptions> {
   }
 
   protected rescale() {
-    this.niceDomain();
+    this.nice();
 
     const { range, domain } = this.options;
     const [x0, x1] = domain;
