@@ -63,11 +63,26 @@ export type ContinuousOptions = BaseOptions<number> &
 /** Linear 比例尺的选项 */
 export type LinearOptions = ContinuousOptions;
 
+/** Pow 比例尺的选项 */
+export type PowOptions = ContinuousOptions & {
+  /** 指数 */
+  exponent?: number;
+};
+
+/** Sqrt 比例尺的选项 */
+export type SqrtOptions = Omit<PowOptions, 'exponent'>;
+
+/** Log 比例尺的选项 */
+export type LogOptions = ContinuousOptions & {
+  /** 底数 */
+  base?: number;
+};
+
 /** OrdinalOptions 比例尺的选项 */
 export type OrdinalOptions = BaseOptions<number | string> & { compare?: Comparator };
 
 /** 详细请参阅 scale/band.ts */
-export type BandOptions = BaseOptions<number | string, number> & { compare?: Comparator } & {
+export type BandOptions = BaseOptions<number | string, number> & {
   /** 是否取整 */
   round?: boolean;
   /** 内部边距 */
@@ -78,6 +93,8 @@ export type BandOptions = BaseOptions<number | string, number> & { compare?: Com
   padding?: number;
   /** 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 */
   align?: number;
+  /** 比较器，用于对 domain 进行排序 */
+  compare?: Comparator;
 };
 
 /** Point 比例尺的选项 */
@@ -94,18 +111,3 @@ export type QuantizeOptions = ThresholdOptions &
 
 /** Quantile 比例尺的选项 */
 export type QuantileOptions = ThresholdOptions & TickOptions;
-
-/** Pow 比例尺的选项 */
-export type PowOptions = ContinuousOptions & {
-  /** 指数 */
-  exponent?: number;
-};
-
-/** Sqrt 比例尺的选项 */
-export type SqrtOptions = Omit<PowOptions, 'exponent'>;
-
-/** Log 比例尺的选项 */
-export type LogOptions = ContinuousOptions & {
-  /** 底数 */
-  base?: number;
-};

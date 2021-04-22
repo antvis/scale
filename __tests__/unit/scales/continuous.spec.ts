@@ -7,28 +7,19 @@ import { Interpolate } from '../../../src';
 describe('Continuous', () => {
   type ScaleOptions = ContinuousOptions;
 
-  const niceCallback = jest.fn();
   const transformCallback = jest.fn();
   const untransformCallback = jest.fn();
-
   class Scale extends Continuous<ScaleOptions> {
-    protected chooseUntransform() {
-      return (x) => {
-        untransformCallback();
-        return identity(x);
-      };
-    }
-
-    protected chooseTransform() {
-      return (x) => {
+    protected chooseTransforms() {
+      const transform = (x) => {
         transformCallback();
         return identity(x);
       };
-    }
-
-    protected nice() {
-      niceCallback();
-      this.options.domain = [0, 2];
+      const untransform = (x) => {
+        untransformCallback();
+        return identity(x);
+      };
+      return [transform, untransform];
     }
 
     public clone() {
@@ -54,12 +45,6 @@ describe('Continuous', () => {
     });
 
     expect(interpolate).toEqual(createInterpolate);
-
-    // @ts-ignore
-    expect(s.output).toBeUndefined();
-
-    // @ts-ignore
-    expect(s.input).toBeUndefined();
   });
 
   test('Continuous(options) override defaults', () => {
@@ -83,9 +68,6 @@ describe('Continuous', () => {
     expect(s.map(undefined)).toBe('dirty');
     expect(s.map(NaN)).toBe('dirty');
     expect(s.map(null)).toBe('dirty');
-
-    // @ts-ignore
-    expect(s.output).toBeUndefined();
   });
 
   test('invert(undefined | NaN | null) invert undefined or NaN to options.unknown', () => {
@@ -95,21 +77,6 @@ describe('Continuous', () => {
     expect(s.invert(undefined)).toBe('dirty');
     expect(s.invert(NaN)).toBe('dirty');
     expect(s.invert(null)).toBe('dirty');
-
-    // @ts-ignore
-    expect(s.input).toBeUndefined();
-  });
-
-  test('map(x) calls transform', () => {
-    const s = new Scale();
-
-    // @ts-ignore
-    expect(transformCallback).not.toBeCalled();
-
-    s.map(0);
-
-    // @ts-ignore
-    expect(transformCallback).toBeCalled();
   });
 
   test('invert(x) calls untransform', () => {
@@ -121,26 +88,6 @@ describe('Continuous', () => {
 
     // @ts-ignore
     expect(untransformCallback).toBeCalled();
-  });
-
-  test('map(x) call nice() if options.nice === true', () => {
-    const s = new Scale({
-      nice: true,
-    });
-
-    s.map(0);
-    expect(niceCallback).toBeCalledTimes(1);
-    expect(s.getOptions().domain).toEqual([0, 2]);
-  });
-
-  test('invert(x) call nice() if options.nice === true', () => {
-    const s = new Scale({
-      nice: true,
-    });
-
-    s.invert(0);
-    expect(niceCallback).toBeCalledTimes(2);
-    expect(s.getOptions().domain).toEqual([0, 2]);
   });
 
   test('map(x) compose the output', () => {
@@ -273,19 +220,6 @@ describe('Continuous', () => {
 
     const options = s.getOptions();
     expect(options.domain).toEqual([0, 10]);
-  });
-
-  test('update(options) clears output and input functions', () => {
-    const s = new Scale();
-    s.map(0);
-    s.invert(0);
-    s.update({ domain: [0, 1] });
-
-    // @ts-ignore
-    expect(s.output).toBeUndefined();
-
-    // @ts-ignore
-    expect(s.input).toBeUndefined();
   });
 
   test('options.interpolate sets a custom interpolator factory', () => {

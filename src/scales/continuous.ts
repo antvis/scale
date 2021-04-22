@@ -1,7 +1,15 @@
 import { isNumber, identity } from '@antv/util';
 import { Base } from './base';
 import { ContinuousOptions, Domain, Range } from '../types';
-import { createInterpolate, createInterpolateRound, createClamp, createNormalize, bisect, compose } from '../utils';
+import {
+  createInterpolate,
+  createInterpolateRound,
+  createClamp,
+  createNormalize,
+  bisect,
+  compose,
+  d3LinearNice,
+} from '../utils';
 
 /** 柯里化后的函数的类型，对输入的值进行处理 */
 export type Transform = (x: number) => number;
@@ -50,12 +58,6 @@ const createPolyMap: CreateTransform = (domain, range, createInterpolate) => {
   };
 };
 
-/** 选择一个固定输入的函数 */
-const chooseClamp: CreateTransform = (domain, range, shouldClamp) => {
-  const n = Math.min(domain.length, range.length);
-  return shouldClamp ? createClamp(domain[0], domain[n - 1]) : identity;
-};
-
 /** 选择一个分段映射的函数 */
 const choosePiecewise: CreateTransform = (domain, range, interpolate, shouldRound?) => {
   const n = Math.min(domain.length, range.length);
@@ -66,10 +68,7 @@ const choosePiecewise: CreateTransform = (domain, range, interpolate, shouldRoun
 
 /**
  * Continuous 比例尺 的输入 x 和输出 y 满足：y = a * f(x) + b
- * 对于该类比例尺，根据配置选项的不同会在映射过程中存在一系列分支，
- * 在数据量大的情况下这是很影响性能的，
- * 所以通过函数柯里化和复合函数可以在映射过程中去掉分支，
- * 这样当配置选项更新的时候需要重新合成函数。
+ * 通过函数柯里化和复合函数可以在映射过程中去掉分支，提高性能。
  * 参考：https://github.com/d3/d3-scale/blob/master/src/continuous.js
  */
 export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
@@ -79,25 +78,15 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
   /** 实际上将 y 映射为 x 的函数 */
   protected input: Transform;
 
-  /** 在设置了选项后对 domain 进行优化 */
-  protected abstract nice(): void;
-
-  /** 从 domain 获得 ticks */
-  protected abstract getTicks(): Domain<O>[];
-
   /**
-   * 根据比例尺 和 options 选择对应的 transform 函数
-   * y = a * f(x) + b 中的 f(x)
+   * 根据比例尺 和 options 选择对应的 transform 和 untransform 函数
+   * y = a * f(x) + b
+   * x = a * f'(y) + b
+   * @returns [f(x), f'(y)]
    */
-  protected abstract chooseTransform(): Transform;
+  protected abstract chooseTransforms(): Transform[];
 
-  /**
-   * 根据比例尺 和 options 选择对应的 untransform 函数
-   * x = a * f'(y) + b 中的 f'(y)
-   */
-  protected abstract chooseUntransform(): Transform;
-
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions() {
     return {
       domain: [0, 1],
       range: [0, 1],
@@ -109,69 +98,60 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
     } as O;
   }
 
-  public map(x: Domain<O>) {
-    if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
-    if (!this.output) this.composeOutput();
-    return this.output(x);
-  }
-
-  public invert(x: Range<O>) {
-    if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
-    if (!this.input) this.composeInput();
-    return this.input(x);
-  }
-
-  /**
-   * 这里只要有选项更新，就是清除 input 和 output 函数。
-   *
-   * 更好的做法是，只有依赖选项更新时才清除 input 和 output 函数，
-   * 但是得到 input 和 output 的函数开销很小，所以这里选择简单的写法。
-   *
-   * 子类在这个函数中可能更新 transform 和 untransform
-   * @param options 更新的选项
-   */
-  public update(options: O) {
-    super.update(options);
-    this.input = undefined;
-    this.output = undefined;
-  }
-
-  protected niceDomain() {
-    if (this.options.nice) {
-      this.nice();
-    }
-  }
-
   /**
    * y = interpolate(normalize(transform(clamp(x))))
-   * clamp: x: [a, b] -> x: [d0, d1]
-   * transform: x: [d0, d1] -> x = f(x) : [f(d0),f(d1)]
-   * normalize: x: [f(d0), f(d1)] -> t: [0, 1]
-   * interpolate: t: [0, 1] -> y: [r0, r1]
    */
-  protected composeOutput() {
-    this.niceDomain();
-    const { clamp: shouldClamp, domain, round, range, interpolate } = this.options;
-    const clamp = chooseClamp(domain, range, shouldClamp);
-    const transform = this.chooseTransform();
-    const piecewise = choosePiecewise(domain.map(transform), range, interpolate, round);
-    this.output = compose(piecewise, transform, clamp);
+  public map(x: Domain<O>) {
+    if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
+    return this.output(x);
   }
 
   /**
    * x = clamp(untransform(interpolate(normalize(y))))
-   * normalize: y: [a, b] -> t: [0, 1]
-   * interpolate: t: [0, 1] -> x: [f(c), f(d)]
-   * untransform: x: [f(c), f(d)] -> x = f'(x) : [c, d]
-   * clamp: x: [c, d] -> x: [d0, d1]
    */
-  protected composeInput() {
-    this.niceDomain();
-    const { clamp: shouldClamp, domain, range, interpolate } = this.options;
-    const clamp = chooseClamp(domain, range, shouldClamp);
-    const untransform = this.chooseUntransform();
-    const transform = this.chooseTransform();
+  public invert(x: Range<O>) {
+    if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
+    return this.input(x);
+  }
+
+  protected nice() {
+    const { nice, domain } = this.options;
+    if (nice) {
+      this.options.domain = d3LinearNice(domain);
+    }
+  }
+
+  protected rescale() {
+    this.nice();
+    const clamp = this.chooseClamp();
+    const [transform, untransform] = this.chooseTransforms();
+    this.composeOutput(transform, clamp);
+    this.composeInput(transform, untransform, clamp);
+  }
+
+  protected chooseClamp() {
+    const { clamp: shouldClamp, domain, range } = this.options;
+    const n = Math.min(domain.length, range.length);
+    return shouldClamp ? createClamp(domain[0], domain[n - 1]) : identity;
+  }
+
+  protected composeOutput(transform: Transform, clamp: Transform) {
+    const { domain, range, round, interpolate } = this.options;
+    const piecewise = choosePiecewise(domain.map(transform), range, interpolate, round);
+    this.output = compose(piecewise, transform, clamp);
+  }
+
+  protected composeInput(transform: Transform, untransform: Transform, clamp: Transform) {
+    const { domain, range, interpolate } = this.options;
     const piecewise = choosePiecewise(range, domain.map(transform), interpolate);
     this.input = compose(clamp, untransform, piecewise);
+  }
+
+  public getTicks() {
+    const { tickCount, tickMethod, domain } = this.options;
+    const lastIndex = domain.length - 1;
+    const dMin = domain[0];
+    const dMax = domain[lastIndex];
+    return tickMethod(dMin, dMax, tickCount);
   }
 }

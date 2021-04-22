@@ -2,7 +2,7 @@ import { identity } from '@antv/util';
 import { Continuous, Transform } from './continuous';
 import { PowOptions } from '../types';
 import { Base } from './base';
-import { createInterpolate, d3LinearNice } from '../utils';
+import { createInterpolate } from '../utils';
 import { d3Linear } from '../tick-methods/d3-linear';
 
 const transformPow = (exponent: number) => {
@@ -28,7 +28,7 @@ const transformSqrt = (x: number) => {
  * 即 y = x ^ k 其中 k（指数）可以是任何实数。
  */
 export class Pow<O extends PowOptions> extends Continuous<O> {
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions() {
     return {
       domain: [0, 1],
       range: [0, 1],
@@ -47,33 +47,15 @@ export class Pow<O extends PowOptions> extends Continuous<O> {
     super(options as O);
   }
 
-  protected chooseTransform(): Transform {
+  protected chooseTransforms(): Transform[] {
     const { exponent } = this.options;
-    if (exponent === 1) {
-      return identity;
-    }
-    return exponent === 0.5 ? transformSqrt : transformPow(exponent);
-  }
-
-  protected chooseUntransform(): Transform {
-    const { exponent } = this.options;
-    return exponent === 1 ? identity : transformPowInvert(exponent);
+    if (exponent === 1) return [identity, identity];
+    const transform = exponent === 0.5 ? transformSqrt : transformPow(exponent);
+    const untransform = transformPowInvert(exponent);
+    return [transform, untransform];
   }
 
   public clone(): Base<O> {
     return new Pow<O>(this.options);
-  }
-
-  public getTicks() {
-    const { tickCount, domain, tickMethod } = this.options;
-    const lastIndex = domain.length - 1;
-    const min = domain[0];
-    const max = domain[lastIndex];
-    return tickMethod(min, max, tickCount);
-  }
-
-  protected nice() {
-    const { domain } = this.options;
-    this.options.domain = d3LinearNice(domain);
   }
 }

@@ -64,16 +64,16 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
  */
 export class Ordinal<O extends OrdinalOptions> extends Base<O> {
   // 定义域映射表
-  private domainIndexMap: Map<any, number> = new Map();
+  private domainIndexMap: Map<any, number>;
 
   // 值域映射表
-  private rangeIndexMap: Map<any, number> = new Map();
+  private rangeIndexMap: Map<any, number>;
 
   // 排序后的 domain
   protected sortedDomain: O['domain'];
 
   // 覆盖默认配置
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions() {
     return {
       domain: [],
       range: [],
@@ -85,17 +85,9 @@ export class Ordinal<O extends OrdinalOptions> extends Base<O> {
     super(options as O);
   }
 
-  private initDomainIndexMap() {
-    updateIndexMap(this.domainIndexMap, this.getDomain());
-  }
-
-  private initRangeIndexMap() {
-    updateIndexMap(this.rangeIndexMap, this.getRange());
-  }
-
   public map(x: Domain<O>) {
     if (this.domainIndexMap.size === 0) {
-      this.initDomainIndexMap();
+      updateIndexMap(this.domainIndexMap, this.getDomain());
     }
 
     return mapBetweenArrByMapIndex({
@@ -109,7 +101,7 @@ export class Ordinal<O extends OrdinalOptions> extends Base<O> {
 
   public invert(y: Range<O>) {
     if (this.rangeIndexMap.size === 0) {
-      this.initRangeIndexMap();
+      updateIndexMap(this.rangeIndexMap, this.getRange());
     }
 
     return mapBetweenArrByMapIndex({
@@ -121,15 +113,21 @@ export class Ordinal<O extends OrdinalOptions> extends Base<O> {
     });
   }
 
-  public update(options: Partial<O>) {
-    super.update(options);
-    // TODO: update 直接 clear 有点暴力，在实际情况下前后的数据应该是相似的, 有没有可能 diff 一下在对 Map 进行更新？
-    // 查看 range 和 domain, 是否更新，如果被更新，我们重置之
-    if (options.range) {
+  // 因为 ordinal 比例尺更新内部状态的开销较大，所以按需更新
+  protected rescale(options?: Partial<O>) {
+    // 如果 rangeIndexMap 没有初始化，说明是在初始化阶段
+    if (!this.rangeIndexMap) {
+      this.rangeIndexMap = new Map();
+      this.domainIndexMap = new Map();
+      return;
+    }
+
+    // 否者是在更新阶段
+    if (!options || options.range) {
       this.rangeIndexMap.clear();
     }
 
-    if (options.domain || options.compare) {
+    if (!options || options.domain || options.compare) {
       this.domainIndexMap.clear();
       this.sortedDomain = undefined;
     }

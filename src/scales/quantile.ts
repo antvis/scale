@@ -11,14 +11,14 @@ export class Quantile extends Threshold<QuantileOptions> {
   // 这里不能给 thresholds 赋值，否者会编译后，会在 constructor 后面执行：this.thresholds = []
   private thresholds: QuantileOptions['domain'];
 
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions(): QuantileOptions {
     return {
       domain: [],
       range: [],
       tickCount: 5,
       unknown: undefined,
       tickMethod: wilkinsonExtended,
-    } as QuantileOptions;
+    };
   }
 
   constructor(options?: QuantileOptions) {
