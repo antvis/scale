@@ -2,6 +2,13 @@ import { Base } from '../../../src/scales/base';
 import { BaseOptions, Domain, Range } from '../../../src/types';
 
 class Scale extends Base<BaseOptions> {
+  protected getDefaultOptions() {
+    return {
+      domain: [0, 1],
+      range: [0, 1],
+    };
+  }
+
   public map(x: Domain<BaseOptions>) {
     return x;
   }

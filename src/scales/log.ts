@@ -1,6 +1,6 @@
 import { Continuous } from './continuous';
-import { LogOptions, PowOptions } from '../types';
-import { createInterpolate, d3LinearNice } from '../utils';
+import { LogOptions } from '../types';
+import { createInterpolate } from '../utils';
 import { rPretty } from '../tick-methods/r-pretty';
 
 const reflect = (f) => {
@@ -33,7 +33,7 @@ const transformPow = (base: number, shouldReflect: boolean) => {
  * 构造一个线性的对数比例尺
  */
 export class Log extends Continuous<LogOptions> {
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions(): LogOptions {
     return {
       domain: [1, 10],
       range: [0, 1],
@@ -41,35 +41,16 @@ export class Log extends Continuous<LogOptions> {
       interpolate: createInterpolate,
       tickMethod: rPretty,
       tickCount: 5,
-    } as PowOptions;
+    };
   }
 
-  protected chooseTransform() {
+  protected chooseTransforms() {
     const { base, domain } = this.options;
-    const isReflect = domain[0] < 0;
-    return transformLog(base, isReflect);
-  }
-
-  protected chooseUntransform() {
-    const { base, domain } = this.options;
-    const isReflect = domain[0] < 0;
-    return transformPow(base, isReflect);
+    const shouldReflect = domain[0] < 0;
+    return [transformLog(base, shouldReflect), transformPow(base, shouldReflect)];
   }
 
   public clone(): Log {
     return new Log(this.options);
-  }
-
-  protected nice(): void {
-    const { domain } = this.options;
-    this.options.domain = d3LinearNice(domain);
-  }
-
-  public getTicks() {
-    const { tickCount, domain, tickMethod, base } = this.options;
-    const lastIndex = domain.length - 1;
-    const dMin = domain[0];
-    const dMax = domain[lastIndex];
-    return tickMethod(dMin, dMax, tickCount, base);
   }
 }

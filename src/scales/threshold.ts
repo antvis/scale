@@ -10,7 +10,7 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
   /** threshold 的数量 */
   protected n: number;
 
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions() {
     return {
       domain: [0.5],
       range: [0, 1],
@@ -19,7 +19,6 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
 
   constructor(options?: ThresholdOptions) {
     super(options as O);
-    this.rescale();
   }
 
   /**
@@ -43,11 +42,6 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
 
   public clone() {
     return new Threshold<O>(this.options);
-  }
-
-  public update(options?: O) {
-    super.update(options);
-    this.rescale();
   }
 
   protected rescale() {

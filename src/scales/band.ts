@@ -113,16 +113,16 @@ function getBandState(opt: BandStateOptions) {
  */
 export class Band<O extends BandOptions> extends Ordinal<O> {
   // 步长，见上图
-  private step: number = 0;
+  private step: number;
 
   // band 宽度
-  private bandWidth: number = 0;
+  private bandWidth: number;
 
   // 转换过的 range
   private adjustedRange: O['range'];
 
   // 覆盖默认配置
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions() {
     return {
       domain: [],
       range: [0, 1],
@@ -138,16 +138,10 @@ export class Band<O extends BandOptions> extends Ordinal<O> {
   // 显示指定 options 的类型为 OrdinalOptions，从而推断出 O 的类型
   constructor(options?: BandOptions) {
     super(options as O);
-    this.rescale();
   }
 
   public clone() {
     return new Band<O>(this.options);
-  }
-
-  public update(updateOptions: Partial<O>) {
-    super.update(updateOptions);
-    this.rescale();
   }
 
   public getStep() {
@@ -173,6 +167,7 @@ export class Band<O extends BandOptions> extends Ordinal<O> {
   }
 
   protected rescale() {
+    super.rescale();
     // 当用户配置了opt.padding 且非 0 时，我们覆盖已经设置的 paddingInner paddingOuter
     // 我们约定 padding 的优先级较 paddingInner 和 paddingOuter 高
     const { align, domain, range, round } = this.options;

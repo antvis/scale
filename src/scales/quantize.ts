@@ -10,14 +10,14 @@ export class Quantize extends Threshold<QuantizeOptions> {
   // 这里不能给 thresholds 赋值，否者会编译后，会在 constructor 后面执行：this.thresholds = []
   private thresholds: QuantizeOptions['domain'];
 
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions(): QuantizeOptions {
     return {
       domain: [0, 1],
       range: [0.5],
       nice: false,
       tickCount: 5,
       tickMethod: wilkinsonExtended,
-    } as QuantizeOptions;
+    };
   }
 
   constructor(options?: QuantizeOptions) {

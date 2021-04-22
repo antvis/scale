@@ -22,7 +22,7 @@ import { PointOptions, BandOptions } from '../types';
  */
 export class Point extends Band<PointOptions & BandOptions> {
   // 覆盖默认配置
-  protected getOverrideDefaultOptions() {
+  protected getDefaultOptions() {
     return {
       domain: [],
       range: [0, 1],
