@@ -39,5 +39,6 @@ describe('wilkinson-extended test', () => {
       0.00001,
       0.000012,
     ]);
+    expect(wilkinsonExtended(0, 0.000001, 6)).toStrictEqual([0, 0.0000002, 0.0000004, 0.0000006, 0.0000008, 0.000001]);
   });
 });
