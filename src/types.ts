@@ -84,7 +84,7 @@ export type LogOptions = ContinuousOptions<number> & {
 export type TimeOptions = ContinuousOptions<Date, number> & {
   tickInterval?: number;
   mask?: string;
-  utc?: false;
+  utc?: boolean;
 };
 
 /** OrdinalOptions 比例尺的选项 */

@@ -2,6 +2,18 @@ import { Time, TimeOptions } from '../../../src';
 import { d3Time } from '../../../src/tick-methods/time';
 import { createInterpolate, d3TimeNice } from '../../../src/utils';
 
+function UTC(
+  year: number,
+  month: number,
+  date: number = 1,
+  hours: number = 0,
+  minutes: number = 0,
+  seconds: number = 0,
+  ms: number = 0
+) {
+  return new Date(Date.UTC(year, month, date, hours, minutes, seconds, ms));
+}
+
 describe('Time', () => {
   test('has expected default options', () => {
     const time = new Time();
@@ -81,5 +93,108 @@ describe('Time', () => {
     expect(scale.getTicks()).toStrictEqual([]);
   });
 
-  test('getFormatter()', () => {});
+  test('options.mask specify the mask for getFormatter()', () => {
+    const time = new Time({
+      mask: '[Hello] YYYY',
+    });
+
+    const f = time.getFormatter();
+    expect(f(new Date(2021, 0, 1))).toBe('Hello 2021');
+  });
+
+  test('getFormatter() formats local milliseconds', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 11, 31, 23, 59, 59, 999);
+    expect(f(date)).toBe('.999');
+  });
+
+  test('getFormatter() formats local seconds', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 11, 31, 23, 59, 59);
+    expect(f(date)).toBe(':59');
+  });
+
+  test('getFormatter() formats local minutes', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 11, 31, 23, 59);
+    expect(f(date)).toBe('11:59');
+  });
+
+  test('getFormatter() formats local hours', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 11, 31, 23);
+    expect(f(date)).toBe('11 PM');
+  });
+
+  test('getFormatter() formats local days', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 3, 26);
+    expect(f(date)).toBe('Apr 26');
+  });
+
+  test('getFormatter() formats local weeks', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 3, 25);
+    expect(f(date)).toBe('Sun 25');
+  });
+
+  test('getFormatter() formats local month', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 3);
+    expect(f(date)).toBe('April');
+  });
+
+  test('getFormatter() formats local year', () => {
+    const f = new Time().getFormatter();
+    const date = new Date(2021, 0);
+    expect(f(date)).toBe('2021');
+  });
+
+  test('getFormatter() formats utc milliseconds', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 11, 31, 23, 59, 59, 999);
+    expect(f(date)).toBe('.999');
+  });
+
+  test('getFormatter() formats utc seconds', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 11, 31, 23, 59, 59);
+    expect(f(date)).toBe(':59');
+  });
+
+  test('getFormatter() formats utc minutes', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 11, 31, 23, 59);
+    expect(f(date)).toBe('11:59');
+  });
+
+  test('getFormatter() formats utc hours', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 11, 31, 23);
+    expect(f(date)).toBe('11 PM');
+  });
+
+  test('getFormatter() formats utc days', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 3, 26);
+    expect(f(date)).toBe('Apr 26');
+  });
+
+  test('getFormatter() formats utc weeks', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 3, 25);
+    expect(f(date)).toBe('Sun 25');
+  });
+
+  test('getFormatter() formats utc month', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 3);
+    expect(f(date)).toBe('April');
+  });
+
+  test('getFormatter() formats utc year', () => {
+    const f = new Time({ utc: true }).getFormatter();
+    const date = UTC(2021, 0);
+    expect(f(date)).toBe('2021');
+  });
 });
