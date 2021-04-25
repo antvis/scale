@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, clone } from '@antv/util';
 import { BaseOptions, Domain, Range, Unknown } from '../types';
 
 export abstract class Base<O extends BaseOptions> {
@@ -44,7 +44,7 @@ export abstract class Base<O extends BaseOptions> {
    * @returns 当前的所有选项
    */
   public getOptions(): O {
-    return this.options;
+    return clone(this.options);
   }
 
   /**

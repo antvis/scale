@@ -41,10 +41,15 @@ describe('Base', () => {
     expect(s.options.domain).toEqual([0, 10]);
   });
 
-  test('getOptions() return current Options', () => {
+  test('getOptions() return current and independent Options', () => {
     const s = new Scale();
+    const options = s.getOptions();
     // @ts-ignore
-    expect(s.options).toEqual(s.getOptions());
+    expect(s.options).toEqual(options);
+
+    const { domain } = options;
+    domain[0] = -1;
+    expect(s.getOptions().domain).toEqual([0, 1]);
   });
 
   test('update(options) update options', () => {
