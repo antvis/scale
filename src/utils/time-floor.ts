@@ -11,29 +11,48 @@ export type TimeFloorMap = {
   year: Floor;
 };
 
-export const millisecond: Floor = (d) => d;
+export const millisecond: Floor = (date) => date;
 
-export const second: Floor = (d) => new Date(d.setMilliseconds(0));
+export const second: Floor = (date) => {
+  const d = new Date(date);
+  d.setMilliseconds(0);
+  return d;
+};
 
-export const minute: Floor = (d) => new Date(d.setSeconds(0, 0));
+export const minute: Floor = (date) => {
+  const d = new Date(date);
+  d.setSeconds(0, 0);
+  return d;
+};
 
-export const hour: Floor = (d) => new Date(d.setMinutes(0, 0, 0));
+export const hour: Floor = (date) => {
+  const d = new Date(date);
+  d.setMinutes(0, 0, 0);
+  return d;
+};
 
-export const day: Floor = (d) => new Date(d.setHours(0, 0, 0, 0));
+export const day: Floor = (date) => {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  return d;
+};
 
-export const week: Floor = (d) => {
+export const week: Floor = (date) => {
+  const d = new Date(date);
   d.setDate(d.getDate() - (d.getDay() % 7));
   d.setHours(0, 0, 0, 0);
   return d;
 };
 
-export const month: Floor = (d) => {
+export const month: Floor = (date) => {
+  const d = new Date(date);
   d.setDate(1);
   d.setHours(0, 0, 0, 0);
   return d;
 };
 
-export const year: Floor = (d) => {
+export const year: Floor = (date) => {
+  const d = new Date(date);
   d.setMonth(0, 1);
   d.setHours(0, 0, 0, 0);
   return d;
