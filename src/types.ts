@@ -1,6 +1,8 @@
 /** 获得 ticks 的方法 */
 export type TickMethod = (min: number, max: number, n?: number, ...rest: any[]) => number[];
 
+export type NiceMethod = (min: number, max: number, n?: number) => number[];
+
 /** 插值器工厂 */
 export type Interpolate = (a: number, b: number) => (t: number) => number;
 
@@ -48,7 +50,7 @@ export type IdentityOptions = BaseOptions<number> & TickOptions;
 export type ConstantOptions = BaseOptions<number | string>;
 
 /** Continuous 比例尺的选项 */
-export type ContinuousOptions = BaseOptions<number> &
+export type ContinuousOptions<D = any, R = D> = BaseOptions<D, R> &
   TickOptions & {
     /** 是否需要对定义域的范围进行优化 */
     nice?: boolean;
@@ -61,10 +63,10 @@ export type ContinuousOptions = BaseOptions<number> &
   };
 
 /** Linear 比例尺的选项 */
-export type LinearOptions = ContinuousOptions;
+export type LinearOptions = ContinuousOptions<number>;
 
 /** Pow 比例尺的选项 */
-export type PowOptions = ContinuousOptions & {
+export type PowOptions = ContinuousOptions<number> & {
   /** 指数 */
   exponent?: number;
 };
@@ -73,9 +75,16 @@ export type PowOptions = ContinuousOptions & {
 export type SqrtOptions = Omit<PowOptions, 'exponent'>;
 
 /** Log 比例尺的选项 */
-export type LogOptions = ContinuousOptions & {
+export type LogOptions = ContinuousOptions<number> & {
   /** 底数 */
   base?: number;
+};
+
+/** time 比例尺的选项 */
+export type TimeOptions = ContinuousOptions<Date, number> & {
+  tickInterval?: number;
+  mask?: string;
+  utc?: false;
 };
 
 /** OrdinalOptions 比例尺的选项 */

@@ -1,0 +1,85 @@
+import { Time, TimeOptions } from '../../../src';
+import { d3Time } from '../../../src/tick-methods/time';
+import { createInterpolate, d3TimeNice } from '../../../src/utils';
+
+describe('Time', () => {
+  test('has expected default options', () => {
+    const time = new Time();
+    const { interpolate, tickMethod, ...options } = time.getOptions();
+
+    expect(options).toEqual({
+      domain: [new Date(2000, 0, 1), new Date(2000, 0, 2)],
+      range: [0, 1],
+      nice: false,
+      tickCount: 10,
+      tickInterval: undefined,
+      unknown: undefined,
+      clamp: false,
+      mask: undefined,
+      utc: false,
+    });
+
+    expect(tickMethod).toBe(d3Time);
+    expect(interpolate).toBe(createInterpolate);
+  });
+
+  test('map(x) coerces x to timestamp if x is Date Object', () => {
+    const options: TimeOptions = {
+      range: [0, 960],
+    };
+    const time = new Time(options);
+
+    expect(time.map(new Date(2000, 0, 1, 5))).toBe(200);
+    expect(time.map(new Date(2000, 0, 1, 16))).toBe(640);
+  });
+
+  test('map(x) return options.unknown if x can not coerces to number', () => {
+    const time = new Time({
+      unknown: 'dirty',
+    });
+
+    expect(time.map(undefined)).toBe('dirty');
+
+    // @ts-ignore
+    expect(time.map(NaN)).toBe('dirty');
+  });
+
+  test('invert(x)', () => {
+    const time = new Time({
+      range: [0, 960],
+    });
+
+    expect(time.invert(200)).toEqual(new Date(2000, 0, 1, 5));
+    expect(time.invert(640)).toEqual(new Date(2000, 0, 1, 16));
+  });
+
+  test('clone()', () => {
+    const time = new Time();
+    const time1 = time.clone();
+
+    expect(time.getOptions()).toEqual(time1.getOptions());
+    expect(time.getOptions()).not.toBe(time1.getOptions());
+    expect(time1).toBeInstanceOf(Time);
+  });
+
+  test('chooseNice() return d3TimeNice', () => {
+    const time = new Time();
+
+    // @ts-ignore
+    expect(time.chooseNice()).toBe(d3TimeNice);
+  });
+
+  test('getTicks() calls options.tickMethod and return its return value', () => {
+    const scale = new Time({
+      tickMethod: (min, max, count) => {
+        expect(min).toEqual(new Date(2000, 0, 1));
+        expect(max).toEqual(new Date(2000, 0, 2));
+        expect(count).toBe(10);
+        return [];
+      },
+    });
+    expect(scale.getTicks()).toStrictEqual([]);
+  });
+
+  test('getFormatter()', () => {});
+});
