@@ -11,7 +11,7 @@ export type TimeFloorMap = {
   year: Floor;
 };
 
-export const millisecond: Floor = (date) => date;
+export const millisecond: Floor = (date) => new Date(date);
 
 export const second: Floor = (date) => {
   const d = new Date(date);

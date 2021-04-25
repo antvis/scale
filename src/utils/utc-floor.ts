@@ -1,6 +1,6 @@
 import { Floor, TimeFloorMap } from './time-floor';
 
-export const utcMillisecond: Floor = (date) => date;
+export const utcMillisecond: Floor = (date) => new Date(date);
 
 export const utcSecond: Floor = (date) => {
   const d = new Date(date);
