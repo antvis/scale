@@ -47,9 +47,8 @@ describe('Base', () => {
     // @ts-ignore
     expect(s.options).toEqual(options);
 
-    const { domain } = options;
-    domain[0] = -1;
-    expect(s.getOptions().domain).toEqual([0, 1]);
+    // @ts-ignore
+    expect(s.options).not.toBe(options);
   });
 
   test('update(options) update options', () => {
