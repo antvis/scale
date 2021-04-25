@@ -8,7 +8,7 @@ describe('log scale test', () => {
     expect(domain).toStrictEqual([1, 10]);
     expect(range).toStrictEqual([0, 1]);
     expect(round).toBeFalsy();
-    expect(tickCount).toStrictEqual(5);
+    expect(tickCount).toStrictEqual(10);
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
@@ -77,7 +77,7 @@ describe('log scale test', () => {
       tickMethod: (min, max, count) => {
         expect(min).toBe(1);
         expect(max).toBe(120);
-        expect(count).toBe(5);
+        expect(count).toBe(10);
         return [];
       },
     });

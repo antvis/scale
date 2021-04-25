@@ -118,7 +118,7 @@ describe('pow scales', () => {
     // 调用 map 之后才会触发 nice
     expect(scale.map(0)).toStrictEqual(0);
 
-    expect(scale.getOptions().domain).toStrictEqual([0, 11]);
+    expect(scale.getOptions().domain).toStrictEqual([0, 12]);
   });
 
   test('test clone method', () => {
