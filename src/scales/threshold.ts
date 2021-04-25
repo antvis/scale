@@ -1,7 +1,6 @@
-import { isNumber } from '@antv/util';
 import { Base } from './base';
 import { Domain, ThresholdOptions, Range } from '../types';
-import { bisect } from '../utils';
+import { bisect, isValid } from '../utils';
 
 /**
  * 将连续的定义域分段，每一段所有的值对应离散的值域中一个值
@@ -25,7 +24,7 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
    * 二分查找到输入值在哪一段，返回对应的值域中的值
    */
   public map(x: Domain<ThresholdOptions>) {
-    if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
+    if (!isValid(x)) return this.options.unknown;
     const index = bisect(this.getDomain(), x, 0, this.n);
     return this.options.range[index];
   }
