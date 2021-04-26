@@ -51,6 +51,6 @@ export class Identity extends Base<IdentityOptions> {
   public getTicks(): Range<IdentityOptions>[] {
     const { domain, tickCount, tickMethod } = this.options;
     const [min, max] = domain;
-    return tickMethod(min, max, tickCount);
+    return tickMethod(min, max, tickCount) as number[];
   }
 }
