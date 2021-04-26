@@ -53,7 +53,7 @@ x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 - [x] [Log](./docs/scales/log.md)
 - [x] [Sqrt](./docs/scales/sqrt.md)
 - [x] [Pow](./docs/scales/pow.md)
-- [ ] Time
+- [x] [Time](./docs/scales/time.md)
 - [x] [Quantize](./docs/scales/quantize.md)
 - [x] [Quantile](./docs/scales/quantile.md)
 - [x] [Threshold](./docs/scales/threshold.md)
