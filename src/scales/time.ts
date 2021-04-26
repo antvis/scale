@@ -18,7 +18,7 @@ export class Time extends Continuous<TimeOptions> {
       domain: [new Date(2000, 0, 1), new Date(2000, 0, 2)],
       range: [0, 1],
       nice: false,
-      tickCount: 10,
+      tickCount: 5,
       tickInterval: undefined,
       unknown: undefined,
       clamp: false,

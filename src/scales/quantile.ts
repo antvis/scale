@@ -15,7 +15,7 @@ export class Quantile extends Threshold<QuantileOptions> {
     return {
       domain: [],
       range: [],
-      tickCount: 10,
+      tickCount: 5,
       unknown: undefined,
       tickMethod: wilkinsonExtended,
     };

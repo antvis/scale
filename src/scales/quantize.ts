@@ -15,7 +15,7 @@ export class Quantize extends Threshold<QuantizeOptions> {
       domain: [0, 1],
       range: [0.5],
       nice: false,
-      tickCount: 10,
+      tickCount: 5,
       tickMethod: wilkinsonExtended,
     };
   }
