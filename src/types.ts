@@ -92,7 +92,10 @@ export type TimeOptions = ContinuousOptions<Date, number> & {
 };
 
 /** OrdinalOptions 比例尺的选项 */
-export type OrdinalOptions = BaseOptions<number | string> & { compare?: Comparator };
+export type OrdinalOptions = BaseOptions<number | string> & {
+  /** 比较器 */
+  compare?: Comparator;
+};
 
 /** 详细请参阅 scale/band.ts */
 export type BandOptions = BaseOptions<number | string, number> & {
@@ -125,3 +128,66 @@ export type QuantizeOptions = ThresholdOptions &
 
 /** Quantile 比例尺的选项 */
 export type QuantileOptions = ThresholdOptions & TickOptions;
+
+/** scaleConfig 类型定义透出 */
+export type ScaleOptions = Partial<{
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown: any;
+
+  /** 值域，默认为 [0, 1] */
+  range: any[];
+
+  /** 定义域，默认为 [0, 1] */
+  domain: any[];
+
+  /** 底数 */
+  base: number;
+
+  /** 指数 */
+  exponent: number;
+
+  /** 自动调整 domain */
+  nice: boolean;
+
+  /** 用于指定tick，优先级最高 */
+  ticks: any[];
+
+  /** tick 个数，默认值为 5 */
+  tickCount: number;
+
+  /** 计算 ticks 的算法 */
+  tickMethod: TickMethod<any>;
+
+  /** 是否需要限制输入的范围在值域内 */
+  clamp: boolean;
+
+  /** 是否需要对输出进行四舍五入 */
+  round: boolean;
+
+  /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
+  interpolate: Interpolate;
+
+  /** getTick 的时间间隔 */
+  tickInterval: number;
+
+  /** 格式化的形式 */
+  mask: string;
+
+  /** 是否是 utc 时间 */
+  utc: boolean;
+
+  /** 内部边距 */
+  paddingInner: number;
+
+  /** 两侧边距 */
+  paddingOuter: number;
+
+  /** 同时定义内部边距和两侧边距，如果该值大于 0，则 paddingInner 和 paddingOuter 无效 */
+  padding: number;
+
+  /** 对齐，取值为 0 - 1 的整数，例如 0.5 表示居中 */
+  align: number;
+
+  /** 比较器，用于对 domain 进行排序 */
+  compare: Comparator;
+}>;
