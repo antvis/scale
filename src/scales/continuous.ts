@@ -95,7 +95,7 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickCount: 10,
+      tickCount: 5,
     } as O;
   }
 

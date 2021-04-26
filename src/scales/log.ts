@@ -40,7 +40,7 @@ export class Log extends Continuous<LogOptions> {
       base: 10,
       interpolate: createInterpolate,
       tickMethod: rPretty,
-      tickCount: 10,
+      tickCount: 5,
     };
   }
 

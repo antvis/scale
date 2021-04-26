@@ -4,7 +4,7 @@
 import { tickIncrement } from './tick-utils';
 import { NiceMethod } from '../types';
 
-export const d3LinearNice: NiceMethod = (min: number, max: number, count: number = 10) => {
+export const d3LinearNice: NiceMethod = (min: number, max: number, count: number = 5) => {
   const d = [min, max];
   let i0 = 0;
   let i1 = d.length - 1;
