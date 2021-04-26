@@ -219,52 +219,53 @@ export type Scale = {
 
   /**
    * 更新选项和比例尺的内部状态
+   *
    * @param updateOptions 需要更新的选项
    */
   update?: (updateOptions: ScaleOptions) => void;
 
   /**
-   *
+   * 获取步长
    */
   getStep?: () => number;
 
   /**
-   *
+   *获取 band 的宽度
    */
   getBandWidth?: () => number;
 
   /**
-   *
+   *获取定义域
    */
   getDomain?: () => any[];
 
   /**
-   *
+   *获取值域
    */
   getRange?: () => any[];
 
   /**
-   *
+   * 获取 ticks
    */
   getTicks?: () => any[];
 
   /**
-   *
+   *获取 band 的两侧边距
    */
   getPaddingOuter?: () => number;
 
   /**
-   *
+   * 获取 band item 之间的距离
    */
   getPaddingInner?: () => number;
 
   /**
-   *
+   * 获取临界点结集合
    */
   getThresholds?: () => any[];
 
   /**
-   *
+   * 获取格式化函数
    */
   getFormatter?: () => (d: Date) => string;
 };
