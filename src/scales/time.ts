@@ -49,7 +49,8 @@ export class Time extends Continuous<TimeOptions> {
   public getFormatter() {
     const { mask, utc } = this.options;
     const maskMap = utc ? utcIntervalMap : localIntervalMap;
-    const time = utc ? offset : identity; // fecha 不支持 utc 格式化，所以需要设置一个偏移
+    // fecha 不支持 utc 格式化，所以需要设置一个偏移
+    const time = utc ? offset : identity;
     return (d: Date) => format(time(d), mask || chooseNiceTimeMask(d, maskMap));
   }
 

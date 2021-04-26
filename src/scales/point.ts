@@ -40,10 +40,6 @@ export class Point extends Band<PointOptions & BandOptions> {
     super(options);
   }
 
-  protected getPaddingInner() {
-    return this.options.paddingInner;
-  }
-
   public clone() {
     return new Point(this.options);
   }
@@ -52,7 +48,11 @@ export class Point extends Band<PointOptions & BandOptions> {
     super.update(options);
   }
 
-  protected getPaddingOuter() {
+  public getPaddingOuter() {
     return this.options.padding;
+  }
+
+  public getPaddingInner() {
+    return this.options.paddingInner;
   }
 }

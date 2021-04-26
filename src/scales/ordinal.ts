@@ -137,7 +137,7 @@ export class Ordinal<O extends OrdinalOptions> extends Base<O> {
     return new Ordinal<O>(this.options);
   }
 
-  protected getRange() {
+  public getRange() {
     return this.options.range;
   }
 

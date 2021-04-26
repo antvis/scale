@@ -191,3 +191,80 @@ export type ScaleOptions = Partial<{
   /** 比较器，用于对 domain 进行排序 */
   compare: Comparator;
 }>;
+
+/** scale 定义透出 */
+export interface Scale {
+  /**
+   * 将定义域里面的一个值，根据转换规则，转换为值域的一个值。
+   * 如果该值不合法，则返回 options.unknown
+   * @param x 需要转换的值
+   */
+  map?: (x: any) => any;
+
+  /**
+   * 将值域里的一个值，据转换规则，逆向转换为定义域里的一个值或者一个区间
+   * @param y 需要转换的值
+   */
+  invert?: (y: any) => any;
+
+  /**
+   * 克隆一个新的比例尺，可以用于更新选项
+   */
+  clone?: () => Scale;
+
+  /**
+   * 返回当前的所有选项
+   */
+  getOptions?: () => ScaleOptions;
+
+  /**
+   * 更新选项和比例尺的内部状态
+   * @param updateOptions 需要更新的选项
+   */
+  update?: (updateOptions: ScaleOptions) => void;
+
+  /**
+   *
+   */
+  getStep?: () => number;
+
+  /**
+   *
+   */
+  getBandWidth?: () => number;
+
+  /**
+   *
+   */
+  getDomain?: () => any[];
+
+  /**
+   *
+   */
+  getRange?: () => any[];
+
+  /**
+   *
+   */
+  getTicks?: () => any[];
+
+  /**
+   *
+   */
+  getPaddingOuter?: () => number;
+
+  /**
+   *
+   */
+  getPaddingInner?: () => number;
+
+  /**
+   *
+   */
+  getThresholds?: () => any[];
+
+  /**
+   *
+   */
+  getFormatter?: () => (d: Date) => string;
+}
