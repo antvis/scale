@@ -137,11 +137,11 @@ export class Ordinal<O extends OrdinalOptions> extends Base<O> {
     return new Ordinal<O>(this.options);
   }
 
-  public getRange() {
+  protected getRange() {
     return this.options.range;
   }
 
-  public getDomain() {
+  protected getDomain() {
     // 如果设置了比较器，就排序
     if (this.sortedDomain) return this.sortedDomain;
 

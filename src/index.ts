@@ -20,7 +20,6 @@ export { wilkinsonExtended } from './tick-methods/wilkinson-extended';
 
 // scales types
 export type {
-  Scale,
   BaseOptions,
   BandOptions,
   OrdinalOptions,
