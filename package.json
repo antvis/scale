@@ -82,12 +82,12 @@
   "limit-size": [
     {
       "path": "dist/scale.min.js",
-      "limit": "6 Kb",
+      "limit": "8 Kb",
       "gzip": true
     },
     {
       "path": "dist/scale.min.js",
-      "limit": "30 Kb"
+      "limit": "24 Kb"
     }
   ],
   "author": {
