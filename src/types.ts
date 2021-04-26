@@ -193,7 +193,7 @@ export type ScaleOptions = Partial<{
 }>;
 
 /** scale 定义透出 */
-export interface Scale {
+export type Scale = {
   /**
    * 将定义域里面的一个值，根据转换规则，转换为值域的一个值。
    * 如果该值不合法，则返回 options.unknown
@@ -267,4 +267,4 @@ export interface Scale {
    *
    */
   getFormatter?: () => (d: Date) => string;
-}
+};
