@@ -32,7 +32,7 @@ export class Quantize extends Threshold<QuantizeOptions> {
     const { nice } = this.options;
     if (nice) {
       const [min, max, tickCount] = this.getTickMethodOptions();
-      this.options.domain = d3LinearNice(min, max, tickCount) as number[];
+      this.options.domain = d3LinearNice(min, max, tickCount);
     }
   }
 

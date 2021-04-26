@@ -1,5 +1,5 @@
 /** 获得 ticks 的方法 */
-export type TickMethod = (min: number | Date, max: number | Date, n?: number, ...rest: any[]) => (number | Date)[];
+export type TickMethod<T = number> = (min: T, max: T, n?: number, ...rest: any[]) => T[];
 
 /** nice domain 的方法 */
 export type NiceMethod = TickMethod;
@@ -28,11 +28,11 @@ export type BaseOptions<D = any, R = D> = {
  * 支持 getTicks 的比例尺的选项
  * T：tickMethod 配置项的类型
  */
-export type TickOptions = {
+export type TickOptions<T = number> = {
   /** tick 个数，默认值为 5 */
   tickCount?: number;
   /** 计算 ticks 的算法 */
-  tickMethod?: TickMethod;
+  tickMethod?: TickMethod<T>;
 };
 
 /** 获得比例尺选项中定义域元素的类型 */
@@ -52,7 +52,7 @@ export type ConstantOptions = BaseOptions<number | string>;
 
 /** Continuous 比例尺的选项 */
 export type ContinuousOptions<D = any, R = D> = BaseOptions<D, R> &
-  TickOptions & {
+  TickOptions<D> & {
     /** 是否需要对定义域的范围进行优化 */
     nice?: boolean;
     /** 是否需要限制输入的范围在值域内 */
