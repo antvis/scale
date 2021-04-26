@@ -23,7 +23,7 @@ describe('Time', () => {
       domain: [new Date(2000, 0, 1), new Date(2000, 0, 2)],
       range: [0, 1],
       nice: false,
-      tickCount: 10,
+      tickCount: 5,
       tickInterval: undefined,
       unknown: undefined,
       clamp: false,
@@ -87,7 +87,7 @@ describe('Time', () => {
       tickMethod: (min, max, count, interval) => {
         expect(min).toEqual(new Date(2000, 0, 1));
         expect(max).toEqual(new Date(2000, 0, 2));
-        expect(count).toBe(10);
+        expect(count).toBe(5);
         expect(interval).toBe(100);
         return [];
       },

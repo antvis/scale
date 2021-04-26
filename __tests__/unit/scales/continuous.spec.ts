@@ -41,7 +41,7 @@ describe('Continuous', () => {
       clamp: false,
       nice: false,
       round: false,
-      tickCount: 10,
+      tickCount: 5,
     });
 
     expect(interpolate).toEqual(createInterpolate);

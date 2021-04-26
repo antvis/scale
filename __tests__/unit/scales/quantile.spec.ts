@@ -10,7 +10,7 @@ describe('Threshold', () => {
       domain: [],
       range: [],
       unknown: undefined,
-      tickCount: 10,
+      tickCount: 5,
     });
 
     // @ts-ignore
@@ -82,7 +82,7 @@ describe('Threshold', () => {
       tickMethod: (min, max, count) => {
         expect(min).toBe(0);
         expect(max).toBe(100);
-        expect(count).toBe(10);
+        expect(count).toBe(5);
         return [];
       },
     });
