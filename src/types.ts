@@ -2,7 +2,7 @@
 export type TickMethod<T = number> = (min: T, max: T, n?: number, ...rest: any[]) => T[];
 
 /** nice domain 的方法 */
-export type NiceMethod = TickMethod;
+export type NiceMethod<T = number> = TickMethod<T>;
 
 /** 插值器工厂 */
 export type Interpolate = (a: number, b: number) => (t: number) => number;

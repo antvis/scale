@@ -1,6 +1,6 @@
 import { identity } from '@antv/util';
 import { Base } from './base';
-import { ContinuousOptions, Domain, Range } from '../types';
+import { ContinuousOptions, Domain, Range, NiceMethod } from '../types';
 import {
   createInterpolate,
   createInterpolateRound,
@@ -136,7 +136,7 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
     return [min, max, tickCount];
   }
 
-  protected chooseNice() {
+  protected chooseNice(): NiceMethod<number | Date> {
     return d3LinearNice;
   }
 
