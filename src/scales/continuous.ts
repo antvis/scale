@@ -118,22 +118,22 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
   protected nice() {
     const { nice } = this.options;
     if (nice) {
-      const { min, max, tickCount, ...rest } = this.getTickMethodOptions();
-      this.options.domain = this.chooseNice()(min, max, tickCount, rest);
+      const [min, max, tickCount, ...rest] = this.getTickMethodOptions();
+      this.options.domain = this.chooseNice()(min, max, tickCount, ...rest);
     }
   }
 
   public getTicks() {
     const { tickMethod } = this.options;
-    const { min, max, tickCount, ...rest } = this.getTickMethodOptions();
-    return tickMethod(min, max, tickCount, rest);
+    const [min, max, tickCount, ...rest] = this.getTickMethodOptions();
+    return tickMethod(min, max, tickCount, ...rest);
   }
 
   protected getTickMethodOptions() {
     const { domain, tickCount } = this.options;
     const min = domain[0];
     const max = domain[domain.length - 1];
-    return { min, max, tickCount };
+    return [min, max, tickCount];
   }
 
   protected chooseNice() {

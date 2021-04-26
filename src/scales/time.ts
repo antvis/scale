@@ -43,7 +43,7 @@ export class Time extends Continuous<TimeOptions> {
     const { domain, tickCount, tickInterval } = this.options;
     const min = domain[0];
     const max = domain[domain.length - 1];
-    return { min, max, tickCount, tickInterval };
+    return [min, max, tickCount, tickInterval];
   }
 
   public getFormatter() {

@@ -98,9 +98,9 @@ describe('Time', () => {
   test('nice domain if options.nice === true', () => {
     const scale = new Time({
       nice: true,
-      domain: [],
+      domain: [new Date(2020, 4, 5), new Date(2020, 4, 10)],
     });
-    expect(scale.getOptions().domain).toEqual([]);
+    expect(scale.getOptions().domain).toEqual([new Date(2020, 4, 5), new Date(2020, 4, 10)]);
   });
 
   test('options.mask specify the mask for getFormatter()', () => {
