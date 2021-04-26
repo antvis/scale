@@ -116,12 +116,24 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
   }
 
   protected nice() {
-    const { nice, tickCount, domain } = this.options;
+    const { nice } = this.options;
     if (nice) {
-      const min = domain[0];
-      const max = domain[domain.length - 1];
-      this.options.domain = this.chooseNice()(min, max, tickCount);
+      const { min, max, tickCount, ...rest } = this.getTickMethodOptions();
+      this.options.domain = this.chooseNice()(min, max, tickCount, rest);
     }
+  }
+
+  public getTicks() {
+    const { tickMethod } = this.options;
+    const { min, max, tickCount, ...rest } = this.getTickMethodOptions();
+    return tickMethod(min, max, tickCount, rest);
+  }
+
+  protected getTickMethodOptions() {
+    const { domain, tickCount } = this.options;
+    const min = domain[0];
+    const max = domain[domain.length - 1];
+    return { min, max, tickCount };
   }
 
   protected chooseNice() {
@@ -152,13 +164,5 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
     const { domain, range, interpolate } = this.options;
     const piecewise = choosePiecewise(range, domain.map(transform), interpolate);
     this.input = compose(untransform, clamp, piecewise);
-  }
-
-  public getTicks() {
-    const { tickCount, tickMethod, domain } = this.options;
-    const lastIndex = domain.length - 1;
-    const dMin = domain[0];
-    const dMax = domain[lastIndex];
-    return tickMethod(dMin, dMax, tickCount);
   }
 }

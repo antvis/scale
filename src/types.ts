@@ -1,7 +1,8 @@
 /** 获得 ticks 的方法 */
-export type TickMethod = (min: number, max: number, n?: number, ...rest: any[]) => number[];
+export type TickMethod = (min: number | Date, max: number | Date, n?: number, ...rest: any[]) => (number | Date)[];
 
-export type NiceMethod = (min: number, max: number, n?: number) => number[];
+/** nice domain 的方法 */
+export type NiceMethod = TickMethod;
 
 /** 插值器工厂 */
 export type Interpolate = (a: number, b: number) => (t: number) => number;
@@ -82,8 +83,11 @@ export type LogOptions = ContinuousOptions<number> & {
 
 /** time 比例尺的选项 */
 export type TimeOptions = ContinuousOptions<Date, number> & {
+  /** getTick 的时间间隔 */
   tickInterval?: number;
+  /** 格式化的形式 */
   mask?: string;
+  /** 是否是 utc 时间 */
   utc?: boolean;
 };
 
@@ -115,6 +119,7 @@ export type ThresholdOptions = BaseOptions<number, any>;
 /** Quantize 比例尺的选项 */
 export type QuantizeOptions = ThresholdOptions &
   TickOptions & {
+    /** 是否需要 nice */
     nice?: boolean;
   };
 

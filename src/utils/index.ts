@@ -6,6 +6,7 @@ export { bisect } from './bisect';
 export { d3LinearNice } from './d3-linear-nice';
 export { d3TimeNice } from './d3-time-nice';
 export { isValid } from './is-valid';
+
 export {
   DURATION_SECOND,
   DURATION_MINUTE,
@@ -14,9 +15,18 @@ export {
   DURATION_WEEK,
   DURATION_MONTH,
   DURATION_YEAR,
-} from './time-duration';
+  millisecond,
+  second,
+  minute,
+  hour,
+  day,
+  week,
+  month,
+  year,
+  localIntervalMap,
+} from './time-interval';
 
-export { millisecond, second, minute, hour, day, week, month, year, timeFloorMap } from './time-floor';
+export type { Interval, IntervalMap } from './time-interval';
 
 export {
   utcMillisecond,
@@ -27,7 +37,7 @@ export {
   utcWeek,
   utcMonth,
   utcYear,
-  utcFloorMap,
-} from './utc-floor';
+  utcIntervalMap,
+} from './utc-interval';
 
 export { chooseNiceTimeMask } from './choose-mask';

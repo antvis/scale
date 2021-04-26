@@ -1,15 +1,15 @@
-import { TimeFloorMap } from './time-floor';
+import { IntervalMap } from './time-interval';
 
-export function chooseNiceTimeMask(date: Date, floorMap: TimeFloorMap): string {
-  const { second, minute, hour, day, week, month, year } = floorMap;
-  if (second(date) < date) return '.SSS';
-  if (minute(date) < date) return ':ss';
-  if (hour(date) < date) return 'hh:mm';
-  if (day(date) < date) return 'hh A';
-  if (month(date) < date) {
-    if (week(date) < date) return 'MMM DD';
+export function chooseNiceTimeMask(date: Date, intervalMap: IntervalMap): string {
+  const { second, minute, hour, day, week, month, year } = intervalMap;
+  if (second.floor(date) < date) return '.SSS';
+  if (minute.floor(date) < date) return ':ss';
+  if (hour.floor(date) < date) return 'hh:mm';
+  if (day.floor(date) < date) return 'hh A';
+  if (month.floor(date) < date) {
+    if (week.floor(date) < date) return 'MMM DD';
     return 'ddd DD';
   }
-  if (year(date) < date) return 'MMMM';
+  if (year.floor(date) < date) return 'MMMM';
   return 'YYYY';
 }

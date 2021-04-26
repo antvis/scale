@@ -3,9 +3,9 @@ import { format } from 'fecha';
 import { Continuous } from './continuous';
 import { TimeOptions } from '../types';
 import { d3Time } from '../tick-methods/time';
-import { d3TimeNice, createInterpolate, timeFloorMap, utcFloorMap, chooseNiceTimeMask } from '../utils';
+import { d3TimeNice, createInterpolate, localIntervalMap, utcIntervalMap, chooseNiceTimeMask } from '../utils';
 
-function offset(date: Date) {
+function offset(date: Date): Date {
   const minuteOffset = date.getTimezoneOffset();
   const d = new Date(date);
   d.setMinutes(d.getMinutes() + minuteOffset, d.getSeconds(), d.getMilliseconds());
@@ -39,9 +39,16 @@ export class Time extends Continuous<TimeOptions> {
     return d3TimeNice;
   }
 
+  protected getTickMethodOptions() {
+    const { domain, tickCount, tickInterval } = this.options;
+    const min = domain[0];
+    const max = domain[domain.length - 1];
+    return { min, max, tickCount, tickInterval };
+  }
+
   public getFormatter() {
     const { mask, utc } = this.options;
-    const maskMap = utc ? utcFloorMap : timeFloorMap;
+    const maskMap = utc ? utcIntervalMap : localIntervalMap;
     const time = utc ? offset : identity; // fecha 不支持 utc 格式化，所以需要设置一个偏移
     return (d: Date) => format(time(d), mask || chooseNiceTimeMask(d, maskMap));
   }
