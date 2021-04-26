@@ -2,13 +2,14 @@
 // https://github.com/d3/d3-scale
 
 import { tickIncrement } from './tick-utils';
+import { NiceMethod } from '../types';
 
-export function d3LinearNice(domain: number[], count: number = 10) {
-  const d = domain.slice();
+export const d3LinearNice: NiceMethod = (min: number, max: number, count: number = 10) => {
+  const d = [min, max];
   let i0 = 0;
-  let i1 = domain.length - 1;
-  let start = domain[i0];
-  let stop = domain[i1];
+  let i1 = d.length - 1;
+  let start = d[i0];
+  let stop = d[i1];
   let step;
 
   if (stop < start) {
@@ -35,4 +36,4 @@ export function d3LinearNice(domain: number[], count: number = 10) {
     d[i1] = Math.floor(stop * step) / step;
   }
   return d;
-}
+};

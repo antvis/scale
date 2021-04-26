@@ -1,5 +1,8 @@
 /** 获得 ticks 的方法 */
-export type TickMethod = (min: number, max: number, n?: number, ...rest: any[]) => number[];
+export type TickMethod<T = number> = (min: T, max: T, n?: number, ...rest: any[]) => T[];
+
+/** nice domain 的方法 */
+export type NiceMethod<T = number> = TickMethod<T>;
 
 /** 插值器工厂 */
 export type Interpolate = (a: number, b: number) => (t: number) => number;
@@ -25,11 +28,11 @@ export type BaseOptions<D = any, R = D> = {
  * 支持 getTicks 的比例尺的选项
  * T：tickMethod 配置项的类型
  */
-export type TickOptions = {
+export type TickOptions<T = number> = {
   /** tick 个数，默认值为 5 */
   tickCount?: number;
   /** 计算 ticks 的算法 */
-  tickMethod?: TickMethod;
+  tickMethod?: TickMethod<T>;
 };
 
 /** 获得比例尺选项中定义域元素的类型 */
@@ -48,8 +51,8 @@ export type IdentityOptions = BaseOptions<number> & TickOptions;
 export type ConstantOptions = BaseOptions<number | string>;
 
 /** Continuous 比例尺的选项 */
-export type ContinuousOptions = BaseOptions<number> &
-  TickOptions & {
+export type ContinuousOptions<D = any, R = D> = BaseOptions<D, R> &
+  TickOptions<D> & {
     /** 是否需要对定义域的范围进行优化 */
     nice?: boolean;
     /** 是否需要限制输入的范围在值域内 */
@@ -61,10 +64,10 @@ export type ContinuousOptions = BaseOptions<number> &
   };
 
 /** Linear 比例尺的选项 */
-export type LinearOptions = ContinuousOptions;
+export type LinearOptions = ContinuousOptions<number>;
 
 /** Pow 比例尺的选项 */
-export type PowOptions = ContinuousOptions & {
+export type PowOptions = ContinuousOptions<number> & {
   /** 指数 */
   exponent?: number;
 };
@@ -73,9 +76,19 @@ export type PowOptions = ContinuousOptions & {
 export type SqrtOptions = Omit<PowOptions, 'exponent'>;
 
 /** Log 比例尺的选项 */
-export type LogOptions = ContinuousOptions & {
+export type LogOptions = ContinuousOptions<number> & {
   /** 底数 */
   base?: number;
+};
+
+/** time 比例尺的选项 */
+export type TimeOptions = ContinuousOptions<Date, number> & {
+  /** getTick 的时间间隔 */
+  tickInterval?: number;
+  /** 格式化的形式 */
+  mask?: string;
+  /** 是否是 utc 时间 */
+  utc?: boolean;
 };
 
 /** OrdinalOptions 比例尺的选项 */
@@ -106,6 +119,7 @@ export type ThresholdOptions = BaseOptions<number, any>;
 /** Quantize 比例尺的选项 */
 export type QuantizeOptions = ThresholdOptions &
   TickOptions & {
+    /** 是否需要 nice */
     nice?: boolean;
   };
 

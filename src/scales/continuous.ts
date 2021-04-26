@@ -1,6 +1,6 @@
-import { isNumber, identity } from '@antv/util';
+import { identity } from '@antv/util';
 import { Base } from './base';
-import { ContinuousOptions, Domain, Range } from '../types';
+import { ContinuousOptions, Domain, Range, NiceMethod } from '../types';
 import {
   createInterpolate,
   createInterpolateRound,
@@ -9,10 +9,11 @@ import {
   bisect,
   compose,
   d3LinearNice,
+  isValid,
 } from '../utils';
 
 /** 柯里化后的函数的类型，对输入的值进行处理 */
-export type Transform = (x: number) => number;
+export type Transform = (x: any) => any;
 
 /** 柯里化后的函数的工厂函数类型 */
 export type CreateTransform = (...args: any[]) => Transform;
@@ -94,43 +95,61 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickCount: 5,
+      tickCount: 10,
     } as O;
   }
 
   /**
-   * y = interpolate(normalize(transform(clamp(x))))
+   * y = interpolate(normalize(clamp(transform(x))))
    */
   public map(x: Domain<O>) {
-    if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
+    if (!isValid(x)) return this.options.unknown;
     return this.output(x);
   }
 
   /**
-   * x = clamp(untransform(interpolate(normalize(y))))
+   * x = transform(clamp(interpolate(normalize(y))))
    */
   public invert(x: Range<O>) {
-    if (!isNumber(x) || Number.isNaN(x)) return this.options.unknown;
+    if (!isValid(x)) return this.options.unknown;
     return this.input(x);
   }
 
   protected nice() {
-    const { nice, domain } = this.options;
+    const { nice } = this.options;
     if (nice) {
-      this.options.domain = d3LinearNice(domain);
+      const [min, max, tickCount, ...rest] = this.getTickMethodOptions();
+      this.options.domain = this.chooseNice()(min, max, tickCount, ...rest);
     }
+  }
+
+  public getTicks() {
+    const { tickMethod } = this.options;
+    const [min, max, tickCount, ...rest] = this.getTickMethodOptions();
+    return tickMethod(min, max, tickCount, ...rest);
+  }
+
+  protected getTickMethodOptions() {
+    const { domain, tickCount } = this.options;
+    const min = domain[0];
+    const max = domain[domain.length - 1];
+    return [min, max, tickCount];
+  }
+
+  protected chooseNice(): NiceMethod<number | Date> {
+    return d3LinearNice;
   }
 
   protected rescale() {
     this.nice();
-    const clamp = this.chooseClamp();
     const [transform, untransform] = this.chooseTransforms();
-    this.composeOutput(transform, clamp);
-    this.composeInput(transform, untransform, clamp);
+    this.composeOutput(transform, this.chooseClamp(transform));
+    this.composeInput(transform, untransform, this.chooseClamp(untransform));
   }
 
-  protected chooseClamp() {
-    const { clamp: shouldClamp, domain, range } = this.options;
+  protected chooseClamp(transform: Transform) {
+    const { clamp: shouldClamp, range } = this.options;
+    const domain = this.options.domain.map(transform);
     const n = Math.min(domain.length, range.length);
     return shouldClamp ? createClamp(domain[0], domain[n - 1]) : identity;
   }
@@ -138,20 +157,12 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
   protected composeOutput(transform: Transform, clamp: Transform) {
     const { domain, range, round, interpolate } = this.options;
     const piecewise = choosePiecewise(domain.map(transform), range, interpolate, round);
-    this.output = compose(piecewise, transform, clamp);
+    this.output = compose(piecewise, clamp, transform);
   }
 
   protected composeInput(transform: Transform, untransform: Transform, clamp: Transform) {
     const { domain, range, interpolate } = this.options;
     const piecewise = choosePiecewise(range, domain.map(transform), interpolate);
-    this.input = compose(clamp, untransform, piecewise);
-  }
-
-  public getTicks() {
-    const { tickCount, tickMethod, domain } = this.options;
-    const lastIndex = domain.length - 1;
-    const dMin = domain[0];
-    const dMax = domain[lastIndex];
-    return tickMethod(dMin, dMax, tickCount);
+    this.input = compose(untransform, clamp, piecewise);
   }
 }

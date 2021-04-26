@@ -1,7 +1,7 @@
 import { Quantize, QuantizeOptions } from '../../../src';
 import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
-describe('Threshold', () => {
+describe('Quantize', () => {
   test('Quantize() has expected options', () => {
     const x = new Quantize();
     const { tickMethod, ...options } = x.getOptions();
@@ -10,7 +10,7 @@ describe('Threshold', () => {
       range: [0.5],
       unknown: undefined,
       nice: false,
-      tickCount: 5,
+      tickCount: 10,
     });
 
     // @ts-ignore
@@ -21,7 +21,7 @@ describe('Threshold', () => {
     expect(tickMethod).toBe(wilkinsonExtended);
   });
 
-  test('Threshold(options) override default options', () => {
+  test('Quantize(options) override default options', () => {
     const options: QuantizeOptions = {
       domain: [2, 10],
       nice: true,
@@ -79,7 +79,7 @@ describe('Threshold', () => {
       tickMethod: (min, max, count) => {
         expect(min).toBe(0);
         expect(max).toBe(100);
-        expect(count).toBe(5);
+        expect(count).toBe(10);
         return [];
       },
     });

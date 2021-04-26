@@ -41,7 +41,7 @@ describe('Continuous', () => {
       clamp: false,
       nice: false,
       round: false,
-      tickCount: 5,
+      tickCount: 10,
     });
 
     expect(interpolate).toEqual(createInterpolate);
@@ -77,17 +77,6 @@ describe('Continuous', () => {
     expect(s.invert(undefined)).toBe('dirty');
     expect(s.invert(NaN)).toBe('dirty');
     expect(s.invert(null)).toBe('dirty');
-  });
-
-  test('invert(x) calls untransform', () => {
-    const s = new Scale();
-    // @ts-ignore
-    expect(untransformCallback).not.toBeCalled();
-
-    s.invert(0);
-
-    // @ts-ignore
-    expect(untransformCallback).toBeCalled();
   });
 
   test('map(x) compose the output', () => {

@@ -15,7 +15,7 @@ export class Quantize extends Threshold<QuantizeOptions> {
       domain: [0, 1],
       range: [0.5],
       nice: false,
-      tickCount: 5,
+      tickCount: 10,
       tickMethod: wilkinsonExtended,
     };
   }
@@ -29,10 +29,24 @@ export class Quantize extends Threshold<QuantizeOptions> {
   }
 
   protected nice() {
-    const { nice, domain } = this.options;
+    const { nice } = this.options;
     if (nice) {
-      this.options.domain = d3LinearNice(domain);
+      const [min, max, tickCount] = this.getTickMethodOptions();
+      this.options.domain = d3LinearNice(min, max, tickCount);
     }
+  }
+
+  public getTicks() {
+    const { tickMethod } = this.options;
+    const [min, max, tickCount] = this.getTickMethodOptions();
+    return tickMethod(min, max, tickCount);
+  }
+
+  protected getTickMethodOptions() {
+    const { domain, tickCount } = this.options;
+    const min = domain[0];
+    const max = domain[domain.length - 1];
+    return [min, max, tickCount];
   }
 
   protected rescale() {
@@ -64,13 +78,5 @@ export class Quantize extends Threshold<QuantizeOptions> {
 
   public clone() {
     return new Quantize(this.options);
-  }
-
-  public getTicks() {
-    const { tickCount, domain, tickMethod } = this.options;
-    const lastIndex = domain.length - 1;
-    const min = domain[0];
-    const max = domain[lastIndex];
-    return tickMethod(min, max, tickCount);
   }
 }

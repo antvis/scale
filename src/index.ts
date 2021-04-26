@@ -11,6 +11,7 @@ export { Threshold } from './scales/threshold';
 export { Log } from './scales/log';
 export { Quantize } from './scales/quantize';
 export { Quantile } from './scales/quantile';
+export { Time } from './scales/time';
 
 // tick-methods
 export { d3Linear } from './tick-methods/d3-linear';
@@ -26,6 +27,7 @@ export type {
   LinearOptions,
   PointOptions,
   PowOptions,
+  TimeOptions,
   ThresholdOptions,
   QuantizeOptions,
   SqrtOptions,
