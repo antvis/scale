@@ -6,10 +6,18 @@
  * @param d 公差
  * @returns {array[string]} 由每一项组成的数组
  */
+
 export function sequence(a1: number, an: number, d: number) {
-  const arr = [];
-  for (let i = a1; i < an; i += d) {
-    arr.push(i);
+  const tmp = (an - a1) / d;
+  const size = Number.isInteger(tmp) ? tmp : Math.floor(tmp) + 1;
+
+  if (size <= 0) {
+    return [];
+  }
+
+  const arr = new Array(size - 1);
+  for (let i = 0; i < size; i += 1) {
+    arr[i] = a1 + i * d;
   }
   return arr;
 }
