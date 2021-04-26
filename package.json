@@ -1,7 +1,7 @@
 {
-  "name": "@antv/template",
-  "version": "0.1.0",
-  "description": "Template repo for AntV",
+  "name": "@antv/scale",
+  "version": "0.4.0-beta.1",
+  "description": "Toolkit for mapping abstract data into visual representation.",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -29,7 +29,9 @@
     "prepare": "husky install"
   },
   "keywords": [
-    "template"
+    "antv",
+    "visualization",
+    "mapping"
   ],
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -80,12 +82,12 @@
   "limit-size": [
     {
       "path": "dist/scale.min.js",
-      "limit": "6 Kb",
+      "limit": "8 Kb",
       "gzip": true
     },
     {
       "path": "dist/scale.min.js",
-      "limit": "30 Kb"
+      "limit": "24 Kb"
     }
   ],
   "author": {
