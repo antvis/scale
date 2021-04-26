@@ -1,5 +1,5 @@
 import { Time, TimeOptions } from '../../../src';
-import { d3Time } from '../../../src/tick-methods/time';
+import { d3Time } from '../../../src/tick-methods/d3-time';
 import { createInterpolate, d3TimeNice } from '../../../src/utils';
 
 function UTC(
@@ -83,14 +83,24 @@ describe('Time', () => {
 
   test('getTicks() calls options.tickMethod and return its return value', () => {
     const scale = new Time({
-      tickMethod: (min, max, count) => {
+      tickInterval: 100,
+      tickMethod: (min, max, count, interval) => {
         expect(min).toEqual(new Date(2000, 0, 1));
         expect(max).toEqual(new Date(2000, 0, 2));
         expect(count).toBe(10);
+        expect(interval).toBe(100);
         return [];
       },
     });
     expect(scale.getTicks()).toStrictEqual([]);
+  });
+
+  test('nice domain if options.nice === true', () => {
+    const scale = new Time({
+      nice: true,
+      domain: [],
+    });
+    expect(scale.getOptions().domain).toEqual([]);
   });
 
   test('options.mask specify the mask for getFormatter()', () => {

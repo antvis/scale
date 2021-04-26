@@ -2,7 +2,7 @@ import { identity } from '@antv/util';
 import { format } from 'fecha';
 import { Continuous } from './continuous';
 import { TimeOptions } from '../types';
-import { d3Time } from '../tick-methods/time';
+import { d3Time } from '../tick-methods/d3-time';
 import { d3TimeNice, createInterpolate, localIntervalMap, utcIntervalMap, chooseNiceTimeMask } from '../utils';
 
 function offset(date: Date): Date {
