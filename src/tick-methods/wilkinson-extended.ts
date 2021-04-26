@@ -163,7 +163,7 @@ export const wilkinsonExtended: TickMethod = (
   const size = (best.lmax - best.lmin) / best.lstep;
 
   // 步长为浮点数时处理精度
-  const range = new Array(size);
+  const range = new Array(Math.floor(size));
 
   for (let tick = best.lmin; tick <= best.lmax; tick = precisionAdd(tick, best.lstep)) {
     range[i] = tick;
