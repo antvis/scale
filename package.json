@@ -1,7 +1,7 @@
 {
   "name": "@antv/template",
-  "version": "0.1.0",
-  "description": "Template repo for AntV",
+  "version": "0.4.0",
+  "description": "Toolkit for mapping abstract data into visual representation.",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -29,7 +29,9 @@
     "prepare": "husky install"
   },
   "keywords": [
-    "template"
+    "antv",
+    "visualization",
+    "mapping"
   ],
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
