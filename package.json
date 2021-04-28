@@ -1,11 +1,11 @@
 {
   "name": "@antv/scale",
-  "version": "0.4.0-beta.1",
+  "version": "0.4.0-beta.2",
   "description": "Toolkit for mapping abstract data into visual representation.",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "browser": "dist/template.min.js",
+  "unpkg": "dist/scale.min.js",
   "types": "lib/index.d.ts",
   "files": [
     "src",
