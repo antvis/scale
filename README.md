@@ -1,8 +1,12 @@
 <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
 
-# Scale
+<h1 align="center">
+<b>Scale</b>
+</h1>
 
-> Toolkit for mapping abstract data into visual representation.
+<div align="center">
+
+Toolkit for mapping abstract data into visual representation.
 
 ![scale mapping](https://user-images.githubusercontent.com/7856674/116353528-85644a80-a829-11eb-85e4-3463a29000a9.png)
 
@@ -11,6 +15,8 @@
 [![npm Version](https://img.shields.io/npm/v/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
 [![npm Download](https://img.shields.io/npm/dm/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
 [![npm License](https://img.shields.io/npm/l/@antv/scale.svg)](https://www.npmjs.com/package/@antv/scale)
+
+</div>
 
 ## ✨ Features
 
