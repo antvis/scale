@@ -65,28 +65,27 @@ x.getTicks(); // [0, 5, 10]
 
 ## 📜 API reference
 
-### ⚖️ Scales
+### ⚖️Scales
 
-- [x] [Identity](./docs/scales/identity.md)
-- [x] [Constant](./docs/scales/constant.md)
-- [x] [Linear](./docs/scales/linear.md)
-- [x] [Log](./docs/scales/log.md)
-- [x] [Sqrt](./docs/scales/sqrt.md)
-- [x] [Pow](./docs/scales/pow.md)
-- [x] [Time](./docs/scales/time.md)
-- [x] [Quantize](./docs/scales/quantize.md)
-- [x] [Quantile](./docs/scales/quantile.md)
-- [x] [Threshold](./docs/scales/threshold.md)
-- [x] [Ordinal](./docs/scales/ordinal.md)
-- [x] [Point](./docs/scales/point.md)
-- [x] [Band](./docs/scales/band.md)
+- [x] [Constant](./docs/scales/constant.md) Map input to a fixed output.
+- [x] [Linear](./docs/scales/linear.md) Indicate a linear relationship between input and output.
+- [x] [Pow](./docs/scales/pow.md) Creates a power based scale, which transform the output by exponent option.
+- [x] [Sqrt](./docs/scales/sqrt.md) Creates a square-root based scale, similar to Pow scale.
+- [x] [Log](./docs/scales/log.md) The logarithmic transformation will be applied to the input domain value.
+- [x] [Identity](./docs/scales/identity.md) A special case of linear scales where the domain and range are identical.
+- [x] [Time](./docs/scales/time.md) A variant of linear scales that have a temporal domain.
+- [x] [Threshold](./docs/scales/threshold.md) Divide continuous domain into slices and map value in each slice to discrete values in the range.
+- [x] [Quantize](./docs/scales/quantize.md) Map input in each slice to corresponding output in range.
+- [x] [Quantile](./docs/scales/quantile.md) Map a discrete input domain to a discrete output domain.
+- [x] [Ordinal](./docs/scales/ordinal.md) Scale for discrete domain and range.
+- [x] [Band](./docs/scales/band.md) A special case of ordinal scales where the range is continuous.
+- [x] [Point](./docs/scales/point.md) A special case of band scales that the bandwidth always fixed to zero.
 
 ### 🧮 Tick Methods
 
-- [x] [Wilkinson Extended](docs/tick-methods/wilkinson-extended.md)
-- [x] [R Pretty](docs/tick-methods/r-pretty.md)
-- [x] [D3 Linear](docs/tick-methods/d3-linear.md)
-
+- [x] [Wilkinson Extended](docs/tick-methods/wilkinson-extended.md) An extension of Wilkinson's algorithm for positioning tick labels on axes.
+- [x] [R Pretty](docs/tick-methods/r-pretty.md) An algorithm for positioning tick labels on axes in R language.
+- [x] [D3 Linear](docs/tick-methods/d3-linear.md) Linear scale ticks algorithm for d3-scale.
 
 ## Contribution
 
@@ -101,7 +100,6 @@ $ npm t
 ```
 
 Then send a pull request after coding.
-
 
 ## 📄 License
 
