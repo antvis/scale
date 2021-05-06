@@ -12,65 +12,71 @@ import {
 } from './time-interval';
 
 export const utcMillisecond: Interval = createInterval(
+  1,
   (date) => date,
   (date, step = 1) => {
     date.setTime(+date + step);
   },
-  1
+  (date) => date.getTime()
 );
 
 export const utcSecond: Interval = createInterval(
+  DURATION_SECOND,
   (date) => {
     date.setUTCMilliseconds(0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_SECOND * step);
   },
-  DURATION_SECOND
+  (date) => date.getUTCSeconds()
 );
 
 export const utcMinute: Interval = createInterval(
+  DURATION_MINUTE,
   (date) => {
     date.setUTCSeconds(0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_MINUTE * step);
   },
-  DURATION_MINUTE
+  (date) => date.getUTCMinutes()
 );
 
 export const utcHour: Interval = createInterval(
+  DURATION_HOUR,
   (date) => {
     date.setUTCMinutes(0, 0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_HOUR * step);
   },
-  DURATION_HOUR
+  (date) => date.getUTCHours()
 );
 
 export const utcDay: Interval = createInterval(
+  DURATION_DAY,
   (date) => {
     date.setUTCHours(0, 0, 0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_DAY * step);
   },
-  DURATION_DAY
+  (date) => date.getUTCDay() - 1
 );
 
 export const utcWeek: Interval = createInterval(
+  DURATION_WEEK,
   (date) => {
     date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 7) % 7));
     date.setUTCHours(0, 0, 0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_WEEK * step);
-  },
-  DURATION_WEEK
+  }
 );
 
 export const utcMonth: Interval = createInterval(
+  DURATION_MONTH,
   (date) => {
     date.setUTCDate(1);
     date.setUTCHours(0, 0, 0, 0);
@@ -79,10 +85,11 @@ export const utcMonth: Interval = createInterval(
     const month = date.getUTCMonth();
     date.setUTCMonth(month + step);
   },
-  DURATION_MONTH
+  (date) => date.getUTCMonth()
 );
 
 export const utcYear: Interval = createInterval(
+  DURATION_YEAR,
   (date) => {
     date.setUTCMonth(0, 1);
     date.setUTCHours(0, 0, 0, 0);
@@ -91,7 +98,7 @@ export const utcYear: Interval = createInterval(
     const year = date.getUTCFullYear();
     date.setUTCFullYear(year + step);
   },
-  DURATION_YEAR
+  (date) => date.getUTCFullYear()
 );
 
 export const utcIntervalMap: IntervalMap = {

@@ -1,6 +1,7 @@
 export type TimeTransform = (d: Date, ...rest: any[]) => Date;
-type TimeRange = (start: Date, stop: Date, step: number) => Date[];
+type TimeRange = (start: Date, stop: Date, step: number, shouldAdjust?: boolean) => Date[];
 type TimeProcess = (d: Date, ...rest: any[]) => void;
+type TimeField = (d: Date) => number;
 
 export const DURATION_SECOND = 1000;
 export const DURATION_MINUTE = DURATION_SECOND * 60;
@@ -28,7 +29,7 @@ export type IntervalMap = {
   year: Interval;
 };
 
-export function createInterval(floori: TimeProcess, offseti: TimeProcess, duration: number) {
+export function createInterval(duration: number, floori: TimeProcess, offseti: TimeProcess, field?: TimeField) {
   const floor: TimeTransform = (date) => {
     const d = new Date(+date);
     floori(d);
@@ -43,10 +44,21 @@ export function createInterval(floori: TimeProcess, offseti: TimeProcess, durati
     return d;
   };
 
-  const range = (start: Date, stop: Date, step: number) => {
+  const adjust: TimeTransform = (date, step) => {
+    const test = (date: Date) => field(date) % step === 0;
+    let i = step;
+    while (i && !test(date)) {
+      offseti(date);
+      i -= 1;
+    }
+    return date;
+  };
+
+  const range = (start: Date, stop: Date, step: number, shouldAdjust?: boolean) => {
     const ticks = [];
-    for (let t = ceil(start); t.getTime() < stop.getTime(); offseti(t, step), floori(t)) {
-      ticks.push(new Date(+t));
+    const t = shouldAdjust && field ? adjust(ceil(start), step) : ceil(start);
+    for (let i = t; i.getTime() < stop.getTime(); offseti(i, step), floori(i)) {
+      ticks.push(new Date(+i));
     }
     return ticks;
   };
@@ -60,65 +72,71 @@ export function createInterval(floori: TimeProcess, offseti: TimeProcess, durati
 }
 
 export const millisecond: Interval = createInterval(
+  1,
   (date) => date,
   (date, step = 1) => {
     date.setTime(+date + step);
   },
-  1
+  (date) => date.getTime()
 );
 
 export const second: Interval = createInterval(
+  DURATION_SECOND,
   (date) => {
     date.setMilliseconds(0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_SECOND * step);
   },
-  DURATION_SECOND
+  (date) => date.getSeconds()
 );
 
 export const minute: Interval = createInterval(
+  DURATION_MINUTE,
   (date) => {
     date.setSeconds(0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_MINUTE * step);
   },
-  DURATION_MINUTE
+  (date) => date.getMinutes()
 );
 
 export const hour: Interval = createInterval(
+  DURATION_HOUR,
   (date) => {
     date.setMinutes(0, 0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_HOUR * step);
   },
-  DURATION_HOUR
+  (date) => date.getHours()
 );
 
 export const day: Interval = createInterval(
+  DURATION_DAY,
   (date) => {
     date.setHours(0, 0, 0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_DAY * step);
   },
-  DURATION_DAY
+  (date) => date.getDay() - 1
 );
 
 export const week: Interval = createInterval(
+  DURATION_WEEK,
   (date) => {
     date.setDate(date.getDate() - (date.getDay() % 7));
     date.setHours(0, 0, 0, 0);
   },
   (date, step = 1) => {
     date.setTime(+date + DURATION_WEEK * step);
-  },
-  DURATION_WEEK
+  }
 );
 
 export const month: Interval = createInterval(
+  DURATION_MONTH,
   (date) => {
     date.setDate(1);
     date.setHours(0, 0, 0, 0);
@@ -127,10 +145,11 @@ export const month: Interval = createInterval(
     const month = date.getMonth();
     date.setMonth(month + step);
   },
-  DURATION_MONTH
+  (date) => date.getMonth()
 );
 
 export const year: Interval = createInterval(
+  DURATION_YEAR,
   (date) => {
     date.setMonth(0, 1);
     date.setHours(0, 0, 0, 0);
@@ -139,7 +158,7 @@ export const year: Interval = createInterval(
     const year = date.getFullYear();
     date.setFullYear(year + step);
   },
-  DURATION_YEAR
+  (date) => date.getFullYear()
 );
 
 export const localIntervalMap: IntervalMap = {
