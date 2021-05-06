@@ -1,4 +1,6 @@
-export type TimeTransform = (d: Date) => Date;
+export type TimeTransform = (d: Date, ...rest: any[]) => Date;
+type TimeRange = (start: Date, stop: Date, step: number) => Date[];
+type TimeProcess = (d: Date, ...rest: any[]) => void;
 
 export const DURATION_SECOND = 1000;
 export const DURATION_MINUTE = DURATION_SECOND * 60;
@@ -10,7 +12,8 @@ export const DURATION_YEAR = DURATION_DAY * 365;
 
 export type Interval = {
   floor: TimeTransform;
-  // ceil: TimeTransform;
+  ceil: TimeTransform;
+  range: TimeRange;
   duration: number;
 };
 
@@ -25,61 +28,119 @@ export type IntervalMap = {
   year: Interval;
 };
 
-export function createInterval(floor: TimeTransform, duration: number) {
-  // const ceil: TimeTransform = (date) => new Date(+floor(date) + duration);
+export function createInterval(floori: TimeProcess, offseti: TimeProcess, duration: number) {
+  const floor: TimeTransform = (date) => {
+    const d = new Date(+date);
+    floori(d);
+    return d;
+  };
+
+  const ceil: TimeTransform = (date) => {
+    const d = new Date(+date - 1);
+    floori(d);
+    offseti(d);
+    floori(d);
+    return d;
+  };
+
+  const range = (start: Date, stop: Date, step: number) => {
+    const ticks = [];
+    for (let t = ceil(start); t.getTime() < stop.getTime(); offseti(t, step), floori(t)) {
+      ticks.push(new Date(+t));
+    }
+    return ticks;
+  };
+
   return {
+    ceil,
     floor,
-    // ceil,
+    range,
     duration,
   };
 }
 
-export const millisecond: Interval = createInterval((date) => new Date(date), 1);
+export const millisecond: Interval = createInterval(
+  (date) => date,
+  (date, step = 1) => {
+    date.setTime(+date + step);
+  },
+  1
+);
 
-export const second: Interval = createInterval((date) => {
-  const d = new Date(date);
-  d.setMilliseconds(0);
-  return d;
-}, DURATION_SECOND);
+export const second: Interval = createInterval(
+  (date) => {
+    date.setMilliseconds(0);
+  },
+  (date, step = 1) => {
+    date.setTime(+date + DURATION_SECOND * step);
+  },
+  DURATION_SECOND
+);
 
-export const minute: Interval = createInterval((date) => {
-  const d = new Date(date);
-  d.setSeconds(0, 0);
-  return d;
-}, DURATION_MINUTE);
+export const minute: Interval = createInterval(
+  (date) => {
+    date.setSeconds(0, 0);
+  },
+  (date, step = 1) => {
+    date.setTime(+date + DURATION_MINUTE * step);
+  },
+  DURATION_MINUTE
+);
 
-export const hour: Interval = createInterval((date) => {
-  const d = new Date(date);
-  d.setMinutes(0, 0, 0);
-  return d;
-}, DURATION_HOUR);
+export const hour: Interval = createInterval(
+  (date) => {
+    date.setMinutes(0, 0, 0);
+  },
+  (date, step = 1) => {
+    date.setTime(+date + DURATION_HOUR * step);
+  },
+  DURATION_HOUR
+);
 
-export const day: Interval = createInterval((date) => {
-  const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}, DURATION_DAY);
+export const day: Interval = createInterval(
+  (date) => {
+    date.setHours(0, 0, 0, 0);
+  },
+  (date, step = 1) => {
+    date.setTime(+date + DURATION_DAY * step);
+  },
+  DURATION_DAY
+);
 
-export const week: Interval = createInterval((date) => {
-  const d = new Date(date);
-  d.setDate(d.getDate() - (d.getDay() % 7));
-  d.setHours(0, 0, 0, 0);
-  return d;
-}, DURATION_WEEK);
+export const week: Interval = createInterval(
+  (date) => {
+    date.setDate(date.getDate() - (date.getDay() % 7));
+    date.setHours(0, 0, 0, 0);
+  },
+  (date, step = 1) => {
+    date.setTime(+date + DURATION_WEEK * step);
+  },
+  DURATION_WEEK
+);
 
-export const month: Interval = createInterval((date) => {
-  const d = new Date(date);
-  d.setDate(1);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}, DURATION_MONTH);
+export const month: Interval = createInterval(
+  (date) => {
+    date.setDate(1);
+    date.setHours(0, 0, 0, 0);
+  },
+  (date, step = 1) => {
+    const month = date.getMonth();
+    date.setMonth(month + step);
+  },
+  DURATION_MONTH
+);
 
-export const year: Interval = createInterval((date) => {
-  const d = new Date(date);
-  d.setMonth(0, 1);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}, DURATION_YEAR);
+export const year: Interval = createInterval(
+  (date) => {
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  },
+  (date, step = 1) => {
+    const year = date.getFullYear();
+    date.setFullYear(year + step);
+  },
+  DURATION_YEAR
+);
 
 export const localIntervalMap: IntervalMap = {
   millisecond,
