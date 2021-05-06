@@ -47,4 +47,12 @@ describe('bisect', () => {
     expect(bisect(array, 5, 2, 3)).toBe(3);
     expect(bisect(array, 6, 2, 3)).toBe(3);
   });
+
+  test('bisect(array, x, lo, hi, getter) uses custom getter', () => {
+    const array = [{ v: 1 }, { v: 2 }, { v: 3 }, { v: 4 }];
+    expect(bisect(array, 1, 0, array.length, (d) => d.v)).toBe(1);
+    expect(bisect(array, 2, 0, array.length, (d) => d.v)).toBe(2);
+    expect(bisect(array, 3, 0, array.length, (d) => d.v)).toBe(3);
+    expect(bisect(array, 4, 0, array.length, (d) => d.v)).toBe(4);
+  });
 });
