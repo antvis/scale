@@ -61,7 +61,7 @@ export const utcDay: Interval = createInterval(
   (date, step = 1) => {
     date.setTime(+date + DURATION_DAY * step);
   },
-  (date) => date.getUTCDay() - 1
+  (date) => date.getUTCDate() - 1
 );
 
 export const utcWeek: Interval = createInterval(

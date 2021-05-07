@@ -49,7 +49,9 @@ export function findTickInterval(start: Date, stop: Date, count: number, interva
     matchInterval = [year, step];
   } else if (i) {
     const closeToLow = targetInterval / getter(tickIntervals[i - 1]) < getter(tickIntervals[i]) / targetInterval;
-    matchInterval = closeToLow ? tickIntervals[i - 1] : tickIntervals[i];
+    const [timeInterval, targetStep] = closeToLow ? tickIntervals[i - 1] : tickIntervals[i];
+    const step = interval ? Math.ceil(interval / timeInterval.duration) : targetStep;
+    matchInterval = [timeInterval, step];
   } else {
     const step = Math.max(tickStep(lo, hi, targetCount), 1);
     matchInterval = [millisecond, step];

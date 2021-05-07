@@ -29,35 +29,42 @@ export type IntervalMap = {
   year: Interval;
 };
 
-export function createInterval(duration: number, floori: TimeProcess, offseti: TimeProcess, field?: TimeField) {
-  const floor: TimeTransform = (date) => {
-    const d = new Date(+date);
-    floori(d);
-    return d;
-  };
-
-  const ceil: TimeTransform = (date) => {
-    const d = new Date(+date - 1);
-    floori(d);
-    offseti(d);
-    floori(d);
-    return d;
-  };
-
-  const adjust: TimeTransform = (date, step) => {
+export function createInterval(duration: number, floorish: TimeProcess, offseti: TimeProcess, field?: TimeField) {
+  const adjust: TimeTransform = (date, step, flag = 1) => {
+    if (!field) return date;
     const test = (date: Date) => field(date) % step === 0;
     let i = step;
     while (i && !test(date)) {
-      offseti(date);
+      offseti(date, flag);
       i -= 1;
     }
     return date;
   };
 
+  const floori: TimeProcess = (date, step?: number) => {
+    if (step) adjust(date, step, -1);
+    floorish(date);
+  };
+
+  const floor: TimeTransform = (date, step?: number) => {
+    const d = new Date(+date);
+    floori(d, step);
+    return d;
+  };
+
+  const ceil: TimeTransform = (date, step?: number) => {
+    const d = new Date(+date - 1);
+    floori(d, step);
+    offseti(d, step);
+    floori(d);
+    return d;
+  };
+
   const range = (start: Date, stop: Date, step: number, shouldAdjust?: boolean) => {
     const ticks = [];
-    const t = shouldAdjust && field ? adjust(ceil(start), step) : ceil(start);
-    for (let i = t; i.getTime() < stop.getTime(); offseti(i, step), floori(i)) {
+    const roundStep = Math.floor(step);
+    const t = shouldAdjust ? ceil(start, step) : ceil(start);
+    for (let i = t; +i < +stop; offseti(i, roundStep), floori(i)) {
       ticks.push(new Date(+i));
     }
     return ticks;
@@ -121,18 +128,7 @@ export const day: Interval = createInterval(
   (date, step = 1) => {
     date.setTime(+date + DURATION_DAY * step);
   },
-  (date) => date.getDay() - 1
-);
-
-export const week: Interval = createInterval(
-  DURATION_WEEK,
-  (date) => {
-    date.setDate(date.getDate() - (date.getDay() % 7));
-    date.setHours(0, 0, 0, 0);
-  },
-  (date, step = 1) => {
-    date.setTime(+date + DURATION_WEEK * step);
-  }
+  (date) => date.getDate() - 1
 );
 
 export const month: Interval = createInterval(
@@ -146,6 +142,22 @@ export const month: Interval = createInterval(
     date.setMonth(month + step);
   },
   (date) => date.getMonth()
+);
+
+export const week: Interval = createInterval(
+  DURATION_WEEK,
+  (date) => {
+    date.setDate(date.getDate() - (date.getDay() % 7));
+    date.setHours(0, 0, 0, 0);
+  },
+  (date, step = 1) => {
+    date.setTime(+date + DURATION_WEEK * step);
+  },
+  (date) => {
+    const start = month.floor(date);
+    const end = new Date(+date);
+    return Math.floor((+end - +start) / DURATION_WEEK);
+  }
 );
 
 export const year: Interval = createInterval(
