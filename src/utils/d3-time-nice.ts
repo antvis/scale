@@ -1,5 +1,5 @@
 import { NiceMethod } from '../types';
-import { findTickInterval } from '../tick-methods/d3-time';
+import { findTickInterval } from './find-tick-interval';
 
 export const d3TimeNice: NiceMethod<Date> = (min, max, count, interval, utc) => {
   const r = min > max;
