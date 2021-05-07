@@ -1,13 +1,6 @@
+import { millisecond, second, minute, hour, day, week, month, year, localIntervalMap } from '../../../src/utils';
+
 import {
-  millisecond,
-  second,
-  minute,
-  hour,
-  day,
-  week,
-  month,
-  year,
-  localIntervalMap,
   DURATION_SECOND,
   DURATION_MINUTE,
   DURATION_HOUR,
@@ -15,7 +8,7 @@ import {
   DURATION_WEEK,
   DURATION_MONTH,
   DURATION_YEAR,
-} from '../../../src/utils';
+} from '../../../src';
 
 describe('time floor', () => {
   test('defaults durations', () => {

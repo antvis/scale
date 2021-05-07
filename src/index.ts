@@ -41,3 +41,14 @@ export type {
 
 // others
 export type { TickMethod, Interpolate, Comparator } from './types';
+
+// constants
+export {
+  DURATION_SECOND,
+  DURATION_MINUTE,
+  DURATION_HOUR,
+  DURATION_DAY,
+  DURATION_WEEK,
+  DURATION_YEAR,
+  DURATION_MONTH,
+} from './utils';
