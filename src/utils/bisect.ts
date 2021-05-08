@@ -7,12 +7,13 @@
  * @param hi 结束的索引
  * @returns 最右边一个匹配的值后一个的索引
  */
-export function bisect(array: number[], x: number, lo?: number, hi?: number): number {
+export function bisect(array: any[], x: number, lo?: number, hi?: number, getter?: (any) => any): number {
   let i = lo || 0;
   let j = hi || array.length;
+  const get = getter || ((x) => x);
   while (i < j) {
     const mid = Math.floor((i + j) / 2);
-    if (array[mid] > x) {
+    if (get(array[mid]) > x) {
       j = mid;
     } else {
       i = mid + 1;

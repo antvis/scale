@@ -84,11 +84,12 @@ describe('Time', () => {
   test('getTicks() calls options.tickMethod and return its return value', () => {
     const scale = new Time({
       tickInterval: 100,
-      tickMethod: (min, max, count, interval) => {
+      tickMethod: (min, max, count, interval, utc) => {
         expect(min).toEqual(new Date(2000, 0, 1));
         expect(max).toEqual(new Date(2000, 0, 2));
         expect(count).toBe(5);
         expect(interval).toBe(100);
+        expect(utc).toBe(false);
         return [];
       },
     });

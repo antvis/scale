@@ -1,7 +1,7 @@
 // 参考 d3-linear nice 的实现
 // https://github.com/d3/d3-scale
 
-import { tickIncrement } from './tick-utils';
+import { tickIncrement } from './ticks';
 import { NiceMethod } from '../types';
 
 export const d3LinearNice: NiceMethod = (min: number, max: number, count: number = 5) => {
