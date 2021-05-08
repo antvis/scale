@@ -1,4 +1,4 @@
-// 参考 d3-linear nice 的实现
+// 参考 d3-ticks nice 的实现
 // https://github.com/d3/d3-scale
 
 import { tickIncrement } from './ticks';

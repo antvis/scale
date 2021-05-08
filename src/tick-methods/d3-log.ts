@@ -1,5 +1,5 @@
 import { TickMethod } from 'types';
-import { d3Linear } from './d3-linear';
+import { d3Ticks } from './d3-ticks';
 import { pows, logs } from '../utils';
 
 export const d3Log: TickMethod = (a, b, n, base = 10) => {
@@ -37,9 +37,9 @@ export const d3Log: TickMethod = (a, b, n, base = 10) => {
         }
       }
     }
-    if (ticks.length * 2 < n) ticks = d3Linear(min, max, n);
+    if (ticks.length * 2 < n) ticks = d3Ticks(min, max, n);
   } else {
-    ticks = d3Linear(i, j, Math.min(j - i, n)).map(pow);
+    ticks = d3Ticks(i, j, Math.min(j - i, n)).map(pow);
   }
 
   return r ? ticks.reverse() : ticks;

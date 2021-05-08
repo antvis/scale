@@ -85,7 +85,7 @@ x.getTicks(); // [0, 5, 10]
 
 - [x] [Wilkinson Extended](docs/tick-methods/wilkinson-extended.md) An extension of Wilkinson's algorithm for positioning tick labels on axes.
 - [x] [R Pretty](docs/tick-methods/r-pretty.md) An algorithm for positioning tick labels on axes in R language.
-- [x] [D3 Linear](docs/tick-methods/d3-linear.md) Linear scale ticks algorithm for d3-scale.
+- [x] [D3 Linear](docs/tick-methods/d3-ticks.md) Linear scale ticks algorithm for d3-scale.
 
 ## Contribution
 
