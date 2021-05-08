@@ -6,5 +6,6 @@ export const d3TimeNice: NiceMethod<Date> = (min, max, count, interval, utc) => 
   const lo = r ? max : min;
   const hi = r ? min : max;
   const [tickInterval, step] = findTickInterval(lo, hi, count, interval, utc);
-  return [tickInterval.floor(lo, step), tickInterval.ceil(hi, step)];
+  const domain = [tickInterval.floor(lo, step), tickInterval.ceil(hi, step)];
+  return r ? domain.reverse() : domain;
 };

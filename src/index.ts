@@ -2,7 +2,6 @@
 export { Band } from './scales/band';
 export { Ordinal } from './scales/ordinal';
 export { Constant } from './scales/constant';
-export { Continuous } from './scales/continuous';
 export { Identity } from './scales/identity';
 export { Linear } from './scales/linear';
 export { Point } from './scales/point';
@@ -36,7 +35,6 @@ export type {
   SqrtOptions,
   QuantileOptions,
   LogOptions,
-  ContinuousOptions,
 } from './types';
 
 // others

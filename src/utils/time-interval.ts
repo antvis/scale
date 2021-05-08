@@ -30,19 +30,18 @@ export type IntervalMap = {
 };
 
 export function createInterval(duration: number, floorish: TimeProcess, offseti: TimeProcess, field?: TimeField) {
-  const adjust: TimeTransform = (date, step, flag = 1) => {
-    if (!field) return date;
+  const adjust: TimeTransform = (date, step) => {
     const test = (date: Date) => field(date) % step === 0;
     let i = step;
     while (i && !test(date)) {
-      offseti(date, flag);
+      offseti(date, -1);
       i -= 1;
     }
     return date;
   };
 
   const floori: TimeProcess = (date, step?: number) => {
-    if (step) adjust(date, step, -1);
+    if (step) adjust(date, step);
     floorish(date);
   };
 

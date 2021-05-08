@@ -64,17 +64,6 @@ export const utcDay: Interval = createInterval(
   (date) => date.getUTCDate() - 1
 );
 
-export const utcWeek: Interval = createInterval(
-  DURATION_WEEK,
-  (date) => {
-    date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 7) % 7));
-    date.setUTCHours(0, 0, 0, 0);
-  },
-  (date, step = 1) => {
-    date.setTime(+date + DURATION_WEEK * step);
-  }
-);
-
 export const utcMonth: Interval = createInterval(
   DURATION_MONTH,
   (date) => {
@@ -86,6 +75,22 @@ export const utcMonth: Interval = createInterval(
     date.setUTCMonth(month + step);
   },
   (date) => date.getUTCMonth()
+);
+
+export const utcWeek: Interval = createInterval(
+  DURATION_WEEK,
+  (date) => {
+    date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 7) % 7));
+    date.setUTCHours(0, 0, 0, 0);
+  },
+  (date, step = 1) => {
+    date.setTime(+date + DURATION_WEEK * step);
+  },
+  (date) => {
+    const start = utcMonth.floor(date);
+    const end = new Date(+date);
+    return Math.floor((+end - +start) / DURATION_WEEK);
+  }
 );
 
 export const utcYear: Interval = createInterval(

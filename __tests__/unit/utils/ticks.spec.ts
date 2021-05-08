@@ -22,6 +22,7 @@ describe('ticks', () => {
     expect(tickStep(0, 10, 3)).toBe(5);
     expect(tickStep(0, 10, 2)).toBe(5);
     expect(tickStep(0, 10, 1)).toBe(10);
+    expect(tickStep(10, 0, 1)).toBe(-10);
     expect(tickStep(-10, 10, 10)).toBe(2);
     expect(tickStep(-10, 10, 9)).toBe(2);
     expect(tickStep(-10, 10, 8)).toBe(2);
