@@ -40,10 +40,10 @@ export class Time extends Continuous<TimeOptions> {
   }
 
   protected getTickMethodOptions() {
-    const { domain, tickCount, tickInterval } = this.options;
+    const { domain, tickCount, tickInterval, utc } = this.options;
     const min = domain[0];
     const max = domain[domain.length - 1];
-    return [min, max, tickCount, tickInterval];
+    return [min, max, tickCount, tickInterval, utc];
   }
 
   public getFormatter() {
