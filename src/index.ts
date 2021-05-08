@@ -2,7 +2,6 @@
 export { Band } from './scales/band';
 export { Ordinal } from './scales/ordinal';
 export { Constant } from './scales/constant';
-export { Continuous } from './scales/continuous';
 export { Identity } from './scales/identity';
 export { Linear } from './scales/linear';
 export { Point } from './scales/point';
@@ -36,8 +35,18 @@ export type {
   SqrtOptions,
   QuantileOptions,
   LogOptions,
-  ContinuousOptions,
 } from './types';
 
 // others
 export type { TickMethod, Interpolate, Comparator } from './types';
+
+// constants
+export {
+  DURATION_SECOND,
+  DURATION_MINUTE,
+  DURATION_HOUR,
+  DURATION_DAY,
+  DURATION_WEEK,
+  DURATION_YEAR,
+  DURATION_MONTH,
+} from './utils';

@@ -58,27 +58,24 @@ describe('log scale test', () => {
     expect(x1.getOptions() !== x2.getOptions()).toBeTruthy();
   });
 
-  test('test nice option', () => {
+  test('test nice options', () => {
     const scale = new Log({
-      domain: [1.6, 10.4],
       nice: true,
+      domain: [1.1, 10.9],
     });
 
-    // 调用 map 之后才会触发 nice
-    // TODO: fix log bug for NaN 下一个 pr 处理
-    expect(scale.map(1)).toStrictEqual(NaN);
-
-    expect(scale.getOptions().domain).toStrictEqual([0, 12]);
+    expect(scale.getOptions().domain).toEqual([1, 100]);
   });
 
   test('test getTicks', () => {
     const scale = new Log({
       domain: [1, 120],
       base: 2,
-      tickMethod: (min, max, count) => {
+      tickMethod: (min, max, count, base) => {
         expect(min).toBe(1);
         expect(max).toBe(120);
         expect(count).toBe(5);
+        expect(base).toBe(2);
         return [];
       },
     });
