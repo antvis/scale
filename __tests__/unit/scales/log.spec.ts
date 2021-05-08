@@ -71,10 +71,11 @@ describe('log scale test', () => {
     const scale = new Log({
       domain: [1, 120],
       base: 2,
-      tickMethod: (min, max, count) => {
+      tickMethod: (min, max, count, base) => {
         expect(min).toBe(1);
         expect(max).toBe(120);
         expect(count).toBe(5);
+        expect(base).toBe(2);
         return [];
       },
     });

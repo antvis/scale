@@ -1,0 +1,46 @@
+import { TickMethod } from 'types';
+import { d3Linear } from './d3-linear';
+import { pows, logs } from '../utils';
+
+export const d3Log: TickMethod = (a, b, n, base = 10) => {
+  const shouldReflect = a < 0;
+  const pow = pows(base, shouldReflect);
+  const log = logs(base, shouldReflect);
+
+  const r = b < a;
+  const min = r ? b : a;
+  const max = r ? a : b;
+  let i = log(min);
+  let j = log(max);
+  let ticks = [];
+
+  // 如果 base 是整数
+  if (!(base % 1) && j - i < n) {
+    i = Math.floor(i);
+    j = Math.ceil(j);
+    if (shouldReflect) {
+      for (; i <= j; i += 1) {
+        const p = pow(i);
+        for (let k = base - 1; k >= 1; k -= 1) {
+          const t = p * k;
+          if (t > max) break;
+          if (t >= min) ticks.push(t);
+        }
+      }
+    } else {
+      for (; i <= j; i += 1) {
+        const p = pow(i);
+        for (let k = 1; k < base; k += 1) {
+          const t = p * k;
+          if (t > max) break;
+          if (t >= min) ticks.push(t);
+        }
+      }
+    }
+    if (ticks.length * 2 < n) ticks = d3Linear(min, max, n);
+  } else {
+    ticks = d3Linear(i, j, Math.min(j - i, n)).map(pow);
+  }
+
+  return r ? ticks.reverse() : ticks;
+};

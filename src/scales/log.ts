@@ -1,7 +1,7 @@
 import { Continuous } from './continuous';
 import { LogOptions } from '../types';
 import { createInterpolate, logs, pows } from '../utils';
-import { rPretty } from '../tick-methods/r-pretty';
+import { d3Log } from '../tick-methods/d3-log';
 import { d3LogNice } from '../utils/d3-log-nice';
 
 /**
@@ -16,7 +16,7 @@ export class Log extends Continuous<LogOptions> {
       range: [0, 1],
       base: 10,
       interpolate: createInterpolate,
-      tickMethod: rPretty,
+      tickMethod: d3Log,
       tickCount: 5,
     };
   }
