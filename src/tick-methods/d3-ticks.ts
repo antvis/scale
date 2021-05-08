@@ -1,7 +1,7 @@
 import { TickMethod } from '../types';
 import { tickIncrement } from '../utils/tick-utils';
 
-export const d3Linear: TickMethod = (begin: number, end: number, count: number) => {
+export const d3Ticks: TickMethod = (begin: number, end: number, count: number) => {
   let n;
   let ticks;
 

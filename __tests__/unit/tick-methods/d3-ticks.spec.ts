@@ -1,4 +1,4 @@
-import { d3Linear as fn } from '../../../src';
+import { d3Ticks as fn } from '../../../src';
 
 describe('linear ticks', () => {
   test('common usage', () => {

@@ -3,7 +3,7 @@ import { Continuous, Transform } from './continuous';
 import { PowOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate } from '../utils';
-import { d3Linear } from '../tick-methods/d3-linear';
+import { d3Ticks } from '../tick-methods/d3-ticks';
 
 const transformPow = (exponent: number) => {
   return (x: number) => {
@@ -37,7 +37,7 @@ export class Pow<O extends PowOptions> extends Continuous<O> {
       round: false,
       exponent: 2,
       interpolate: createInterpolate,
-      tickMethod: d3Linear,
+      tickMethod: d3Ticks,
       tickCount: 5,
     } as O;
   }

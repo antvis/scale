@@ -3,7 +3,7 @@ import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
 import { createInterpolate } from '../utils';
-import { d3Linear } from '../tick-methods/d3-linear';
+import { d3Ticks } from '../tick-methods/d3-ticks';
 
 /**
  * Linear 比例尺
@@ -20,7 +20,7 @@ export class Linear extends Continuous<LinearOptions> {
       clamp: false,
       round: false,
       interpolate: createInterpolate,
-      tickMethod: d3Linear,
+      tickMethod: d3Ticks,
       tickCount: 5,
     };
   }

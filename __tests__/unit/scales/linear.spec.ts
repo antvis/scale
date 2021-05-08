@@ -1,5 +1,5 @@
 import { Linear, TickMethod } from '../../../src';
-import { d3Linear } from '../../../src/tick-methods/d3-linear';
+import { d3Ticks } from '../../../src/tick-methods/d3-ticks';
 
 describe('Linear Scale Test', () => {
   test('test default options', () => {
@@ -13,7 +13,7 @@ describe('Linear Scale Test', () => {
     expect(nice).toBeFalsy();
     expect(clamp).toBeFalsy();
     expect(unknown).toBeUndefined();
-    expect(tickMethod).toBe(d3Linear);
+    expect(tickMethod).toBe(d3Ticks);
   });
 
   test('test map fn', () => {

@@ -16,7 +16,7 @@ export { Time } from './scales/time';
 export { Base } from './scales/base';
 
 // tick-methods
-export { d3Linear } from './tick-methods/d3-linear';
+export { d3Ticks } from './tick-methods/d3-ticks';
 export { rPretty } from './tick-methods/r-pretty';
 export { wilkinsonExtended } from './tick-methods/wilkinson-extended';
 
