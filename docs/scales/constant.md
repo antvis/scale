@@ -30,6 +30,8 @@ x.invert('2'); // [0, 10]
 | domain | Sets the scale’s domain to the specified array of values. | <code>number[] &#124; string[]</code> | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
+| tickCount | Sets approximately count representative values from the scale’s domain. | `number` | `5` |
+| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: ConstantOptions) => number[]` | r-pretty|
 
 ## Methods
 
@@ -52,3 +54,7 @@ Returns the scale's current options.
 <a name="constant_clone" href="#constant_clone">#</a> **clone**<i>(): Constant</i>
 
 Returns a new constant scale with the independent and same options as the original one.
+
+<a name="constant_getTicks" href="#constant_getTicks">#</a> **getTicks**<i>(): number[]</i>
+
+Returns representative values from the scale’s domain computed by specified `options.tickMethod` with `options.tickCount` if options.domain are numbers, otherwise `[]`.

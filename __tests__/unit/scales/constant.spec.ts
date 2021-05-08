@@ -1,12 +1,15 @@
-import { Constant, ConstantOptions } from '../../../src';
+import { Constant, ConstantOptions, d3Ticks } from '../../../src';
 
 describe('Constant', () => {
   test('Constant() has expected defaults', () => {
     const s = new Constant();
-    expect(s.getOptions()).toEqual({
+    const { tickMethod, ...options } = s.getOptions();
+    expect(options).toEqual({
       range: [0],
       domain: [0, 1],
+      tickCount: 5,
     });
+    expect(tickMethod).toBe(d3Ticks);
   });
 
   test('Constant(options) override defaults', () => {
@@ -71,6 +74,34 @@ describe('Constant', () => {
     const s = new Constant();
     const s1 = s.clone();
     expect(s.getOptions()).toEqual(s1.getOptions());
+  });
+
+  test('getTicks() returns desired ticks', () => {
+    const s = new Constant({
+      tickMethod: (a, b, n) => {
+        expect(a).toBe(0);
+        expect(b).toBe(1);
+        expect(n).toBe(n);
+        return [a, b];
+      },
+    });
+
+    expect(s.getTicks()).toEqual([0, 1]);
+
+    s.update({
+      domain: [1, 'a'],
+    });
+    expect(s.getTicks()).toEqual([]);
+
+    s.update({
+      domain: ['a', 1],
+    });
+    expect(s.getTicks()).toEqual([]);
+
+    s.update({
+      domain: ['a', 'b'],
+    });
+    expect(s.getTicks()).toEqual([]);
   });
 
   test('clone() returns a scale isolating change with the original one', () => {

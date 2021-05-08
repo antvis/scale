@@ -1,3 +1,5 @@
+import { isNumber } from '@antv/util';
+import { d3Ticks } from '../tick-methods/d3-ticks';
 import { ConstantOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
@@ -11,6 +13,8 @@ export class Constant extends Base<ConstantOptions> {
       range: [0],
       domain: [0, 1],
       unknown: undefined,
+      tickCount: 5,
+      tickMethod: d3Ticks,
     };
   }
 
@@ -33,6 +37,13 @@ export class Constant extends Base<ConstantOptions> {
   public invert(x: Range<ConstantOptions>) {
     const [v] = this.options.range;
     return x === v && v !== undefined ? this.options.domain : [];
+  }
+
+  public getTicks() {
+    const { tickMethod, domain, tickCount } = this.options;
+    const [a, b] = domain;
+    if (!isNumber(a) || !isNumber(b)) return [];
+    return tickMethod(a, b, tickCount);
   }
 
   /**
