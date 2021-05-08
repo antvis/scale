@@ -6,6 +6,8 @@ export { bisect } from './bisect';
 export { d3LinearNice } from './d3-linear-nice';
 export { d3TimeNice } from './d3-time-nice';
 export { isValid } from './is-valid';
+export { logs, pows } from './log';
+export { d3LogNice } from './d3-log-nice';
 export { tickIncrement, tickStep } from './ticks';
 export { findTickInterval } from './find-tick-interval';
 
