@@ -58,37 +58,12 @@ describe('log scale test', () => {
     expect(x1.getOptions() !== x2.getOptions()).toBeTruthy();
   });
 
-  test('test nice options, nices the domain, extending it to powers of ten', () => {
+  test('test nice options', () => {
     const scale = new Log({
       nice: true,
       domain: [1.1, 10.9],
     });
 
-    expect(scale.getOptions().domain).toEqual([1, 100]);
-
-    scale.update({
-      domain: [10.9, 1.1],
-    });
-    expect(scale.getOptions().domain).toEqual([100, 1]);
-
-    scale.update({
-      domain: [0.7, 11.001],
-    });
-    expect(scale.getOptions().domain).toEqual([0.1, 100]);
-
-    scale.update({
-      domain: [123.1, 6.7],
-    });
-    expect(scale.getOptions().domain).toEqual([1000, 1]);
-
-    scale.update({
-      domain: [0.01, 0.49],
-    });
-    expect(scale.getOptions().domain).toEqual([0.01, 1]);
-
-    scale.update({
-      domain: [1.5, 50],
-    });
     expect(scale.getOptions().domain).toEqual([1, 100]);
   });
 

@@ -1,22 +1,8 @@
 import { Continuous } from './continuous';
 import { LogOptions } from '../types';
-import { createInterpolate } from '../utils';
+import { createInterpolate, logs, pows } from '../utils';
 import { rPretty } from '../tick-methods/r-pretty';
-
-const reflect = (f: Function) => {
-  return (x: number) => -f(-x);
-};
-
-const transformLog = (base: number, shouldReflect: boolean) => {
-  const baseCache = Math.log(base);
-  const log = base === Math.E ? Math.log : (x: number) => Math.log(x) / baseCache;
-  return shouldReflect ? reflect(log) : log;
-};
-
-const transformPow = (base: number, shouldReflect: boolean) => {
-  const pow = base === Math.E ? Math.exp : (x: number) => base ** x;
-  return shouldReflect ? reflect(pow) : pow;
-};
+import { d3LogNice } from '../utils/d3-log-nice';
 
 /**
  * Linear 比例尺
@@ -35,22 +21,21 @@ export class Log extends Continuous<LogOptions> {
     };
   }
 
-  protected nice() {
-    if (!this.options.nice) return;
-    const { domain } = this.options;
-    const [a, b] = domain;
-    const r = a > b;
-    const min = r ? b : a;
-    const max = r ? a : b;
-    const [log, pow] = this.chooseTransforms();
-    const niceDomain = [pow(Math.floor(log(min))), pow(Math.ceil(log(max)))];
-    this.options.domain = r ? niceDomain.reverse() : niceDomain;
+  protected chooseNice() {
+    return d3LogNice;
+  }
+
+  protected getTickMethodOptions() {
+    const { domain, tickCount, base } = this.options;
+    const min = domain[0];
+    const max = domain[domain.length - 1];
+    return [min, max, tickCount, base];
   }
 
   protected chooseTransforms() {
     const { base, domain } = this.options;
     const shouldReflect = domain[0] < 0;
-    return [transformLog(base, shouldReflect), transformPow(base, shouldReflect)];
+    return [logs(base, shouldReflect), pows(base, shouldReflect)];
   }
 
   public clone(): Log {
