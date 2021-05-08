@@ -3,27 +3,18 @@ import { LogOptions } from '../types';
 import { createInterpolate } from '../utils';
 import { rPretty } from '../tick-methods/r-pretty';
 
-const reflect = (f) => {
-  return (x) => -f(-x);
+const reflect = (f: Function) => {
+  return (x: number) => -f(-x);
 };
 
 const transformLog = (base: number, shouldReflect: boolean) => {
-  let logFn;
-
-  if (base === Math.E) {
-    logFn = Math.log;
-  } else {
-    // 只计算一次 Math.log(base)
-    const baseCache = Math.log(base);
-    // 使用换底公式
-    logFn = (x) => Math.log(x) / baseCache;
-  }
-
-  return shouldReflect ? reflect(logFn) : logFn;
+  const baseCache = Math.log(base);
+  const log = base === Math.E ? Math.log : (x: number) => Math.log(x) / baseCache;
+  return shouldReflect ? reflect(log) : log;
 };
 
 const transformPow = (base: number, shouldReflect: boolean) => {
-  const pow = base === Math.E ? Math.exp : (x) => base ** x;
+  const pow = base === Math.E ? Math.exp : (x: number) => base ** x;
   return shouldReflect ? reflect(pow) : pow;
 };
 
@@ -42,6 +33,18 @@ export class Log extends Continuous<LogOptions> {
       tickMethod: rPretty,
       tickCount: 5,
     };
+  }
+
+  protected nice() {
+    if (!this.options.nice) return;
+    const { domain } = this.options;
+    const [a, b] = domain;
+    const r = a > b;
+    const min = r ? b : a;
+    const max = r ? a : b;
+    const [log, pow] = this.chooseTransforms();
+    const niceDomain = [pow(Math.floor(log(min))), pow(Math.ceil(log(max)))];
+    this.options.domain = r ? niceDomain.reverse() : niceDomain;
   }
 
   protected chooseTransforms() {
