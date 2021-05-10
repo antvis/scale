@@ -48,7 +48,7 @@ export type Unknown<O extends BaseOptions> = O['unknown'];
 export type IdentityOptions = BaseOptions<number> & TickOptions;
 
 /** Constant 比例尺的选项 */
-export type ConstantOptions = BaseOptions<number | string>;
+export type ConstantOptions = BaseOptions<number | string> & TickOptions;
 
 /** Continuous 比例尺的选项 */
 export type ContinuousOptions<D = any, R = D> = BaseOptions<D, R> &
