@@ -65,7 +65,7 @@ x.getTicks(); // [0, 5, 10]
 
 ## 📜 API reference
 
-### ⚖️Scales
+### ⚖️ Scales
 
 - [x] [Constant](./docs/scales/constant.md) Map input to a fixed output.
 - [x] [Linear](./docs/scales/linear.md) Indicate a linear relationship between input and output.
@@ -87,7 +87,7 @@ x.getTicks(); // [0, 5, 10]
 - [x] [R Pretty](docs/tick-methods/r-pretty.md) An algorithm for positioning tick labels on axes in R language.
 - [x] [D3 Linear](docs/tick-methods/d3-ticks.md) Linear scale ticks algorithm for d3-scale.
 
-## Contribution
+## 📮 Contribution
 
 ```bash
 $ git clone git@github.com:antvis/scale.git

@@ -31,13 +31,7 @@ describe('wilkinson-extended test', () => {
     expect(wilkinsonExtended(0, 0.001, 5)).toStrictEqual([0, 0.00025, 0.0005, 0.00075, 0.001]);
     expect(wilkinsonExtended(0, 0.0001, 6)).toStrictEqual([0, 0.00002, 0.00004, 0.00006, 0.00008, 0.0001]);
     expect(wilkinsonExtended(0, 0.00001, 6)).toStrictEqual([
-      0,
-      0.000002,
-      0.000004,
-      0.000006,
-      0.000008,
-      0.00001,
-      0.000012,
+      0, 0.000002, 0.000004, 0.000006, 0.000008, 0.00001, 0.000012,
     ]);
     expect(wilkinsonExtended(0, 0.000001, 6)).toStrictEqual([0, 0.0000002, 0.0000004, 0.0000006, 0.0000008, 0.000001]);
   });
