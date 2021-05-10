@@ -7,25 +7,7 @@ function round(x: number) {
 describe('d3Log', () => {
   test('d3Log(a, b, n) generates the expected power-of-ten for ascending ticks', () => {
     expect(d3Log(1e-1, 1e1, 10).map(round)).toEqual([
-      0.1,
-      0.2,
-      0.3,
-      0.4,
-      0.5,
-      0.6,
-      0.7,
-      0.8,
-      0.9,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
+      0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ]);
     expect(d3Log(1e-1, 1, 10).map(round)).toEqual([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]);
     expect(d3Log(-1, -1e-1, 10).map(round)).toEqual([-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1]);
@@ -61,13 +43,7 @@ describe('d3Log', () => {
 
   test('d3Log(a, b, n, base) generates the expected power-of-base ticks', () => {
     expect(d3Log(0.1, 100, 10, Math.E).map(round)).toEqual([
-      0.135335283237,
-      0.367879441171,
-      1,
-      2.718281828459,
-      7.389056098931,
-      20.085536923188,
-      54.598150033144,
+      0.135335283237, 0.367879441171, 1, 2.718281828459, 7.389056098931, 20.085536923188, 54.598150033144,
     ]);
   });
 });
