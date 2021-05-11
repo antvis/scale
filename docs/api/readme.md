@@ -1,28 +1,59 @@
-# @antv/scale API
+# API Reference
+
+There are three parts of API reference for @antv/scale. Follow the links below to learn more.
+
+- [Scales](#scales)([Continuous](#continuous), [Distribution](#distribution), [Discrete](#discrete))
+- [TickMethods](#tick-methods)
+- [Constants](#constants)
 
 ## Scales
 
-- Continuous
-  - [Linear](./docs/scales/linear.md) - Indicate a linear relationship between input and output.
-  - [Identity](./docs/scales/identity.md) - A special case of linear scales where the domain and range are identical.
-  - [Constant](./docs/scales/constant.md) - Map input to a fixed output.
-  - [Pow](./docs/scales/pow.md) - Creates a power based scale, which transform the output by exponent option.
-  - [Sqrt](./docs/scales/sqrt.md) - Creates a square-root based scale, similar to Pow scale.
-  - [Log](./docs/scales/log.md) - The logarithmic transformation will be applied to the input domain value.
-  - [Time](./docs/scales/time.md) - A variant of linear scales that have a temporal domain.
-- Distribution
-  - [Threshold](./docs/scales/threshold.md) - Divide continuous domain into slices and map value in each slice to discrete values in the range.
-  - [Quantize](./docs/scales/quantize.md) - Map input in each slice to corresponding output in range.
-  - [Quantile](./docs/scales/quantile.md) - Map a discrete input domain to a discrete output domain.
-- Discrete
-  - [Ordinal](./docs/scales/ordinal.md) - Scale for discrete domain and range.
-  - [Band](./docs/scales/band.md) - A special case of ordinal scales where the range is continuous.
-  - [Point](./docs/scales/point.md) - A special case of band scales that the bandwidth always fixed to zero.
+Encodings that map abstract data to visual representation.
 
-## 🧮 Tick Methods
+### Continuous
 
-- [Wilkinson Extended](docs/tick-methods/wilkinson-extended.md) - An extension of Wilkinson's algorithm for positioning tick labels on axes.
-- [R Pretty](docs/tick-methods/r-pretty.md) - An algorithm for positioning tick labels on axes in R language.
-- [D3 Ticks](docs/tick-methods/d3-ticks.md) - Linear scale ticks algorithm for d3-scale.
+Map a continuous, quantitative domain to a continuous range.
 
-## 🅰️ Constant
+- [Linear](./scales/linear.md) - A basic continuous scale that preserve proportional differences for continuous data.
+- [Identity](./scales/identity.md) - A special case of linear scales where the domain and range are identical.
+- [Constant](./scales/constant.md) - A special case of linear scales which mapping input to a fixed output.
+- [Log](./scales/log.md) - Similar to linear scales, except an logarithmic transform is applied to the input domain value before the output range value is computed.
+- [Pow](./scales/pow.md) - Similar to linear scales, except an exponential transform is applied to the input domain value before the output range value is computed.
+- [Sqrt](./scales/sqrt.md) - A special case of pow scales with exponent fixed to 0.5.
+- [Time](./scales/time.md) - Similar to linear scales, but have a have a temporal domain.
+  
+### Distribution
+
+Map a continuous, quantitative domain to a discrete range.
+
+- [Threshold](./scales/threshold.md) - Divide continuous domain into slices based on specified cut values and map value in each slice to corresponding discrete values in the range.
+- [Quantize](./scales/quantize.md) - Similar to threshold scales, but computed cut values based on size of each data.
+- [Quantile](./scales/quantile.md) - Similar to threshold scales, but computed cut values based on quantile(ranking of each data).
+
+### Discrete
+
+Map a discrete domain to a discrete or continuous range.
+
+- [Ordinal](./scales/ordinal.md) - Map input value in discrete domain into corresponding discrete values in range.
+- [Band](./scales/band.md) - A special case of ordinal scales where the range is continuous.
+- [Point](./scales/point.md) - A special case of band scales with bandwidth fixed to zero.
+
+## Tick Methods
+
+Method for computing representative values from specified `min`, `max` and `tickCount`.
+
+- [Wilkinson Extended](./tick-methods/wilkinson-extended.md) - An extension of Wilkinson's algorithm for positioning tick labels on axes.
+- [R Pretty](./tick-methods/r-pretty.md) - An algorithm for positioning tick labels on axes in R language.
+- [D3 Ticks](./tick-methods/d3-ticks.md) - D3 ticks in d3-array.
+
+## Constants
+
+Constants for tickInterval option used in time scale.
+
+- `DURATION_SECOND`: The number of milliseconds for one second.
+- `DURATION_MINUTE`: The number of milliseconds for one minute.
+- `DURATION_HOUR`: The number of milliseconds for one hour.
+- `DURATION_DAY`: The number of milliseconds for one day.
+- `DURATION_WEEK`: The number of milliseconds for one week.
+- `DURATION_MONTH`: The number of milliseconds for one month.
+- `DURATION_YEAR`: The number of milliseconds for one year.

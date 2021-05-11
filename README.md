@@ -55,15 +55,7 @@ const x = new Linear({
   domain: [0, 10],
   range: [0, 100],
   tickCount: 3,
-  tickMethod: (min: number, max: number, count: number) => {
-    // min = 0, max = 10, count = 3
-    const ticks = new Array(count);
-    const step = (max - min) / (count - 1);
-    for (let i = 0; i < count; i++) {
-      ticks[i] = min + i * step;
-    }
-    return ticks;
-  },
+  tickMethod: () => [0, 5, 10],
 });
 
 x.getTicks(); // [0, 5, 10]
