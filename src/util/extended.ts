@@ -105,7 +105,6 @@ export default function extended(
 
   let j = 1;
   while (j < Infinity) {
-    // for (const q of Q)
     for (let i = 0; i < Q.length; i += 1) {
       const q = Q[i];
       const sm = simplicityMax(q, Q, j);
@@ -167,10 +166,8 @@ export default function extended(
 
   let i = 0;
 
-  const size = (best.lmax - best.lmin) / best.lstep;
-
   // 步长为浮点数时处理精度
-  const range = new Array(Math.floor(size));
+  const range = new Array(Math.floor((best.lmax - best.lmin) / best.lstep));
 
   for (let tick = best.lmin; tick <= best.lmax; tick = precisionAdd(tick, best.lstep)) {
     range[i] = tick;
