@@ -1,6 +1,6 @@
 # Log
 
-Similar to linear scales, except an logarithmic transform is applied to the input domain value before the output range value is computed. Each range value y can be expressed as a function of the domain value x: `y = log(x) + b`. ([online demo](https://observablehq.com/@pearmini/antv-scale#log))
+Similar to [linear scales](./linear.md), except an logarithmic transform is applied to the input domain value before the output range value is computed. Each range value y can be expressed as a function of the domain value x: `y = log(x) + b`. ([online demo](https://observablehq.com/@pearmini/antv-scale#log))
 
 ## Usage
 
@@ -20,11 +20,13 @@ x.map(2); // 0.301
 x.invert(0.301); // 2
 ```
 
+More usages reference [linear scale](./linear.md#usage).
+
 ## Options
 
 | Key | Description | Type | Default|  
 | ----| ----------- | -----| -------|
-| domain | Sets the scale’s domain to the specified array of values. | `number[]` | `[0, 1]` |
+| domain | Sets the scale’s domain to the specified array of values. **A log scale domain must be strictly-positive or strictly-negative; the domain must not include or cross zero.**  | `number[]` | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | tickCount | Sets approximately count representative values from the scale’s domain. **The specified `count` in options is only a hint: the scale may return more or fewer values depending on the domain.** | `number` | `5` |

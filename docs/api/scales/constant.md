@@ -1,6 +1,6 @@
 # Constant
 
-A special case of linear scales which mapping input to a fixed output. Each range value y can be expressed as a function of the domain value x: `y = b`. ([online demo](https://observablehq.com/@pearmini/antv-scale#constant))
+A special case of [linear scales](./linear.md) which mapping input to a fixed output. Each range value y can be expressed as a function of the domain value x: `y = b`. ([online demo](https://observablehq.com/@pearmini/antv-scale#constant))
 
 ## Usage
 

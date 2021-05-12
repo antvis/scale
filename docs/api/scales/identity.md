@@ -1,6 +1,6 @@
 # Identity
 
-A special case of linear scales where the domain and range are identical. Each range value y can be expressed as a function of the domain value x: `y = x`. ([online demo](https://observablehq.com/@pearmini/antv-scale#idenity))
+A special case of [linear scales](./linear.md) where the domain and range are identical. Each range value y can be expressed as a function of the domain value x: `y = x`. ([online demo](https://observablehq.com/@pearmini/antv-scale#idenity))
 
 ## Usage
 

@@ -22,6 +22,86 @@ x.invert(1000); // 100
 x.invert(500); // 0
 ```
 
+- Nice domain
+  
+```ts
+import { Linear } from '@antv/scale';
+
+const x = new Linear({
+  domain: [0.1, 0.9]
+});
+x.getOptions().domain // [0.1, 0.9]
+
+x.update({
+  nice: true
+})
+x.getOptions().domain; // [0, 1]
+```
+
+- Round output
+  
+```ts
+import { Linear } from '@antv/scale';
+
+const x = new Linear({
+  range: [0.1, 0.9]
+});
+
+x.map(0) // 0.1
+x.map(1) // 0.9
+
+x.update({
+  round: true
+})
+x.map(0) // 0
+x.map(1) // 1
+```
+
+- Clamp output
+
+```ts
+import { Linear } from '@antv/scale';
+
+const x = new Linear();
+x.map(-1) // -1
+x.map(2) // 2
+
+x.update({
+  clamp: true
+})
+x.map(-1) // 0
+x.map(2) // 1
+```
+
+- Customize range interpolator
+  
+```ts
+import { Linear } from '@antv/scale';
+
+const x = new Linear({
+  domain: [0, 100],
+  range: [0, 10],
+});
+
+x.map(4); // 0.4
+x.map(36); // 3.6
+x.map(64); // 6.4
+
+/*
+* y^2 = mx^2 + b
+* Input value corresponds linearly to the squared output value.
+* It is useful if input value corresponds to the area of a graphical mark and the mark is specified by radius.
+*/
+
+x.update({
+  interpolate: (a: number, b: number) => (t: number) => Math.sqrt(a * a * (1 - t) + b * b * t)
+});
+
+x.map(4); // 2: 4 = 2 * 2
+x.map(36); // 6: 36 = 6 * 6
+x.map(64); // 8: 64 = 8 * 8
+```
+  
 - Customize tickMethod
   
 ```ts
