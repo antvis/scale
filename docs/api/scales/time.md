@@ -162,7 +162,7 @@ function UTC(
 }
 ```
 
-More usages reference [linear scale](./linear.md#usage).
+More usages reference [linear scale](./linear.md#usage) and [constants](../constants.md).
 
 ## Options
 
