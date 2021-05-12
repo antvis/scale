@@ -22,11 +22,9 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ./node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            cache-node-modules-
 
       - name: Run ci
         run: |
