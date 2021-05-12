@@ -1,17 +1,12 @@
 # Threshold
 
-Threshold scales allow you divide continuous domain into slices and map value in each slice to discrete values in the range.
+Divide continuous domain into slices based on specified cut values and map value in each slice to corresponding discrete values in the range. ([online demo](https://observablehq.com/@pearmini/antv-scale#threhold))
 
 ## Usage
 
 ```ts
 import { Threshold, ThresholdOptions } from '@antv/scale';
 
-/*
-** (-Infinity, 1 / 3] -> 'a'
-** [1 / 3 , 2 / 3) -> 'b'
-** [2 / 3, Infinity) -> 'c'
-*/
 const options: ThresholdOptions = {
   domain: [1 / 3, 2 / 3],
   range: ['a', 'b', 'c'],
@@ -52,7 +47,7 @@ Returns the extent of values in the domain [x0, x1] for the corresponding value 
 
 <a name="threshold_update" href="#threshold_update">#</a> **update**<i>(options: ThresholdOptions): void</i>
 
-Update the scale's options and rescale.
+Updates the scale's options and rescale.
 
 <a name="threshold_getOptions" href="#threshold_getOptions">#</a> **getOptions**<i>(): ThresholdOptions</i>
 
