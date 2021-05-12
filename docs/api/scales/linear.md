@@ -1,6 +1,6 @@
 # Linear
 
-Linear scales indicate a linear relationship between input and output.
+A basic continuous scale that preserve proportional differences for continuous data. Each range value y can be expressed as a function of the domain value x: `y = mx + b`. ([online demo](https://observablehq.com/@pearmini/antv-scale#linear))
 
 ## Usage
 
@@ -27,35 +27,36 @@ x.invert(500); // 0
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| tickCount | Sets approximately count representative values from the scale’s domain. | `number` | `5` |
-| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: LinearOptions) => number[]` | `linerTick` |
-| round | round the output of map or invert. | `boolean` | `false` |
-| clamp | If clamp option is truthy, the return value of the scale is always within the scale’s range. | `boolean` | `false` |
-| nice | Extends the domain so that it starts and ends on nice round values. | `boolean` | `false` |
-| interpolate | If interpolate is specified, sets the scale’s range interpolator factory. | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |
+| tickCount | Sets approximately count representative values from the scale’s domain. **The specified `count` in options is only a hint: the scale may return more or fewer values depending on the domain.**| `number` | `5` |
+| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: LinearOptions) => number[]` | `d3-ticks` |
+| round | Rounds the output of map or invert if it is true. | `boolean` | `false` |
+| clamp | Constrains the return value of map within the scale’s range if it is true. | `boolean` | `false` |
+| nice | Extends the domain so that it starts and ends on nice round values if it is true. | `boolean` | `false` |
+| interpolate | Sets the scale’s range interpolator factory if it is specified. | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |
 
 ## Methods
 
-<a name="Linear_map" href="#Linear_map">#</a> **map**<i>(x: number): number</i>
+<a name="linear_map" href="#linear_map">#</a> **map**<i>(x: number): number</i>
 
 Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
 
-<a name="Linear_invert" href="#Linear_invert">#</a> **invert**<i>(x: number): number</i>
+<a name="linear_invert" href="#linear_invert">#</a> **invert**<i>(x: number): number</i>
 
 Given a value from the range, returns the corresponding value from the domain.
 
-<a name="Linear_update" href="#Linear_update">#</a> **update**<i>(options: LinearOptions): void</i>
+<a name="linear_update" href="#linear_update">#</a> **update**<i>(options: LinearOptions): void</i>
 
-Update the scale's options and rescale.
+Updates the scale's options and rescale.
 
-<a name="Linear_getOptions" href="#Linear_getOptions">#</a> **getOptions**<i>(): LinearOptions</i>
+<a name="linear_get_options" href="#linear_get_options">#</a> **getOptions**<i>(): LinearOptions</i>
 
 Returns the scale's current options.
 
-<a name="Linear_clone" href="#Linear_clone">#</a> **clone**<i>(): Linear</i>
+<a name="linear_clone" href="#linear_clone">#</a> **clone**<i>(): Linear</i>
 
 Returns a new Linear scale with the independent and same options as the original one.
 
-<a name="Linear_get_ticks" href="#Linear_get_ticks">#</a> **getTicks**<i>(): number[]</i>
+<a name="linear_get_ticks" href="#linear_get_ticks">#</a> **getTicks**<i>(): number[]</i>
 
 Returns a series of representative values from the scale’s domain.
+
