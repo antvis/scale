@@ -4,6 +4,8 @@ A basic continuous scale that preserve proportional differences for continuous d
 
 ## Usage
 
+- Basic usage
+
 ```ts
 import { Linear, LinearOptions } from '@antv/scale';
 
@@ -18,6 +20,36 @@ x.map(0); // 500
 x.map(100); // 1000
 x.invert(1000); // 100
 x.invert(500); // 0
+```
+
+- Customize tickMethod
+  
+```ts
+import { Linear, LinearOptions, rPretty, wilkinsonExtended } from '@antv/scale';
+
+const options: LinearOptions = {
+  domain: [2, 17],
+  tickCount: 6,
+};
+
+const x0 = new Linear(options); // default tickMethod is d3Ticks
+const x1 = new Linear({
+  tickMethod: rPretty
+});
+const x2 = new Linear({
+  tickMethod: wilkinsonExtended
+});
+const x3 = new Linear({
+  tickMethod: (min: number, max: number, count: number) => {
+    const step = (max - min) / count;
+    return new Array(count).fill(0).map((_, i) => min + i * step);
+  }
+});
+
+x0.getTicks(); // [2, 4, 6, 8, 10, 12, 14, 16]
+x1.getTicks(); // [2, 4, 6, 8, 10, 12, 14, 16, 18]
+x2.getTicks(); // [0, 2.5, 5, 7.5, 10, 12.5, 15, 17.5]
+x3.getTicks(); // [2, 4.5, 7, 9.5, 12, 14.5]
 ```
 
 ## Options

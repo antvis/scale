@@ -5,15 +5,19 @@ Similar to linear scales, except an logarithmic transform is applied to the inpu
 ## Usage
 
 ```ts
-const scale = new Log({
+import { Log, LogOptions } from '@antv/scale';
+
+const options: LogOptions = {
   domain: [1, 10],
   range: [0, 1],
   base: 10
-});
+};
 
-scale.map(1); // 0
-scale.map(2); // 0.301
-scale.invert(0.301); // 2
+const x = new Log(options);
+
+x.map(1); // 0
+x.map(2); // 0.301
+x.invert(0.301); // 2
 ```
 
 ## Options
