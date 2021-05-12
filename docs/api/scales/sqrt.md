@@ -47,7 +47,7 @@ Given a value from the range, returns the corresponding value from the domain.
 
 <a name="sqrt_update" href="#sqrt_update">#</a> **update**<i>(options: SqrtOptions): void</i>
 
-Update the scale's options and rescale.
+Updates the scale's options and rescale.
 
 <a name="sqrt_get_options" href="#Sqrt_get_options">#</a> **getOptions**<i>(): SqrtOptions</i>
 

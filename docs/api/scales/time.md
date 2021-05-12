@@ -193,7 +193,7 @@ Given a value from the range, returns the corresponding value from the domain.
 
 <a name="time_update" href="#time_update">#</a> **update**<i>(options: TimeOptions): void</i>
 
-Update the scale's options and rescale.
+Updates the scale's options and rescale.
 
 <a name="time_getOptions" href="#time_getOptions">#</a> **getOptions**<i>(): TimeOptions</i>
 

@@ -49,7 +49,7 @@ Given a value from the range, returns the corresponding value from the domain.
 
 <a name="pow_update" href="#pow_update">#</a> **update**<i>(options: PowOptions): void</i>
 
-Update the scale's options and rescale.
+Updates the scale's options and rescale.
 
 <a name="pow_get_options" href="#pow_get_options">#</a> **getOptions**<i>(): PowOptions</i>
 
