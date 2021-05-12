@@ -35,7 +35,9 @@ x.getThresholds(); // [1 / 3, 2 / 3]
 | domain | Sets the scale’s domain to the specified two-element array of values. The values must be in ascending order. | `number[]` | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | `any[]` | `[0.5]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| nice | Extends the domain so that it starts and ends on nice round values. | `boolean` | `false` |
+| nice | Extends the domain so that it starts and ends on nice round values if it is true. | `boolean` | `false` |
+| tickCount | Sets approximately count representative values from the scale’s domain. **The specified `tickCount` in options is only a hint: the scale may return more or fewer values depending on the domain.** | `number` | `5` |
+| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |
 
 ## Methods
 

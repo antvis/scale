@@ -30,6 +30,8 @@ x.getThresholds(); // [10, 20, 30]
 | domain |Sets the scale’s domain to the specified array of values. | `number[]` | `[]` |
 | range | Sets the scale’s range to the specified array of values. | `any[]` | `[]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
+| tickCount | Sets approximately count representative values from the scale’s domain. **The specified `tickCount` in options is only a hint: the scale may return more or fewer values depending on the domain.** | `number` | `5` |
+| tickMethod | Sets the method for computing representative values from the scale’s domain. | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |
 
 ## Methods
 

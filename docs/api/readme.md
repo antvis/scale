@@ -42,9 +42,9 @@ Map a discrete domain to a discrete or continuous range.
 
 Method for computing representative values.
 
-- [D3 Ticks](./tick-methods#d3-ticks.md) - D3 ticks in d3-array.
-- [Wilkinson Extended](./tick-methods#wilkinson-extended.md) - An extension of Wilkinson's algorithm for positioning tick labels on axes.
-- [R Pretty](./tick-methods#r-pretty.md) - An algorithm for positioning tick labels on axes in R language.
+- [D3 Ticks](./tick-methods.md#d3-ticks) - D3 ticks in d3-array.
+- [R Pretty](./tick-methods.md#r-pretty) - An algorithm for positioning tick labels on axes in R language.
+- [Wilkinson Extended](./tick-methods.md#wilkinson-extended) - An extension of Wilkinson's algorithm for positioning tick labels on axes.
 
 ## Constants
 
