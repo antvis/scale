@@ -62,7 +62,7 @@ x3.getTicks(); // [2, 4.5, 7, 9.5, 12, 14.5]
 | domain | Sets the scale’s domain to the specified array of values. | <code>number[] &#124; string[]</code> | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | <code>number[] &#124; string[]</code> | `[0]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| tickCount | Sets approximately count representative values from the scale’s domain. **The specified `count` in options is only a hint: the scale may return more or fewer values depending on the domain.**| `number` | `5` |
+| tickCount | Sets approximately count representative values from the scale’s domain. **The specified `tickCount` in options is only a hint: the scale may return more or fewer values depending on the domain.**| `number` | `5` |
 | tickMethod | Sets the method for computing representative values from the scale’s domain. | `(options?: ConstantOptions) => number[]` | `d3-ticks`|
 
 ## Methods

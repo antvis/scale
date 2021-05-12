@@ -17,6 +17,7 @@ scale.map(0); // 0
 scale.map(25); // 50
 scale.invert(50); // 25
 ```
+
 More usages reference [linear scale](./linear.md#usage).
 
 ## Options
@@ -26,7 +27,7 @@ More usages reference [linear scale](./linear.md#usage).
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` | `[0, 1]` |
 | range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
-| tickCount | Sets approximately count representative values from the scale’s domain. **The specified `count` in options is only a hint: the scale may return more or fewer values depending on the domain.** | `number` | `5` |
+| tickCount | Sets approximately count representative values from the scale’s domain. **The specified `tickCount` in options is only a hint: the scale may return more or fewer values depending on the domain.** | `number` | `5` |
 | tickMethod | Sets the method for computing representative values from the scale’s domain. | `(min: number, max: number, count: number) => number[]` | `calculatePowTicks` |
 | round | Rounds the output of map or invert if it is true. | `boolean` | `false` |
 | clamp | Constrains the return value of map within the scale’s range if it is true. | `boolean` | `false` |
