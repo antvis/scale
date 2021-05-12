@@ -1,6 +1,6 @@
 # Quantize
 
-Quantize scales allow you to divide continuous domain into uniform slices based on the number of values in range, and map input in each slice to corresponding output in range.
+Similar to [threshold scales](./threshold.md), but computed cut values based on size of each data. ([online demo](https://observablehq.com/@pearmini/antv-scale#quantize))
 
 ## Usage
 
@@ -24,6 +24,8 @@ x.invert('a'); // [undefined, 1 / 3]
 x.invert('b'); // [1 / 3, 2 / 3]
 x.invert('c'); // [2 / 3, undefined]
 x.invert('d'); // [undefined,undefined]
+
+x.getThresholds(); // [1 / 3, 2 / 3]
 ```
 
 ## Options
