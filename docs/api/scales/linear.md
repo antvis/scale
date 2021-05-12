@@ -59,4 +59,3 @@ Returns a new Linear scale with the independent and same options as the original
 <a name="linear_get_ticks" href="#linear_get_ticks">#</a> **getTicks**<i>(): number[]</i>
 
 Returns a series of representative values from the scale’s domain.
-
