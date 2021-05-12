@@ -40,20 +40,20 @@ Map a discrete domain to a discrete or continuous range.
 
 ## Tick Methods
 
-Method for computing representative values from specified `min`, `max` and `tickCount`.
+Method for computing representative values.
 
-- [Wilkinson Extended](./tick-methods/wilkinson-extended.md) - An extension of Wilkinson's algorithm for positioning tick labels on axes.
-- [R Pretty](./tick-methods/r-pretty.md) - An algorithm for positioning tick labels on axes in R language.
-- [D3 Ticks](./tick-methods/d3-ticks.md) - D3 ticks in d3-array.
+- [D3 Ticks](./tick-methods#d3-ticks.md) - D3 ticks in d3-array.
+- [Wilkinson Extended](./tick-methods#wilkinson-extended.md) - An extension of Wilkinson's algorithm for positioning tick labels on axes.
+- [R Pretty](./tick-methods#r-pretty.md) - An algorithm for positioning tick labels on axes in R language.
 
 ## Constants
 
 Constants for tickInterval option used in time scale.
 
-- `DURATION_SECOND`: The number of milliseconds for one second.
-- `DURATION_MINUTE`: The number of milliseconds for one minute.
-- `DURATION_HOUR`: The number of milliseconds for one hour.
-- `DURATION_DAY`: The number of milliseconds for one day.
-- `DURATION_WEEK`: The number of milliseconds for one week.
-- `DURATION_MONTH`: The number of milliseconds for one month.
-- `DURATION_YEAR`: The number of milliseconds for one year.
+- [DURATION_SECOND](./constants.md#DURATION_SECOND): The number of milliseconds for one second.
+- [DURATION_MINUTE](./constants.md#DURATION_MINUTE): The number of milliseconds for one minute.
+- [DURATION_HOUR](./constants.md#DURATION_HOUR): The number of milliseconds for one hour.
+- [DURATION_DAY](./constants.md#DURATION_DAY): The number of milliseconds for one day.
+- [DURATION_WEEK](./constants.md#DURATION_WEEK): The number of milliseconds for one week.
+- [DURATION_MONTH](./constants.md#DURATION_MONTH): The number of milliseconds for one month.
+- [DURATION_YEAR](./constants.md#DURATION_YEAR): The number of milliseconds for one year.
