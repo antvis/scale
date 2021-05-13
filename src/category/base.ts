@@ -13,13 +13,18 @@ class Category extends Base {
   private translateIndexMap;
 
   private buildIndexMap() {
+    const values = this.getValues();
     if (!this.translateIndexMap) {
       this.translateIndexMap = new Map();
       // 重新构建缓存
-      for (let i = 0; i < this.values.length; i ++) {
-        this.translateIndexMap.set(this.values[i], i);
+      for (let i = 0; i < values.length; i++) {
+        this.translateIndexMap.set(values[i], i);
       }
     }
+  }
+
+  protected getValues() {
+    return this.values;
   }
 
   public translate(value: any): number {
@@ -27,7 +32,7 @@ class Category extends Base {
     this.buildIndexMap();
     // 找得到
     let idx = this.translateIndexMap.get(value);
-    
+
     if (idx === undefined) {
       idx = isNumber(value) ? value : NaN;
     }
@@ -51,14 +56,16 @@ class Category extends Base {
     if (idx < this.min || idx > this.max) {
       return NaN;
     }
-    return this.values[idx];
+    const values = this.getValues()
+    return values[idx];
   }
 
   public getText(value: any, ...args: any[]): string {
+    const values = this.getValues();
     let v = value;
     // value为index
-    if (isNumber(value) && !this.values.includes(value)) {
-      v = this.values[v];
+    if (isNumber(value) && !values.includes(value)) {
+      v = values[v];
     }
     return super.getText(v, ...args);
   }
@@ -73,7 +80,7 @@ class Category extends Base {
       this.min = 0;
     }
     if (isNil(this.getConfig('max'))) {
-      const size = this.values.length;
+      const size = this.getValues().length;
       this.max = size > 1 ? size - 1 : size;
     }
 

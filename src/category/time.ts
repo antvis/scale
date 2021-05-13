@@ -9,14 +9,16 @@ import Category from './base';
 class TimeCat extends Category {
   public readonly type: string = 'timeCat';
   public mask;
+  protected _values;
   /**
    * @override
    */
   public translate(value) {
+    const values = this.getValues();
     value = toTimeStamp(value);
-    let index = this.values.indexOf(value);
+    let index = values.indexOf(value);
     if (index === -1) {
-      if (isNumber(value) && value < this.values.length) {
+      if (isNumber(value) && value < values.length) {
         index = value;
       } else {
         index = NaN;
@@ -31,27 +33,34 @@ class TimeCat extends Category {
    */
   public getText(value: string | number, tickIndex?: number) {
     const index = this.translate(value);
+    const values = this.getValues();
     if (index > -1) {
-      let result = this.values[index];
+      let result = values[index];
       const formatter = this.formatter;
       result = formatter ? formatter(result, tickIndex) : timeFormat(result, this.mask);
       return result;
     }
     return value;
   }
+
   protected initCfg() {
     this.tickMethod = 'time-cat';
     this.mask = 'YYYY-MM-DD';
     this.tickCount = 7; // 一般时间数据会显示 7， 14， 30 天的数字
   }
 
+  protected getValues() {
+    return this._values;
+  }
+
   protected setDomain() {
-    const values = this.values;
+    this._values = this.values.slice();
+
     // 针对时间分类类型，会将时间统一转换为时间戳
-    each(values, (v, i) => {
-      values[i] = toTimeStamp(v);
+    each(this._values, (v, i) => {
+      this._values[i] = toTimeStamp(v);
     });
-    values.sort((v1, v2) => {
+    this._values.sort((v1, v2) => {
       return v1 - v2;
     });
     super.setDomain();
