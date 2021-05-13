@@ -50,10 +50,10 @@ Method for computing representative values.
 
 Constants for tickInterval option used in time scale.
 
-- [DURATION_SECOND](./constants.md#DURATION_SECOND): The number of milliseconds for one second.
-- [DURATION_MINUTE](./constants.md#DURATION_MINUTE): The number of milliseconds for one minute.
-- [DURATION_HOUR](./constants.md#DURATION_HOUR): The number of milliseconds for one hour.
-- [DURATION_DAY](./constants.md#DURATION_DAY): The number of milliseconds for one day.
-- [DURATION_WEEK](./constants.md#DURATION_WEEK): The number of milliseconds for one week.
-- [DURATION_MONTH](./constants.md#DURATION_MONTH): The number of milliseconds for one month.
-- [DURATION_YEAR](./constants.md#DURATION_YEAR): The number of milliseconds for one year.
+- [DURATION_SECOND](./constants.md#DURATION_SECOND) - The number of milliseconds for one second.
+- [DURATION_MINUTE](./constants.md#DURATION_MINUTE) - The number of milliseconds for one minute.
+- [DURATION_HOUR](./constants.md#DURATION_HOUR) - The number of milliseconds for one hour.
+- [DURATION_DAY](./constants.md#DURATION_DAY) - The number of milliseconds for one day.
+- [DURATION_WEEK](./constants.md#DURATION_WEEK) - The number of milliseconds for one week.
+- [DURATION_MONTH](./constants.md#DURATION_MONTH) - The number of milliseconds for one month.
+- [DURATION_YEAR](./constants.md#DURATION_YEAR) - The number of milliseconds for one year.
