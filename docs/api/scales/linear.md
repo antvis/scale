@@ -22,6 +22,23 @@ x.invert(1000); // 100
 x.invert(500); // 0
 ```
 
+- Poly map
+
+```ts
+import { Linear } from '@antv/scale';
+
+const x = new Linear({
+  domain: [0, 5, 10],
+  range: [0, 50, 1000],
+})
+
+x.map(0); // 0
+x.map(4); // 40
+x.map(50); // 50
+x.map(6); // 240
+x.map(10); // 1000
+```
+
 - Nice domain
   
 ```ts
