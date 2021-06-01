@@ -48,7 +48,7 @@ export type ScaleConfig = Partial<{
   /** ticks最大值，默认值为10 */
   maxTickCount: number;
   /** tick格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示 */
-  formatter: (v: any, k?: number) => any;
+  formatter: (value: any, index?: number) => any;
   /** 计算 ticks 的算法 */
   tickMethod: string | TickMethod;
   /** 时间度量 time, timeCat 时有效 */
