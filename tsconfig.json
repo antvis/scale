@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "lib",
     "module": "commonjs",
-    "target": "ESNext",
+    "target": "ES2019",
     "jsx": "preserve",
     "moduleResolution": "node",
     "experimentalDecorators": true,
@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "pretty": true,
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "ES2019"],
     "skipLibCheck": true,
     "sourceRoot": "src",
     "baseUrl": "src"
