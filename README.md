@@ -22,6 +22,8 @@ Toolkit for mapping abstract data into visual representation.
 - **High performance**: Use different methods to cache some state of scales to improve performance.
 - **Fully embrace TypeScript**: All code are written in TypeScript and complete type definition files are provided.
 
+![scale examples](https://gw.alipayobjects.com/mdn/rms_40052e/afts/img/A*Usg2S685JQkAAAAAAAAAAAAAARQnAQ)
+
 ## 📦 Installation
 
 ```bash

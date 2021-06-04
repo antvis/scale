@@ -2,6 +2,11 @@
 
 There are three tickMethods in @antv/scale. You can use each of them as a pure function, or you can set them to `options.tickMethod` for those scales which have `getTicks` method.
 
+They have some differences of features.
+
+- `d3Ticks` and `r-pretty` guarantees that ticks generated are integers if tickCount is greater than extent of domain, while `wilkinson-extended` not.
+- `d3Ticks` guarantees the extent of ticks generated within the extent of domain, while `wilkinson-extended` and `r-pretty` not.
+
 ## Usage
 
 <a name="d3-ticks" href="#d3-ticks">#</a> **d3Ticks**<i>(min: number, max: number, count: number) => number[]</i>
