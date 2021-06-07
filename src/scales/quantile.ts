@@ -22,10 +22,6 @@ export class Quantile extends Threshold<QuantileOptions> {
     super(options);
   }
 
-  protected getDomain() {
-    return this.thresholds;
-  }
-
   protected rescale() {
     const { domain, range } = this.options;
 
