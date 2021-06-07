@@ -9,6 +9,8 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
   /** threshold 的数量 */
   protected n: number;
 
+  protected thresholds: number[];
+
   protected getDefaultOptions() {
     return {
       domain: [0.5],
@@ -25,7 +27,7 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
    */
   public map(x: Domain<ThresholdOptions>) {
     if (!isValid(x)) return this.options.unknown;
-    const index = bisect(this.getDomain(), x, 0, this.n);
+    const index = bisect(this.thresholds, x, 0, this.n);
     return this.options.range[index];
   }
 
@@ -35,7 +37,7 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
   public invert(y: Range<ThresholdOptions>) {
     const { range } = this.options;
     const index = range.indexOf(y);
-    const domain = this.getDomain();
+    const domain = this.thresholds;
     return [domain[index - 1], domain[index]];
   }
 
@@ -46,9 +48,6 @@ export class Threshold<O extends ThresholdOptions> extends Base<O> {
   protected rescale() {
     const { domain, range } = this.options;
     this.n = Math.min(domain.length, range.length - 1);
-  }
-
-  protected getDomain() {
-    return this.options.domain;
+    this.thresholds = domain;
   }
 }

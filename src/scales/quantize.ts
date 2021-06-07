@@ -7,9 +7,6 @@ import { d3LinearNice } from '../utils';
  * 类似 Threshold 比例尺，区别在于 thresholds 是根据连续的 domain 根据离散的 range 的数量计算而得到的。
  */
 export class Quantize extends Threshold<QuantizeOptions> {
-  // 这里不能给 thresholds 赋值，否者会编译后，会在 constructor 后面执行：this.thresholds = []
-  private thresholds: QuantizeOptions['domain'];
-
   protected getDefaultOptions(): QuantizeOptions {
     return {
       domain: [0, 1],
@@ -22,10 +19,6 @@ export class Quantize extends Threshold<QuantizeOptions> {
 
   constructor(options?: QuantizeOptions) {
     super(options);
-  }
-
-  protected getDomain() {
-    return this.thresholds;
   }
 
   protected nice() {
