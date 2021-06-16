@@ -1,5 +1,4 @@
-import { d3Time } from '../../../src/tick-methods/d3-time';
-import { DURATION_SECOND } from '../../../src';
+import { DURATION_SECOND, d3Time } from '../../../src';
 
 function UTC(
   year: number,

@@ -1,8 +1,6 @@
 import { identity } from '@antv/util';
-import { Continuous } from '../../../src/scales/continuous';
-import { ContinuousOptions } from '../../../src/types';
 import { createInterpolate } from '../../../src/utils';
-import { Interpolate } from '../../../src';
+import { Interpolate, ContinuousOptions, Continuous } from '../../../src';
 
 describe('Continuous', () => {
   type ScaleOptions = ContinuousOptions;

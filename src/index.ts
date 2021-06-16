@@ -13,17 +13,21 @@ export { Quantize } from './scales/quantize';
 export { Quantile } from './scales/quantile';
 export { Time } from './scales/time';
 export { Base } from './scales/base';
+export { Continuous } from './scales/continuous';
 
 // tick-methods
 export { d3Ticks } from './tick-methods/d3-ticks';
 export { rPretty } from './tick-methods/r-pretty';
 export { wilkinsonExtended } from './tick-methods/wilkinson-extended';
+export { d3Log } from './tick-methods/d3-log';
+export { d3Time } from './tick-methods/d3-time';
 
 // scales types
 export type {
   BaseOptions,
   BandOptions,
   OrdinalOptions,
+  ContinuousOptions,
   ConstantOptions,
   IdentityOptions,
   LinearOptions,
