@@ -27,7 +27,7 @@ const transformSqrt = (x: number) => {
  * 类似于 linear scale, 不同之处在于在计算输出范围值之前对输入域值应用了指数变换,.
  * 即 y = x ^ k 其中 k（指数）可以是任何实数。
  */
-export class Pow<O extends PowOptions> extends Continuous<O> {
+export class Pow<O extends PowOptions = PowOptions> extends Continuous<O> {
   protected getDefaultOptions() {
     return {
       domain: [0, 1],

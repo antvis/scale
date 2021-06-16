@@ -1,4 +1,4 @@
-import { d3Log } from '../../../src/tick-methods/d3-log';
+import { d3Log } from '../../../src';
 
 function round(x: number) {
   return Math.round(x * 1e12) / 1e12;

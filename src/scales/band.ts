@@ -111,7 +111,7 @@ function getBandState(opt: BandStateOptions) {
  *
  * 性能方便较 d3 快出 8 - 9 倍
  */
-export class Band<O extends BandOptions> extends Ordinal<O> {
+export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
   // 步长，见上图
   private step: number;
 
