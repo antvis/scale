@@ -1,5 +1,4 @@
 import { head, indexOf, size, last } from '@antv/util';
-import { precisionAdd } from './math';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -60,6 +59,11 @@ function legibility() {
   return 1;
 }
 
+// 解决 js 计算精度问题
+function pretty(n: number) {
+  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
+}
+
 /**
  * An Extension of Wilkinson's Algorithm for Position Tick Labels on Axes
  * https://www.yuque.com/preview/yuque/0/2019/pdf/185317/1546999150858-45c3b9c2-4e86-4223-bf1a-8a732e8195ed.pdf
@@ -76,7 +80,7 @@ export default function extended(
   m: number = 5,
   onlyLoose: boolean = true,
   Q: number[] = DEFAULT_Q,
-  w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05],
+  w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
 ): { min: number; max: number; ticks: number[] } {
   // nan 也会导致异常
   if (Number.isNaN(dMin) || Number.isNaN(dMax) || typeof dMin !== 'number' || typeof dMax !== 'number' || !m) {
@@ -164,18 +168,18 @@ export default function extended(
     j += 1;
   }
 
+  const size = Math.floor((best.lmax - best.lmin) / best.lstep);
+  const ticks = new Array(size);
   let i = 0;
 
-  // 步长为浮点数时处理精度
-  const range = new Array(Math.floor((best.lmax - best.lmin) / best.lstep));
-
-  for (let tick = best.lmin; tick <= best.lmax; tick = precisionAdd(tick, best.lstep)) {
-    range[i] = tick;
+  for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
+    ticks[i] = pretty(tick);
     i += 1;
   }
+  
   return {
-    min: Math.min(dMin, head(range)),
-    max: Math.max(dMax, last(range)),
-    ticks: range,
+    min: Math.min(dMin, head(ticks)),
+    max: Math.max(dMax, last(ticks)),
+    ticks,
   };
-};
+}

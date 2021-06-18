@@ -65,7 +65,7 @@ describe('test quantile test', () => {
       tickCount: 11
     });
     // 从概率上说，随机分布会均匀分布在 0，100 之间，所以每个 十分位的数值都正好是 10 的倍数
-    expect(ticks[5]).toBeGreaterThan(49);
+    expect(ticks[5]).toBeGreaterThan(48);
     expect(ticks[5]).toBeLessThan(52);
   });
 });
