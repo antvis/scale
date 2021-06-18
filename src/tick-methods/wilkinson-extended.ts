@@ -62,8 +62,7 @@ function legibility() {
 
 // 为了解决 js 运算的精度问题
 function pretty(n: number) {
-  const r = parseFloat(n.toFixed(15));
-  return n - r < 1e-15 ? r : n;
+  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
 /**
