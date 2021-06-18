@@ -168,11 +168,15 @@ export default function extended(
     j += 1;
   }
 
-  const ticks = [];
-  for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
-    ticks.push(pretty(tick));
-  }
+  const size = Math.floor((best.lmax - best.lmin) / best.lstep);
+  const ticks = new Array(size);
+  let i = 0;
 
+  for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
+    ticks[i] = pretty(tick);
+    i += 1;
+  }
+  
   return {
     min: Math.min(dMin, head(ticks)),
     max: Math.max(dMax, last(ticks)),
