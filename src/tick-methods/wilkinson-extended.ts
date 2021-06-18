@@ -1,6 +1,5 @@
 import { indexOf, size } from '@antv/util';
 import { TickMethod } from '../types';
-import { precisionAdd } from '../utils/precision-add';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -59,6 +58,11 @@ function coverageMax(dMin: number, dMax: number, span: number) {
 
 function legibility() {
   return 1;
+}
+
+// 为了解决 js 运算的精度问题
+function pretty(n: number) {
+  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
 /**
@@ -165,9 +169,10 @@ export const wilkinsonExtended: TickMethod = (
   // 步长为浮点数时处理精度
   const range = new Array(Math.floor(size));
 
-  for (let tick = best.lmin; tick <= best.lmax; tick = precisionAdd(tick, best.lstep)) {
-    range[i] = tick;
+  for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
+    range[i] = pretty(tick);
     i += 1;
   }
+
   return range;
 };
