@@ -1,4 +1,4 @@
-import { head, indexOf, last, map, size } from '@antv/util';
+import { head, indexOf, size, last } from '@antv/util';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -6,7 +6,6 @@ export const ALL_Q = [1, 5, 2, 2.5, 4, 3, 1.5, 7, 6, 8, 9];
 
 const eps = Number.EPSILON * 100;
 
-// https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
 function mod(n: number, m: number) {
   return ((n % m) + m) % m;
 }
@@ -29,9 +28,9 @@ function simplicityMax(q: number, Q: number[], j: number) {
   return 1 - i / (n - 1) - j + v;
 }
 
-function density(k: number, m: number, dmin: number, dmax: number, lmin: number, lmax: number) {
-  const r = (k - 1) / (lmax - lmin);
-  const rt = (m - 1) / (Math.max(lmax, dmax) - Math.min(dmin, lmin));
+function density(k: number, m: number, dMin: number, dMax: number, lMin: number, lMax: number) {
+  const r = (k - 1) / (lMax - lMin);
+  const rt = (m - 1) / (Math.max(lMax, dMax) - Math.min(dMin, lMin));
   return 2 - Math.max(r / rt, rt / r);
 }
 
@@ -42,16 +41,16 @@ function densityMax(k: number, m: number) {
   return 1;
 }
 
-function coverage(dmin: number, dmax: number, lmin: number, lmax: number) {
-  const range = dmax - dmin;
-  return 1 - (0.5 * (Math.pow(dmax - lmax, 2) + Math.pow(dmin - lmin, 2))) / Math.pow(0.1 * range, 2);
+function coverage(dMin: number, dMax: number, lMin: number, lMax: number) {
+  const range = dMax - dMin;
+  return 1 - (0.5 * ((dMax - lMax) ** 2 + (dMin - lMin) ** 2)) / (0.1 * range) ** 2;
 }
 
-function coverageMax(dmin: number, dmax: number, span: number) {
-  const range = dmax - dmin;
+function coverageMax(dMin: number, dMax: number, span: number) {
+  const range = dMax - dMin;
   if (span > range) {
     const half = (span - range) / 2;
-    return 1 - Math.pow(half, 2) / Math.pow(0.1 * range, 2);
+    return 1 - half ** 2 / (0.1 * range) ** 2;
   }
   return 1;
 }
@@ -68,23 +67,23 @@ function pretty(n: number) {
 /**
  * An Extension of Wilkinson's Algorithm for Position Tick Labels on Axes
  * https://www.yuque.com/preview/yuque/0/2019/pdf/185317/1546999150858-45c3b9c2-4e86-4223-bf1a-8a732e8195ed.pdf
- * @param dmin 最小值
- * @param dmax 最大值
+ * @param dMin 最小值
+ * @param dMax 最大值
  * @param m tick个数
  * @param onlyLoose 是否允许扩展min、max，不绝对强制，例如[3, 97]
  * @param Q nice numbers集合
  * @param w 四个优化组件的权重
  */
 export default function extended(
-  dmin: number,
-  dmax: number,
+  dMin: number,
+  dMax: number,
   m: number = 5,
   onlyLoose: boolean = true,
   Q: number[] = DEFAULT_Q,
   w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
 ): { min: number; max: number; ticks: number[] } {
-  // 异常数据情况下，直接返回，防止 oom
-  if (typeof dmin !== 'number' || typeof dmax !== 'number' || !m) {
+  // nan 也会导致异常
+  if (Number.isNaN(dMin) || Number.isNaN(dMax) || typeof dMin !== 'number' || typeof dMax !== 'number' || !m) {
     return {
       min: 0,
       max: 0,
@@ -93,11 +92,11 @@ export default function extended(
   }
 
   // js 极大值极小值问题，差值小于 1e-15 会导致计算出错
-  if (dmax - dmin < 1e-15 || m === 1) {
+  if (dMax - dMin < 1e-15 || m === 1) {
     return {
-      min: dmin,
-      max: dmax,
-      ticks: [dmin],
+      min: dMin,
+      max: dMax,
+      ticks: [dMin],
     };
   }
 
@@ -107,13 +106,12 @@ export default function extended(
     lmax: 0,
     lstep: 0,
   };
+
   let j = 1;
   while (j < Infinity) {
-    for (const q of Q) {
+    for (let i = 0; i < Q.length; i += 1) {
+      const q = Q[i];
       const sm = simplicityMax(q, Q, j);
-      if (Number.isNaN(sm)) {
-        throw new Error('NaN');
-      }
       if (w[0] * sm + w[1] + w[2] + w[3] < best.score) {
         j = Infinity;
         break;
@@ -125,48 +123,49 @@ export default function extended(
           break;
         }
 
-        const delta = (dmax - dmin) / (k + 1) / j / q;
+        const delta = (dMax - dMin) / (k + 1) / j / q;
         let z = Math.ceil(Math.log10(delta));
 
         while (z < Infinity) {
-          const step = j * q * Math.pow(10, z);
-          const cm = coverageMax(dmin, dmax, step * (k - 1));
+          const step = j * q * 10 ** z;
+          const cm = coverageMax(dMin, dMax, step * (k - 1));
 
           if (w[0] * sm + w[1] * cm + w[2] * dm + w[3] < best.score) {
             break;
           }
 
-          const minStart = Math.floor(dmax / step) * j - (k - 1) * j;
-          const maxStart = Math.ceil(dmin / step) * j;
+          const minStart = Math.floor(dMax / step) * j - (k - 1) * j;
+          const maxStart = Math.ceil(dMin / step) * j;
 
           if (minStart > maxStart) {
-            z = z + 1;
+            z += 1;
+            // eslint-disable-next-line no-continue
             continue;
           }
-          for (let start = minStart; start <= maxStart; start = start + 1) {
-            const lmin = start * (step / j);
-            const lmax = lmin + step * (k - 1);
-            const lstep = step;
+          for (let start = minStart; start <= maxStart; start += 1) {
+            const lMin = start * (step / j);
+            const lMax = lMin + step * (k - 1);
+            const lStep = step;
 
-            const s = simplicity(q, Q, j, lmin, lmax, lstep);
-            const c = coverage(dmin, dmax, lmin, lmax);
-            const g = density(k, m, dmin, dmax, lmin, lmax);
+            const s = simplicity(q, Q, j, lMin, lMax, lStep);
+            const c = coverage(dMin, dMax, lMin, lMax);
+            const g = density(k, m, dMin, dMax, lMin, lMax);
             const l = legibility();
 
             const score = w[0] * s + w[1] * c + w[2] * g + w[3] * l;
-            if (score > best.score && (!onlyLoose || (lmin <= dmin && lmax >= dmax))) {
-              best.lmin = lmin;
-              best.lmax = lmax;
-              best.lstep = lstep;
+            if (score > best.score && (!onlyLoose || (lMin <= dMin && lMax >= dMax))) {
+              best.lmin = lMin;
+              best.lmax = lMax;
+              best.lstep = lStep;
               best.score = score;
             }
           }
-          z = z + 1;
+          z += 1;
         }
-        k = k + 1;
+        k += 1;
       }
     }
-    j = j + 1;
+    j += 1;
   }
 
   const ticks = [];
@@ -175,8 +174,8 @@ export default function extended(
   }
 
   return {
-    min: Math.min(dmin, head(ticks)),
-    max: Math.max(dmax, last(ticks)),
+    min: Math.min(dMin, head(ticks)),
+    max: Math.max(dMax, last(ticks)),
     ticks,
   };
 }
