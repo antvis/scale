@@ -60,6 +60,11 @@ function legibility() {
   return 1;
 }
 
+// 解决 js 计算精度问题
+function pretty(n: number) {
+  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
+}
+
 /**
  * An Extension of Wilkinson's Algorithm for Position Tick Labels on Axes
  * https://www.yuque.com/preview/yuque/0/2019/pdf/185317/1546999150858-45c3b9c2-4e86-4223-bf1a-8a732e8195ed.pdf
@@ -86,7 +91,7 @@ export default function extended(
       ticks: [],
     };
   }
- 
+
   // js 极大值极小值问题，差值小于 1e-15 会导致计算出错
   if (dmax - dmin < 1e-15 || m === 1) {
     return {
@@ -163,13 +168,11 @@ export default function extended(
     }
     j = j + 1;
   }
-  // 步长为浮点数时处理精度
-  const toFixed = Number.isInteger(best.lstep) ? 0 : Math.ceil(Math.abs(Math.log10(best.lstep)));
-  const range = [];
+
+  const ticks = [];
   for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
-    range.push(tick);
+    ticks.push(pretty(tick));
   }
-  const ticks = toFixed ? map(range, (x: number) => Number.parseFloat(x.toFixed(toFixed))) : range;
 
   return {
     min: Math.min(dmin, head(ticks)),
