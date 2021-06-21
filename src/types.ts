@@ -95,7 +95,7 @@ export type TimeOptions = ContinuousOptions<Date, number> & {
 export type OrdinalOptions = BaseOptions<number | string | Date> & { compare?: Comparator };
 
 /** 详细请参阅 scale/band.ts */
-export type BandOptions = BaseOptions<number | string, number> & {
+export type BandOptions = BaseOptions<number | string | Date, number> & {
   /** 是否取整 */
   round?: boolean;
   /** 内部边距 */
