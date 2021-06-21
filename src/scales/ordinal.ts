@@ -1,7 +1,9 @@
 import { OrdinalOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
-interface MapBetweenArrOptions {
+type Transform = (x: any) => any;
+
+type MapBetweenArrOptions = {
   // 需要映射的值
   value: any;
   // indexMapper 由定义域生成的映射表，键为定义域的每一个值，值为所在下标
@@ -12,7 +14,7 @@ interface MapBetweenArrOptions {
   to: any[];
   // 当 mapper 中查询不到时的返回值
   notFoundReturn?: any;
-}
+};
 
 /**
  * 更新 indexMap
@@ -21,10 +23,10 @@ interface MapBetweenArrOptions {
  * @param target 目标 map
  * @returns {Map<string, any>} 生成的 indexMap
  */
-function updateIndexMap(target: Map<any, number>, arr: any[]) {
+function updateIndexMap(target: Map<any, number>, arr: any[], key: Transform) {
   for (let i = 0; i < arr.length; i += 1) {
     if (!target.has(arr[i])) {
-      target.set(arr[i], i);
+      target.set(key(arr[i]), i);
     }
   }
 }
@@ -72,6 +74,12 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
   // 排序后的 domain
   protected sortedDomain: O['domain'];
 
+  // 获得 domain 的 key
+  protected domainKey: Transform;
+
+  // 获得 range 的 key
+  protected rangeKey: Transform;
+
   // 覆盖默认配置
   protected getDefaultOptions() {
     return {
@@ -87,11 +95,11 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
 
   public map(x: Domain<O>) {
     if (this.domainIndexMap.size === 0) {
-      updateIndexMap(this.domainIndexMap, this.getDomain());
+      updateIndexMap(this.domainIndexMap, this.getDomain(), this.domainKey);
     }
 
     return mapBetweenArrByMapIndex({
-      value: x,
+      value: this.domainKey(x),
       mapper: this.domainIndexMap,
       from: this.getDomain(),
       to: this.getRange(),
@@ -101,11 +109,11 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
 
   public invert(y: Range<O>) {
     if (this.rangeIndexMap.size === 0) {
-      updateIndexMap(this.rangeIndexMap, this.getRange());
+      updateIndexMap(this.rangeIndexMap, this.getRange(), this.rangeKey);
     }
 
     return mapBetweenArrByMapIndex({
-      value: y,
+      value: this.rangeKey(y),
       mapper: this.rangeIndexMap,
       from: this.getRange(),
       to: this.getDomain(),
@@ -115,6 +123,12 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
 
   // 因为 ordinal 比例尺更新内部状态的开销较大，所以按需更新
   protected rescale(options?: Partial<O>) {
+    const [d] = this.options.domain;
+    const [r] = this.options.range;
+
+    this.domainKey = d instanceof Date ? (d) => `${d}` : (d) => d;
+    this.rangeKey = r instanceof Date ? (d) => `${d}` : (d) => d;
+
     // 如果 rangeIndexMap 没有初始化，说明是在初始化阶段
     if (!this.rangeIndexMap) {
       this.rangeIndexMap = new Map();

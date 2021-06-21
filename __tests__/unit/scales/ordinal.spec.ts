@@ -66,6 +66,30 @@ describe('ordinal scale', () => {
     expect(scale.invert('June')).toStrictEqual('一月');
   });
 
+  test('map date', () => {
+    // 映射规则类似于 map 方法，这里不再赘述
+    const date = new Ordinal({
+      domain: [new Date('2020-02-01'), new Date('2020-02-02'), new Date('2020-02-03')],
+      range: ['a', 'b', 'c'],
+    });
+
+    expect(date.map(new Date('2020-02-02'))).toStrictEqual('b');
+    expect(date.map(new Date('2020-02-03'))).toStrictEqual('c');
+    expect(date.map(new Date('2020-02-01'))).toStrictEqual('a');
+  });
+
+  test('invert date', () => {
+    // 映射规则类似于 map 方法，这里不再赘述
+    const date = new Ordinal({
+      domain: ['a', 'b', 'c'],
+      range: [new Date('2020-02-01'), new Date('2020-02-02'), new Date('2020-02-03')],
+    });
+
+    expect(date.invert(new Date('2020-02-02'))).toStrictEqual('b');
+    expect(date.invert(new Date('2020-02-03'))).toStrictEqual('c');
+    expect(date.invert(new Date('2020-02-01'))).toStrictEqual('a');
+  });
+
   test('update scale', () => {
     const scale = new Ordinal({
       domain: ['A', 'B', 'C'],
