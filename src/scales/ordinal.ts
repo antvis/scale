@@ -75,10 +75,10 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
   protected sortedDomain: O['domain'];
 
   // 获得 domain 的 key
-  protected keyDomain: Transform;
+  protected domainKey: Transform;
 
   // 获得 range 的 key
-  protected keyRange: Transform;
+  protected rangeKey: Transform;
 
   // 覆盖默认配置
   protected getDefaultOptions() {
@@ -95,11 +95,11 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
 
   public map(x: Domain<O>) {
     if (this.domainIndexMap.size === 0) {
-      updateIndexMap(this.domainIndexMap, this.getDomain(), this.keyDomain);
+      updateIndexMap(this.domainIndexMap, this.getDomain(), this.domainKey);
     }
 
     return mapBetweenArrByMapIndex({
-      value: this.keyDomain(x),
+      value: this.domainKey(x),
       mapper: this.domainIndexMap,
       from: this.getDomain(),
       to: this.getRange(),
@@ -109,11 +109,11 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
 
   public invert(y: Range<O>) {
     if (this.rangeIndexMap.size === 0) {
-      updateIndexMap(this.rangeIndexMap, this.getRange(), this.keyRange);
+      updateIndexMap(this.rangeIndexMap, this.getRange(), this.rangeKey);
     }
 
     return mapBetweenArrByMapIndex({
-      value: this.keyRange(y),
+      value: this.rangeKey(y),
       mapper: this.rangeIndexMap,
       from: this.getRange(),
       to: this.getDomain(),
@@ -123,11 +123,11 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
 
   // 因为 ordinal 比例尺更新内部状态的开销较大，所以按需更新
   protected rescale(options?: Partial<O>) {
-    const [d] = this.options.domain || [];
-    const [r] = this.options.range || [];
+    const [d] = this.options.domain;
+    const [r] = this.options.range;
 
-    this.keyDomain = d instanceof Date ? (d) => `${d}` : (d) => d;
-    this.keyRange = r instanceof Date ? (d) => `${d}` : (d) => d;
+    this.domainKey = d instanceof Date ? (d) => `${d}` : (d) => d;
+    this.rangeKey = r instanceof Date ? (d) => `${d}` : (d) => d;
 
     // 如果 rangeIndexMap 没有初始化，说明是在初始化阶段
     if (!this.rangeIndexMap) {

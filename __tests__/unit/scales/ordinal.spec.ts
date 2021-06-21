@@ -81,13 +81,13 @@ describe('ordinal scale', () => {
   test('invert date', () => {
     // 映射规则类似于 map 方法，这里不再赘述
     const date = new Ordinal({
-      range: ['a', 'b', 'c'],
-      domain: [new Date('2020-02-01'), new Date('2020-02-02'), new Date('2020-02-03')],
+      domain: ['a', 'b', 'c'],
+      range: [new Date('2020-02-01'), new Date('2020-02-02'), new Date('2020-02-03')],
     });
 
-    expect(date.invert('b')).toStrictEqual(new Date('2020-02-02'));
-    expect(date.invert('c')).toStrictEqual(new Date('2020-02-03'));
-    expect(date.invert('a')).toStrictEqual(new Date('2020-02-01'));
+    expect(date.invert(new Date('2020-02-02'))).toStrictEqual('b');
+    expect(date.invert(new Date('2020-02-03'))).toStrictEqual('c');
+    expect(date.invert(new Date('2020-02-01'))).toStrictEqual('a');
   });
 
   test('update scale', () => {
