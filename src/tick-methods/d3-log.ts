@@ -1,4 +1,4 @@
-import { TickMethod } from 'types';
+import { TickMethod } from '../types';
 import { d3Ticks } from './d3-ticks';
 import { pows, logs } from '../utils';
 

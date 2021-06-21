@@ -24,7 +24,8 @@ interface MapBetweenArrOptions {
 function updateIndexMap(target: Map<any, number>, arr: any[]) {
   for (let i = 0; i < arr.length; i += 1) {
     if (!target.has(arr[i])) {
-      target.set(arr[i], i);
+      const key = arr[i] instanceof Date ? `${arr[i]}` : arr[i];
+      target.set(key, i);
     }
   }
 }
@@ -38,7 +39,8 @@ function updateIndexMap(target: Map<any, number>, arr: any[]) {
  */
 function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
   const { value, from, to, mapper, notFoundReturn } = options;
-  let mappedIndex = mapper.get(value);
+  const key = value instanceof Date ? `${value}` : value;
+  let mappedIndex = mapper.get(key);
 
   // index 不存在时，我们将 value 添加到原数组, 并更新 Map
   if (mappedIndex === undefined) {
@@ -46,7 +48,7 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
       return notFoundReturn;
     }
     mappedIndex = from.push(value) - 1;
-    mapper.set(value, mappedIndex);
+    mapper.set(key, mappedIndex);
   }
 
   return to[mappedIndex % to.length];
