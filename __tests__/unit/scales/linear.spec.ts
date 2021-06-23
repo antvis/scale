@@ -1,4 +1,4 @@
-import { Linear, TickMethod } from '../../../src';
+import { createInterpolateColor as color, Linear, TickMethod, createInterpolateValue as value } from '../../../src';
 import { d3Ticks } from '../../../src/tick-methods/d3-ticks';
 
 describe('Linear Scale Test', () => {
@@ -78,6 +78,35 @@ describe('Linear Scale Test', () => {
     expect(scale.invert(1000)).toStrictEqual(10);
     expect(scale.invert(18100)).toStrictEqual(100);
     expect(scale.invert(-100)).toStrictEqual(-10);
+  });
+
+  test('map(x) use color interpolate', () => {
+    expect(new Linear({ range: ['red', 'blue'], interpolate: color }).map(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
+    expect(new Linear({ range: ['#f00', '#00f'], interpolate: color }).map(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
+    expect(new Linear({ range: ['rgb(255,0,0)', 'hsl(240,100%,50%)'], interpolate: color }).map(0.5)).toBe(
+      'rgba(127.5, 0, 127.5, 1)'
+    );
+    expect(new Linear({ range: ['rgb(100%,0%,0%)', 'hsl(240,100%,50%)'], interpolate: color }).map(0.5)).toBe(
+      'rgba(127.5, 0, 127.5, 1)'
+    );
+    expect(new Linear({ range: ['hsl(0,100%,50%)', 'hsl(240,100%,50%)'], interpolate: color }).map(0.5)).toBe(
+      'rgba(127.5, 0, 127.5, 1)'
+    );
+  });
+
+  test('map(x) use value interpolate ', () => {
+    expect(new Linear({ range: ['red', 'blue'], interpolate: color }).map(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
+    expect(new Linear({ range: ['#f00', '#00f'], interpolate: color }).map(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
+    expect(new Linear({ range: ['rgb(255,0,0)', 'hsl(240,100%,50%)'], interpolate: color }).map(0.5)).toBe(
+      'rgba(127.5, 0, 127.5, 1)'
+    );
+    expect(new Linear({ range: ['rgb(100%,0%,0%)', 'hsl(240,100%,50%)'], interpolate: color }).map(0.5)).toBe(
+      'rgba(127.5, 0, 127.5, 1)'
+    );
+    expect(new Linear({ range: ['hsl(0,100%,50%)', 'hsl(240,100%,50%)'], interpolate: color }).map(0.5)).toBe(
+      'rgba(127.5, 0, 127.5, 1)'
+    );
+    expect(new Linear({ range: [0, 1], interpolate: value }).map(0.5)).toBe(0.5);
   });
 
   test('test getTicks()', () => {

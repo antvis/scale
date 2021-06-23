@@ -2,7 +2,7 @@ import { identity } from '@antv/util';
 import { Base } from './base';
 import { ContinuousOptions, Domain, Range, NiceMethod, TickMethodOptions } from '../types';
 import {
-  createInterpolate,
+  createInterpolateNumber,
   createInterpolateRound,
   createClamp,
   createNormalize,
@@ -94,7 +94,7 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
       nice: false,
       clamp: false,
       round: false,
-      interpolate: createInterpolate,
+      interpolate: createInterpolateNumber,
       tickCount: 5,
     } as O;
   }
@@ -159,8 +159,8 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
   }
 
   protected composeInput(transform: Transform, untransform: Transform, clamp: Transform) {
-    const { domain, range, interpolate } = this.options;
-    const piecewise = choosePiecewise(range, domain.map(transform), interpolate);
+    const { domain, range } = this.options;
+    const piecewise = choosePiecewise(range, domain.map(transform), createInterpolateNumber);
     this.input = compose(untransform, clamp, piecewise);
   }
 }

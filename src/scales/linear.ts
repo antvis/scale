@@ -2,7 +2,7 @@ import { identity } from '@antv/util';
 import { Continuous, Transform } from './continuous';
 import { LinearOptions } from '../types';
 import { Base } from './base';
-import { createInterpolate } from '../utils';
+import { createInterpolateValue } from '../utils';
 import { d3Ticks } from '../tick-methods/d3-ticks';
 
 /**
@@ -19,7 +19,7 @@ export class Linear extends Continuous<LinearOptions> {
       nice: false,
       clamp: false,
       round: false,
-      interpolate: createInterpolate,
+      interpolate: createInterpolateValue,
       tickMethod: d3Ticks,
       tickCount: 5,
     };

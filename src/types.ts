@@ -7,6 +7,9 @@ export type NiceMethod<T = number> = TickMethod<T>;
 /** 插值器工厂 */
 export type Interpolate<T = number> = (a: T, b: T) => (t: number) => T;
 
+/** 所有支持的插值器工厂 */
+export type Interpolates = Interpolate<number> | Interpolate<string> | Interpolate<number | string>;
+
 /** 比较器 */
 export type Comparator = (a: any, b: any) => number;
 
@@ -81,7 +84,7 @@ export type ContinuousOptions = {
   /** 是否需要对输出进行四舍五入 */
   round?: boolean;
   /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
-  interpolate?: Interpolate<number | string>;
+  interpolate?: Interpolates;
 };
 
 /** Linear 比例尺的选项 */
@@ -103,7 +106,7 @@ export type LinearOptions = {
   /** 是否需要对输出进行四舍五入 */
   round?: boolean;
   /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
-  interpolate?: Interpolate<number | string>;
+  interpolate?: Interpolates;
 };
 
 /** Pow 比例尺的选项 */
@@ -140,7 +143,7 @@ export type TimeOptions = {
   /** 是否需要对输出进行四舍五入 */
   round?: boolean;
   /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
-  interpolate?: Interpolate<number | string>;
+  interpolate?: Interpolates;
   /** getTick 的时间间隔 */
   tickInterval?: number;
   /** 格式化的形式 */

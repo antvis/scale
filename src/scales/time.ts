@@ -3,7 +3,7 @@ import { format } from 'fecha';
 import { Continuous } from './continuous';
 import { TickMethodOptions, TimeOptions } from '../types';
 import { d3Time } from '../tick-methods/d3-time';
-import { d3TimeNice, createInterpolate, localIntervalMap, utcIntervalMap, chooseNiceTimeMask } from '../utils';
+import { d3TimeNice, createInterpolateNumber, localIntervalMap, utcIntervalMap, chooseNiceTimeMask } from '../utils';
 
 function offset(date: Date): Date {
   const minuteOffset = date.getTimezoneOffset();
@@ -23,7 +23,7 @@ export class Time extends Continuous<TimeOptions> {
       unknown: undefined,
       clamp: false,
       tickMethod: d3Time,
-      interpolate: createInterpolate,
+      interpolate: createInterpolateNumber,
       mask: undefined,
       utc: false,
     };
