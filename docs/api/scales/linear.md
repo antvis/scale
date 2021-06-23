@@ -90,6 +90,19 @@ x.map(-1) // 0
 x.map(2) // 1
 ```
 
+- Change range interpolator
+
+```ts
+import { Linear, createInterpolateColor } from '@antv/scale';
+
+const color = new Linear({
+  range: ['red', 'blue'],
+  interpolate: createInterpolateColor
+});
+
+x.map(0.5) // 'rgba(127.5, 0, 127.5, 1)'
+```
+
 - Customize range interpolator
   
 ```ts
@@ -154,7 +167,7 @@ x3.getTicks(); // [2, 4.5, 7, 9.5, 12, 14.5]
 | Key | Description | Type | Default|  
 | ----| ----------- | -----| -------|
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` | `[0, 1]` |
-| range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
+| range | Sets the scale’s range to the specified array of values. | `<code>number[] &#124; string[]</code>` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | tickCount | Sets approximately count representative values from the scale’s domain. **The specified `tickCount` in options is only a hint: the scale may return more or fewer values depending on the domain.**| `number` | `5` |
 | tickMethod | Sets the method for computing representative values from the scale’s domain. | `(min: number, max: number, count: number) => number[]` | `d3-ticks` |

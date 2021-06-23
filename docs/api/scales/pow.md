@@ -27,7 +27,7 @@ More usages reference [linear scale](./linear.md#usage).
 | Key | Description | Type | Default|  
 | ----| ----------- | -----| -------|
 | domain | Sets the scale’s domain to the specified array of values. | `number[]` | `[0, 1]` |
-| range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
+| range | Sets the scale’s range to the specified array of values. | `<code>number[] &#124; string[]</code>` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | tickCount | Sets approximately count representative values from the scale’s domain. **The specified `tickCount` in options is only a hint: the scale may return more or fewer values depending on the domain.** | `number` | `5` |
 | tickMethod | Sets the method for computing representative values from the scale’s domain. | `(min: number, max: number, count: number) => number[]` | `calculatePowTicks` |
