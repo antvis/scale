@@ -90,6 +90,28 @@ describe('ordinal scale', () => {
     expect(date.invert(new Date('2020-02-01'))).toStrictEqual('a');
   });
 
+  test('map object', () => {
+    const scale = new Ordinal({
+      domain: [{ a: 1 }, { a: 2 }, { a: 3 }],
+      range: [new Date('2020-02-01'), new Date('2020-02-02'), new Date('2020-02-03')],
+    });
+
+    expect(scale.map({ a: 1 })).toStrictEqual(new Date('2020-02-01'));
+    expect(scale.map({ a: 2 })).toStrictEqual(new Date('2020-02-02'));
+    expect(scale.map({ a: 3 })).toStrictEqual(new Date('2020-02-03'));
+  });
+
+  test('invert object', () => {
+    const scale = new Ordinal({
+      range: [{ a: 1 }, { a: 2 }, { a: 3 }],
+      domain: [new Date('2020-02-01'), new Date('2020-02-02'), new Date('2020-02-03')],
+    });
+
+    expect(scale.invert({ a: 1 })).toStrictEqual(new Date('2020-02-01'));
+    expect(scale.invert({ a: 2 })).toStrictEqual(new Date('2020-02-02'));
+    expect(scale.invert({ a: 3 })).toStrictEqual(new Date('2020-02-03'));
+  });
+
   test('update scale', () => {
     const scale = new Ordinal({
       domain: ['A', 'B', 'C'],
