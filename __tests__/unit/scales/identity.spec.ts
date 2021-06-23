@@ -34,6 +34,9 @@ describe('Identity', () => {
     expect(x.map(1)).toBe(1);
     expect(x.map(-0.5)).toBe(-0.5);
     expect(x.map(2.5)).toBe(2.5);
+    expect(x.map('1')).toBe('1');
+    expect(x.map([1, 2, 3])).toEqual([1, 2, 3]);
+    expect(x.map({ a: 1, b: 1 })).toEqual({ a: 1, b: 1 });
   });
 
   test('map(falsy) to option.unknown', () => {

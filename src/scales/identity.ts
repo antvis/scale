@@ -1,7 +1,7 @@
-import { isNumber } from '@antv/util';
 import { Base } from './base';
 import { IdentityOptions, Domain, Range } from '../types';
 import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
+import { isValid } from '../utils';
 
 export class Identity extends Base<IdentityOptions> {
   /**
@@ -24,7 +24,7 @@ export class Identity extends Base<IdentityOptions> {
    * @returns 输出值
    */
   public map(x: Domain<IdentityOptions>) {
-    return isNumber(x) && !Number.isNaN(x) ? x : this.options.unknown;
+    return isValid(x) ? x : this.options.unknown;
   }
 
   /**
