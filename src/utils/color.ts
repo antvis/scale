@@ -1,4 +1,4 @@
-import colorString from 'color-string';
+const colorString = require('color-string');
 
 function hue2rgb(p: number, q: number, m: number) {
   let t = m;
