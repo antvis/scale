@@ -10,6 +10,9 @@ export type Interpolate<T = number> = (a: T, b: T) => (t: number) => T;
 /** 比较器 */
 export type Comparator = (a: any, b: any) => number;
 
+/** tickMethod 和 nice 需要使用的参数 */
+export type TickMethodOptions<T = number | Date> = [T, T, number, number?, boolean?];
+
 /** 通用的配置 */
 export type BaseOptions = {
   /** 当需要映射的值不合法的时候，返回的值 */

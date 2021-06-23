@@ -1,6 +1,6 @@
 import { identity } from '@antv/util';
 import { Base } from './base';
-import { ContinuousOptions, Domain, Range, NiceMethod } from '../types';
+import { ContinuousOptions, Domain, Range, NiceMethod, TickMethodOptions } from '../types';
 import {
   createInterpolate,
   createInterpolateRound,
@@ -127,7 +127,7 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
     return tickMethod(min, max, tickCount, ...rest);
   }
 
-  protected getTickMethodOptions(): [Domain<O>, Domain<O>, number, number?, boolean?] {
+  protected getTickMethodOptions(): TickMethodOptions {
     const { domain, tickCount } = this.options;
     const min = domain[0];
     const max = domain[domain.length - 1];
