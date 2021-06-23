@@ -1,3 +1,4 @@
+import { isNumber } from '@antv/util';
 import { Base } from './base';
 import { IdentityOptions, Domain, Range } from '../types';
 import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
@@ -51,6 +52,7 @@ export class Identity extends Base<IdentityOptions> {
   public getTicks(): Range<IdentityOptions>[] {
     const { domain, tickCount, tickMethod } = this.options;
     const [min, max] = domain;
+    if (!isNumber(min) || !isNumber(max)) return [];
     return tickMethod(min, max, tickCount);
   }
 }

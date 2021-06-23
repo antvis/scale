@@ -68,6 +68,21 @@ describe('Identity', () => {
     });
 
     expect(s.getTicks()).toEqual([]);
+
+    s.update({
+      domain: [1, 'a'],
+    });
+    expect(s.getTicks()).toEqual([]);
+
+    s.update({
+      domain: ['a', 1],
+    });
+    expect(s.getTicks()).toEqual([]);
+
+    s.update({
+      domain: ['a', 'b'],
+    });
+    expect(s.getTicks()).toEqual([]);
   });
 
   test('clone() returns a scale belong to same class', () => {

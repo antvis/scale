@@ -134,14 +134,6 @@ describe('Continuous', () => {
     expect(s.invert(1000)).toEqual(10);
   });
 
-  // test('map(x) accepts color range', () => {
-  //   expect(new Scale({ range: ['red', 'blue'] }).map(0.5)).toBe('rgb(128, 0, 128)');
-  //   expect(new Scale({ range: ['#f00', '#00f'] }).map(0.5)).toBe('rgb(128, 0, 128)');
-  //   expect(new Scale({ range: ['rgb(255,0,0)', 'hsl(240,100%,50%)'] }).map(0.5)).toBe('rgb(128, 0, 128)');
-  //   expect(new Scale({ range: ['rgb(100%,0%,0%)', 'hsl(240,100%,50%)'] }).map(0.5)).toBe('rgb(128, 0, 128)');
-  //   expect(new Scale({ range: ['hsl(0,100%,50%)', 'hsl(240,100%,50%)'] }).map(0.5)).toBe('rgb(128, 0, 128)');
-  // });
-
   test('map(x) change descending domain to ascending', () => {
     const s = new Scale({
       domain: [10, 0],
