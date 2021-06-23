@@ -127,7 +127,7 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
     return tickMethod(min, max, tickCount, ...rest);
   }
 
-  protected getTickMethodOptions() {
+  protected getTickMethodOptions(): [Domain<O>, Domain<O>, number, number?, boolean?] {
     const { domain, tickCount } = this.options;
     const min = domain[0];
     const max = domain[domain.length - 1];

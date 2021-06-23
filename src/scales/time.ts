@@ -39,7 +39,7 @@ export class Time extends Continuous<TimeOptions> {
     return d3TimeNice;
   }
 
-  protected getTickMethodOptions() {
+  protected getTickMethodOptions(): [Date, Date, number, number, boolean] {
     const { domain, tickCount, tickInterval, utc } = this.options;
     const min = domain[0];
     const max = domain[domain.length - 1];
