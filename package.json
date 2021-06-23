@@ -103,6 +103,7 @@
   },
   "dependencies": {
     "@antv/util": "^2.0.13",
+    "color-string": "^1.5.5",
     "fecha": "^4.2.1"
   }
 }
