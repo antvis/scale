@@ -211,11 +211,7 @@ describe('Continuous', () => {
 
   test('options.interpolate sets a custom interpolator factory', () => {
     // y^2 = mx + b
-    const interpolate: Interpolate<number | string> = (a, b) => (t) => {
-      const a0 = a as number;
-      const b0 = b as number;
-      return Math.sqrt(a0 * a0 * (1 - t) + b0 * b0 * t);
-    };
+    const interpolate: Interpolate<number> = (a, b) => (t) => Math.sqrt(a * a * (1 - t) + b * b * t);
 
     const s = new Scale({
       domain: [0, 4],
