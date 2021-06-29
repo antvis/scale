@@ -18,11 +18,11 @@ describe('interpolate', () => {
   });
 
   test('createInterpolateColor(a, b) returns a color linear interpolator with valid color input', () => {
-    expect(createInterpolateColor('red', 'blue')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateColor('#f00', '#00f')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateColor('rgb(255,0,0)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateColor('rgb(100%,0%,0%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateColor('hsl(0,100%,50%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
+    expect(createInterpolateColor('red', 'blue')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateColor('#f00', '#00f')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateColor('rgb(255,0,0)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateColor('rgb(100%,0%,0%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateColor('hsl(0,100%,50%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(128, 0, 128, 1)');
 
     expect(createInterpolateColor('reed', 'hsl(240,100%,50%)')(0.5)).toBe('hsl(240,100%,50%)');
     expect(createInterpolateColor('hsl(240,100%,50%)', 'reed')(0.5)).toBe('hsl(240,100%,50%)');
@@ -34,11 +34,11 @@ describe('interpolate', () => {
     expect(createInterpolateValue(0, 10)(0.5)).toBe(5);
     expect(createInterpolateValue(0, 10)(0.95)).toBe(9.5);
 
-    expect(createInterpolateValue('red', 'blue')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateValue('#f00', '#00f')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateValue('rgb(255,0,0)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateValue('rgb(100%,0%,0%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
-    expect(createInterpolateValue('hsl(0,100%,50%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(127.5, 0, 127.5, 1)');
+    expect(createInterpolateValue('red', 'blue')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateValue('#f00', '#00f')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateValue('rgb(255,0,0)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateValue('rgb(100%,0%,0%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(128, 0, 128, 1)');
+    expect(createInterpolateValue('hsl(0,100%,50%)', 'hsl(240,100%,50%)')(0.5)).toBe('rgba(128, 0, 128, 1)');
 
     expect(createInterpolateValue('reed', 'hsl(240,100%,50%)')(0.5)).toBe('hsl(240,100%,50%)');
     expect(createInterpolateValue('hsl(240,100%,50%)', 'reed')(0.5)).toBe('hsl(240,100%,50%)');

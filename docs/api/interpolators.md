@@ -30,9 +30,9 @@ const x = new Linear({
   range: ['red', 'blue'],
 });
 
-x.map(0.5); // rgba(127.5, 0, 127.5, 1);
+x.map(0.5); // rgba(128, 0, 128, 1);
 
-createInterpolateNumber('red', 'blue')(0.5); // rgba(127.5, 0, 127.5, 1);
+createInterpolateNumber('red', 'blue')(0.5); // rgba(128, 0, 128, 1);
 ```
 
 <a name="createInterpolateNumber" href="#createInterpolateNumber">#</a> **createInterpolateNumber**<i>(a: number, b: number) => Interpolate</i>
@@ -53,6 +53,6 @@ x.update({
   range: ['hsl(0, 100%, 50%)', 'hsl(240, 100%, 50%)'],
 });
 
-x.map(0.5); // rgba(127.5, 0, 127.5, 1)
+x.map(0.5); // rgba(128, 0, 128, 1)
 createInterpolateValue('hsl(0, 100%, 50%)', 'hsl(240, 100%, 50%)')(0.5); // 0.5;
 ```

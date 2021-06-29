@@ -22,8 +22,8 @@ export const createInterpolateColor: Interpolate<string> = (a, b) => {
       const to = c2[i];
       values[i] = from * (1 - t) + to * t;
     }
-    const [r, g, b, a] = values;
-    return `rgba(${r}, ${g}, ${b}, ${a})`;
+    const [r, g, b, a] = values as number[];
+    return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${a})`;
   };
 };
 
