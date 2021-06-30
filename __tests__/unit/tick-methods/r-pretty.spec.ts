@@ -39,7 +39,7 @@ describe('rPretty ticks', () => {
 
   it('rPretty for c(0.0002, 0.001)', () => {
     const res = rPretty(0.0002, 0.001);
-    expect(res).toEqual([0.0002, 0.0004, 0.0006, 0.0008, 0.001]);
+    expect(res).toEqual([0.0002, 0.0004, 0.0006, 0.0008, 0.001, 0.0012]);
   });
 
   it('rPretty for c(-5, 605)', () => {
@@ -64,5 +64,9 @@ describe('rPretty ticks', () => {
     const scale2 = rPretty(0.153, 0.987, 10);
     // same as d3
     expect(scale2).toEqual([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]);
+  });
+
+  it('rPretty for tiny number', () => {
+    expect(rPretty(9.899999999999999, 9.9)).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
 });

@@ -1,5 +1,6 @@
 import { indexOf, size } from '@antv/util';
 import { TickMethod } from '../types';
+import { prettyNumber } from '../utils/pretty-number';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -58,11 +59,6 @@ function coverageMax(dMin: number, dMax: number, span: number) {
 
 function legibility() {
   return 1;
-}
-
-// 为了解决 js 运算的精度问题
-function pretty(n: number) {
-  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
 /**
@@ -131,27 +127,26 @@ export const wilkinsonExtended: TickMethod = (
           const minStart = Math.floor(dMax / step) * j - (k - 1) * j;
           const maxStart = Math.ceil(dMin / step) * j;
 
-          if (minStart > maxStart) {
-            z += 1;
-            // eslint-disable-next-line no-continue
-            continue;
-          }
-          for (let start = minStart; start <= maxStart; start += 1) {
-            const lMin = start * (step / j);
-            const lMax = lMin + step * (k - 1);
-            const lStep = step;
+          if (minStart <= maxStart) {
+            const count = maxStart - minStart;
+            for (let i = 0; i <= count; i += 1) {
+              const start = minStart + i;
+              const lMin = start * (step / j);
+              const lMax = lMin + step * (k - 1);
+              const lStep = step;
 
-            const s = simplicity(q, Q, j, lMin, lMax, lStep);
-            const c = coverage(dMin, dMax, lMin, lMax);
-            const g = density(k, m, dMin, dMax, lMin, lMax);
-            const l = legibility();
+              const s = simplicity(q, Q, j, lMin, lMax, lStep);
+              const c = coverage(dMin, dMax, lMin, lMax);
+              const g = density(k, m, dMin, dMax, lMin, lMax);
+              const l = legibility();
 
-            const score = w[0] * s + w[1] * c + w[2] * g + w[3] * l;
-            if (score > best.score && (!onlyLoose || (lMin <= dMin && lMax >= dMax))) {
-              best.lmin = lMin;
-              best.lmax = lMax;
-              best.lstep = lStep;
-              best.score = score;
+              const score = w[0] * s + w[1] * c + w[2] * g + w[3] * l;
+              if (score > best.score && (!onlyLoose || (lMin <= dMin && lMax >= dMax))) {
+                best.lmin = lMin;
+                best.lmax = lMax;
+                best.lstep = lStep;
+                best.score = score;
+              }
             }
           }
           z += 1;
@@ -162,17 +157,12 @@ export const wilkinsonExtended: TickMethod = (
     j += 1;
   }
 
-  let i = 0;
-
-  const size = (best.lmax - best.lmin) / best.lstep;
-
-  // 步长为浮点数时处理精度
-  const range = new Array(Math.floor(size));
-
-  for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
-    range[i] = pretty(tick);
-    i += 1;
+  const { lmax, lmin, lstep } = best;
+  const tickCount = Math.floor((lmax - lmin) / lstep) + 1;
+  const ticks = new Array(tickCount);
+  for (let i = 0; i < tickCount; i += 1) {
+    ticks[i] = prettyNumber(lmin + i * lstep);
   }
 
-  return range;
+  return ticks;
 };
