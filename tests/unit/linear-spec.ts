@@ -11,7 +11,7 @@ describe('linear scale', () => {
     },
   });
 
-  it('type', function() {
+  it('type', function () {
     expect(scale.type).toEqual('linear');
     expect(scale.isLinear).toBeTruthy();
   });
@@ -195,14 +195,12 @@ describe('linear with minLimit & maxLimit', () => {
   expect(last(scale.ticks)).toBe(0.96);
 });
 
-// interval, minTickInterval 当前 ticks 的计算方法都不支持
-describe.skip('linear scale with Interval', () => {
-  it('c(0, 62), minInterval = 14', () => {
+describe('linear ticks', () => {
+  it('handle tiny numbers', () => {
     const scale = new Linear({
-      min: 0,
-      max: 62,
-      minTickInterval: 14,
+      min: 9.899999999999999,
+      max: 9.9,
     });
-    expect(scale.ticks).toEqual([0, 14, 28, 42, 56, 70]);
+    expect(scale.ticks).toEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
 });
