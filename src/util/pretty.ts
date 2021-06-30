@@ -1,11 +1,8 @@
+function prettyNumber(n: number) {
+  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
+}
+
 export default function pretty(min: number, max: number, n: number = 5) {
-
-  const res = {
-    max: 0,
-    min: 0,
-    ticks: [],
-  };
-
   if (min === max) {
     return {
       max,
@@ -32,7 +29,6 @@ export default function pretty(min: number, max: number, n: number = 5) {
   // }
 
   const base = Math.pow(10, Math.floor(Math.log10(c)));
-  const toFixed = base < 1 ? Math.ceil(Math.abs(Math.log10(base))) : 0;
   let unit = base;
   if (2 * base - c < h * (c - unit)) {
     unit = 2 * base;
@@ -46,18 +42,18 @@ export default function pretty(min: number, max: number, n: number = 5) {
   const nu = Math.ceil(max / unit);
   const ns = Math.floor(min / unit);
 
-  res.max = Math.max(nu * unit, max);
-  res.min = Math.min(ns * unit, min);
+  const hi = Math.max(nu * unit, max);
+  const lo = Math.min(ns * unit, min);
 
-  let x = Number.parseFloat((ns * unit).toFixed(toFixed));
-  while (x < max) {
-    res.ticks.push(x);
-    x += unit;
-    if (toFixed) {
-      x = Number.parseFloat(x.toFixed(toFixed));
-    }
+  const size = Math.floor((hi - lo) / unit) + 1;
+  const ticks = new Array(size);
+  for (let i = 0; i < size; i++) {
+    ticks[i] = prettyNumber(lo + i * unit);
   }
-  res.ticks.push(x);
 
-  return res;
+  return {
+    min: lo,
+    max: hi,
+    ticks,
+  };
 }

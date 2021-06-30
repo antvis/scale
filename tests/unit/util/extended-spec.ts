@@ -52,7 +52,7 @@ describe('extended ticks', function () {
   it('extended for c(0.243, 0.584, 0.987, 0.153, 0.433)', () => {
     const scale1 = extended(0.153, 0.987);
     // d3 version == [0.2, 0.4, 0.6000000000000001, 0.8, 1]
-    expect(scale1.ticks).toEqual([ 0, 0.25, 0.5, 0.75, 1 ]);
+    expect(scale1.ticks).toEqual([0, 0.25, 0.5, 0.75, 1]);
     const scale2 = extended(0.153, 0.987, 10);
     // same as d3
     expect(scale2.ticks).toEqual([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]);
@@ -75,11 +75,10 @@ describe('extended ticks', function () {
     expect(extended(0, 0.01, 5).ticks).toStrictEqual([0, 0.0025, 0.005, 0.0075, 0.01]);
     expect(extended(0, 0.001, 5).ticks).toStrictEqual([0, 0.00025, 0.0005, 0.00075, 0.001]);
     expect(extended(0, 0.0001, 6).ticks).toStrictEqual([0, 0.00002, 0.00004, 0.00006, 0.00008, 0.0001, 0.00012]);
-    expect(extended(0, 0.00001, 6).ticks).toStrictEqual([
-      0, 0.000002, 0.000004, 0.000006, 0.000008, 0.00001, 0.000012,
-    ]);
+    expect(extended(0, 0.00001, 6).ticks).toStrictEqual([0, 0.000002, 0.000004, 0.000006, 0.000008, 0.00001, 0.000012]);
     expect(extended(0, 0.000001, 6).ticks).toStrictEqual([0, 0.0000002, 0.0000004, 0.0000006, 0.0000008, 0.000001]);
     expect(extended(0, 1e-15, 6).ticks).toStrictEqual([0, 2e-16, 4e-16, 6e-16, 8e-16, 1e-15]);
+    expect(extended(9.899999999999999, 9.9).ticks).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
 
   it('precision', () => {
