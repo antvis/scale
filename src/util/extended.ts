@@ -138,7 +138,6 @@ export default function extended(
           const maxStart = Math.ceil(dMin / step) * j;
 
           if (minStart <= maxStart) {
-            z += 1;
             const count = maxStart - minStart;
             for (let i = 0; i <= count; i += 1) {
               const start = minStart + i;
