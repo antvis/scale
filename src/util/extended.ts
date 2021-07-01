@@ -60,7 +60,7 @@ function legibility() {
 }
 
 // 解决 js 计算精度问题
-function pretty(n: number) {
+function prettyNumber(n: number) {
   return n < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
@@ -137,27 +137,26 @@ export default function extended(
           const minStart = Math.floor(dMax / step) * j - (k - 1) * j;
           const maxStart = Math.ceil(dMin / step) * j;
 
-          if (minStart > maxStart) {
-            z += 1;
-            // eslint-disable-next-line no-continue
-            continue;
-          }
-          for (let start = minStart; start <= maxStart; start += 1) {
-            const lMin = start * (step / j);
-            const lMax = lMin + step * (k - 1);
-            const lStep = step;
+          if (minStart <= maxStart) {
+            const count = maxStart - minStart;
+            for (let i = 0; i <= count; i += 1) {
+              const start = minStart + i;
+              const lMin = start * (step / j);
+              const lMax = lMin + step * (k - 1);
+              const lStep = step;
 
-            const s = simplicity(q, Q, j, lMin, lMax, lStep);
-            const c = coverage(dMin, dMax, lMin, lMax);
-            const g = density(k, m, dMin, dMax, lMin, lMax);
-            const l = legibility();
+              const s = simplicity(q, Q, j, lMin, lMax, lStep);
+              const c = coverage(dMin, dMax, lMin, lMax);
+              const g = density(k, m, dMin, dMax, lMin, lMax);
+              const l = legibility();
 
-            const score = w[0] * s + w[1] * c + w[2] * g + w[3] * l;
-            if (score > best.score && (!onlyLoose || (lMin <= dMin && lMax >= dMax))) {
-              best.lmin = lMin;
-              best.lmax = lMax;
-              best.lstep = lStep;
-              best.score = score;
+              const score = w[0] * s + w[1] * c + w[2] * g + w[3] * l;
+              if (score > best.score && (!onlyLoose || (lMin <= dMin && lMax >= dMax))) {
+                best.lmin = lMin;
+                best.lmax = lMax;
+                best.lstep = lStep;
+                best.score = score;
+              }
             }
           }
           z += 1;
@@ -168,15 +167,13 @@ export default function extended(
     j += 1;
   }
 
-  const size = Math.floor((best.lmax - best.lmin) / best.lstep);
-  const ticks = new Array(size);
-  let i = 0;
-
-  for (let tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
-    ticks[i] = pretty(tick);
-    i += 1;
+  const { lmax, lmin, lstep } = best;
+  const tickCount = Math.floor((lmax - lmin) / lstep) + 1;
+  const ticks = new Array(tickCount);
+  for (let i = 0; i < tickCount; i++) {
+    ticks[i] = prettyNumber(lmin + i * lstep);
   }
-  
+
   return {
     min: Math.min(dMin, head(ticks)),
     max: Math.max(dMax, last(ticks)),
