@@ -1,6 +1,6 @@
 import { Time, TimeOptions } from '../../../src';
 import { d3Time } from '../../../src/tick-methods/d3-time';
-import { createInterpolate, d3TimeNice } from '../../../src/utils';
+import { createInterpolateNumber, d3TimeNice } from '../../../src/utils';
 
 function UTC(
   year: number,
@@ -32,7 +32,7 @@ describe('Time', () => {
     });
 
     expect(tickMethod).toBe(d3Time);
-    expect(interpolate).toBe(createInterpolate);
+    expect(interpolate).toBe(createInterpolateNumber);
   });
 
   test('map(x) coerces x to timestamp if x is Date Object', () => {

@@ -36,7 +36,9 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^12.0.1",
+    "@rollup/plugin-commonjs": "^19.0.0",
     "@types/benchmark": "^2.1.0",
+    "@types/color-string": "^1.5.0",
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -82,12 +84,12 @@
   "limit-size": [
     {
       "path": "dist/scale.min.js",
-      "limit": "8 Kb",
+      "limit": "10 Kb",
       "gzip": true
     },
     {
       "path": "dist/scale.min.js",
-      "limit": "24 Kb"
+      "limit": "30 Kb"
     }
   ],
   "author": {
@@ -103,6 +105,7 @@
   },
   "dependencies": {
     "@antv/util": "^2.0.13",
+    "color-string": "^1.5.5",
     "fecha": "^4.2.1"
   }
 }

@@ -21,7 +21,7 @@ Map a continuous, quantitative domain to a continuous range.
 - [Pow](./scales/pow.md) - Similar to linear scales, except an exponential transform is applied to the input domain value before the output range value is computed.
 - [Sqrt](./scales/sqrt.md) - A special case of pow scales with exponent fixed to 0.5.
 - [Time](./scales/time.md) - Similar to linear scales, but have a have a temporal domain.
-  
+
 ### Distribution
 
 Map a continuous, quantitative domain to a discrete range.
@@ -40,11 +40,19 @@ Map a discrete domain to a discrete or continuous range.
 
 ## Tick Methods
 
-Method for computing representative values.
+Methods for computing representative values.
 
 - [D3 Ticks](./tick-methods.md#d3-ticks) - D3 ticks in d3-array.
 - [R Pretty](./tick-methods.md#r-pretty) - An algorithm for positioning tick labels on axes in R language.
 - [Wilkinson Extended](./tick-methods.md#wilkinson-extended) - An extension of Wilkinson's algorithm for positioning tick labels on axes.
+
+## Interpolators
+
+Built-in interpolator factories for continuous scale.
+
+- [createInterpolateNumber](./interpolators.md#createInterpolateNumber) - Returns a number interpolator.
+- [createInterpolateColor](./interpolators.md#createInterpolateColor) - Returns a color interpolator.
+- [createInterpolateValue](./interpolators.md#createInterpolateValue) - Returns a interpolator which can interpolate numbers and colors depending on input type.
 
 ## Constants
 

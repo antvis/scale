@@ -5,34 +5,25 @@ export type TickMethod<T = number> = (min: T, max: T, n?: number, ...rest: any[]
 export type NiceMethod<T = number> = TickMethod<T>;
 
 /** 插值器工厂 */
-export type Interpolate = (a: number, b: number) => (t: number) => number;
+export type Interpolate<T = number> = (a: T, b: T) => (t: number) => T;
+
+/** 所有支持的插值器工厂 */
+export type Interpolates = Interpolate<number> | Interpolate<string> | Interpolate<number | string>;
 
 /** 比较器 */
-export type Comparator = (a: string | number, b: string | number) => number;
+export type Comparator = (a: any, b: any) => number;
 
-/**
- * 所有比例尺选项的默认类型
- * D：定义域元素的类型
- * R：值域元素的类型
- */
-export type BaseOptions<D = any, R = D> = {
+/** tickMethod 和 nice 需要使用的参数 */
+export type TickMethodOptions<T = number | Date> = [T, T, number, number?, boolean?];
+
+/** 通用的配置 */
+export type BaseOptions = {
   /** 当需要映射的值不合法的时候，返回的值 */
   unknown?: any;
   /** 值域，默认为 [0, 1] */
-  range?: R[];
+  range?: any[];
   /** 定义域，默认为 [0, 1] */
-  domain?: D[];
-};
-
-/**
- * 支持 getTicks 的比例尺的选项
- * T：tickMethod 配置项的类型
- */
-export type TickOptions<T = number> = {
-  /** tick 个数，默认值为 5 */
-  tickCount?: number;
-  /** 计算 ticks 的算法 */
-  tickMethod?: TickMethod<T>;
+  domain?: any[];
 };
 
 /** 获得比例尺选项中定义域元素的类型 */
@@ -45,44 +36,114 @@ export type Range<O extends BaseOptions> = O['range'][number];
 export type Unknown<O extends BaseOptions> = O['unknown'];
 
 /** Identity 比例尺的选项 */
-export type IdentityOptions = BaseOptions<number> & TickOptions;
+
+/** Identity 比例尺的选项 */
+export type IdentityOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: any[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: any[];
+  /** tick 个数，默认值为 5 */
+  tickCount?: number;
+  /** 计算 ticks 的算法 */
+  tickMethod?: TickMethod<number>;
+};
 
 /** Constant 比例尺的选项 */
-export type ConstantOptions = BaseOptions<number | string> & TickOptions;
+export type ConstantOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: any[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: any[];
+  /** tick 个数，默认值为 5 */
+  tickCount?: number;
+  /** 计算 ticks 的算法 */
+  tickMethod?: TickMethod<number>;
+};
 
-/** Continuous 比例尺的选项 */
-export type ContinuousOptions<D = any, R = D> = BaseOptions<D, R> &
-  TickOptions<D> & {
-    /** 是否需要对定义域的范围进行优化 */
-    nice?: boolean;
-    /** 是否需要限制输入的范围在值域内 */
-    clamp?: boolean;
-    /** 是否需要对输出进行四舍五入 */
-    round?: boolean;
-    /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
-    interpolate?: Interpolate;
-  };
+/** Constant 比例尺的选项 */
+export type ContinuousOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: (number | string)[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: (number | Date)[];
+  /** tick 个数，默认值为 5 */
+  tickCount?: number;
+  /** 计算 ticks 的算法 */
+  tickMethod?: TickMethod<number | Date>;
+  /** 是否需要对定义域的范围进行优化 */
+  nice?: boolean;
+  /** 是否需要限制输入的范围在值域内 */
+  clamp?: boolean;
+  /** 是否需要对输出进行四舍五入 */
+  round?: boolean;
+  /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
+  interpolate?: Interpolates;
+};
 
 /** Linear 比例尺的选项 */
-export type LinearOptions = ContinuousOptions<number>;
+export type LinearOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: (number | string)[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: number[];
+  /** tick 个数，默认值为 5 */
+  tickCount?: number;
+  /** 计算 ticks 的算法 */
+  tickMethod?: TickMethod<number>;
+  /** 是否需要对定义域的范围进行优化 */
+  nice?: boolean;
+  /** 是否需要限制输入的范围在值域内 */
+  clamp?: boolean;
+  /** 是否需要对输出进行四舍五入 */
+  round?: boolean;
+  /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
+  interpolate?: Interpolates;
+};
 
 /** Pow 比例尺的选项 */
-export type PowOptions = ContinuousOptions<number> & {
+export type PowOptions = LinearOptions & {
   /** 指数 */
   exponent?: number;
 };
 
 /** Sqrt 比例尺的选项 */
-export type SqrtOptions = Omit<PowOptions, 'exponent'>;
+export type SqrtOptions = LinearOptions;
 
 /** Log 比例尺的选项 */
-export type LogOptions = ContinuousOptions<number> & {
+export type LogOptions = LinearOptions & {
   /** 底数 */
   base?: number;
 };
 
 /** time 比例尺的选项 */
-export type TimeOptions = ContinuousOptions<Date, number> & {
+export type TimeOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: (number | string)[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: Date[];
+  /** tick 个数，默认值为 5 */
+  tickCount?: number;
+  /** 计算 ticks 的算法 */
+  tickMethod?: TickMethod<Date>;
+  /** 是否需要对定义域的范围进行优化 */
+  nice?: boolean;
+  /** 是否需要限制输入的范围在值域内 */
+  clamp?: boolean;
+  /** 是否需要对输出进行四舍五入 */
+  round?: boolean;
+  /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
+  interpolate?: Interpolates;
   /** getTick 的时间间隔 */
   tickInterval?: number;
   /** 格式化的形式 */
@@ -92,10 +153,25 @@ export type TimeOptions = ContinuousOptions<Date, number> & {
 };
 
 /** OrdinalOptions 比例尺的选项 */
-export type OrdinalOptions = BaseOptions<number | string | Date> & { compare?: Comparator };
+export type OrdinalOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: any[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: any[];
+  /** 比较器 */
+  compare?: Comparator;
+};
 
 /** 详细请参阅 scale/band.ts */
-export type BandOptions = BaseOptions<number | string | Date, number> & {
+export type BandOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: number[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: any[];
   /** 是否取整 */
   round?: boolean;
   /** 内部边距 */
@@ -114,14 +190,41 @@ export type BandOptions = BaseOptions<number | string | Date, number> & {
 export type PointOptions = Omit<BandOptions, 'paddingInner' | 'paddingOuter'>;
 
 /** Threshold 比例尺的选项 */
-export type ThresholdOptions = BaseOptions<number, any>;
+export type ThresholdOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: any[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: number[];
+};
 
 /** Quantize 比例尺的选项 */
-export type QuantizeOptions = ThresholdOptions &
-  TickOptions & {
-    /** 是否需要 nice */
-    nice?: boolean;
-  };
+export type QuantizeOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: any[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: number[];
+  /** 是否需要 nice */
+  nice?: boolean;
+  /** 期望的 tickCount */
+  tickCount?: number;
+  /** 计算 ticks 的算法 */
+  tickMethod?: TickMethod<number>;
+};
 
 /** Quantile 比例尺的选项 */
-export type QuantileOptions = ThresholdOptions & TickOptions;
+export type QuantileOptions = {
+  /** 当需要映射的值不合法的时候，返回的值 */
+  unknown?: any;
+  /** 值域，默认为 [0, 1] */
+  range?: any[];
+  /** 定义域，默认为 [0, 1] */
+  domain?: number[];
+  /** 期望的 tickCount */
+  tickCount?: number;
+  /** 计算 ticks 的算法 */
+  tickMethod?: TickMethod<number>;
+};

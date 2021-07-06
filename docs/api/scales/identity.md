@@ -55,19 +55,19 @@ x3.getTicks(); // [2, 4.5, 7, 9.5, 12, 14.5]
 
 | Key | Description | Type | Default|  
 | ----| ----------- | -----| -------|
-| domain | Sets the scale’s domain to the specified array of values. | `number[]` | `[0, 1]` |
-| range | Sets the scale’s range to the specified array of values. | `number[]` | `[0, 1]` |
+| domain | Sets the scale’s domain to the specified array of values. | `any[]` | `[0, 1]` |
+| range | Sets the scale’s range to the specified array of values. | `any[]` | `[0, 1]` |
 | unknown | Sets the output value of the scale for `undefined` (or `NaN`) input values. | `any` | `undefined` |
 | tickCount | Sets approximately count representative values from the scale’s domain. **The specified `tickCount` in options is only a hint: the scale may return more or fewer values depending on the domain.** | `number` | `5` |
 | tickMethod | Sets the method for computing representative values from the scale’s domain. | `(min: number, max: number, count: number) => number[]` | `d3-ticks` |
 
 ## Methods
 
-<a name="identity_map" href="#identity_map">#</a> **map**<i>(x: number): number | any</i>
+<a name="identity_map" href="#identity_map">#</a> **map**<i>(x: any): any</i>
 
 Given a value in the input domain, returns the corresponding value in the output range if it is not `undefined` (or `NaN`), otherwise `options.unknown`
 
-<a name="identity_invert" href="#identity_invert">#</a> **invert**<i>(x: number): number</i>
+<a name="identity_invert" href="#identity_invert">#</a> **invert**<i>(x: any): any</i>
 
 Given a value from the range, returns the corresponding value from the domain.
 

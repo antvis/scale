@@ -54,6 +54,12 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
   return to[mappedIndex % to.length];
 }
 
+function createKey(d: any) {
+  if (d instanceof Date) return (d: Date) => `${d}`;
+  if (typeof d === 'object') return (d: Object) => JSON.stringify(d);
+  return (d: number | string) => d;
+}
+
 /**
  * Ordinal 比例尺
  *
@@ -126,8 +132,8 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
     const [d] = this.options.domain;
     const [r] = this.options.range;
 
-    this.domainKey = d instanceof Date ? (d) => `${d}` : (d) => d;
-    this.rangeKey = r instanceof Date ? (d) => `${d}` : (d) => d;
+    this.domainKey = createKey(d);
+    this.rangeKey = createKey(r);
 
     // 如果 rangeIndexMap 没有初始化，说明是在初始化阶段
     if (!this.rangeIndexMap) {

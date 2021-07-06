@@ -1,6 +1,6 @@
 import { identity } from '@antv/util';
-import { createInterpolate } from '../../../src/utils';
-import { Interpolate, ContinuousOptions, Continuous } from '../../../src';
+import { createInterpolateNumber } from '../../../src/utils';
+import { Interpolate, ContinuousOptions, Continuous, Interpolates } from '../../../src';
 
 describe('Continuous', () => {
   type ScaleOptions = ContinuousOptions;
@@ -42,7 +42,7 @@ describe('Continuous', () => {
       tickCount: 5,
     });
 
-    expect(interpolate).toEqual(createInterpolate);
+    expect(interpolate).toEqual(createInterpolateNumber);
   });
 
   test('Continuous(options) override defaults', () => {
@@ -211,7 +211,23 @@ describe('Continuous', () => {
 
   test('options.interpolate sets a custom interpolator factory', () => {
     // y^2 = mx + b
-    const interpolate: Interpolate = (a, b) => (t) => Math.sqrt(a * a * (1 - t) + b * b * t);
+    const interpolate: Interpolate<number> = (a, b) => (t) => Math.sqrt(a * a * (1 - t) + b * b * t);
+
+    const s = new Scale({
+      domain: [0, 4],
+      range: [0, 2],
+      interpolate,
+    });
+
+    expect(s.map(0)).toBe(0);
+    expect(s.map(4)).toBe(2);
+  });
+
+  test('export type Interpolates', () => {
+    // y^2 = mx + b
+    const interpolate: Interpolates = (a: number, b: number) => (t) => {
+      return Math.sqrt(a * a * (1 - t) + b * b * t);
+    };
 
     const s = new Scale({
       domain: [0, 4],

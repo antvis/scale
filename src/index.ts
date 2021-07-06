@@ -42,7 +42,7 @@ export type {
 } from './types';
 
 // others
-export type { TickMethod, Interpolate, Comparator } from './types';
+export type { TickMethod, Interpolate, Comparator, Interpolates } from './types';
 
 // constants
 export {
@@ -54,3 +54,6 @@ export {
   DURATION_YEAR,
   DURATION_MONTH,
 } from './utils';
+
+// interpolators
+export { createInterpolateNumber, createInterpolateValue, createInterpolateColor } from './utils';

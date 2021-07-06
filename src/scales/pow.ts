@@ -2,7 +2,7 @@ import { identity } from '@antv/util';
 import { Continuous, Transform } from './continuous';
 import { PowOptions } from '../types';
 import { Base } from './base';
-import { createInterpolate } from '../utils';
+import { createInterpolateValue } from '../utils';
 import { d3Ticks } from '../tick-methods/d3-ticks';
 
 const transformPow = (exponent: number) => {
@@ -36,7 +36,7 @@ export class Pow<O extends PowOptions = PowOptions> extends Continuous<O> {
       clamp: false,
       round: false,
       exponent: 2,
-      interpolate: createInterpolate,
+      interpolate: createInterpolateValue,
       tickMethod: d3Ticks,
       tickCount: 5,
     } as O;

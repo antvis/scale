@@ -1,4 +1,4 @@
-import { createInterpolate } from '../utils';
+import { createInterpolateValue } from '../utils';
 import { rPretty } from '../tick-methods/r-pretty';
 import { SqrtOptions, PowOptions } from '../types';
 import { Pow } from './pow';
@@ -11,7 +11,7 @@ export class Sqrt extends Pow<SqrtOptions & PowOptions> {
       nice: false,
       clamp: false,
       round: false,
-      interpolate: createInterpolate,
+      interpolate: createInterpolateValue,
       tickMethod: rPretty,
       tickCount: 5,
       exponent: 0.5,
