@@ -1,6 +1,5 @@
 import { BandOptions } from '../types';
 import { Ordinal } from './ordinal';
-import { sequence } from '../utils/sequence';
 
 interface BandStateOptions {
   /** step 的数目。一般是 domain 的长度 */
@@ -78,7 +77,7 @@ function getBandState(opt: BandStateOptions) {
   }
 
   // 转化后的 range
-  const adjustedRange = sequence(rangeStart, rangeEnd, step);
+  const adjustedRange = new Array(stepAmount).fill(0).map((_, i) => rangeStart + i * step);
 
   return {
     step,
