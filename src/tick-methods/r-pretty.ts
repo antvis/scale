@@ -1,4 +1,5 @@
 import { TickMethod } from '../types';
+import { prettyNumber } from '../utils/pretty-number';
 
 /**
  * 创建分割点
@@ -10,12 +11,6 @@ import { TickMethod } from '../types';
  * @see R pretty https://www.rdocumentation.org/packages/base/versions/3.5.2/topics/pretty
  */
 export const rPretty: TickMethod = (min, max, n = 5) => {
-  const res = {
-    max: 0,
-    min: 0,
-    ticks: [],
-  };
-
   if (min === max) {
     return [min];
   }
@@ -36,7 +31,6 @@ export const rPretty: TickMethod = (min, max, n = 5) => {
   // }
 
   const base = 10 ** Math.floor(Math.log10(c));
-  const toFixed = base < 1 ? Math.ceil(Math.abs(Math.log10(base))) : 0;
   let unit = base;
   if (2 * base - c < h * (c - unit)) {
     unit = 2 * base;
@@ -50,18 +44,14 @@ export const rPretty: TickMethod = (min, max, n = 5) => {
   const nu = Math.ceil(max / unit);
   const ns = Math.floor(min / unit);
 
-  res.max = Math.max(nu * unit, max);
-  res.min = Math.min(ns * unit, min);
+  const hi = Math.max(nu * unit, max);
+  const lo = Math.min(ns * unit, min);
 
-  let x = Number.parseFloat((ns * unit).toFixed(toFixed));
-  while (x < max) {
-    res.ticks.push(x);
-    x += unit;
-    if (toFixed) {
-      x = Number.parseFloat(x.toFixed(toFixed));
-    }
+  const size = Math.floor((hi - lo) / unit) + 1;
+  const ticks = new Array(size);
+  for (let i = 0; i < size; i += 1) {
+    ticks[i] = prettyNumber(lo + i * unit);
   }
-  res.ticks.push(x);
 
-  return res.ticks;
+  return ticks;
 };

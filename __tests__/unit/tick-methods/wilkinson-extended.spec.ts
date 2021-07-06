@@ -35,6 +35,7 @@ describe('wilkinson-extended test', () => {
     ]);
     expect(wilkinsonExtended(0, 0.000001, 6)).toStrictEqual([0, 0.0000002, 0.0000004, 0.0000006, 0.0000008, 0.000001]);
     expect(wilkinsonExtended(0, 1e-15, 6)).toStrictEqual([0, 2e-16, 4e-16, 6e-16, 8e-16, 1e-15]);
+    expect(wilkinsonExtended(9.899999999999999, 9.9)).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
 
   test('precision', () => {
