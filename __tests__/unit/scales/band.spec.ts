@@ -74,6 +74,16 @@ describe('band scale', () => {
     expect(bandScale.getStep()).toBeCloseTo(147.059, 3);
   });
 
+  test('test padding-inner and padding-outer options', () => {
+    const scale = new Band({
+      domain: ['A', 'B', 'C'],
+      paddingInner: 1,
+    });
+    expect(scale.map('C')).toBe(1);
+    // @ts-ignore
+    expect(scale.adjustedRange).toEqual([0, 0.5, 1]);
+  });
+
   test('test round option', () => {
     // 取整测试
     const bandScale = new Band({
