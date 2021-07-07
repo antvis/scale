@@ -10,10 +10,13 @@ import { prettyNumber } from '../utils/pretty-number';
  * @see R pretty https://svn.r-project.org/R/trunk/src/appl/pretty.c
  * @see R pretty https://www.rdocumentation.org/packages/base/versions/3.5.2/topics/pretty
  */
-export const rPretty: TickMethod = (min, max, n = 5) => {
+export const rPretty: TickMethod = (min, max, m = 5) => {
   if (min === max) {
     return [min];
   }
+
+  const n = m < 0 ? 0 : Math.round(m);
+  if (n === 0) return [];
 
   // high.u.bias
   const h = 1.5;

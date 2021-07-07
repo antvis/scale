@@ -41,4 +41,14 @@ describe('wilkinson-extended test', () => {
   test('precision', () => {
     expect(wilkinsonExtended(0, 1.2, 5)).toStrictEqual([0, 0.3, 0.6, 0.9, 1.2]);
   });
+
+  test('handle decimal tickCount', () => {
+    expect(wilkinsonExtended(0, 5, 0.4)).toStrictEqual(wilkinsonExtended(0, 5, 0));
+    expect(wilkinsonExtended(0, 5, 0.5)).toStrictEqual(wilkinsonExtended(0, 5, 1));
+  });
+
+  test('handle negative tickCount', () => {
+    expect(wilkinsonExtended(0, 5, -1)).toStrictEqual(wilkinsonExtended(0, 5, 0));
+    expect(wilkinsonExtended(0, 5, -1.2)).toStrictEqual(wilkinsonExtended(0, 5, 0));
+  });
 });
