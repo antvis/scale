@@ -69,4 +69,15 @@ describe('pretty ticks', function () {
   it('pretty for tiny number', () => {
     expect(pretty(9.899999999999999, 9.9).ticks).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
+
+
+  it('handle decimal tickCount', () => {
+    expect(pretty(0, 5, 0.4).ticks).toStrictEqual(pretty(0, 5, 0).ticks);
+    expect(pretty(0, 5, 0.5).ticks).toStrictEqual(pretty(0, 5, 1).ticks);
+  });
+
+  it('handle negative tickCount', () => {
+    expect(pretty(0, 5, -1).ticks).toStrictEqual(pretty(0, 5, 0).ticks);
+    expect(pretty(0, 5, -1.2).ticks).toStrictEqual(pretty(0, 5, 0).ticks);
+  });
 });

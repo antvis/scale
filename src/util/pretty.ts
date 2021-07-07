@@ -2,7 +2,7 @@ function prettyNumber(n: number) {
   return n < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
-export default function pretty(min: number, max: number, n: number = 5) {
+export default function pretty(min: number, max: number, m: number = 5) {
   if (min === max) {
     return {
       max,
@@ -10,6 +10,9 @@ export default function pretty(min: number, max: number, n: number = 5) {
       ticks: [min],
     };
   }
+
+  const n = m < 0 ? 0 : Math.round(m);
+  if (n === 0) return { max, min, ticks: [] };
 
   /*
     R pretty:

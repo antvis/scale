@@ -84,4 +84,14 @@ describe('extended ticks', function () {
   it('precision', () => {
     expect(extended(0, 1.2, 5).ticks).toStrictEqual([0, 0.3, 0.6, 0.9, 1.2]);
   });
+
+  it('handle decimal tickCount', () => {
+    expect(extended(0, 5, 0.4).ticks).toStrictEqual(extended(0, 5, 0).ticks);
+    expect(extended(0, 5, 0.5).ticks).toStrictEqual(extended(0, 5, 1).ticks);
+  });
+
+  it('handle negative tickCount', () => {
+    expect(extended(0, 5, -1).ticks).toStrictEqual(extended(0, 5, 0).ticks);
+    expect(extended(0, 5, -1.2).ticks).toStrictEqual(extended(0, 5, 0).ticks);
+  });
 });

@@ -77,11 +77,14 @@ function prettyNumber(n: number) {
 export default function extended(
   dMin: number,
   dMax: number,
-  m: number = 5,
+  n: number = 5,
   onlyLoose: boolean = true,
   Q: number[] = DEFAULT_Q,
   w: [number, number, number, number] = [0.25, 0.2, 0.5, 0.05]
 ): { min: number; max: number; ticks: number[] } {
+  // 处理小于 0 和小数的 tickCount
+  const m = n < 0 ? 0 : Math.round(n);
+
   // nan 也会导致异常
   if (Number.isNaN(dMin) || Number.isNaN(dMax) || typeof dMin !== 'number' || typeof dMax !== 'number' || !m) {
     return {
