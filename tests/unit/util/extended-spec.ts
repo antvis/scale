@@ -94,4 +94,8 @@ describe('extended ticks', function () {
     expect(extended(0, 5, -1).ticks).toStrictEqual(extended(0, 5, 0).ticks);
     expect(extended(0, 5, -1.2).ticks).toStrictEqual(extended(0, 5, 0).ticks);
   });
+
+  it('handle negative tickValue', () => {
+    expect(extended(-0.4, 0).ticks).toStrictEqual([-0.4, -0.3, -0.2, -0.1, 0])
+  })
 });

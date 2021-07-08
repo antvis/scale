@@ -1,6 +1,4 @@
-function prettyNumber(n: number) {
-  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
-}
+import { prettyNumber } from './pretty-number';
 
 export default function pretty(min: number, max: number, m: number = 5) {
   if (min === max) {

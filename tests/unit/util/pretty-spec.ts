@@ -70,7 +70,6 @@ describe('pretty ticks', function () {
     expect(pretty(9.899999999999999, 9.9).ticks).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
 
-
   it('handle decimal tickCount', () => {
     expect(pretty(0, 5, 0.4).ticks).toStrictEqual(pretty(0, 5, 0).ticks);
     expect(pretty(0, 5, 0.5).ticks).toStrictEqual(pretty(0, 5, 1).ticks);
@@ -79,5 +78,9 @@ describe('pretty ticks', function () {
   it('handle negative tickCount', () => {
     expect(pretty(0, 5, -1).ticks).toStrictEqual(pretty(0, 5, 0).ticks);
     expect(pretty(0, 5, -1.2).ticks).toStrictEqual(pretty(0, 5, 0).ticks);
+  });
+
+  it('handle negative tickValue', () => {
+    expect(pretty(-0.4, 0).ticks).toStrictEqual([-0.4, -0.3, -0.2, -0.1, 0]);
   });
 });
