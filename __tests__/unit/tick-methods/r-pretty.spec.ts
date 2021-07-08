@@ -79,4 +79,8 @@ describe('rPretty ticks', () => {
     expect(rPretty(0, 5, -1)).toStrictEqual(rPretty(0, 5, 0));
     expect(rPretty(0, 5, -1.2)).toStrictEqual(rPretty(0, 5, 0));
   });
+
+  it('handle negative tickValue', () => {
+    expect(rPretty(-0.4, 0)).toStrictEqual([-0.4, -0.3, -0.2, -0.1, 0]);
+  });
 });
