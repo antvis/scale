@@ -1,4 +1,5 @@
 import { head, indexOf, size, last } from '@antv/util';
+import { prettyNumber } from './pretty-number';
 
 export const DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
 
@@ -57,11 +58,6 @@ function coverageMax(dMin: number, dMax: number, span: number) {
 
 function legibility() {
   return 1;
-}
-
-// 解决 js 计算精度问题
-function prettyNumber(n: number) {
-  return n < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
 /**
