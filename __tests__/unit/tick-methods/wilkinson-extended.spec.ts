@@ -51,4 +51,8 @@ describe('wilkinson-extended test', () => {
     expect(wilkinsonExtended(0, 5, -1)).toStrictEqual(wilkinsonExtended(0, 5, 0));
     expect(wilkinsonExtended(0, 5, -1.2)).toStrictEqual(wilkinsonExtended(0, 5, 0));
   });
+
+  test('handle negative tickValue', () => {
+    expect(wilkinsonExtended(-0.4, 0)).toStrictEqual([-0.4, -0.3, -0.2, -0.1, 0]);
+  });
 });
