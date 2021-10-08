@@ -84,7 +84,7 @@
   "limit-size": [
     {
       "path": "dist/scale.min.js",
-      "limit": "10 Kb",
+      "limit": "12 Kb",
       "gzip": true
     },
     {
