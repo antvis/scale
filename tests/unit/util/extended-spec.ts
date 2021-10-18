@@ -78,7 +78,6 @@ describe('extended ticks', function () {
     expect(extended(0, 0.00001, 6).ticks).toStrictEqual([0, 0.000002, 0.000004, 0.000006, 0.000008, 0.00001, 0.000012]);
     expect(extended(0, 0.000001, 6).ticks).toStrictEqual([0, 0.0000002, 0.0000004, 0.0000006, 0.0000008, 0.000001]);
     expect(extended(0, 1e-15, 6).ticks).toStrictEqual([0, 2e-16, 4e-16, 6e-16, 8e-16, 1e-15]);
-    expect(extended(9.899999999999999, 9.9).ticks).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
 
   it('precision', () => {
@@ -96,6 +95,13 @@ describe('extended ticks', function () {
   });
 
   it('handle negative tickValue', () => {
-    expect(extended(-0.4, 0).ticks).toStrictEqual([-0.4, -0.3, -0.2, -0.1, 0])
-  })
+    expect(extended(-0.4, 0).ticks).toStrictEqual([-0.4, -0.3, -0.2, -0.1, 0]);
+  });
+
+  it('handle special numbers', () => {
+    expect(extended(0.94, 1, 5).ticks).toEqual([0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1]);
+    expect(extended(-1.11660058, 3.16329506, 5).ticks).toEqual([-1.2, 0, 1.2, 2.4, 3.6]);
+    expect(extended(-3.01805882, 1.407252466, 5).ticks).toEqual([-3.2, -2.4, -1.6, -0.8, 0, 0.8, 1.6]);
+    expect(extended(-1.02835066, 3.25839303, 5).ticks).toEqual([-1.2, 0, 1.2, 2.4, 3.6]);
+  });
 });

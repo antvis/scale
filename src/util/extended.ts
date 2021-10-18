@@ -11,6 +11,10 @@ function mod(n: number, m: number) {
   return ((n % m) + m) % m;
 }
 
+function round(n: number) {
+  return Math.round(n * 1e12) / 1e12;
+}
+
 function simplicity(q: number, Q: number[], j: number, lmin: number, lmax: number, lstep: number) {
   const n = size(Q);
   const i = indexOf(Q, q);
@@ -166,11 +170,20 @@ export default function extended(
     j += 1;
   }
 
-  const { lmax, lmin, lstep } = best;
-  const tickCount = Math.floor((lmax - lmin) / lstep) + 1;
+  // 处理精度问题，保证这三个数没有精度问题
+  const lmax = prettyNumber(best.lmax);
+  const lmin = prettyNumber(best.lmin);
+  const lstep = prettyNumber(best.lstep);
+
+  // 加 round 是为处理 extended(0.94, 1, 5)
+  // 保证生成的 tickCount 没有精度问题
+  const tickCount = Math.floor(round((lmax - lmin) / lstep)) + 1;
   const ticks = new Array(tickCount);
-  for (let i = 0; i < tickCount; i++) {
-    ticks[i] = prettyNumber(lmin + i * lstep);
+
+  // 少用乘法：防止出现 -1.2 + 1.2 * 3 = 2.3999999999999995 的情况
+  ticks[0] = prettyNumber(lmin);
+  for (let i = 1; i < tickCount; i++) {
+    ticks[i] = prettyNumber(ticks[i - 1] + lstep);
   }
 
   return {

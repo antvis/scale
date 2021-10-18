@@ -194,13 +194,3 @@ describe('linear with minLimit & maxLimit', () => {
   expect(head(scale.ticks)).toBe(0.12);
   expect(last(scale.ticks)).toBe(0.96);
 });
-
-describe('linear ticks', () => {
-  it('handle tiny numbers', () => {
-    const scale = new Linear({
-      min: 9.899999999999999,
-      max: 9.9,
-    });
-    expect(scale.ticks).toEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
-  });
-});
