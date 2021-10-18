@@ -35,7 +35,6 @@ describe('wilkinson-extended test', () => {
     ]);
     expect(wilkinsonExtended(0, 0.000001, 6)).toStrictEqual([0, 0.0000002, 0.0000004, 0.0000006, 0.0000008, 0.000001]);
     expect(wilkinsonExtended(0, 1e-15, 6)).toStrictEqual([0, 2e-16, 4e-16, 6e-16, 8e-16, 1e-15]);
-    expect(wilkinsonExtended(9.899999999999999, 9.9)).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
   });
 
   test('precision', () => {
@@ -54,5 +53,12 @@ describe('wilkinson-extended test', () => {
 
   test('handle negative tickValue', () => {
     expect(wilkinsonExtended(-0.4, 0)).toStrictEqual([-0.4, -0.3, -0.2, -0.1, 0]);
+  });
+
+  test('handle special numbers', () => {
+    expect(wilkinsonExtended(0.94, 1, 5)).toEqual([0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1]);
+    expect(wilkinsonExtended(-1.11660058, 3.16329506, 5)).toEqual([-1.2, 0, 1.2, 2.4, 3.6]);
+    expect(wilkinsonExtended(-3.01805882, 1.407252466, 5)).toEqual([-3.2, -2.4, -1.6, -0.8, 0, 0.8, 1.6]);
+    expect(wilkinsonExtended(-1.02835066, 3.25839303, 5)).toEqual([-1.2, 0, 1.2, 2.4, 3.6]);
   });
 });
