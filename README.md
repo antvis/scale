@@ -4,7 +4,7 @@
 
 <div align="center">
 
-Toolkit for mapping abstract data into visual representation.
+Toolkit for mapping abstract data into visual representation. [Living Demo](https://observablehq.com/@pearmini/antv-scale)
 
 ![scale mapping](https://user-images.githubusercontent.com/7856674/116353528-85644a80-a829-11eb-85e4-3463a29000a9.png)
 
