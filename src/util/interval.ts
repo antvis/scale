@@ -15,14 +15,16 @@ function snapMultiple(v, base, snapType) {
 
 export default function intervalTicks(min, max, interval) {
   // 变成 interval 的倍数
-  let minTick = snapMultiple(min, interval, 'floor'); 
-  let maxTick = snapMultiple(max, interval, 'ceil'); 
+  let minTick = snapMultiple(min, interval, 'floor');
+  let maxTick = snapMultiple(max, interval, 'ceil');
   // 统一小数位数
   minTick = fixedBase(minTick, interval);
   maxTick = fixedBase(maxTick, interval);
   const ticks = [];
-  for (let i = minTick; i <= maxTick; i = i + interval) {
-    const tickValue = fixedBase(i, interval); // 防止浮点数加法出现问题
+  // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Invalid_array_length
+  const avaliableInterval = Math.max((maxTick - minTick) / (2 ** 12 - 1), interval);
+  for (let i = minTick; i <= maxTick; i = i + avaliableInterval) {
+    const tickValue = fixedBase(i, avaliableInterval); // 防止浮点数加法出现问题
     ticks.push(tickValue);
   }
   return {
