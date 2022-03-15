@@ -20,4 +20,11 @@ describe('test interval ticks', () => {
   it('interval 3.3', () => {
     expect(interval(2, 9, 3.3).ticks).toEqual([0, 3.3, 6.6, 9.9]);
   });
+
+  it('lots of ticks', () => {
+    expect(interval(0, 2 ** 10 - 1, 1).ticks).toEqual(new Array(2 ** 10).fill(0).map((_, idx) => idx));
+    expect(interval(0, 2 ** 12 - 1, 1).ticks.length).toEqual(2 ** 12);
+    expect(interval(0, 2 ** 12, 1).ticks.length).toEqual(2 ** 12);
+    expect(interval(0, 2 ** 23, 1).ticks.length).toEqual(2 ** 12);
+  })
 });
