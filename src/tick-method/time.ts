@@ -20,6 +20,8 @@ export default function calculateTimeTicks(cfg: ScaleConfig): number[] {
       tickInterval = minTickInterval;
     }
   }
+
+  tickInterval = Math.max(Math.floor((max - min) / (2 ** 12 - 1)), tickInterval);
   const ticks = [];
   for (let i = min; i < max + tickInterval; i += tickInterval) {
     ticks.push(i);

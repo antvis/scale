@@ -54,6 +54,7 @@ export default function timePretty(cfg: ScaleConfig): number[] {
       tickInterval = minTickInterval;
     }
   }
+  tickInterval = Math.max(Math.floor((max - min) / (2 ** 12 - 1)), tickInterval);
   const minYear = getYear(min);
   // 如果间距大于 1 年，则将开始日期从整年开始
   if (tickInterval > YEAR) {

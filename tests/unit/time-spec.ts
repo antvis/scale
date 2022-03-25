@@ -132,7 +132,7 @@ describe('ticks', () => {
       tickInterval: 1,
     });
 
-    expect(console.warn).toHaveBeenCalledWith('Notice: current ticks length(14405) >= 512, may cause performance issues, even out of memory. Because of the configure "tickInterval"(in milliseconds, current is 1) is too small, increase the value to solve the problem!');
+    expect(console.warn).toHaveBeenCalledWith(`Notice: current ticks length(3602) >= 512, may cause performance issues, even out of memory. Because of the configure "tickInterval"(in milliseconds, current is ${Math.floor((new Date('2000-01-01 14:00:14').getTime() - new Date('2000-01-01 10:00:10').getTime()) / (2 ** 12 - 1))}) is too small, increase the value to solve the problem!`);
 
     console.warn = jest.fn();
 
@@ -146,5 +146,15 @@ describe('ticks', () => {
 
     // 复原
     console.warn = warn;
+  });
+
+  it('ticks is too large', () => {
+    let scale = new Time({
+      min: '2010-01',
+      max: '2017-02',
+      tickInterval: 1,
+    });
+
+    expect(scale.getTicks().length).toBeLessThan(2 ** 12);
   });
 });
