@@ -22,9 +22,9 @@ export default function intervalTicks(min, max, interval) {
   maxTick = fixedBase(maxTick, interval);
   const ticks = [];
   // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Invalid_array_length
-  const avaliableInterval = Math.max((maxTick - minTick) / (2 ** 12 - 1), interval);
-  for (let i = minTick; i <= maxTick; i = i + avaliableInterval) {
-    const tickValue = fixedBase(i, avaliableInterval); // 防止浮点数加法出现问题
+  const availableInterval = Math.max((maxTick - minTick) / (2 ** 12 - 1), interval);
+  for (let i = minTick; i <= maxTick; i = i + availableInterval) {
+    const tickValue = fixedBase(i, availableInterval); // 防止浮点数加法出现问题
     ticks.push(tickValue);
   }
   return {
