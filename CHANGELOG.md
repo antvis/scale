@@ -1,3 +1,9 @@
+#### 0.3.16 (2022-03-25)
+
+#### Bug Fixes
+
+- **ticks:** 修复 time, time-pretty 下, 大数据量 ticks 导致的 crash 问题
+
 #### 0.3.15 (2022-03-15)
 
 #### Bug Fixes
