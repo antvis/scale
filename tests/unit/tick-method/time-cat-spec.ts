@@ -1,5 +1,6 @@
 
 import { getTickMethod } from '../../../src/tick-method/index';
+
 function getArr(count) {
   const arr = [];
   for(let i = 1; i <= count; i++) {
@@ -7,6 +8,7 @@ function getArr(count) {
   }
   return arr;
 }
+
 describe('test time cat ticks', () => {
   const cat = getTickMethod('time-cat');
   it('get', () => {
@@ -46,7 +48,7 @@ describe('test time cat ticks', () => {
 
   it('10', () => {
     const arr = getArr(10);
-    expect(cat({values: arr, tickCount: 7})).toEqual(arr);
+    expect(cat({values: arr, tickCount: 7})).toEqual(arr.slice(0, 7).concat('10'));
   });
 
   it('30, 31', () => {

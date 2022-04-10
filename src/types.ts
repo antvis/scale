@@ -53,4 +53,6 @@ export type ScaleConfig = Partial<{
   tickMethod: string | TickMethod;
   /** 时间度量 time, timeCat 时有效 */
   mask?: string;
+  /** 是否始终保留最后一个 tick */
+  showLast?: boolean;
 }>;
