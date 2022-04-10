@@ -6,7 +6,7 @@ import catTicks from './cat';
  * @returns 计算后的 ticks
  */
 export default function timeCat(cfg: ScaleConfig): any[] {
-  // 强制保留最后一条
+  // 默认保留最后一条
   const ticks = catTicks({ showLast: true, ...cfg });
   return ticks;
 }
