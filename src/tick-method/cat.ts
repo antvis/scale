@@ -1,4 +1,4 @@
-import { filter, isNil, isNumber } from '@antv/util';
+import { filter, isNil, isNumber, last } from '@antv/util';
 import { ScaleConfig } from '../types';
 
 /**
@@ -10,7 +10,12 @@ export default function calculateCatTicks(cfg: ScaleConfig): any[] {
   const { values, tickInterval, tickCount, showLast } = cfg;
 
   if (isNumber(tickInterval)) {
-    return filter(values, (__: any, i: number) => i % tickInterval === 0);
+    const ticks = filter(values, (__: any, i: number) => i % tickInterval === 0);
+    const lastValue = last(values);
+    if (showLast && last(ticks) !== lastValue) {
+      ticks.push(lastValue);
+    }
+    return ticks;
   }
 
   const len = values.length;

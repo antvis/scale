@@ -95,5 +95,16 @@ describe('tick-method for cat ticks', () => {
       ticks = cat({ tickCount: 7, values, showLast: true });
       expect(ticks[6]).toEqual(values[164]);
     });
+
+    it('({ tickInterval: ..., showLast: ... })', () => {
+      const values = ['A', 'B', 'C', 'D', 'E', 'F'];
+      let ticks = cat({ tickInterval: 2, values });
+      expect(ticks).toEqual(['A', 'C', 'E',]);
+      ticks = cat({ tickInterval: 2, values, showLast: true });
+      expect(ticks).toEqual(['A', 'C', 'E', 'F']);
+
+      ticks = cat({ tickCount: 7, values, showLast: true });
+      expect(ticks[6]).toEqual(values[164]);
+    });
   });
 });
