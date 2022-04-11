@@ -149,7 +149,7 @@ describe('ticks', () => {
   });
 
   it('ticks is too large', () => {
-    let scale = new Time({
+    const scale = new Time({
       min: '2010-01',
       max: '2017-02',
       tickInterval: 1,
