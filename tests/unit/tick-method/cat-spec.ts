@@ -1,4 +1,4 @@
-import { getTickMethod } from '../../../src/tick-method/index';
+import { default as cat } from '../../../src/tick-method/cat';
 
 function getArr(count) {
   const arr = [];
@@ -7,83 +7,104 @@ function getArr(count) {
   }
   return arr;
 }
-describe('test cat ticks', () => {
-  const cat = getTickMethod('cat');
-  it('get', () => {
-    expect(cat).not.toEqual(undefined);
+describe('tick-method for cat ticks', () => {
+  describe('({ tickCount: ... }', () => {
+    it('normal tickCount', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+        tickCount: 3,
+      });
+      expect(ticks.length).toEqual(3);
+    });
+
+    it('({ tickCount: 1 })', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+        tickCount: 1,
+      });
+      expect(ticks.length).toEqual(1);
+    });
+
+    it('({ tickCount: 0 })', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+        tickCount: 0,
+      });
+      expect(ticks.length).toEqual(0);
+    });
+
+    it('`tickCount` is larger than the number of ticks', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+        tickCount: 20,
+      });
+      expect(ticks.length).toEqual(10);
+    });
   });
 
-  it('tickInterval', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-      tickInterval: 2,
+  describe('({ tickInterval: ... })', () => {
+    it('priority of `tickInterval` is higher than `tickCount`', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+        tickInterval: 2,
+        tickCount: 3
+      });
+      expect(ticks.length).toEqual(arr.length / 2);
     });
-    expect(ticks.length).toEqual(arr.length / 2);
+
+    it('`tickInterval` larger than the number of ticks will cause the final ticks has one', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+        tickInterval: 20,
+      });
+      expect(ticks.length).toEqual(1);
+    });
   });
 
-  it('tickInterval > 10', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-      tickInterval: 20,
+  describe('others', () => {
+    it('min and max', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+        min: 2,
+        max: 8,
+      });
+      expect(ticks.length).toEqual(8 - 2 + 1);
     });
-    expect(ticks.length).toEqual(1);
-  });
 
-  it('tickCount', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-      min: 0,
-      max: 10,
-      tickCount: 3,
+    it('no tickCount or tickInterval', () => {
+      const arr = getArr(10);
+      const ticks = cat({
+        values: arr,
+      });
+      expect(ticks).toEqual(arr);
     });
-    expect(ticks.length).toEqual(3);
-  });
 
-  it('tickCount', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-      tickCount: 3,
-    });
-    expect(ticks.length).toEqual(2);
-  });
+    it('({ tickCount: ..., showLast: ... })', () => {
+      const values = new Array(165).fill(null).map((_, d) => `${1850 + d}`);
+      let ticks = cat({ tickCount: 7, values });
+      expect(ticks[0]).toEqual('1850');
+      expect(ticks[6]).toEqual('2012');
 
-  it('tickCount > length', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-      tickCount: 20,
+      ticks = cat({ tickCount: 7, values, showLast: true });
+      expect(ticks[6]).toEqual(values[164]);
     });
-    expect(ticks.length).toEqual(10);
-  });
 
-  it('no tickCount or tickInterval', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-    });
-    expect(ticks).toEqual(arr);
-  });
+    it('({ tickInterval: ..., showLast: ... })', () => {
+      const values = ['A', 'B', 'C', 'D', 'E', 'F'];
+      let ticks = cat({ tickInterval: 2, values });
+      expect(ticks).toEqual(['A', 'C', 'E',]);
+      ticks = cat({ tickInterval: 2, values, showLast: true });
+      expect(ticks).toEqual(['A', 'C', 'E', 'F']);
 
-  it('min and max', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-      min: 2,
-      max: 8,
+      ticks = cat({ tickCount: 7, values, showLast: true });
+      expect(ticks[6]).toEqual(values[164]);
     });
-    expect(ticks.length).toEqual(8 - 2 + 1);
-  });
-
-  it('tick count with 0', () => {
-    const arr = getArr(10);
-    const ticks = cat({
-      values: arr,
-      tickCount: 0,
-    });
-    expect(ticks.length).toEqual(0);
   });
 });

@@ -1,6 +1,5 @@
-import { filter, isNil, isNumber } from '@antv/util';
+import { filter, isNil, isNumber, last } from '@antv/util';
 import { ScaleConfig } from '../types';
-import extended from '../util/extended';
 
 /**
  * 计算分类 ticks
@@ -8,12 +7,18 @@ import extended from '../util/extended';
  * @returns 计算后的 ticks
  */
 export default function calculateCatTicks(cfg: ScaleConfig): any[] {
-  const { values, tickInterval, tickCount } = cfg;
+  const { values, tickInterval, tickCount, showLast } = cfg;
 
-  const ticks = values;
   if (isNumber(tickInterval)) {
-    return filter(ticks, (__: any, i: number) => i % tickInterval === 0);
+    const ticks = filter(values, (__: any, i: number) => i % tickInterval === 0);
+    const lastValue = last(values);
+    if (showLast && last(ticks) !== lastValue) {
+      ticks.push(lastValue);
+    }
+    return ticks;
   }
+
+  const len = values.length;
   let { min, max } = cfg;
   if (isNil(min)) {
     min = 0;
@@ -21,12 +26,20 @@ export default function calculateCatTicks(cfg: ScaleConfig): any[] {
   if (isNil(max)) {
     max = values.length - 1;
   }
-  if (isNumber(tickCount) && tickCount < max - min) {
-    // 简单过滤，部分情况下小数的倍数也可以是整数
-    // tslint:disable-next-line: no-shadowed-variable
-    const { ticks } = extended(min, max, tickCount, false, [1, 2, 5, 3, 4, 7, 6, 8, 9]);
-    const valid = filter(ticks, (tick) => tick >= min && tick <= max);
-    return valid.map((index) => values[index]);
+
+  if (!isNumber(tickCount) || tickCount >= len) return values.slice(min, max + 1);
+  if (tickCount <= 0 || max <= 0) return [];
+
+  const interval = tickCount === 1 ? len : Math.floor(len / (tickCount - 1));
+  const ticks = [];
+
+  let idx = min;
+  for (let i = 0; i < tickCount; i++) {
+    if (idx >= max) break;
+
+    idx = Math.min(min + i * interval, max);
+    if (i === tickCount - 1 && showLast) ticks.push(values[max]);
+    else ticks.push(values[idx]);
   }
-  return values.slice(min, max + 1);
+  return ticks;
 }

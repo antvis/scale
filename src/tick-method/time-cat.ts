@@ -1,4 +1,3 @@
-import { last } from '@antv/util';
 import { ScaleConfig } from '../types';
 import catTicks from './cat';
 /**
@@ -6,11 +5,8 @@ import catTicks from './cat';
  * @param cfg 度量的配置项
  * @returns 计算后的 ticks
  */
-export default function calculateTimeCatTicks(cfg: ScaleConfig): any[] {
-  const ticks = catTicks(cfg);
-  const lastValue = last(cfg.values);
-  if (lastValue !== last(ticks)) {
-    ticks.push(lastValue);
-  }
+export default function timeCat(cfg: ScaleConfig): any[] {
+  // 默认保留最后一条
+  const ticks = catTicks({ showLast: true, ...cfg });
   return ticks;
 }
