@@ -1,3 +1,9 @@
+#### 0.3.17 (2022-04-11)
+
+#### Bug Fixes
+
+- **ticks:** 优化 catScale 的 ticks 计算方法, 以及增加 showLast 配置
+
 #### 0.3.16 (2022-03-25)
 
 #### Bug Fixes
