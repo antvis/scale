@@ -173,13 +173,13 @@ describe('band scale', () => {
     const bc = bandScale.getBandWidth('C');
     expect([ba, bb, bc].map((d) => d / bc)).toEqual([2, 3, 1]);
 
-    expect(bandScale.getStep('A')).toBe(166.66666666666666);
+    expect(bandScale.getStep('A')).toBeCloseTo(166.67);
     expect(bandScale.getStep('B')).toBe(250);
-    expect(bandScale.getStep('C')).toBe(83.33333333333333);
+    expect(bandScale.getStep('C')).toBeCloseTo(83.33);
 
     expect(bandScale.map('A')).toBe(0);
-    expect(bandScale.map('B')).toBe(166.666666666667);
-    expect(bandScale.map('C')).toBe(416.666666666667);
+    expect(bandScale.map('B')).toBeCloseTo(166.67);
+    expect(bandScale.map('C')).toBeCloseTo(416.67);
   });
 
   test('test patch flex options', () => {
@@ -189,14 +189,14 @@ describe('band scale', () => {
       range: [0, 500],
     });
     expect(bandScale.map('A')).toBe(0);
-    expect(bandScale.map('B')).toBe(166.666666666667);
-    expect(bandScale.map('C')).toBe(416.666666666667);
+    expect(bandScale.map('B')).toBeCloseTo(166.67);
+    expect(bandScale.map('C')).toBeCloseTo(416.67);
 
     bandScale.update({
       flex: [2, 3, 1, 1],
     });
     expect(bandScale.map('A')).toBe(0);
-    expect(bandScale.map('B')).toBe(166.666666666667);
-    expect(bandScale.map('C')).toBe(416.666666666667);
+    expect(bandScale.map('B')).toBeCloseTo(166.67);
+    expect(bandScale.map('C')).toBeCloseTo(416.67);
   });
 });
