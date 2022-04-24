@@ -3,7 +3,7 @@ import { Band } from '../../src';
 import { benchMarkBetween } from './benchmark';
 
 describe('band perf test', () => {
-  test('100000 map and update call, antv is eight times faster than d3', async () => {
+  test('100000 map and update call, antv is four times faster than d3', async () => {
     const domain = new Array(10000).fill('').map((item, index) => index);
 
     const antvTest = () => {
@@ -32,11 +32,11 @@ describe('band perf test', () => {
         }
       }
     };
-    // antv 比 d3 快 9 倍
+    // antv 比 d3 快 4 倍
     await benchMarkBetween({
       cb1: antvTest,
       cb2: d3Test,
-      magnification: 8,
+      magnification: 4,
       check: true,
     });
   });
