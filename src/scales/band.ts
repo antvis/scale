@@ -139,7 +139,6 @@ function computeBandState(options: BandStateOptions) {
  * |             |<--------------S1--------------->| <--------------S2-------------->|                                              |
  * |-----------------------------------------------------------------------------------------------|
  *
- * 性能方便较 d3 快出 8 - 9 倍
  */
 export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
   // 转换过的 range
