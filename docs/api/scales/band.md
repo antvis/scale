@@ -8,6 +8,7 @@ The figure in the [options](#options) will give you a better understanding of th
 
 ## Usage
 
+Band with uniform bandWidth.
 ```ts
 import { Band, BandOptions } from '@antv/scale';
 
@@ -25,6 +26,24 @@ x.invert(75); // 'four'
 x.getBandWidth();  // 25
 ```
 
+Band with flex bandWidth.
+```ts
+import { Band, BandOptions } from '@antv/scale';
+
+const options: BandOptions = {
+  domain: ['A', 'B', 'C'],
+  flex: [2, 3, 1],
+  range: [0, 500],
+};
+
+const x = new Band(options);
+
+const ba = bandScale.getBandWidth('A');
+const bb = bandScale.getBandWidth('B');
+const bc = bandScale.getBandWidth('C');
+[ba, bb, bc].map((d) => d / bc)) // [2, 3, 1];
+```
+
 ## Options
 
 | Key | Description | Type | Default|  
@@ -38,6 +57,7 @@ x.getBandWidth();  // 25
 | padding | An easy way to set the paddingInner and paddingOuter for the scale. Notice: It's priority is higher than `paddingInner` and `paddingOuter` | `number` | `0` |
 | align | The `align` option specifies how outer padding is distributed in the range, the value should in the range [0, 1]. For example, value of 0.5 means that bands should be centered within the range, value of 0 or 1 may be used to shift the bands to one side. | `number` | `0.5` |
 | compare | Sets the comparator for sorting the domain before mapping. | ```(a: string or number, b: string or number) => number```| `undefined` |
+| flex | Sets the flex of the bandWidth for bands. | `number[]` | `[]`|
 
 <a name="band_map" href="#example">**Example**</a>
 
@@ -80,11 +100,11 @@ Returns the scale's current options.
 
 Returns a new band scale with the independent and same options as the original one.
 
-<a name="band_step" href="#band_clone">#</a> **getStep**<i>(): number</i>
+<a name="band_step" href="#band_clone">#</a> **getStep**<i>(x?: number | string): number</i>
 
 Returns band scale's step, for more info about `step`, please see [example](#example).
 
-<a name="band_get_band_width" href="#band_get_band_width">#</a> **getBandWidth**<i>(): number</i>
+<a name="band_get_band_width" href="#band_get_band_width">#</a> **getBandWidth**<i>(x?: number | string): number</i>
 
 Returns band scale's bandWidth, for more info about this, please see [example](#example).
 

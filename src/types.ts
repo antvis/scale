@@ -184,6 +184,8 @@ export type BandOptions = {
   align?: number;
   /** 比较器，用于对 domain 进行排序 */
   compare?: Comparator;
+  /** 每个条的宽度 (bandWidth) 的比例 */
+  flex?: number[];
 };
 
 /** Point 比例尺的选项 */
