@@ -76,13 +76,13 @@ function computeBandState(options: BandStateOptions) {
   // 计算每个 bandWidth 和 step，并且用定义域内的值索引
   const valueBandWidth = new Map(
     domain.map((d, i) => {
-      const bandWidth = flex[i] * minBandWidth;
+      const bandWidth = normalizedFlex[i] * minBandWidth;
       return [d, round ? Math.floor(bandWidth) : bandWidth];
     })
   );
   const valueStep = new Map(
     domain.map((d, i) => {
-      const bandWidth = flex[i] * minBandWidth;
+      const bandWidth = normalizedFlex[i] * minBandWidth;
       const step = bandWidth + PI;
       return [d, round ? Math.floor(step) : step];
     })
