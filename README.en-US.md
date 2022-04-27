@@ -4,7 +4,7 @@
 
 <div align="center">
 
-> 将抽象数据映射为视觉数据的比例尺工具包。 [在线演示](https://observablehq.com/@pearmini/antv-scale) · [English](./README.en-US.md)
+> Toolkit for mapping abstract data into visual representation. [Living Demo](https://observablehq.com/@pearmini/antv-scale) · [中文文档](./README.md)
 
 ![scale mapping](https://user-images.githubusercontent.com/7856674/116353528-85644a80-a829-11eb-85e4-3463a29000a9.png)
 
@@ -16,23 +16,23 @@
 
 </div>
 
-## ✨ 特性
+## ✨ Features
 
-- **功能强大**：内置包含 15+ 丰富的比例尺类型，满足各种不同的定制化需求。
-- **高性能**：利用各种手段方法去提升数据映射的性能。
-- **TypeScript**：全部 TypeScript，并提供了完整有效的类型定义。
+- **Powerful**: Ability to customize tickMethod are offered with abundant kinds of scales.
+- **High performance**: Use different methods to cache some state of scales to improve performance.
+- **Fully embrace TypeScript**: All code are written in TypeScript and complete type definition files are provided.
 
 ![scale examples](https://gw.alipayobjects.com/mdn/rms_40052e/afts/img/A*Usg2S685JQkAAAAAAAAAAAAAARQnAQ)
 
-## 📦 安装
+## 📦 Installation
 
 ```bash
 $ npm install @antv/scale
 ```
 
-## 🔨 上手
+## 🔨 Getting Started
 
-- 基本用法
+- Basic usage
 
 ```ts
 import { Linear, LinearOptions } from '@antv/scale';
@@ -48,7 +48,7 @@ x.invert(20); // 2
 x.getTicks(); // [0, 2.5, 5, 7.5, 10]
 ```
 
-- 自定义可读 tickMethod
+- Customize tickMethod
 
 ```ts
 import { Linear } from '@antv/scale';
@@ -63,12 +63,12 @@ const x = new Linear({
 x.getTicks(); // [0, 5, 10]
 ```
 
-## 📎 链接
+## 📎 Links
 
-- [入门介绍](https://observablehq.com/@pearmini/antv-scale)
-- [API 索引](./docs/api/readme.md)
+- [Introduction](https://observablehq.com/@pearmini/antv-scale)
+- [API Reference](./docs/api/readme.md)
 
-## 📮 贡献
+## 📮 Contribution
 
 ```bash
 $ git clone git@github.com:antvis/scale.git
@@ -80,7 +80,7 @@ $ npm i
 $ npm t
 ```
 
-写完代码之后，提交 PR 即可。
+Then send a pull request after coding.
 
 ## 📄 License
 
