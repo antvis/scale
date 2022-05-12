@@ -40,8 +40,9 @@ export class Point extends Band<PointOptions & BandOptions> {
     super(options);
   }
 
+  // Point 的 paddingInner 只能是1，不能被覆盖
   protected getPaddingInner() {
-    return this.options.paddingInner;
+    return 1;
   }
 
   public clone() {
