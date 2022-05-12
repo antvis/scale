@@ -32,6 +32,20 @@ describe('point scale test', () => {
     expect(scale.getBandWidth()).toStrictEqual(0);
   });
 
+  test('test options.paddingInner always equals to 1', () => {
+    const scale = new Point({
+      // @ts-ignore
+      paddingInner: 0,
+      domain: ['A', 'B', 'C'],
+      padding: 0.6,
+      align: 1,
+      range: [0, 500],
+    });
+    expect(scale.map('A')).toStrictEqual(187.5);
+    expect(scale.getStep()).toStrictEqual(156.25);
+    expect(scale.getBandWidth()).toStrictEqual(0);
+  });
+
   test('clone() returns a Point scale with same and independent options', () => {
     const x1 = new Point();
     const x2 = x1.clone();
