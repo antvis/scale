@@ -103,6 +103,19 @@ export default function extended(
     };
   }
 
+  // js 超大值问题
+  if (dMax - dMin > 1e148) {
+    const count = n || 5;
+    const step = (dMax - dMin) / count;
+    return {
+      min: dMin,
+      max: dMax,
+      ticks: Array(count).fill(null).map((_,idx) => {
+        return prettyNumber(dMin + step * idx);
+      }),
+    };
+  }
+
   const best = {
     score: -2,
     lmin: 0,
