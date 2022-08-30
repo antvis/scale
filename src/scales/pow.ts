@@ -1,6 +1,6 @@
 import { identity } from '@antv/util';
-import { Continuous, Transform } from './continuous';
-import { PowOptions } from '../types';
+import { Continuous } from './continuous';
+import { PowOptions, Transform } from '../types';
 import { Base } from './base';
 import { createInterpolateValue } from '../utils';
 import { d3Ticks } from '../tick-methods/d3-ticks';

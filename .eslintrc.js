@@ -29,6 +29,7 @@ module.exports = {
     'no-nested-ternary': 'off',
     'no-param-reassign': 'off',
     'func-names': ['error', 'never'],
+    'no-else-return': 'off',
   },
   settings: {
     'import/parsers': {
