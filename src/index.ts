@@ -14,6 +14,7 @@ export { Quantile } from './scales/quantile';
 export { Time } from './scales/time';
 export { Base } from './scales/base';
 export { Continuous } from './scales/continuous';
+export { Sequential } from './scales/sequential';
 
 // tick-methods
 export { d3Ticks } from './tick-methods/d3-ticks';
@@ -39,10 +40,11 @@ export type {
   SqrtOptions,
   QuantileOptions,
   LogOptions,
+  SequentialOptions,
 } from './types';
 
 // others
-export type { TickMethod, Interpolate, Comparator, Interpolates } from './types';
+export type { TickMethod, Interpolate, Comparator, Interpolates, Interpolator } from './types';
 
 // constants
 export {

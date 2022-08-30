@@ -230,3 +230,9 @@ export type QuantileOptions = {
   /** 计算 ticks 的算法 */
   tickMethod?: TickMethod<number>;
 };
+
+/** 插值器函数 */
+export type Interpolator = (t: number) => any;
+
+/** Sequential 比例尺的选项 */
+export type SequentialOptions = Omit<LinearOptions, 'Interpolates'> & { interpolator?: Interpolator };

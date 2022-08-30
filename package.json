@@ -87,7 +87,7 @@
     },
     {
       "path": "dist/scale.min.js",
-      "limit": "30 Kb"
+      "limit": "40 Kb"
     }
   ],
   "author": {
