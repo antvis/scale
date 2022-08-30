@@ -7,6 +7,9 @@ export type NiceMethod<T = number> = TickMethod<T>;
 /** 插值器工厂 */
 export type Interpolate<T = number> = (a: T, b: T) => (t: number) => T;
 
+/** 插值器函数 */
+export type Interpolator = (t: number) => any;
+
 /** 所有支持的插值器工厂 */
 export type Interpolates = Interpolate<number> | Interpolate<string> | Interpolate<number | string>;
 
@@ -231,8 +234,8 @@ export type QuantileOptions = {
   tickMethod?: TickMethod<number>;
 };
 
-/** 插值器函数 */
-export type Interpolator = (t: number) => any;
-
 /** Sequential 比例尺的选项 */
 export type SequentialOptions = Omit<LinearOptions, 'Interpolates'> & { interpolator?: Interpolator };
+
+/** Diverging 比例尺的选项  */
+export type DivergingOptions = Omit<LinearOptions, 'Interpolates'> & { interpolator?: Interpolator };

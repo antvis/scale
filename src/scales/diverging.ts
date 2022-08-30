@@ -1,15 +1,15 @@
 import { identity, isNumber } from '@antv/util';
 import { d3Ticks } from '../tick-methods/d3-ticks';
-import { Interpolator, SequentialOptions } from '../types';
-import { compose, createNormalize } from '../utils';
+import { Interpolator, DivergingOptions } from '../types';
+import { bisect, compose, createInterpolateNumber, createNormalize } from '../utils';
 import { CreateTransform, Transform } from './continuous';
 import { Linear } from './linear';
 
-// Modify interface exposed by Sequential.
-export interface Sequential {
+// Modify interface exposed by Diverging.
+export interface Diverging {
   invert: undefined;
-  getOptions(): SequentialOptions;
-  update(updateOptions: Partial<SequentialOptions>): void;
+  getOptions(): DivergingOptions;
+  update(updateOptions: Partial<DivergingOptions>): void;
 }
 
 const createInterpolatorRound = (interpolator: Interpolator) => {
@@ -21,12 +21,22 @@ const createInterpolatorRound = (interpolator: Interpolator) => {
 };
 
 const createNormalizeCompose: CreateTransform = (domain) => {
-  const [d0, d1] = domain;
-  const normalize: Transform = createNormalize(d0, d1);
-  return normalize;
+  const [d0, d1, d2] = domain;
+  // [d0, d1] => [0, 0.5]
+  const normalizeLeft: Transform = compose(createInterpolateNumber(0, 0.5), createNormalize(d0, d1));
+  // [d1, d2] => [0.5, 1]
+  const normalizeRight: Transform = compose(createInterpolateNumber(0.5, 1), createNormalize(d1, d2));
+
+  const normalizeList: Transform[] = [normalizeLeft, normalizeRight];
+
+  return (x: number): number => {
+    const i = bisect(domain, x, 1, domain.length - 1) - 1;
+    const normalize = normalizeList[i];
+    return normalize(x);
+  };
 };
 
-function Sequentialish(Scale) {
+function Divergingish(Scale) {
   Scale.prototype.rescale = function () {
     this.initRange();
     this.nice();
@@ -36,7 +46,7 @@ function Sequentialish(Scale) {
 
   Scale.prototype.initRange = function () {
     const { interpolator } = this.getOptions();
-    this.options.range = [interpolator(0), interpolator(1)];
+    this.options.range = [interpolator(0), interpolator(0.5), interpolator(1)];
   };
 
   Scale.prototype.composeOutput = function (transform: Transform, clamp: Transform) {
@@ -50,15 +60,15 @@ function Sequentialish(Scale) {
 }
 
 /**
- * Sequential 比例尺
+ * Diverging 比例尺
  *
  * 构造可创建一个在输入和输出之间通过插值函数进行转换的比例尺
  */
-@Sequentialish
-export class Sequential extends Linear {
-  protected getDefaultOptions(): SequentialOptions {
+@Divergingish
+export class Diverging extends Linear {
+  protected getDefaultOptions(): DivergingOptions {
     return {
-      domain: [0, 1],
+      domain: [0, 0.5, 1],
       unknown: undefined,
       nice: false,
       clamp: false,
@@ -69,11 +79,11 @@ export class Sequential extends Linear {
     };
   }
 
-  constructor(options?: SequentialOptions) {
+  constructor(options?: DivergingOptions) {
     super(options);
   }
 
   public clone() {
-    return new Sequential(this.options);
+    return new Diverging(this.options);
   }
 }

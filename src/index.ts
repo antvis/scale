@@ -15,6 +15,7 @@ export { Time } from './scales/time';
 export { Base } from './scales/base';
 export { Continuous } from './scales/continuous';
 export { Sequential } from './scales/sequential';
+export { Diverging } from './scales/diverging';
 
 // tick-methods
 export { d3Ticks } from './tick-methods/d3-ticks';
@@ -41,6 +42,7 @@ export type {
   QuantileOptions,
   LogOptions,
   SequentialOptions,
+  DivergingOptions,
 } from './types';
 
 // others
