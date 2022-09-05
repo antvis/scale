@@ -219,5 +219,56 @@ describe('band scale', () => {
     expect(bandScale.map('A')).toBe(0);
     expect(bandScale.map('B')).toBeCloseTo(166.67);
     expect(bandScale.map('C')).toBeCloseTo(416.67);
+
+    bandScale.update({
+      range: [0, 300],
+      paddingOuter: 0.2,
+      paddingInner: 0.2,
+      round: true,
+      align: 0.5,
+    });
+    expect(bandScale.map('A')).toBe(19);
+    expect(bandScale.map('B')).toBeCloseTo(112);
+    expect(bandScale.map('C')).toBeCloseTo(243);
+  });
+
+  test('test flex is all 1', () => {
+    const bandScale = new Band({
+      domain: ['A', 'B', 'C'],
+      flex: [1, 1, 1],
+      range: [0, 300],
+    });
+    expect(bandScale.getBandWidth()).toBe(100);
+    expect(bandScale.getStep()).toBe(100);
+  });
+
+  test('test domain length is null', () => {
+    const bandScale = new Band({
+      domain: [],
+      flex: [1, 2, 3],
+      range: [0, 500],
+    });
+    expect(bandScale.getBandWidth()).toBe(1);
+    expect(bandScale.getStep()).toBe(1);
+    expect(bandScale.getRange()).toStrictEqual([]);
+  });
+
+  test('test flex options with object type domain', () => {
+    const time = [new Date(Date.UTC(2022, 9, 5)), new Date(Date.UTC(2022, 9, 6)), new Date(Date.UTC(2022, 9, 7))];
+    const bandScale = new Band({
+      domain: time,
+      flex: [2, 3],
+      range: [0, 500],
+    });
+    expect(bandScale.map(new Date(Date.UTC(2022, 9, 5)))).toBe(0);
+    expect(bandScale.map(new Date(Date.UTC(2022, 9, 6)))).toBeCloseTo(166.67);
+    expect(bandScale.map(new Date(Date.UTC(2022, 9, 7)))).toBeCloseTo(416.67);
+
+    const ba = bandScale.getBandWidth(new Date(Date.UTC(2022, 9, 5)));
+    const bb = bandScale.getBandWidth(new Date(Date.UTC(2022, 9, 6)));
+    const bc = bandScale.getBandWidth(new Date(Date.UTC(2022, 9, 7)));
+    expect([ba, bb, bc].map((d) => d / bc)).toEqual([2, 3, 1]);
+
+    expect(bandScale.getStep(new Date(Date.UTC(2022, 9, 5)))).toBeCloseTo(166.67, 2);
   });
 });

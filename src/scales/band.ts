@@ -1,3 +1,4 @@
+import { InternMap } from '../utils';
 import { BandOptions, Domain } from '../types';
 import { Ordinal } from './ordinal';
 
@@ -34,23 +35,14 @@ interface BandStateOptions {
 }
 
 /**
- * 基于 band 基础配置获取 band 的状态
+ * 基于 band 基础配置获取存在 flex band 的状态
  */
-function computeBandState(options: BandStateOptions) {
-  const { domain } = options;
-  const n = domain.length;
-  if (n === 0) {
-    return {
-      valueBandWidth: undefined,
-      valueStep: undefined,
-      adjustedRange: [],
-    };
-  }
-
+function computeFlexBandState(options: BandStateOptions) {
   // 如果 flex 比 domain 少，那么就补全
   // 如果 flex 比 domain 多，就截取
-  const { range, paddingOuter, paddingInner, flex: F = [], round, align } = options;
-  const flex = splice(F, domain.length);
+  const { domain, range, paddingOuter, paddingInner, flex: F, round, align } = options;
+  const n = domain.length;
+  const flex = splice(F, n);
 
   // 根据下面的等式可以计算出所有 step 的总和
   // stepSum = step1 + step2 ... + stepN;
@@ -74,13 +66,13 @@ function computeBandState(options: BandStateOptions) {
   const minBandWidth = bandWidthSum / flexSum;
 
   // 计算每个 bandWidth 和 step，并且用定义域内的值索引
-  const valueBandWidth = new Map(
+  const valueBandWidth: InternMap<string, any> = new InternMap(
     domain.map((d, i) => {
       const bandWidth = normalizedFlex[i] * minBandWidth;
       return [d, round ? Math.floor(bandWidth) : bandWidth];
     })
   );
-  const valueStep = new Map(
+  const valueStep: InternMap<string, any> = new InternMap(
     domain.map((d, i) => {
       const bandWidth = normalizedFlex[i] * minBandWidth;
       const step = bandWidth + PI;
@@ -108,6 +100,70 @@ function computeBandState(options: BandStateOptions) {
   return {
     valueBandWidth,
     valueStep,
+    adjustedRange,
+  };
+}
+
+/**
+ * 基于 band 基础配置获取 band 的状态
+ */
+function computeBandState(options: BandStateOptions) {
+  const { domain } = options;
+  const n = domain.length;
+  if (n === 0) {
+    return {
+      valueBandWidth: undefined,
+      valueStep: undefined,
+      adjustedRange: [],
+    };
+  }
+  const hasFlex = !!options.flex?.length;
+  if (hasFlex) {
+    return computeFlexBandState(options);
+  }
+
+  const { range, paddingOuter, paddingInner, round, align } = options;
+
+  let step: number;
+  let bandWidth: number;
+
+  let rangeStart = range[0];
+  const rangeEnd = range[1];
+
+  // range 的计算方式如下：
+  // = stop - start
+  // = (n * step(n 个 step) )
+  // + (2 * step * paddingOuter(两边的 padding))
+  // - (1 * step * paddingInner(多出的一个 inner))
+  const deltaRange = rangeEnd - rangeStart;
+  const outerTotal = paddingOuter * 2;
+  const innerTotal = n - paddingInner;
+  step = deltaRange / Math.max(1, outerTotal + innerTotal);
+
+  // 优化成整数
+  if (round) {
+    step = Math.floor(step);
+  }
+
+  // 基于 align 实现偏移
+  rangeStart += (deltaRange - step * (n - paddingInner)) * align;
+
+  // 一个 step 的组成如下：
+  // step = bandWidth + step * paddingInner，
+  // 则 bandWidth = step - step * (paddingInner)
+  bandWidth = step * (1 - paddingInner);
+
+  if (round) {
+    rangeStart = Math.round(rangeStart);
+    bandWidth = Math.round(bandWidth);
+  }
+
+  // 转化后的 range
+  const adjustedRange = new Array(n).fill(0).map((_, i) => rangeStart + i * step);
+
+  return {
+    valueStep: step,
+    valueBandWidth: bandWidth,
     adjustedRange,
   };
 }
@@ -145,10 +201,10 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
   private adjustedRange: O['range'];
 
   // domain 中每一个 value 对应的条的宽度（不包含 padding）
-  private valueBandWidth: Map<any, number>;
+  private valueBandWidth: InternMap<any, number> | number;
 
   // domain 中每一个 value 对应的条的步长（包含 padding）
-  private valueStep: Map<any, number>;
+  private valueStep: InternMap<any, number> | number;
 
   // 覆盖默认配置
   protected getDefaultOptions() {
@@ -177,6 +233,11 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
   public getStep(x?: Domain<BandOptions>) {
     if (this.valueStep === undefined) return 1;
 
+    // 没有 flex 的情况时, valueStep 是 number 类型
+    if (typeof this.valueStep === 'number') {
+      return this.valueStep;
+    }
+
     // 对于 flex 都为 1 的情况，x 不是必须要传入的
     // 这种情况所有的条的 step 都相等，所以返回第一个就好
     if (x === undefined) return Array.from(this.valueStep.values())[0];
@@ -185,6 +246,11 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
 
   public getBandWidth(x?: Domain<BandOptions>) {
     if (this.valueBandWidth === undefined) return 1;
+
+    // 没有 flex, valueBandWidth 是 number 类型
+    if (typeof this.valueBandWidth === 'number') {
+      return this.valueBandWidth;
+    }
 
     // 对于 flex 都为 1 的情况，x 不是必须要传入的
     // 这种情况所有的条的 bandWidth 都相等，所以返回第一个
