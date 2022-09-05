@@ -1,6 +1,6 @@
 import { identity } from '@antv/util';
 import { Base } from './base';
-import { ContinuousOptions, Domain, Range, NiceMethod, TickMethodOptions } from '../types';
+import { ContinuousOptions, Domain, Range, NiceMethod, TickMethodOptions, CreateTransform, Transform } from '../types';
 import {
   createInterpolateNumber,
   createInterpolateRound,
@@ -11,12 +11,6 @@ import {
   d3LinearNice,
   isValid,
 } from '../utils';
-
-/** 柯里化后的函数的类型，对输入的值进行处理 */
-export type Transform = (x: any) => any;
-
-/** 柯里化后的函数的工厂函数类型 */
-export type CreateTransform = (...args: any[]) => Transform;
 
 /** 当 domain 和 range 只有一段的时候的 map 的 工厂函数 */
 const createBiMap: CreateTransform = (domain, range, createInterpolate) => {

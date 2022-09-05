@@ -9,6 +9,7 @@ export { logs, pows } from './log';
 export { d3LogNice } from './d3-log-nice';
 export { tickIncrement, tickStep } from './ticks';
 export { findTickInterval } from './find-tick-interval';
+export { interpolatize } from './interpolatize';
 export {
   createInterpolateValue,
   createInterpolateRound,

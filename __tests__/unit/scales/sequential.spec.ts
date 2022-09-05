@@ -25,13 +25,13 @@ describe('Sequential Scale Test', () => {
     });
     expect(scale.map(5)).toStrictEqual(0.5);
     expect(scale.map(2)).toStrictEqual(0.8);
-    expect(scale.map(8)).toStrictEqual(0.19999999999999996);
+    expect(scale.map(8)).toBeCloseTo(0.2, 1);
     expect(scale.getOptions().range).toStrictEqual([1, 0]);
 
     scale.update({
       domain: [10, 0],
     });
-    expect(scale.map(2)).toStrictEqual(0.19999999999999996);
+    expect(scale.map(2)).toBeCloseTo(0.2, 1);
     expect(scale.map(8)).toStrictEqual(0.8);
     expect(scale.getOptions().range).toStrictEqual([1, 0]);
 

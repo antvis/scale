@@ -7,6 +7,9 @@ export type NiceMethod<T = number> = TickMethod<T>;
 /** 插值器工厂 */
 export type Interpolate<T = number> = (a: T, b: T) => (t: number) => T;
 
+/** 插值器函数 */
+export type Interpolator = (t: number) => any;
+
 /** 所有支持的插值器工厂 */
 export type Interpolates = Interpolate<number> | Interpolate<string> | Interpolate<number | string>;
 
@@ -15,6 +18,12 @@ export type Comparator = (a: any, b: any) => number;
 
 /** tickMethod 和 nice 需要使用的参数 */
 export type TickMethodOptions<T = number | Date> = [T, T, number, number?, boolean?];
+
+/** 柯里化后的函数的类型，对输入的值进行处理 */
+export type Transform = (x: any) => any;
+
+/** 柯里化后的函数的工厂函数类型 */
+export type CreateTransform = (...args: any[]) => Transform;
 
 /** 通用的配置 */
 export type BaseOptions = {
@@ -231,8 +240,8 @@ export type QuantileOptions = {
   tickMethod?: TickMethod<number>;
 };
 
-/** 插值器函数 */
-export type Interpolator = (t: number) => any;
-
 /** Sequential 比例尺的选项 */
 export type SequentialOptions = Omit<LinearOptions, 'Interpolates'> & { interpolator?: Interpolator };
+
+/** Diverging 比例尺的选项  */
+export type DivergingOptions = Omit<LinearOptions, 'Interpolates'> & { interpolator?: Interpolator };
