@@ -30,6 +30,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'func-names': ['error', 'never'],
     'no-else-return': 'off',
+    'no-restricted-syntax': 'off',
   },
   settings: {
     'import/parsers': {

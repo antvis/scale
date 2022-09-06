@@ -51,3 +51,4 @@ export {
 } from './utc-interval';
 
 export { chooseNiceTimeMask } from './choose-mask';
+export { InternMap } from './internMap';
