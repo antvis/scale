@@ -16,6 +16,8 @@ type MapBetweenArrOptions = {
   notFoundReturn?: any;
 };
 
+export const defaultUnknown = Symbol('defaultUnknown');
+
 /**
  * 更新 indexMap
  *
@@ -42,9 +44,11 @@ function mapBetweenArrByMapIndex(options: MapBetweenArrOptions) {
   const { value, from, to, mapper, notFoundReturn } = options;
   let mappedIndex = mapper.get(value);
 
-  // index 不存在时，我们将 value 添加到原数组, 并更新 Map
+  // index 不存在时，
+  // 如果用户显式设置了 unknown 的值，那么就返回 unknown 的值
+  // 否者我们将 value 添加到原数组, 并更新 Map
   if (mappedIndex === undefined) {
-    if (notFoundReturn) {
+    if (notFoundReturn !== defaultUnknown) {
       return notFoundReturn;
     }
     mappedIndex = from.push(value) - 1;
@@ -91,6 +95,7 @@ export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> 
     return {
       domain: [],
       range: [],
+      unknown: defaultUnknown,
     } as O;
   }
 
