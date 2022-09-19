@@ -1,11 +1,12 @@
 import { Ordinal, Comparator } from '../../../src';
+import { defaultUnknown } from '../../../src/scales/ordinal';
 
 describe('ordinal scale', () => {
-  test('ordinal has no expected defaults', () => {
+  test('ordinal has expected defaults', () => {
     const c = new Ordinal();
     expect(c.getOptions().domain).toStrictEqual([]);
     expect(c.getOptions().range).toStrictEqual([]);
-    expect(c.getOptions().unknown).toBeUndefined();
+    expect(c.getOptions().unknown).toBe(defaultUnknown);
   });
 
   test('default options', () => {
@@ -42,7 +43,7 @@ describe('ordinal scale', () => {
 
     // 不存在的值 我们将新值插入 domain 中，并更新 map
     expect(scale.map('3')).toStrictEqual('February');
-    expect(scale.getOptions().domain.length).toStrictEqual(6);
+    expect(scale.getOptions().domain?.length).toStrictEqual(6);
 
     // NaN / undefined / null 做法同上
     expect(scale.map(NaN)).toStrictEqual('January');
@@ -147,10 +148,10 @@ describe('ordinal scale', () => {
     });
     expect(scale.map('D')).toStrictEqual('a');
     scale.update({
-      unknown: 'hello world',
+      unknown: null,
     });
-    expect(scale.map('E')).toStrictEqual('hello world');
-    expect(scale.invert('foo')).toStrictEqual('hello world');
+    expect(scale.map('E')).toStrictEqual(null);
+    expect(scale.invert('foo')).toStrictEqual(null);
   });
 
   test('duplicate data in domain or range', () => {

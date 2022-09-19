@@ -115,9 +115,9 @@ describe('band scale', () => {
     expect(bandScale.map('wow')).toStrictEqual(0);
 
     bandScale.update({
-      unknown: 'hello world~',
+      unknown: null,
     });
-    expect(bandScale.map('bar')).toStrictEqual('hello world~');
+    expect(bandScale.map('bar')).toStrictEqual(null);
   });
 
   test('test padding option', () => {

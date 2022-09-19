@@ -1,4 +1,5 @@
 import { Band } from './band';
+import { defaultUnknown } from './ordinal';
 import { PointOptions, BandOptions } from '../types';
 
 /**
@@ -29,7 +30,7 @@ export class Point extends Band<PointOptions & BandOptions> {
       align: 0.5,
       round: false,
       padding: 0,
-      unknown: undefined,
+      unknown: defaultUnknown,
       paddingInner: 1,
       paddingOuter: 0,
     };

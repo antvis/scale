@@ -1,6 +1,6 @@
 import { InternMap } from '../utils';
 import { BandOptions, Domain } from '../types';
-import { Ordinal } from './ordinal';
+import { Ordinal, defaultUnknown } from './ordinal';
 
 function normalize(array: number[]): number[] {
   const min = Math.min(...array);
@@ -216,7 +216,7 @@ export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
       paddingInner: 0,
       paddingOuter: 0,
       padding: 0,
-      unknown: undefined,
+      unknown: defaultUnknown,
       flex: [],
     } as O;
   }
