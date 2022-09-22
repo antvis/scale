@@ -1,7 +1,7 @@
 import { createInterpolateValue } from '../utils';
-import { rPretty } from '../tick-methods/r-pretty';
 import { SqrtOptions, PowOptions } from '../types';
 import { Pow } from './pow';
+import { d3Ticks } from '../tick-methods/d3-ticks';
 
 export class Sqrt extends Pow<SqrtOptions & PowOptions> {
   protected getDefaultOptions() {
@@ -12,7 +12,7 @@ export class Sqrt extends Pow<SqrtOptions & PowOptions> {
       clamp: false,
       round: false,
       interpolate: createInterpolateValue,
-      tickMethod: rPretty,
+      tickMethod: d3Ticks,
       tickCount: 5,
       exponent: 0.5,
     };
