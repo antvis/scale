@@ -60,7 +60,8 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
-    "@antv/util": "~2.0.3",
+    "@antv/util": "~3.3.0",
+    "gl-matrix": "^3.1.0",
     "fecha": "~4.2.0",
     "tslib": "^2.0.0"
   },
