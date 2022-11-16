@@ -96,10 +96,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/template"
+    "url": "https://github.com/antvis/scale"
   },
   "bugs": {
-    "url": "https://github.com/antvis/template/issues"
+    "url": "https://github.com/antvis/scale/issues"
   },
   "dependencies": {
     "@antv/util": "^2.0.13",
