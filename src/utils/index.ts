@@ -16,6 +16,7 @@ export {
   createInterpolateNumber,
   createInterpolateColor,
 } from './interpolate';
+export { prettyNumber } from './pretty-number';
 
 export {
   DURATION_SECOND,
