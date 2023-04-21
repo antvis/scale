@@ -12,6 +12,6 @@ module.exports = [
       format: 'umd',
       sourcemap: false,
     },
-    plugins: [resolve(), typescript(), commonjs(), uglify()],
+    plugins: [resolve(), commonjs(), typescript(), uglify()],
   },
 ];
