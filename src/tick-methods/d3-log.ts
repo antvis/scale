@@ -1,6 +1,6 @@
 import { TickMethod } from '../types';
 import { d3Ticks } from './d3-ticks';
-import { pows, logs, prettyNumber } from '../utils';
+import { pows, logs } from '../utils';
 
 export const d3Log: TickMethod = (a, b, n, base = 10) => {
   const shouldReflect = a < 0;
@@ -39,8 +39,6 @@ export const d3Log: TickMethod = (a, b, n, base = 10) => {
     }
     if (ticks.length * 2 < n) ticks = d3Ticks(min, max, n);
   } else {
-    i = prettyNumber(i);
-    j = prettyNumber(j);
     const count = n === -1 ? j - i : Math.min(j - i, n);
     ticks = d3Ticks(i, j, count).map(pow);
   }
