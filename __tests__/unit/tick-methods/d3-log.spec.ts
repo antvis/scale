@@ -35,6 +35,11 @@ describe('d3Log', () => {
     expect(d3Log(286.9252014, 329.4978332, 10)).toEqual([290, 295, 300, 305, 310, 315, 320, 325]);
   });
 
+  test('d3Log(a, b, -1) generates auto count tick', () => {
+    expect(d3Log(0.001, 1, -1)).toEqual([0.001, 0.01, 0.1, 1]);
+    expect(d3Log(1, 100, -1)).toEqual([1, 10, 100]);
+  });
+
   test('d3Log(a, b, n) generates linear ticks when the domain extent is small', () => {
     expect(d3Log(41, 42, 10)).toEqual([41, 41.1, 41.2, 41.3, 41.4, 41.5, 41.6, 41.7, 41.8, 41.9, 42]);
     expect(d3Log(42, 41, 10)).toEqual([42, 41.9, 41.8, 41.7, 41.6, 41.5, 41.4, 41.3, 41.2, 41.1, 41]);
