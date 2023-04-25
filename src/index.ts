@@ -61,4 +61,3 @@ export {
 
 // interpolators
 export { createInterpolateNumber, createInterpolateValue, createInterpolateColor } from './utils';
-export { createScale } from './utils/create-scale';
