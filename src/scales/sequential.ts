@@ -29,6 +29,8 @@ const normalizeDomain: CreateTransform = (domain: SequentialOptions['domain']) =
 // @Sequentialish
 @interpolatize(rangeOf, normalizeDomain)
 export class Sequential extends Linear {
+  public static type: string = 'Sequential';
+
   protected getDefaultOptions(): SequentialOptions {
     return {
       domain: [0, 1],

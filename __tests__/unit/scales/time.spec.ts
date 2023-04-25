@@ -15,6 +15,10 @@ function UTC(
 }
 
 describe('Time', () => {
+  test('static type', () => {
+    expect(Time.type).toBe('Time');
+  });
+
   test('has expected default options', () => {
     const time = new Time();
     const { interpolate, tickMethod, ...options } = time.getOptions();

@@ -197,6 +197,8 @@ function computeBandState(options: BandStateOptions) {
  *
  */
 export class Band<O extends BandOptions = BandOptions> extends Ordinal<O> {
+  public static type: string = 'Band';
+
   // 转换过的 range
   private adjustedRange: O['range'];
 

@@ -13,6 +13,8 @@ function offset(date: Date): Date {
 }
 
 export class Time extends Continuous<TimeOptions> {
+  public static type: string = 'Time';
+
   protected getDefaultOptions(): TimeOptions {
     return {
       domain: [new Date(2000, 0, 1), new Date(2000, 0, 2)],

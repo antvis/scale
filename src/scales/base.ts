@@ -2,6 +2,8 @@ import { deepMix } from '@antv/util';
 import { BaseOptions, Domain, Range, Unknown } from '../types';
 
 export abstract class Base<O extends BaseOptions> {
+  public static type: string = 'Base';
+
   /**
    * 将定义域里面的一个值，根据转换规则，转换为值域的一个值。
    * 如果该值不合法，则返回 options.unknown

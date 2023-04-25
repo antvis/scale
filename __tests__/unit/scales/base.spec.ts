@@ -23,6 +23,10 @@ class Scale extends Base<BaseOptions> {
 }
 
 describe('Base', () => {
+  test('static type', () => {
+    expect(Base.type).toBe('Base');
+  });
+
   test('Scale() has expected defaults', () => {
     const s = new Scale();
     // @ts-ignore

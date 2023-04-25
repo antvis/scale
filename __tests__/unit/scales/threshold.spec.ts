@@ -1,6 +1,10 @@
 import { Threshold, ThresholdOptions } from '../../../src';
 
 describe('Threshold', () => {
+  test('static type', () => {
+    expect(Threshold.type).toBe('Threshold');
+  });
+
   test('Threshold() has expected options', () => {
     const x = new Threshold();
     expect(x.getOptions()).toEqual({

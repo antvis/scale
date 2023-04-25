@@ -1,6 +1,10 @@
 import { Point } from '../../../src';
 
 describe('point scale test', () => {
+  test('static type', () => {
+    expect(Point.type).toBe('Point');
+  });
+
   test('test default options', () => {
     const scale = new Point();
     const { range, padding, align, domain, paddingInner } = scale.getOptions();

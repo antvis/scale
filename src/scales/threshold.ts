@@ -6,6 +6,8 @@ import { bisect, isValid } from '../utils';
  * 将连续的定义域分段，每一段所有的值对应离散的值域中一个值
  */
 export class Threshold<O extends ThresholdOptions = ThresholdOptions> extends Base<O> {
+  public static type: string = 'Threshold';
+
   /** threshold 的数量 */
   protected n: number;
 

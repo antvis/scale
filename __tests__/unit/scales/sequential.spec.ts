@@ -3,6 +3,10 @@ import { Sequential } from '../../../src';
 import { d3Ticks } from '../../../src/tick-methods/d3-ticks';
 
 describe('Sequential Scale Test', () => {
+  test('static type', () => {
+    expect(Sequential.type).toBe('Sequential');
+  });
+
   test('test default options', () => {
     const scale = new Sequential();
     const { domain, interpolator, range, round, tickCount, nice, clamp, unknown, tickMethod } = scale.getOptions();

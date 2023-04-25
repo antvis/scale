@@ -2,6 +2,10 @@ import { Quantile, QuantileOptions } from '../../../src';
 import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Threshold', () => {
+  test('static type', () => {
+    expect(Quantile.type).toBe('Quantile');
+  });
+
   test('Quantile() has expected options', () => {
     const x = new Quantile();
     const { tickMethod, ...options } = x.getOptions();

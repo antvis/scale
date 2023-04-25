@@ -28,6 +28,8 @@ const transformSqrt = (x: number) => {
  * 即 y = x ^ k 其中 k（指数）可以是任何实数。
  */
 export class Pow<O extends PowOptions = PowOptions> extends Continuous<O> {
+  public static type: string = 'Pow';
+
   protected getDefaultOptions() {
     return {
       domain: [0, 1],

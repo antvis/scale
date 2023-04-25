@@ -3,6 +3,10 @@ import { Diverging } from '../../../src';
 import { d3Ticks } from '../../../src/tick-methods/d3-ticks';
 
 describe('Diverging Scale Test', () => {
+  test('static type', () => {
+    expect(Diverging.type).toBe('Diverging');
+  });
+
   test('test default options', () => {
     const scale = new Diverging();
     const { domain, interpolator, range, round, tickCount, nice, clamp, unknown, tickMethod } = scale.getOptions();

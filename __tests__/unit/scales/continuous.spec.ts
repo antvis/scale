@@ -29,6 +29,10 @@ describe('Continuous', () => {
     }
   }
 
+  test('static type', () => {
+    expect(Continuous.type).toBe('Continuous');
+  });
+
   test('Continuous() has expected defaults', () => {
     const s = new Scale();
     const { interpolate, ...restProps } = s.getOptions();

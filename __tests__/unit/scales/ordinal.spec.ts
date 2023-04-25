@@ -2,6 +2,10 @@ import { Ordinal, Comparator } from '../../../src';
 import { defaultUnknown } from '../../../src/scales/ordinal';
 
 describe('ordinal scale', () => {
+  test('static type', () => {
+    expect(Ordinal.type).toBe('Ordinal');
+  });
+
   test('ordinal has expected defaults', () => {
     const c = new Ordinal();
     expect(c.getOptions().domain).toStrictEqual([]);

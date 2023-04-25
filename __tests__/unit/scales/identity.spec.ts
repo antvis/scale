@@ -2,6 +2,10 @@ import { Identity, IdentityOptions } from '../../../src';
 import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Identity', () => {
+  test('static type', () => {
+    expect(Identity.type).toBe('Identity');
+  });
+
   test('Identity() has expected defaults', () => {
     const s = new Identity();
     const { tickMethod, ...restProps } = s.getOptions();

@@ -1,6 +1,10 @@
 import { Log } from '../../../src';
 
 describe('log scale test', () => {
+  test('static type', () => {
+    expect(Log.type).toBe('Log');
+  });
+
   test('test default options', () => {
     const scale = new Log();
     const { domain, range, round, tickCount, nice, clamp, unknown } = scale.getOptions();

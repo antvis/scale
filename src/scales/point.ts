@@ -22,6 +22,8 @@ import { PointOptions, BandOptions } from '../types';
  * 性能方便较 d3 快出 8 - 9 倍
  */
 export class Point extends Band<PointOptions & BandOptions> {
+  public static type: string = 'Point';
+
   // 覆盖默认配置
   protected getDefaultOptions() {
     return {

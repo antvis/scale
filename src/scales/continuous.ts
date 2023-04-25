@@ -67,6 +67,8 @@ const choosePiecewise: CreateTransform = (domain, range, interpolate, shouldRoun
  * 参考：https://github.com/d3/d3-scale/blob/master/src/continuous.js
  */
 export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
+  public static type: string = 'Continuous';
+
   /** 实际上将 x 映射为 y 的函数 */
   protected output: Transform;
 

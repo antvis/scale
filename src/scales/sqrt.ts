@@ -4,6 +4,8 @@ import { Pow } from './pow';
 import { d3Ticks } from '../tick-methods/d3-ticks';
 
 export class Sqrt extends Pow<SqrtOptions & PowOptions> {
+  public static type: string = 'Sqrt';
+
   protected getDefaultOptions() {
     return {
       domain: [0, 1],

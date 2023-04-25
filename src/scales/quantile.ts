@@ -8,6 +8,8 @@ import { createQuartile } from '../utils/create-quartile';
  * 输入域被指定为一组离散的样本值，输出域中的值的数量决定了分位数的数量。
  */
 export class Quantile extends Threshold<QuantileOptions> {
+  public static type: string = 'Quantile';
+
   protected getDefaultOptions(): QuantileOptions {
     return {
       domain: [],

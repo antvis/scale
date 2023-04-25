@@ -10,6 +10,8 @@ import { d3LogNice } from '../utils/d3-log-nice';
  * 构造一个线性的对数比例尺
  */
 export class Log extends Continuous<LogOptions> {
+  public static type: string = 'Log';
+
   protected getDefaultOptions(): LogOptions {
     return {
       domain: [1, 10],

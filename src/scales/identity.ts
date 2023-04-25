@@ -5,6 +5,8 @@ import { wilkinsonExtended } from '../tick-methods/wilkinson-extended';
 import { isValid } from '../utils';
 
 export class Identity extends Base<IdentityOptions> {
+  public static type: string = 'Identity';
+
   /**
    * 返回需要覆盖的默认选项
    * @returns 需要覆盖的默认选项

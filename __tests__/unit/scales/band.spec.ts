@@ -1,6 +1,10 @@
 import { Band, BandOptions } from '../../../src';
 
 describe('band scale', () => {
+  test('static type', () => {
+    expect(Band.type).toBe('Band');
+  });
+
   test('default options and methods', () => {
     const bandScale = new Band();
     const opt = bandScale.getOptions() as BandOptions;

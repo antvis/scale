@@ -4,6 +4,8 @@ import { ConstantOptions, Domain, Range } from '../types';
 import { Base } from './base';
 
 export class Constant extends Base<ConstantOptions> {
+  public static type: string = 'Constant';
+
   /**
    * 返回需要覆盖的默认选项
    * @returns 需要覆盖的默认选项

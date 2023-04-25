@@ -2,6 +2,10 @@ import { Pow } from '../../../src';
 import { d3Ticks } from '../../../src/tick-methods/d3-ticks';
 
 describe('pow scales', () => {
+  test('static type', () => {
+    expect(Pow.type).toBe('Pow');
+  });
+
   test('test default options', () => {
     const scale = new Pow();
     const { domain, range, round, tickCount, nice, clamp, unknown, tickMethod, exponent } = scale.getOptions();

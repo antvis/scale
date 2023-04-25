@@ -75,6 +75,8 @@ function createKey(d: any) {
  *   在大量调用 update 函数场景下，较 d3-scale 效率有质的提高
  */
 export class Ordinal<O extends OrdinalOptions = OrdinalOptions> extends Base<O> {
+  public static type: string = 'Ordinal';
+
   // 定义域映射表
   private domainIndexMap: Map<any, number>;
 

@@ -2,6 +2,10 @@ import { createInterpolateColor as color, Linear, TickMethod, createInterpolateV
 import { d3Ticks } from '../../../src/tick-methods/d3-ticks';
 
 describe('Linear Scale Test', () => {
+  test('static type', () => {
+    expect(Linear.type).toBe('Linear');
+  });
+
   test('test default options', () => {
     const scale = new Linear();
     const { domain, range, round, tickCount, nice, clamp, unknown, tickMethod } = scale.getOptions();

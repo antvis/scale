@@ -1,6 +1,10 @@
 import { Constant, ConstantOptions, d3Ticks } from '../../../src';
 
 describe('Constant', () => {
+  test('static type', () => {
+    expect(Constant.type).toBe('Constant');
+  });
+
   test('Constant() has expected defaults', () => {
     const s = new Constant();
     const { tickMethod, ...options } = s.getOptions();

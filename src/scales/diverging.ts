@@ -39,6 +39,8 @@ const normalizeDomain: CreateTransform = (domain: DivergingOptions['domain']) =>
  */
 @interpolatize(rangeOf, normalizeDomain)
 export class Diverging extends Linear {
+  public static type: string = 'Diverging';
+
   protected getDefaultOptions(): DivergingOptions {
     return {
       domain: [0, 0.5, 1],

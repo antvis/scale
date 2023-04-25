@@ -2,6 +2,10 @@ import { Quantize, QuantizeOptions } from '../../../src';
 import { wilkinsonExtended } from '../../../src/tick-methods/wilkinson-extended';
 
 describe('Quantize', () => {
+  test('static type', () => {
+    expect(Quantize.type).toBe('Quantize');
+  });
+
   test('Quantize() has expected options', () => {
     const x = new Quantize();
     const { tickMethod, ...options } = x.getOptions();
