@@ -7,6 +7,7 @@
   "module": "esm/index.js",
   "unpkg": "dist/scale.min.js",
   "types": "lib/index.d.ts",
+  "sideEffects": false,
   "files": [
     "src",
     "lib",
