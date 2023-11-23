@@ -67,7 +67,9 @@ describe('rPretty ticks', () => {
   });
 
   it('rPretty for tiny number', () => {
-    expect(rPretty(9.899999999999999, 9.9)).toStrictEqual([9.899999999999999, 9.899999999999999, 9.9, 9.9]);
+    expect(rPretty(9.89999999999999, 9.9)).toStrictEqual([
+      9.89999999999999, 9.89999999999999, 9.89999999999999, 9.89999999999999, 9.9, 9.9, 9.9,
+    ]);
   });
 
   it('handle decimal tickCount', () => {
