@@ -63,7 +63,8 @@ export function createInterval(duration: number, floorish: TimeProcess, offseti:
     const ticks = [];
     const roundStep = Math.floor(step);
     const t = shouldAdjust ? ceil(start, step) : ceil(start);
-    for (let i = t; +i < +stop; offseti(i, roundStep), floori(i)) {
+    let index = 0;
+    for (let i = t; +i < +stop && index < 10; offseti(i, roundStep), floori(i), index += 1) {
       ticks.push(new Date(+i));
     }
     return ticks;
@@ -150,7 +151,7 @@ export const week: Interval = createInterval(
     date.setHours(0, 0, 0, 0);
   },
   (date, step = 1) => {
-    date.setTime(+date + DURATION_WEEK * step);
+    date.setDate(date.getDate() + 7 * step);
   },
   (date) => {
     const start = month.floor(date);
