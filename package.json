@@ -1,6 +1,6 @@
 {
   "name": "@antv/scale",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "description": "Toolkit for mapping abstract data into visual representation.",
   "license": "MIT",
   "main": "lib/index.js",
@@ -106,7 +106,7 @@
     "url": "https://github.com/antvis/scale/issues"
   },
   "dependencies": {
-    "@antv/util": "^2.0.13",
+    "@antv/util": "^3.3.7",
     "color-string": "^1.5.5",
     "fecha": "^4.2.1"
   }
