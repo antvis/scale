@@ -13,7 +13,6 @@
     "pretty": true,
     "lib": ["dom", "ES2019"],
     "skipLibCheck": true,
-    "sourceRoot": "src",
     "baseUrl": "src"
   },
   "include": ["src/**/*"],
