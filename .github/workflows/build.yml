@@ -9,28 +9,28 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v3
         with:
           node-version: '12'
 
       - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
+        uses: actions/cache@v4
         with:
           path: ./node_modules
-          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            cache-node-modules-
+            ${{ runner.os }}-build-cache-node-modules-
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Run ci
-        run: |
-          npm install
-          npm run ci
-      - name: coverall
+        run: npm run ci
+
+      - name: Upload coverage to Coveralls
         if: success()
         uses: coverallsapp/github-action@master
         with:
