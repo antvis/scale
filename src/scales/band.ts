@@ -3,7 +3,9 @@ import { BandOptions, Domain } from '../types';
 import { Ordinal, defaultUnknown } from './ordinal';
 
 function normalize(array: number[]): number[] {
-  const min = Math.min(...array);
+  if (array.length === 0) return [];
+
+  const min = array.reduce((a, b) => (a < b ? a : b));
   return array.map((d) => d / min);
 }
 
