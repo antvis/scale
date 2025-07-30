@@ -52,6 +52,18 @@ describe('band scale', () => {
     expect(opt.domain).toStrictEqual(['one', 'two', 'three', 'four']);
   });
 
+  test('test band with huge domain (1000000)', () => {
+    const N = 1000000;
+    const domain = Array.from({ length: N }, (_, i) => `Item${i}`);
+    const flex = Array(N).fill(1);
+    const range = [0, N];
+
+    const bandScale = new Band({ domain, flex, range });
+
+    expect(bandScale.map('Item0')).toBeCloseTo(0, 5);
+    expect(bandScale.map(`Item${N - 1}`)).toBeCloseTo(N - (range[1] - range[0]) / N, 5);
+  });
+
   test('test padding-inner option', () => {
     const bandScale = new Band({
       domain: ['A', 'B', 'C'],
