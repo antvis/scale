@@ -3,10 +3,8 @@ import { BandOptions, Domain } from '../types';
 import { Ordinal, defaultUnknown } from './ordinal';
 
 function normalize(array: number[]): number[] {
-  if (array.length === 0) return [];
-
-  const min = array.reduce((a, b) => (a < b ? a : b));
-  return array.map((d) => d / min);
+  const min = array.reduce((a, b) => Math.min(a, b), Infinity);
+  return min === Infinity ? [] : array.map((d) => d / min);
 }
 
 function splice(array: number[], n: number) {
