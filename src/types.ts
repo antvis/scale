@@ -25,6 +25,12 @@ export type Transform = (x: any) => any;
 /** 柯里化后的函数的工厂函数类型 */
 export type CreateTransform = (...args: any[]) => Transform;
 
+export interface BreakOptions {
+  start: number; // 断轴开始
+  end: number; // 断轴结束
+  gap: number; // 在可视 range 中保留的间隔长度（0 ~ 1），默认为 0.05，表示 5% 的间隔
+}
+
 /** 通用的配置 */
 export type BaseOptions = {
   /** 当需要映射的值不合法的时候，返回的值 */
@@ -33,6 +39,7 @@ export type BaseOptions = {
   range?: any[];
   /** 定义域，默认为 [0, 1] */
   domain?: any[];
+  breaks?: BreakOptions[];
 };
 
 /** 获得比例尺选项中定义域元素的类型 */
@@ -116,6 +123,8 @@ export type LinearOptions = {
   round?: boolean;
   /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
   interpolate?: Interpolates;
+  /** 断轴选项 */
+  breaks?: BreakOptions[];
 };
 
 /** Pow 比例尺的选项 */

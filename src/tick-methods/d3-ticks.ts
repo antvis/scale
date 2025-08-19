@@ -1,7 +1,21 @@
 import { TickMethod } from '../types';
 import { tickIncrement } from '../utils';
+import type { BreakOptions } from '../types';
 
-export const d3Ticks: TickMethod = (begin: number, end: number, count: number) => {
+/**
+ *  Insert breaks into ticks and delete the ticks covered by breaks.
+ */
+export const insertBreaksToTicks = (ticks: number[], breaks?: BreakOptions[]): number[] => {
+  if (!breaks?.length) return ticks;
+  const edgePoints = [...ticks, ...breaks.flatMap((b) => [b.start, b.end])];
+  const uniqueSortedTicks = Array.from(new Set(edgePoints)).sort((a, b) => a - b);
+  const filteredTicks = uniqueSortedTicks.filter(
+    (tick) => !breaks.some(({ start, end }) => tick > start && tick < end)
+  );
+  return filteredTicks.length ? filteredTicks : ticks;
+};
+
+export const d3Ticks: TickMethod = (begin: number, end: number, count: number, breaks?: BreakOptions[]) => {
   let n;
   let ticks;
 
@@ -34,5 +48,6 @@ export const d3Ticks: TickMethod = (begin: number, end: number, count: number) =
       ticks[i] = (start + i) / step;
     }
   }
-  return ticks;
+
+  return insertBreaksToTicks(ticks, breaks);
 };

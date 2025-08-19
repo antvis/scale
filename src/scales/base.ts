@@ -26,6 +26,13 @@ export abstract class Base<O extends BaseOptions> {
   protected abstract getDefaultOptions(): Partial<O>;
 
   /**
+   * 将用户传入的选项和默认选项合并，生成当前比例尺的选项
+   */
+  protected transformBreaks(options: O): O {
+    return options;
+  }
+
+  /**
    * 比例尺的选项，用于配置数据映射的规则和 ticks 的生成方式
    */
   protected options: O;
@@ -36,7 +43,7 @@ export abstract class Base<O extends BaseOptions> {
    */
   constructor(options?: O) {
     this.options = deepMix({}, this.getDefaultOptions());
-    this.update(options);
+    this.update(options?.breaks?.length ? this.transformBreaks(options) : options);
   }
 
   /**
@@ -52,8 +59,9 @@ export abstract class Base<O extends BaseOptions> {
    * @param updateOptions 需要更新的选项
    */
   public update(updateOptions: Partial<O> = {}): void {
-    this.options = deepMix({}, this.options, updateOptions);
-    this.rescale(updateOptions);
+    const options = updateOptions.breaks ? this.transformBreaks(updateOptions as O) : updateOptions;
+    this.options = deepMix({}, this.options, options);
+    this.rescale(options);
   }
 
   /**
