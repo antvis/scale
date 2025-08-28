@@ -31,6 +31,7 @@ module.exports = {
     'func-names': ['error', 'never'],
     'no-else-return': 'off',
     'no-restricted-syntax': 'off',
+    'prefer-destructuring': 'off',
   },
   settings: {
     'import/parsers': {
