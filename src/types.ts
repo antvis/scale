@@ -28,7 +28,8 @@ export type CreateTransform = (...args: any[]) => Transform;
 export interface BreakOptions {
   start: number; // 断轴开始
   end: number; // 断轴结束
-  gap: number; // 在可视 range 中保留的间隔长度（0 ~ 1），默认为 0.05，表示 5% 的间隔
+  gap: number; // 在可视 range 中保留的间隔长度（0 ~ 1），默认为 0.03，表示 3% 的间隔
+  compress?: 'middle' | 'start' | 'end'; // 压缩方式，默认 middle
 }
 
 /** 通用的配置 */
