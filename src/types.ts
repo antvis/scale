@@ -102,6 +102,8 @@ export type ContinuousOptions = {
   round?: boolean;
   /** 插值器的工厂函数，返回一个对归一化后的输入在值域指定范围内插值的函数 */
   interpolate?: Interpolates;
+  /** 断轴选项 */
+  breaks?: BreakOptions[];
 };
 
 /** Linear 比例尺的选项 */

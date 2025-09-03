@@ -58,8 +58,17 @@ export class Linear extends Continuous<LinearOptions> {
   protected transformDomain(options: LinearOptions): { breaksDomain: number[]; breaksRange: number[] } {
     const RANGE_LIMIT = [0.2, 0.8];
     const DEFAULT_GAP = 0.03;
-    const { domain = [], range = [1, 0], breaks = [], tickCount = 5 } = options;
-    const [domainMin, domainMax] = [Math.min(...domain), Math.max(...domain)];
+    const { domain = [], range = [1, 0], breaks = [], tickCount = 5, nice } = options;
+    const [min, max] = [Math.min(...domain), Math.max(...domain)];
+    let niceDomainMin = min;
+    let niceDomainMax = max;
+    if (nice && breaks.length < 2) {
+      const niceDomain = this.chooseNice()(min, max, tickCount) as number[];
+      niceDomainMin = niceDomain[0];
+      niceDomainMax = niceDomain[niceDomain.length - 1];
+    }
+    const domainMin = Math.min(niceDomainMin, min);
+    const domainMax = Math.max(niceDomainMax, max);
     const sortedBreaks = breaks.filter(({ end }) => end < domainMax).sort((a, b) => a.start - b.start);
     const breaksDomain = d3Ticks(domainMin, domainMax, tickCount, sortedBreaks);
     if (last(breaksDomain) < domainMax) {
