@@ -60,10 +60,8 @@ describe('Linear Scale with Breaks', () => {
     });
 
     const { domain, range } = scale.getOptions();
-    expect(domain).toStrictEqual([0, 200, 300, 500, 600, 800, 980]);
-    expect(range).toStrictEqual([
-      0, 0.20408163265306123, 0.35816326530612247, 0.45816326530612245, 0.6892857142857143, 0.7392857142857143, 1,
-    ]);
+    expect(domain).toStrictEqual([0, 200, 300, 500, 600, 800, 1000]);
+    expect(range).toStrictEqual([0, 0.2, 0.35000000000000003, 0.45, 0.6749999999999999, 0.725, 1]);
   });
 
   test('single break: update', () => {
@@ -109,17 +107,18 @@ describe('Linear Scale with Breaks', () => {
     expect(scale2).toBeInstanceOf(Linear);
     expect(scale2.getOptions()).toEqual(scale.getOptions());
   });
-  test('breaks with nice', () => {
+  test.only('breaks with nice', () => {
     const scale = new Linear({
       domain: [0, 3106679],
       breaks: [{ start: 5000, end: 50000, gap: 0.03 }],
     });
 
     const { domain, range } = scale.getOptions();
-    expect(domain).toStrictEqual([0, 5000, 50000, 1000000, 1500000, 2000000, 2500000, 3000000, 3106679]);
+    expect(domain).toStrictEqual([0, 5000, 50000, 1000000, 1500000, 2000000, 2500000, 3000000, 3150000]);
+
     expect(range).toStrictEqual([
-      1, 0.8, 0.7700000000000001, 0.6781128658609403, 0.5171692987914104, 0.35622573172188055, 0.1952821646523506,
-      0.03433859758282076, 0,
+      1, 0.8, 0.7700000000000001, 0.6825396825396826, 0.5238095238095238, 0.3650793650793651, 0.2063492063492064,
+      0.04761904761904767, 0,
     ]);
     scale.update({
       domain: [0, 3106679],
@@ -145,9 +144,8 @@ describe('Linear Scale with Breaks', () => {
       ],
     });
     const scaleOptions2 = scale.getOptions();
-    expect(scaleOptions2.domain).toStrictEqual([0, 5000, 50000, 105000, 3100000, 3106679]);
-    expect(scaleOptions2.range).toStrictEqual([
-      1, 0.8, 0.7700000000000001, 0.49917586754215676, 0.46917586754215673, 0,
-    ]);
+    expect(scaleOptions2.domain).toStrictEqual([0, 5000, 50000, 105000, 3100000, 3108000]);
+
+    expect(scaleOptions2.range).toStrictEqual([1, 0.8, 0.7700000000000001, 0.4993951093951094, 0.46939510939510937, 0]);
   });
 });

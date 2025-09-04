@@ -4,6 +4,7 @@ import { LinearOptions, Transform } from '../types';
 import { Base } from './base';
 import { createInterpolateValue } from '../utils';
 import { d3Ticks } from '../tick-methods/d3-ticks';
+import { d3LinearNice } from '../utils/d3-linear-nice';
 
 /**
  * Linear 比例尺
@@ -68,11 +69,13 @@ export class Linear extends Continuous<LinearOptions> {
       niceDomainMax = niceDomain[niceDomain.length - 1];
     }
     const domainMin = Math.min(niceDomainMin, min);
-    const domainMax = Math.max(niceDomainMax, max);
+    let domainMax = Math.max(niceDomainMax, max);
     const sortedBreaks = breaks.filter(({ end }) => end < domainMax).sort((a, b) => a.start - b.start);
     const breaksDomain = d3Ticks(domainMin, domainMax, tickCount, sortedBreaks);
     if (last(breaksDomain) < domainMax) {
-      breaksDomain.push(domainMax);
+      const nicest = d3LinearNice(0, domainMax - last(breaksDomain), 3);
+      breaksDomain.push(last(breaksDomain) + last(nicest));
+      domainMax = last(breaksDomain);
     }
     const [r0, r1] = [range[0], last(range)] as number[];
     const diffDomain = domainMax - domainMin;
