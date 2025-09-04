@@ -162,6 +162,45 @@ x2.getTicks(); // [0, 2.5, 5, 7.5, 10, 12.5, 15, 17.5]
 x3.getTicks(); // [2, 4.5, 7, 9.5, 12, 14.5]
 ```
 
+- Breaks
+
+```ts
+import { Linear, LinearOptions } from '@antv/scale';
+
+const options1: LinearOptions = {
+  domain: [0, 3106679],
+  breaks: [{ start: 5000, end: 50000, gap: 0.03 }],
+};
+
+const x1 = new Linear(options1);
+
+x1.getTicks(); // [0, 5000, 50000, 1000000, 1500000, 2000000, 2500000, 3000000, 3150000]
+
+// with nice
+const options2: LinearOptions = {
+  domain: [0, 3106679],
+  nice: true,
+  breaks: [{ start: 5000, end: 50000, gap: 0.03 }],
+};
+
+const x2 = new Linear(options2);
+
+x2.getTicks(); // [0, 5000, 50000, 1000000, 1500000, 2000000, 2500000, 3000000, 3500000]
+
+// multi breaks
+const options3:LinearOptions = {
+  domain: [0, 200],
+  breaks: [
+    { start: 40, end: 100, gap: 0.1 },
+    { start: 120, end: 160, gap: 0.1 },
+  ]
+}
+
+const x3 = new Linear(options3);
+
+x3.getTicks(); // [0, 40, 100, 120, 160, 200]
+```
+
 ## Options
 
 | Key | Description | Type | Default|  
@@ -175,6 +214,15 @@ x3.getTicks(); // [2, 4.5, 7, 9.5, 12, 14.5]
 | clamp | Constrains the return value of map within the scale’s range if it is true. | `boolean` | `false` |
 | nice | Extends the domain so that it starts and ends on nice round values if it is true. | `boolean` | `false` |
 | interpolate | Sets the scale’s range interpolator factory if it is specified. | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |
+| breaks | Set linear breaks display and style. | [breaks](#breaks) | - |
+
+### breaks
+
+| Key  | Description | Type  | Default Value |
+| ------- | ------- | ------- | ------- |
+| start | start value. | `number`  | -          |
+| end |end value. | `number`  | -          |
+| gap | Proportion of the broken (0 ~ 1). | `number`  | 0.03   |
 
 ## Methods
 

@@ -1,4 +1,4 @@
-import { identity } from '@antv/util';
+import { identity, isArray } from '@antv/util';
 import { Base } from './base';
 import { ContinuousOptions, Domain, Range, NiceMethod, TickMethodOptions, CreateTransform, Transform } from '../types';
 import {
@@ -110,7 +110,7 @@ export abstract class Continuous<O extends ContinuousOptions> extends Base<O> {
   }
 
   protected nice() {
-    if (!this.options.nice) return;
+    if (!this.options.nice || isArray(this.options.breaks)) return;
     const [min, max, tickCount, ...rest] = this.getTickMethodOptions();
     this.options.domain = this.chooseNice()(min, max, tickCount, ...rest);
   }
