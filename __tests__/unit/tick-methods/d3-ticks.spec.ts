@@ -29,4 +29,8 @@ describe('d3 ticks', () => {
     expect(fn(0, 5, -1)).toStrictEqual(fn(0, 5, 0));
     expect(fn(0, 5, -1.2)).toStrictEqual(fn(0, 5, 0));
   });
+
+  test('maximum value accuracy', () => {
+    expect(fn(0.53, 0.58, 6)).toStrictEqual([0.53, 0.54, 0.55, 0.56, 0.57, 0.58]);
+  });
 });
