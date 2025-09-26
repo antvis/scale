@@ -42,7 +42,8 @@ export const d3Ticks: TickMethod = (begin: number, end: number, count: number, b
   } else {
     step = -step;
     start = Math.ceil(start * step);
-    stop = Math.floor(stop * step);
+    // 1e-10: Math.floor(0.58 * 100) => 57
+    stop = Math.floor(stop * step + 1e-10);
     ticks = new Array((n = Math.ceil(stop - start + 1)));
     for (let i = 0; i < n; i += 1) {
       ticks[i] = (start + i) / step;
